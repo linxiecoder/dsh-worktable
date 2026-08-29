@@ -17,6 +17,14 @@
 - 状态监控为宿主会话运行时快照的事件订阅镜像；视图/项目/绑定状态存 localStorage。
 - 客户端：TypeScript + React（host externals）+ 原生 CSS；服务端：Node。
 
+## 模式切换（本二开版本）
+
+- `dsh.worktable.mode.v1` 记录启动模式：默认 `native`，开启后为 `worktable`。
+- `native` 只注册一个「开启工作台并重启」入口，不注册工作台侧栏、分屏浮层、样式或会话订阅；DSH Desktop 其余界面保持原生。
+- `worktable` 在客户端启动期按需初始化完整工作台，再渲染项目抽屉、分屏和控制室。
+- 切换时不卸载插件、不改 profile、不重装依赖。客户端先持久化模式，再通过 Desktop 的同源 `POST /api/desktop/restart` 请求有序重启；请求失败会明确提示用户手动重启，绝不静默回退为页面刷新。
+- 插件服务端路由仍按宿主启动周期常驻；模式开关只控制客户端工作台的注册与渲染。
+
 ## 安装
 
 方式 A（推荐，无需 Git）——直接安装 GitHub Release 的安装包：
@@ -29,6 +37,8 @@
     dsh plugin --profile web add "link:<克隆出来的 dsh-worktable 仓库目录的绝对路径>/01_content"
 
 两种方式 `add` 都会把 `dsh-worktable` 注册进 profile 的 bundle 列表（写入 `~/.dsh`），装完重启 dsh web、刷新界面生效。
+
+> 本二开版本面向 DSH Desktop 模式切换。当前 Desktop `0.1.1-rc.2` 对 `link:` 服务端插件存在已知加载风险；交付验证应优先使用打包后的 `.tgz`，而不是直接把源码链接进主 profile。
 
 ## 从源码构建
 

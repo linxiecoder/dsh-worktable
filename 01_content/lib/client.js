@@ -5,6 +5,9 @@ var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
 var __getProtoOf = Object.getPrototypeOf;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __esm = (fn, res) => function __init() {
+  return fn && (res = (0, fn[__getOwnPropNames(fn)[0]])(fn = 0)), res;
+};
 var __commonJS = (cb, mod) => function __require() {
   return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
 };
@@ -29,6 +32,1138 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
   mod
 ));
 var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
+
+// node_modules/xterm/css/xterm.css
+var xterm_default;
+var init_xterm = __esm({
+  "node_modules/xterm/css/xterm.css"() {
+    xterm_default = `/**
+ * Copyright (c) 2014 The xterm.js authors. All rights reserved.
+ * Copyright (c) 2012-2013, Christopher Jeffrey (MIT License)
+ * https://github.com/chjj/term.js
+ * @license MIT
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *
+ * Originally forked from (with the author's permission):
+ *   Fabrice Bellard's javascript vt100 for jslinux:
+ *   http://bellard.org/jslinux/
+ *   Copyright (c) 2011 Fabrice Bellard
+ *   The original design remains. The terminal itself
+ *   has been extended to include xterm CSI codes, among
+ *   other features.
+ */
+
+/**
+ *  Default styles for xterm.js
+ */
+
+.xterm {
+    cursor: text;
+    position: relative;
+    user-select: none;
+    -ms-user-select: none;
+    -webkit-user-select: none;
+}
+
+.xterm.focus,
+.xterm:focus {
+    outline: none;
+}
+
+.xterm .xterm-helpers {
+    position: absolute;
+    top: 0;
+    /**
+     * The z-index of the helpers must be higher than the canvases in order for
+     * IMEs to appear on top.
+     */
+    z-index: 5;
+}
+
+.xterm .xterm-helper-textarea {
+    padding: 0;
+    border: 0;
+    margin: 0;
+    /* Move textarea out of the screen to the far left, so that the cursor is not visible */
+    position: absolute;
+    opacity: 0;
+    left: -9999em;
+    top: 0;
+    width: 0;
+    height: 0;
+    z-index: -5;
+    /** Prevent wrapping so the IME appears against the textarea at the correct position */
+    white-space: nowrap;
+    overflow: hidden;
+    resize: none;
+}
+
+.xterm .composition-view {
+    /* TODO: Composition position got messed up somewhere */
+    background: #000;
+    color: #FFF;
+    display: none;
+    position: absolute;
+    white-space: nowrap;
+    z-index: 1;
+}
+
+.xterm .composition-view.active {
+    display: block;
+}
+
+.xterm .xterm-viewport {
+    /* On OS X this is required in order for the scroll bar to appear fully opaque */
+    background-color: #000;
+    overflow-y: scroll;
+    cursor: default;
+    position: absolute;
+    right: 0;
+    left: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.xterm .xterm-screen {
+    position: relative;
+}
+
+.xterm .xterm-screen canvas {
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.xterm .xterm-scroll-area {
+    visibility: hidden;
+}
+
+.xterm-char-measure-element {
+    display: inline-block;
+    visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: -9999em;
+    line-height: normal;
+}
+
+.xterm.enable-mouse-events {
+    /* When mouse events are enabled (eg. tmux), revert to the standard pointer cursor */
+    cursor: default;
+}
+
+.xterm.xterm-cursor-pointer,
+.xterm .xterm-cursor-pointer {
+    cursor: pointer;
+}
+
+.xterm.column-select.focus {
+    /* Column selection mode */
+    cursor: crosshair;
+}
+
+.xterm .xterm-accessibility,
+.xterm .xterm-message {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 10;
+    color: transparent;
+    pointer-events: none;
+}
+
+.xterm .live-region {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
+.xterm-dim {
+    /* Dim should not apply to background, so the opacity of the foreground color is applied
+     * explicitly in the generated class and reset to 1 here */
+    opacity: 1 !important;
+}
+
+.xterm-underline-1 { text-decoration: underline; }
+.xterm-underline-2 { text-decoration: double underline; }
+.xterm-underline-3 { text-decoration: wavy underline; }
+.xterm-underline-4 { text-decoration: dotted underline; }
+.xterm-underline-5 { text-decoration: dashed underline; }
+
+.xterm-overline {
+    text-decoration: overline;
+}
+
+.xterm-overline.xterm-underline-1 { text-decoration: overline underline; }
+.xterm-overline.xterm-underline-2 { text-decoration: overline double underline; }
+.xterm-overline.xterm-underline-3 { text-decoration: overline wavy underline; }
+.xterm-overline.xterm-underline-4 { text-decoration: overline dotted underline; }
+.xterm-overline.xterm-underline-5 { text-decoration: overline dashed underline; }
+
+.xterm-strikethrough {
+    text-decoration: line-through;
+}
+
+.xterm-screen .xterm-decoration-container .xterm-decoration {
+	z-index: 6;
+	position: absolute;
+}
+
+.xterm-screen .xterm-decoration-container .xterm-decoration.xterm-decoration-top-layer {
+	z-index: 7;
+}
+
+.xterm-decoration-overview-ruler {
+    z-index: 8;
+    position: absolute;
+    top: 0;
+    right: 0;
+    pointer-events: none;
+}
+
+.xterm-decoration-top {
+    z-index: 2;
+    position: relative;
+}
+`;
+  }
+});
+
+// src/client/styles.ts
+var css;
+var init_styles = __esm({
+  "src/client/styles.ts"() {
+    init_xterm();
+    css = xterm_default + "\n" + [
+      // 区块整体
+      ".dsh-wt_section{box-sizing:border-box;display:flex;flex-direction:column;gap:6px;width:100%;padding:0}",
+      ".dsh-wt_float{min-width:176px;max-width:264px;background:var(--dsw-alias-bg-base,#0b0e14);border:1px solid var(--dsw-alias-border-l2,#3a4150);border-radius:10px;padding:8px;box-shadow:var(--dsw-shadow-lv2,0 8px 24px rgba(0,0,0,.4))}",
+      ".dsh-wt_rail{pointer-events:none}",
+      ".dsh-wt_railBox{display:flex;flex-wrap:wrap;gap:5px;justify-content:center;padding:5px 3px;border:1px solid var(--dsw-alias-border-l2,#3a4150);border-radius:8px;background:var(--dsw-alias-bg-base,#0b0e14)}",
+      ".dsh-wt_railBtn{flex:none;width:22px;height:22px;padding:0;display:flex;align-items:center;justify-content:center;border:1px solid var(--dsw-alias-border-l1,#262b36);border-radius:7px;background:var(--dsw-alias-fill-l1,rgba(255,255,255,.03));color:var(--dsw-alias-label-secondary,#9aa4b2);font:inherit;font-size:13px;line-height:1;cursor:pointer;pointer-events:auto}",
+      ".dsh-wt_railBtn:hover{background:var(--dsw-alias-fill-l1,rgba(255,255,255,.08));border-color:var(--dsw-alias-state-accent-primary,#4f8ef7);color:var(--dsw-alias-label-primary,#e6e8eb)}",
+      ".dsh-wt_railIcon{font-size:17px;line-height:22px}",
+      // 分隔线
+      ".dsh-wt_divider{flex:none;height:1px;background:var(--dsw-alias-border-l1,#262b36);margin:2px 0}",
+      // 头部
+      ".dsh-wt_header{display:flex;align-items:center;gap:6px;padding:0 2px}",
+      ".dsh-wt_handle{display:flex;align-items:center;justify-content:center;width:25px;height:25px;padding:0;border:none;border-radius:5px;background:transparent;color:var(--dsw-alias-label-tertiary,#6e7683);font-size:15px;line-height:1;cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none}",
+      ".dsh-wt_handle:hover{color:var(--dsw-alias-label-primary,#e6e8eb);background:var(--dsw-alias-fill-l1,rgba(255,255,255,.05))}",
+      ".dsh-wt_handle:active{cursor:grabbing}",
+      ".dsh-wt_handle[data-float=true]{color:var(--dsw-alias-state-accent-primary,#4f8ef7)}",
+      ".dsh-wt_title{font-size:11px;font-weight:600;letter-spacing:.06em;color:var(--dsw-alias-label-secondary,#9aa4b2);cursor:grab;user-select:none;-webkit-user-select:none;touch-action:none}",
+      ".dsh-wt_actions{margin-left:auto;display:flex;align-items:center;gap:7px}",
+      ".dsh-wt_iconBtn{display:flex;align-items:center;justify-content:center;width:24px;height:22px;padding:0;border:none;border-radius:5px;background:transparent;color:var(--dsw-alias-label-secondary,#9aa4b2);font-size:12px;line-height:1;cursor:pointer}",
+      ".dsh-wt_iconBtn:hover{color:var(--dsw-alias-label-primary,#e6e8eb);background:var(--dsw-alias-fill-l1,rgba(255,255,255,.05))}",
+      // 搜索行
+      ".dsh-wt_search{display:flex;align-items:center;gap:6px;padding:3px 6px 3px 8px;border:1px solid var(--dsw-alias-border-l1,#262b36);border-radius:6px;background:var(--dsw-alias-fill-l1,rgba(255,255,255,.03))}",
+      ".dsh-wt_search input{flex:1;min-width:0;background:transparent;border:none;outline:none;color:var(--dsw-alias-label-primary,#e6e8eb);font:inherit;font-size:12px;line-height:18px}",
+      ".dsh-wt_search input::placeholder{color:var(--dsw-alias-label-tertiary,#6e7683)}",
+      ".dsh-wt_searchClear{display:flex;align-items:center;justify-content:center;width:18px;height:18px;padding:0;border:none;border-radius:4px;background:transparent;color:var(--dsw-alias-label-tertiary,#6e7683);font-size:11px;cursor:pointer}",
+      ".dsh-wt_searchClear:hover{color:var(--dsw-alias-label-primary,#e6e8eb);background:var(--dsw-alias-fill-l1,rgba(255,255,255,.06))}",
+      // 菜单与提示
+      ".dsh-wt_menu{position:relative;z-index:12;display:flex;flex-direction:column;gap:1px;padding:5px;border:1px solid var(--dsw-alias-border-l2,#3a4150);border-radius:8px;background:var(--dsw-alias-bg-base,#0b0e14);box-shadow:var(--dsw-shadow-lv2,0 8px 24px rgba(0,0,0,.4))}",
+      ".dsh-wt_menuLabel{font-size:10px;letter-spacing:.05em;color:var(--dsw-alias-label-tertiary,#6e7683);padding:3px 7px 1px}",
+      ".dsh-wt_menuItem{display:flex;align-items:center;padding:5px 8px;border:none;border-radius:5px;background:transparent;color:var(--dsw-alias-label-primary,#e6e8eb);font:inherit;font-size:12px;line-height:16px;cursor:pointer;text-align:left}",
+      ".dsh-wt_menuItem:hover{background:var(--dsw-alias-fill-l1,rgba(255,255,255,.05))}",
+      ".dsh-wt_menuItem[data-on=true]{color:var(--dsw-alias-state-accent-primary,#4f8ef7)}",
+      // 菜单分隔线
+      ".dsh-wt_menuSep{height:1px;background:var(--dsw-alias-border-l1,#262b36);margin:4px 2px}",
+      // 添加面板
+      ".dsh-wt_add{max-height:500px;overflow:auto}",
+      ".dsh-wt_addText{font-size:11px;line-height:16px;color:var(--dsw-alias-label-secondary,#9aa4b2);padding:2px 8px 4px;margin:0}",
+      ".dsh-wt_addLink{color:var(--dsw-alias-state-accent-primary,#4f8ef7);text-decoration:none}",
+      ".dsh-wt_addForm{display:flex;flex-direction:column;gap:5px;padding:4px 8px 8px}",
+      ".dsh-wt_addForm input{background:var(--dsw-alias-fill-l1,rgba(255,255,255,.03));border:1px solid var(--dsw-alias-border-l1,#262b36);border-radius:6px;color:var(--dsw-alias-label-primary,#e6e8eb);font:inherit;font-size:12px;line-height:18px;padding:5px 8px;outline:none}",
+      ".dsh-wt_addForm input:focus{border-color:var(--dsw-alias-state-accent-primary,#4f8ef7)}",
+      ".dsh-wt_addForm .dsh-wt_addIcon{width:64px}",
+      ".dsh-wt_addBtn{display:flex;align-items:center;justify-content:center;padding:5px 8px;border:none;border-radius:6px;background:var(--dsw-alias-state-accent-primary,#4f8ef7);color:#fff;font:inherit;font-size:12px;line-height:16px;cursor:pointer}",
+      ".dsh-wt_addBtn:hover{filter:brightness(1.08)}",
+      ".dsh-wt_addError{font-size:11px;color:var(--dsw-alias-state-danger,#e5484d);padding:0 8px 8px;margin:0}",
+      // 管理项目（编辑模式）
+      ".dsh-wt_manage{position:relative;z-index:12;display:flex;flex-direction:column;gap:4px;padding:6px;border:1px solid var(--dsw-alias-border-l2,#3a4150);border-radius:8px;background:var(--dsw-alias-bg-base,#0b0e14)}",
+      ".dsh-wt_manageHead{display:flex;align-items:center;justify-content:space-between;padding:1px 2px 4px}",
+      ".dsh-wt_manageTitle{font-size:11px;font-weight:600;letter-spacing:.04em;color:var(--dsw-alias-label-primary,#e6e8eb)}",
+      ".dsh-wt_settingsClose{position:absolute;top:6px;right:6px;width:20px;height:20px;padding:0;display:flex;align-items:center;justify-content:center;border:none;border-radius:6px;background:transparent;color:var(--dsw-alias-label-tertiary,#7d8aa5);font-size:13px;line-height:1;cursor:pointer}",
+      ".dsh-wt_settingsClose:hover{background:var(--dsw-alias-fill-l1,rgba(255,255,255,.06));color:var(--dsw-alias-label-primary,#dbe4f3)}",
+      ".dsh-wt_manageDone{display:flex;align-items:center;padding:2px 8px;border:none;border-radius:5px;background:transparent;color:var(--dsw-alias-state-accent-primary,#4f8ef7);font:inherit;font-size:11px;line-height:16px;cursor:pointer}",
+      ".dsh-wt_manageDone:hover{background:var(--dsw-alias-fill-l1,rgba(255,255,255,.05))}",
+      // 排序方式：一左一右两个选择按钮（手动 / 最近）
+      ".dsh-wt_sortRow{display:flex;gap:6px;padding:0 8px 2px}",
+      ".dsh-wt_sortBtn{flex:1;display:flex;align-items:center;justify-content:center;padding:4px 8px;border:1px solid var(--dsw-alias-border-l1,#262b36);border-radius:6px;background:var(--dsw-alias-fill-l1,rgba(255,255,255,.02));color:var(--dsw-alias-label-secondary,#9aa4b2);font:inherit;font-size:11px;line-height:16px;cursor:pointer}",
+      ".dsh-wt_sortBtn:hover{color:var(--dsw-alias-label-primary,#e6e8eb);border-color:var(--dsw-alias-border-l2,#3a4150)}",
+      ".dsh-wt_sortBtn[data-on=true]{border-color:var(--dsw-alias-state-accent-primary,#4f8ef7);color:var(--dsw-alias-state-accent-primary,#4f8ef7);background:var(--dsw-alias-fill-l1,rgba(255,255,255,.05))}",
+      ".dsh-wt_manageRow{display:flex;align-items:center;gap:6px;padding:4px 6px;border:1px solid transparent;border-radius:6px;background:var(--dsw-alias-fill-l1,rgba(255,255,255,.03))}",
+      ".dsh-wt_manageRow:hover{border-color:var(--dsw-alias-border-l2,#3a4150)}",
+      ".dsh-wt_manageRowOff{opacity:.45}",
+      ".dsh-wt_manageGrip{flex:none;color:var(--dsw-alias-label-tertiary,#6e7683);font-size:12px;cursor:grab;user-select:none;-webkit-user-select:none}",
+      ".dsh-wt_manageIcon{flex:none;width:20px;font-size:15px;text-align:center}",
+      ".dsh-wt_manageInput{flex:1;min-width:0;background:transparent;border:none;outline:none;color:var(--dsw-alias-label-primary,#e6e8eb);font:inherit;font-size:12px;line-height:18px;padding:2px 0}",
+      ".dsh-wt_manageBtn{flex:none;display:flex;align-items:center;justify-content:center;width:20px;height:20px;padding:0;border:none;border-radius:4px;background:transparent;color:var(--dsw-alias-label-secondary,#9aa4b2);font-size:11px;line-height:1;cursor:pointer}",
+      ".dsh-wt_manageBtn:hover{color:var(--dsw-alias-label-primary,#e6e8eb);background:var(--dsw-alias-fill-l1,rgba(255,255,255,.06))}",
+      ".dsh-wt_manageScName{flex:1;min-width:0;font-size:12px;color:var(--dsw-alias-label-secondary,#9aa4b2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}",
+      ".dsh-wt_manageReset{align-self:flex-start;margin-top:2px;padding:3px 8px;border:none;border-radius:5px;background:transparent;color:var(--dsw-alias-label-tertiary,#6e7683);font:inherit;font-size:11px;line-height:16px;cursor:pointer}",
+      ".dsh-wt_manageReset:hover{color:var(--dsw-alias-state-danger,#e5484d);background:var(--dsw-alias-fill-l1,rgba(255,255,255,.05))}",
+      // 快捷方式
+      ".dsh-wt_shortcuts{display:flex;flex-direction:column;gap:4px}",
+      ".dsh-wt_shortcut{display:flex;align-items:center;gap:7px;padding:6px 8px;border:1px solid var(--dsw-alias-border-l1,#262b36);border-radius:8px;background:var(--dsw-alias-fill-l1,rgba(255,255,255,.02));color:var(--dsw-alias-label-primary,#e6e8eb);text-decoration:none;font-size:12px;line-height:18px}",
+      ".dsh-wt_shortcut:hover{border-color:var(--dsw-alias-state-accent-primary,#4f8ef7);background:var(--dsw-alias-fill-l1,rgba(255,255,255,.05))}",
+      ".dsh-wt_shortcutIcon{flex:none;font-size:15px}",
+      ".dsh-wt_shortcutName{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}",
+      ".dsh-wt_shortcutBadge{flex:none;font-size:9px;line-height:14px;padding:0 5px;border-radius:8px;background:var(--dsw-alias-fill-l1,rgba(255,255,255,.06));color:var(--dsw-alias-label-tertiary,#6e7683)}",
+      // 项目区
+      ".dsh-wt_projects{display:flex;flex-direction:column;gap:4px}",
+      ".dsh-wt_projects[data-managing=true]{opacity:.55;pointer-events:none}",
+      ".dsh-wt_empty{padding:8px 10px;border:1px dashed var(--dsw-alias-border-l1,#262b36);border-radius:8px;color:var(--dsw-alias-label-tertiary,#6e7683);font-size:11px;text-align:center}",
+      // 分栏工作区（M1 通用引擎）
+      ".dsh-wt_splitBar{display:flex;align-items:center;gap:10px;height:26px;padding:0 10px;box-sizing:border-box;border-bottom:1px solid var(--dsw-alias-border-l1,#262b36);background:var(--dsw-alias-bg-base,#0b0e14)}",
+      ".dsh-wt_splitTitle{flex:1;min-width:0;font-size:12px;font-weight:600;color:var(--dsw-alias-label-primary,#e6e8eb);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}",
+      ".dsh-wt_splitClose{flex:none;display:flex;align-items:center;justify-content:center;width:20px;height:20px;padding:0;border:none;border-radius:4px;background:transparent;color:var(--dsw-alias-label-secondary,#9aa4b2);font-size:12px;cursor:pointer}",
+      ".dsh-wt_splitClose:hover{color:var(--dsw-alias-label-primary,#e6e8eb);background:var(--dsw-alias-fill-l1,rgba(255,255,255,.06))}",
+      ".dsh-wt_pane{display:flex;flex-direction:column;box-sizing:border-box;border:1px solid var(--dsw-alias-border-l1,#262b36);border-radius:8px;background:var(--dsw-alias-bg-base,#0b0e14);overflow:hidden;transition:border-color .15s ease,box-shadow .15s ease,transform .15s ease}",
+      // 文件预览：文本/MD 滚动容器 + MD 排版 + 图片居中
+      ".dsh-wt_fileView{flex:1;min-height:0;overflow:auto;padding:12px 14px;background:var(--dsw-alias-bg-base,#0b0e14);color:var(--dsw-alias-label-primary,#e6e8eb);font-size:12.5px;line-height:1.7}",
+      ".dsh-wt_txt{margin:0;font-family:var(--dsw-font-mono,Consolas,Menlo,monospace);font-size:12px;line-height:1.65;white-space:pre-wrap;word-break:break-word}",
+      // MD 编辑/预览切换工具栏
+      ".dsh-wt_mdBar{flex:none;display:flex;align-items:center;gap:6px;padding:4px 8px;border-bottom:1px solid var(--dsw-alias-border-l1,#262b36);background:var(--dsw-alias-fill-l1,rgba(255,255,255,.02))}",
+      ".dsh-wt_mdBtn{flex:none;padding:3px 10px;border:1px solid transparent;border-radius:5px;background:transparent;color:var(--dsw-alias-label-secondary,#9aa4b2);font:inherit;font-size:11px;line-height:16px;cursor:pointer}",
+      ".dsh-wt_mdBtn:hover{color:var(--dsw-alias-label-primary,#e6e8eb);background:var(--dsw-alias-fill-l1,rgba(255,255,255,.06))}",
+      ".dsh-wt_mdBtnOn{border-color:var(--dsw-alias-state-accent-primary,#4f8ef7);color:var(--dsw-alias-state-accent-primary,#4f8ef7);background:var(--dsw-alias-fill-l1,rgba(255,255,255,.05))}",
+      ".dsh-wt_mdSave{margin-left:auto;padding:3px 12px;border:none;border-radius:5px;background:var(--dsw-alias-state-accent-primary,#4f8ef7);color:#fff;font:inherit;font-size:11px;cursor:pointer}",
+      ".dsh-wt_mdSave:disabled{opacity:.6;cursor:default}",
+      ".dsh-wt_mdMsg{font-size:11px;color:var(--dsw-alias-state-danger,#e5484d)}",
+      ".dsh-wt_mdEdit{flex:1;min-height:0;width:100%;box-sizing:border-box;padding:12px 14px;background:var(--dsw-alias-bg-base,#0b0e14);color:var(--dsw-alias-label-primary,#e6e8eb);border:none;outline:none;resize:none;font-family:var(--dsw-font-mono,Consolas,Menlo,monospace);font-size:12px;line-height:1.7}",
+      // 代码语法着色（GitHub Dark 风格 token 配色）
+      ".dsh-wt_code{margin:0;font-family:var(--dsw-font-mono,Consolas,Menlo,monospace);font-size:12px;line-height:1.65;white-space:pre;word-break:normal}",
+      ".dsh-wt_code .hljs-keyword,.dsh-wt_code .hljs-selector-tag,.dsh-wt_code .hljs-literal,.dsh-wt_code .hljs-doctag{color:#ff7b72}",
+      ".dsh-wt_code .hljs-string,.dsh-wt_code .hljs-attr,.dsh-wt_code .hljs-regexp{color:#a5d6ff}",
+      ".dsh-wt_code .hljs-comment,.dsh-wt_code .hljs-quote{color:#8b949e;font-style:italic}",
+      ".dsh-wt_code .hljs-number,.dsh-wt_code .hljs-symbol,.dsh-wt_code .hljs-bullet{color:#79c0ff}",
+      ".dsh-wt_code .hljs-title,.dsh-wt_code .hljs-function .hljs-title,.dsh-wt_code .hljs-section{color:#d2a8ff}",
+      ".dsh-wt_code .hljs-built_in,.dsh-wt_code .hljs-type,.dsh-wt_code .hljs-class .hljs-title{color:#ffa657}",
+      ".dsh-wt_code .hljs-variable,.dsh-wt_code .hljs-params,.dsh-wt_code .hljs-meta{color:#e6edf3}",
+      ".dsh-wt_code .hljs-property,.dsh-wt_code .hljs-attribute{color:#79c0ff}",
+      ".dsh-wt_code .hljs-tag,.dsh-wt_code .hljs-name{color:#7ee787}",
+      ".dsh-wt_code .hljs-selector-class,.dsh-wt_code .hljs-selector-id{color:#d2a8ff}",
+      ".dsh-wt_code .hljs-addition{color:#7ee787}",
+      ".dsh-wt_code .hljs-deletion{color:#ff7b72}",
+      ".dsh-wt_md h1,.dsh-wt_md h2,.dsh-wt_md h3,.dsh-wt_md h4{margin:14px 0 8px;line-height:1.3;font-weight:600;color:var(--dsw-alias-label-primary,#e6e8eb)}",
+      ".dsh-wt_md h1{font-size:20px;border-bottom:1px solid var(--dsw-alias-border-l1,#262b36);padding-bottom:6px}",
+      ".dsh-wt_md h2{font-size:16.5px;border-bottom:1px solid var(--dsw-alias-border-l1,#262b36);padding-bottom:5px}",
+      ".dsh-wt_md h3{font-size:14.5px}",
+      ".dsh-wt_md h4{font-size:13px}",
+      ".dsh-wt_md p{margin:6px 0}",
+      ".dsh-wt_md a{color:var(--dsw-alias-state-accent-primary,#4f8ef7);text-decoration:none}",
+      ".dsh-wt_md a:hover{text-decoration:underline}",
+      ".dsh-wt_md code{font-family:var(--dsw-font-mono,Consolas,Menlo,monospace);font-size:11.5px;background:var(--dsw-alias-fill-l1,rgba(255,255,255,.06));padding:1px 5px;border-radius:4px}",
+      ".dsh-wt_md pre{background:var(--dsw-alias-fill-l1,rgba(255,255,255,.04));border:1px solid var(--dsw-alias-border-l1,#262b36);border-radius:8px;padding:10px 12px;overflow:auto;margin:8px 0}",
+      ".dsh-wt_md pre code{background:transparent;padding:0;font-size:12px}",
+      ".dsh-wt_md blockquote{margin:8px 0;padding:2px 12px;border-left:3px solid var(--dsw-alias-state-accent-primary,#4f8ef7);background:var(--dsw-alias-fill-l1,rgba(255,255,255,.03));color:var(--dsw-alias-label-secondary,#9aa4b2)}",
+      ".dsh-wt_md ul,.dsh-wt_md ol{margin:6px 0;padding-left:22px}",
+      ".dsh-wt_md li{margin:2px 0}",
+      ".dsh-wt_md table{border-collapse:collapse;margin:8px 0;font-size:12px}",
+      ".dsh-wt_md th,.dsh-wt_md td{border:1px solid var(--dsw-alias-border-l1,#262b36);padding:4px 10px;text-align:left}",
+      ".dsh-wt_md th{background:var(--dsw-alias-fill-l1,rgba(255,255,255,.05))}",
+      ".dsh-wt_md hr{border:none;border-top:1px solid var(--dsw-alias-border-l1,#262b36);margin:12px 0}",
+      ".dsh-wt_md img{max-width:100%}",
+      ".dsh-wt_imgView{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;overflow:auto;padding:10px;background:var(--dsw-alias-bg-base,#0b0e14)}",
+      ".dsh-wt_imgView img{max-width:100%;max-height:100%;object-fit:contain}",
+      ".dsh-wt_pane[data-drop-hover=true]{border-color:var(--dsw-alias-state-accent-primary,#4f8ef7);box-shadow:0 0 0 2px rgba(79,142,247,.4),var(--dsw-shadow-lv2,0 8px 24px rgba(0,0,0,.4));transform:scale(1.012)}",
+      ".dsh-wt_paneBar{flex:none;display:flex;align-items:center;height:22px;padding:0 8px;border-bottom:1px solid var(--dsw-alias-border-l1,#262b36);background:var(--dsw-alias-fill-l1,rgba(255,255,255,.02))}",
+      ".dsh-wt_paneTitle{flex:1;min-width:0;font-size:11px;font-weight:600;color:var(--dsw-alias-label-secondary,#9aa4b2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}",
+      ".dsh-wt_paneFrame{flex:1;width:100%;border:0;background:#010409;min-height:0}",
+      // iframe 内容标签：容器 + 右上角常驻刷新按钮
+      ".dsh-wt_tabRefresh{flex:none;width:14px;height:14px;padding:0;border:none;border-radius:3px;background:transparent;color:var(--dsw-alias-label-tertiary,#6e7683);font-size:10px;line-height:1;cursor:pointer}",
+      ".dsh-wt_tabRefresh:hover{color:var(--dsw-alias-state-accent-primary,#4f8ef7);background:var(--dsw-alias-fill-l1,rgba(255,255,255,.08))}",
+      ".dsh-wt_splitDivider{background:var(--dsw-alias-border-l2,#3a4150);cursor:col-resize;touch-action:none;box-sizing:border-box}",
+      ".dsh-wt_splitDividerH{cursor:row-resize}",
+      ".dsh-wt_splitDivider:hover,.dsh-wt_splitDividerH:hover{background:var(--dsw-alias-state-accent-primary,#4f8ef7)}",
+      // 新建工作区（拓扑预设）
+      ".dsh-wt_presets{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;padding:2px 8px 6px}",
+      ".dsh-wt_preset{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:6px 2px;border:1px solid var(--dsw-alias-border-l1,#262b36);border-radius:6px;background:transparent;color:var(--dsw-alias-label-secondary,#9aa4b2);font:inherit;font-size:10px;line-height:13px;cursor:pointer}",
+      ".dsh-wt_preset:hover{border-color:var(--dsw-alias-border-l2,#3a4150)}",
+      ".dsh-wt_preset[data-on=true]{border-color:var(--dsw-alias-state-accent-primary,#4f8ef7);color:var(--dsw-alias-state-accent-primary,#4f8ef7)}",
+      ".dsh-wt_thumb{display:flex;flex-direction:column;width:54px;height:36px;border:1px solid var(--dsw-alias-border-l2,#3a4150);border-radius:3px;overflow:hidden;background:var(--dsw-alias-fill-l1,rgba(255,255,255,.03))}",
+      ".dsh-wt_thumbRow{flex:1;display:flex;min-height:0}",
+      ".dsh-wt_thumbCols{flex-direction:row}",
+      ".dsh-wt_thumbCol{flex:1;min-width:0;display:flex;flex-direction:column}",
+      ".dsh-wt_thumbRow:last-child .dsh-wt_thumbCell{border-bottom:none}",
+      ".dsh-wt_thumbCell{flex:1;min-width:0;border-right:1px solid var(--dsw-alias-border-l1,#262b36);border-bottom:1px solid var(--dsw-alias-border-l1,#262b36);display:flex;align-items:center;justify-content:center;font-size:8px;line-height:1}",
+      ".dsh-wt_thumbRow .dsh-wt_thumbCell:last-child{border-right:none}",
+      ".dsh-wt_thumbChat{background:var(--dsw-alias-state-accent-primary,#4f8ef7);color:#fff}",
+      // 预设网格末尾的 ＋ 自定义磁贴
+      ".dsh-wt_presetAdd{border-style:dashed;color:var(--dsw-alias-state-accent-primary,#4f8ef7)}",
+      ".dsh-wt_presetAddIcon{font-size:18px;line-height:20px}",
+      ".dsh-wt_presetAddText{font-size:10px;line-height:13px}",
+      // 项目卡片上的对话绑定按钮（○○ 空心 = 未绑定 / ●● 实心 = 已绑定；CSS 双圆绘制，黑白单色克制：
+      // 未绑定次级灰空心、已绑定主色实心，不用强调色；hover 区域 = 22×22 圆角矩形按钮底，
+      // 气泡为 body 级元素向右伸出（跨层显示），垂直居中于按钮）
+      ".dsh-wt_bindBtn{position:absolute;right:26px;top:50%;transform:translateY(-50%);width:22px;height:22px;margin:0;display:block;border-radius:6px;color:var(--dsw-alias-label-secondary,#9aa4b2);cursor:pointer;user-select:none}",
+      ".dsh-wt_bindBtn:hover{background:var(--dsw-alias-fill-l2,rgba(255,255,255,.09));color:var(--dsw-alias-label-primary,#e6e8eb)}",
+      ".dsh-wt_bindBtn[data-bound=true]{color:var(--dsw-alias-label-primary,#e6e8eb)}",
+      // 任务完成提醒镜像：绿色发光 / 待决提醒：黄色发光（点击项目即 ack 恢复常态实心）；
+      // 工作中：蓝色发光 + 两圆交替亮灭（对应 DSH 对话的转圈标记，无需 ack，running 变 false 自动停）
+      ".dsh-wt_bindBtn[data-bound=done]{color:#3fb950}",
+      ".dsh-wt_bindBtn[data-bound=need]{color:#d29922}",
+      ".dsh-wt_bindBtn[data-bound=busy]{color:#4f8ef7}",
+      "@keyframes dsh-wt-busyA{0%,44%{opacity:1}50%,94%{opacity:.12}100%{opacity:1}}",
+      "@keyframes dsh-wt-busyB{0%,44%{opacity:.12}50%,94%{opacity:1}100%{opacity:.12}}",
+      ".dsh-wt_bindBtn[data-bound=busy] .dsh-wt_bindCircles::before{animation:dsh-wt-busyA 1s ease-in-out infinite}",
+      ".dsh-wt_bindBtn[data-bound=busy] .dsh-wt_bindCircles::after{animation:dsh-wt-busyB 1s ease-in-out infinite}",
+      ".dsh-wt_bindBtn[data-bound=done] .dsh-wt_bindCircles,.dsh-wt_bindBtn[data-bound=need] .dsh-wt_bindCircles,.dsh-wt_bindBtn[data-bound=busy] .dsh-wt_bindCircles{filter:drop-shadow(0 0 3px currentColor)}",
+      // 气泡为 body 级独立元素（.dsh-wt_bindTip），此处只保留按钮本体样式
+      ".dsh-wt_bindTip{position:fixed;transform:translateY(-50%);padding:5px 9px;border:1px solid var(--dsw-alias-border-l2,#3a4150);border-radius:6px;background:var(--dsw-alias-fill-l2,#171b22);color:var(--dsw-alias-label-primary,#e6e8eb);font-size:11px;line-height:15px;white-space:nowrap;pointer-events:none;z-index:1200;box-shadow:0 4px 12px rgba(0,0,0,.35);display:none}",
+      ".dsh-wt_bindCircles{position:absolute;left:50%;top:50%;width:17px;height:7px;transform:translate(-50%,-50%)}",
+      ".dsh-wt_bindCircles::before,.dsh-wt_bindCircles::after{content:'';position:absolute;top:50%;width:6px;height:6px;margin-top:-3px;border-radius:50%;box-sizing:border-box;border:1.2px solid currentColor;background:transparent}",
+      ".dsh-wt_bindCircles::before{left:0}",
+      ".dsh-wt_bindCircles::after{left:10px}",
+      ".dsh-wt_bindBtn[data-bound=true] .dsh-wt_bindCircles::before,.dsh-wt_bindBtn[data-bound=true] .dsh-wt_bindCircles::after,.dsh-wt_bindBtn[data-bound=done] .dsh-wt_bindCircles::before,.dsh-wt_bindBtn[data-bound=done] .dsh-wt_bindCircles::after,.dsh-wt_bindBtn[data-bound=need] .dsh-wt_bindCircles::before,.dsh-wt_bindBtn[data-bound=need] .dsh-wt_bindCircles::after,.dsh-wt_bindBtn[data-bound=busy] .dsh-wt_bindCircles::before,.dsh-wt_bindBtn[data-bound=busy] .dsh-wt_bindCircles::after{background:currentColor}",
+      // 布局条目卡片
+      ".dsh-wt_layout{display:flex;align-items:center;gap:7px;padding:6px 8px;border:1px solid var(--dsw-alias-border-l1,#262b36);border-radius:8px;background:var(--dsw-alias-fill-l1,rgba(255,255,255,.02));color:var(--dsw-alias-label-primary,#e6e8eb);font:inherit;font-size:12px;line-height:18px;cursor:pointer;text-align:left}",
+      ".dsh-wt_layout:hover{border-color:var(--dsw-alias-state-accent-primary,#4f8ef7);background:var(--dsw-alias-fill-l1,rgba(255,255,255,.05))}",
+      ".dsh-wt_layout[data-on=true]{border-color:var(--dsw-alias-state-accent-primary,#4f8ef7);background:var(--dsw-alias-fill-l1,rgba(255,255,255,.05))}",
+      ".dsh-wt_layout[data-on=true] .dsh-wt_layoutName{color:var(--dsw-alias-state-accent-primary,#4f8ef7)}",
+      ".dsh-wt_layoutIcon{flex:none;font-size:15px}",
+      ".dsh-wt_layoutText{flex:1;min-width:0;display:flex;flex-direction:column;gap:0}",
+      ".dsh-wt_layoutName{font-size:12px;font-weight:400;line-height:17px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}",
+      // 箭头与项目名同一行高 + 字面中心对齐；› 墨迹在字面框内偏下，整体上移 1px 使视觉居中
+      ".dsh-wt_layoutArrow{flex:none;display:inline-flex;align-items:center;height:18px;color:var(--dsw-alias-label-tertiary,#6e7683);font-size:14px;line-height:18px;transform:translateY(-1.5px)}",
+      // 入驻项目卡自带箭头（桥注入 .dsh-wt_resArrow）：与布局卡同款视觉居中
+      "button[data-wt-id] > .dsh-wt_resArrow{display:inline-flex;align-items:center;height:18px;line-height:18px;transform:translateY(-1.5px)}",
+      // 项目卡片统一：所有入驻项目卡片（data-wt-id 通用标记）与布局卡片同款常显框
+      ".dsh-wt_projects [data-wt-id]{border-color:var(--dsw-alias-border-l1,#262b36);background:var(--dsw-alias-fill-l1,rgba(255,255,255,.02))}",
+      ".dsh-wt_projects [data-wt-id]:hover{border-color:var(--dsw-alias-state-accent-primary,#4f8ef7);background:var(--dsw-alias-fill-l1,rgba(255,255,255,.05))}",
+      ".dsh-wt_projects [data-wt-id][data-on=true]{border-color:var(--dsw-alias-state-accent-primary,#4f8ef7);background:var(--dsw-alias-fill-l1,rgba(255,255,255,.05))}",
+      // 标签精简：项目卡片只留名称一行，小字描述行去掉
+      ".dsh-wt_projects [data-wt-id] > :nth-child(2) > :nth-child(2){display:none}",
+      // 图标选择弹窗（固定定位，点击项目/布局/快捷方式的图标唤出）
+      ".dsh-wt_iconPop{position:fixed;z-index:81;width:256px;padding:8px;border:1px solid var(--dsw-alias-border-l2,#3a4150);border-radius:10px;background:var(--dsw-alias-bg-base,#0b0e14);box-shadow:var(--dsw-shadow-lv2,0 8px 24px rgba(0,0,0,.4))}",
+      ".dsh-wt_iconPopTitle{font-size:10px;letter-spacing:.05em;color:var(--dsw-alias-label-tertiary,#6e7683);padding:1px 4px 6px}",
+      ".dsh-wt_iconGrid{display:grid;grid-template-columns:repeat(6,1fr);gap:4px}",
+      ".dsh-wt_iconCell{display:flex;align-items:center;justify-content:center;aspect-ratio:1;border:1px solid transparent;border-radius:6px;background:transparent;font-size:17px;line-height:1;cursor:pointer;padding:0}",
+      ".dsh-wt_iconCell:hover{background:var(--dsw-alias-fill-l1,rgba(255,255,255,.05));border-color:var(--dsw-alias-border-l2,#3a4150)}",
+      ".dsh-wt_iconCell[data-on=true]{background:var(--dsw-alias-fill-l1,rgba(255,255,255,.08));border-color:var(--dsw-alias-state-accent-primary,#4f8ef7)}",
+      // 可点图标（布局卡 / 管理行 / 快捷方式上的图标，点击换 emoji）
+      ".dsh-wt_iconPick{flex:none;display:inline-flex;align-items:center;justify-content:center;padding:1px;border:none;background:transparent;cursor:pointer;border-radius:4px}",
+      ".dsh-wt_iconPick:hover{background:var(--dsw-alias-fill-l1,rgba(255,255,255,.08))}",
+      // 四类项目卡片统一竖向高度（常驻×2 / 布局 / 快捷方式；新建条目自动继承）
+      ".dsh-wt_projects [data-wt-id],.dsh-wt_layout,.dsh-wt_shortcut{height:34px;box-sizing:border-box}",
+      // 入驻项目卡片图标覆盖：data-wt-icon 存在时用 attr() 替换显示（原字符字号压到 0）
+      ".dsh-wt_projects [data-wt-id] > :first-child[data-wt-icon]{font-size:0;line-height:20px}",
+      ".dsh-wt_projects [data-wt-id] > :first-child[data-wt-icon]::before{content:attr(data-wt-icon);font-size:15px;line-height:20px}",
+      // 常驻项目卡片与新建项目统一：emoji 字号 15px、名称不加粗
+      ".dsh-wt_projects [data-wt-id] > :first-child{font-size:15px;line-height:20px}",
+      ".dsh-wt_projects [data-wt-id] > :nth-child(2) > :first-child{font-weight:400}",
+      // 头部按钮内的官方 SVG 图标
+      ".dsh-wt_iconBtn svg{display:block}",
+      // 窗内容：选择器 / 自定义 / 浏览器 / 占位
+      ".dsh-wt_panePicker{flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:12px;overflow:auto}",
+      ".dsh-wt_panePicker-row{flex-direction:row;flex-wrap:wrap}",
+      ".dsh-wt_panePicker-grid{display:grid;grid-template-columns:auto auto;grid-template-rows:auto auto;gap:10px;place-content:center}",
+      ".dsh-wt_panePicker-col{flex-direction:column}",
+      // 自定义窗口对话框（居中卡片）
+      ".dsh-wt_customBox{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;padding:14px;overflow:auto}",
+      ".dsh-wt_customCard{display:flex;flex-direction:column;gap:10px;width:100%;max-width:360px;padding:14px;border:1px solid var(--dsw-alias-border-l2,#3a4150);border-radius:10px;background:var(--dsw-alias-bg-base,#0b0e14);box-shadow:var(--dsw-shadow-lv2,0 8px 24px rgba(0,0,0,.4))}",
+      ".dsh-wt_customTitle{font-size:13px;font-weight:600;color:var(--dsw-alias-label-primary,#e6e8eb)}",
+      ".dsh-wt_customHint{font-size:11.5px;line-height:17px;color:var(--dsw-alias-label-secondary,#9aa4b2);margin:0}",
+      // 自定义对话框：模式切换（新建对话 / 发送到会话）
+      ".dsh-wt_customModes{display:flex;gap:6px}",
+      ".dsh-wt_customModeBtn{flex:1;display:flex;align-items:center;justify-content:center;padding:4px 8px;border:1px solid var(--dsw-alias-border-l1,#262b36);border-radius:6px;background:var(--dsw-alias-fill-l1,rgba(255,255,255,.02));color:var(--dsw-alias-label-secondary,#9aa4b2);font:inherit;font-size:11px;line-height:16px;cursor:pointer}",
+      ".dsh-wt_customModeBtn:hover{color:var(--dsw-alias-label-primary,#e6e8eb);border-color:var(--dsw-alias-border-l2,#3a4150)}",
+      ".dsh-wt_customModeBtnOn{border-color:var(--dsw-alias-state-accent-primary,#4f8ef7);color:var(--dsw-alias-state-accent-primary,#4f8ef7);background:var(--dsw-alias-fill-l1,rgba(255,255,255,.05))}",
+      ".dsh-wt_customInput{width:100%;box-sizing:border-box;min-height:96px;padding:8px 10px;background:var(--dsw-alias-fill-l1,rgba(255,255,255,.03));border:1px solid var(--dsw-alias-border-l1,#262b36);border-radius:8px;color:var(--dsw-alias-label-primary,#e6e8eb);font:inherit;font-size:12px;line-height:18px;outline:none;resize:vertical}",
+      ".dsh-wt_customInput:focus{border-color:var(--dsw-alias-state-accent-primary,#4f8ef7)}",
+      // 新建分组：父目录 / 名称单行输入
+      ".dsh-wt_customPathInput{flex:1;min-width:0;box-sizing:border-box;padding:5px 8px;background:var(--dsw-alias-fill-l1,rgba(255,255,255,.03));border:1px solid var(--dsw-alias-border-l1,#262b36);border-radius:6px;color:var(--dsw-alias-label-primary,#e6e8eb);font:inherit;font-size:12px;line-height:18px;outline:none}",
+      ".dsh-wt_customPathInput:focus{border-color:var(--dsw-alias-state-accent-primary,#4f8ef7)}",
+      // 新建项目强制文件夹：两行（父目录/名称）
+      ".dsh-wt_addFolderRow{display:flex;align-items:center;gap:8px;margin-top:6px;padding:0 2px}",
+      ".dsh-wt_addFolderPath{flex:1;min-width:0;box-sizing:border-box;padding:4px 8px;border:1px solid var(--dsw-alias-border-l1,#262b36);border-radius:6px;background:var(--dsw-alias-fill-l1,rgba(255,255,255,.03));font:inherit;font-size:11.5px;line-height:17px;color:var(--dsw-alias-label-primary,#e6e8eb);outline:none}",
+      ".dsh-wt_addFolderPath:focus{border-color:var(--dsw-alias-state-accent-primary,#4f8ef7)}",
+      ".dsh-wt_addFolderPath::placeholder{color:var(--dsw-alias-label-tertiary,#6b7280)}",
+      ".dsh-wt_addFolderRow .dsh-wt_customLabel{flex:none;width:auto;text-align:left}",
+      // 绑定弹窗内的项目文件夹区
+      ".dsh-wt_bindFolderBox{margin-top:8px;padding:6px 8px;background:var(--dsw-alias-fill-l1,rgba(255,255,255,.03));border:1px solid var(--dsw-alias-border-l1,#262b36);border-radius:8px}",
+      ".dsh-wt_bindFolderRow{display:flex;align-items:center;justify-content:space-between}",
+      ".dsh-wt_bindFolderLabel{font-size:12px;line-height:18px;color:var(--dsw-alias-label-primary,#e6e8eb)}",
+      ".dsh-wt_bindFolderChange{flex:none;padding:1px 8px;border:1px solid var(--dsw-alias-border-l1,#262b36);border-radius:5px;background:transparent;color:var(--dsw-alias-label-secondary,#9aa4b2);font:inherit;font-size:11px;line-height:16px;cursor:pointer}",
+      ".dsh-wt_bindFolderChange:hover{color:var(--dsw-alias-label-primary,#e6e8eb);border-color:var(--dsw-alias-border-l2,#3a4150)}",
+      ".dsh-wt_bindFolderChange:disabled{opacity:.55;cursor:default}",
+      ".dsh-wt_bindFolderPath{margin-top:4px;font-size:11px;line-height:16px;color:var(--dsw-alias-label-secondary,#9aa4b2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}",
+      ".dsh-wt_bindFolderPathNone{color:var(--dsw-alias-label-tertiary,#6b7280)}",
+      ".dsh-wt_bindFolderError{margin:5px 0 0;font-size:11px;line-height:16px;color:var(--dsw-alias-state-danger,#e5484d)}",
+      ".dsh-wt_bindFolderForm{display:flex;flex-direction:column;gap:6px;margin-top:6px}",
+      // 自定义布局弹窗（＋磁贴）：描述输入 + 复制提示词 + Toast
+      ".dsh-wt_customLayoutInput{width:100%;box-sizing:border-box;min-height:110px;margin-top:8px;padding:8px 10px;background:var(--dsw-alias-fill-l1,rgba(255,255,255,.03));border:1px solid var(--dsw-alias-border-l1,#262b36);border-radius:8px;color:var(--dsw-alias-label-primary,#e6e8eb);font:inherit;font-size:12px;line-height:18px;outline:none;resize:vertical}",
+      ".dsh-wt_customLayoutInput:focus{border-color:var(--dsw-alias-state-accent-primary,#4f8ef7)}",
+      ".dsh-wt_customLayoutBtn{width:100%;margin-top:8px;padding:7px 10px;border:1px solid var(--dsw-alias-state-accent-primary,#4f8ef7);border-radius:8px;background:transparent;color:var(--dsw-alias-state-accent-primary,#4f8ef7);font:inherit;font-size:12px;line-height:18px;cursor:pointer}",
+      ".dsh-wt_customLayoutBtn:hover{background:var(--dsw-alias-fill-l1,rgba(255,255,255,.05))}",
+      ".dsh-wt_customLayoutToast{margin:8px 0 0;font-size:11.5px;line-height:17px;color:var(--dsw-alias-state-success,#3fb950)}",
+      ".dsh-wt_customLayoutToastFail{color:var(--dsw-alias-state-danger,#f85149)}",
+      // 对话绑定弹窗：绑定对话框内的对话行（点击右侧弹列表）
+      ".dsh-wt_bindNoneText{font-size:12px;line-height:18px}",
+      ".dsh-wt_bindFolder{flex:none;font-size:12px;line-height:18px;color:var(--dsw-alias-label-secondary,#9aa4b2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:40%}",
+      ".dsh-wt_bindSep{flex:none;color:var(--dsw-alias-border-l2,#3a4150);font-size:11px}",
+      ".dsh-wt_bindConvRow{display:flex;align-items:center;gap:6px;width:100%;box-sizing:border-box;margin-top:4px;padding:3px 4px;border:1px solid transparent;border-radius:6px;background:transparent;color:var(--dsw-alias-label-primary,#e6e8eb);font:inherit;font-size:12px;line-height:18px;cursor:pointer;text-align:left}",
+      ".dsh-wt_bindConvRow:hover{background:var(--dsw-alias-fill-l1,rgba(255,255,255,.05));border-color:var(--dsw-alias-border-l2,#3a4150)}",
+      ".dsh-wt_bindConvRowNone{color:var(--dsw-alias-label-secondary,#9aa4b2)}",
+      ".dsh-wt_bindConvName{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}",
+      ".dsh-wt_bindConvChevron{flex:none;color:var(--dsw-alias-label-tertiary,#6b7280);font-size:9px;line-height:1}",
+      ".dsh-wt_bindHint{margin:6px 0 2px;font-size:11px;line-height:16px;color:var(--dsw-alias-label-secondary,#9aa4b2)}",
+      // 自定义窗完成页：自动绑定提示
+      ".dsh-wt_customDoneBind{margin:6px 0 0;font-size:11px;line-height:16px;color:var(--dsw-alias-state-accent-primary,#4f8ef7)}",
+      ".dsh-wt_bindUnbind{flex:none;display:inline-flex;align-items:center;gap:4px;padding:1px 8px;border:1px solid var(--dsw-alias-border-l1,#262b36);border-radius:5px;background:transparent;color:var(--dsw-alias-label-secondary,#9aa4b2);font:inherit;font-size:11px;line-height:16px;cursor:pointer}",
+      ".dsh-wt_bindUnbind:hover{color:var(--dsw-alias-state-danger,#f85149);border-color:var(--dsw-alias-state-danger,#f85149)}",
+      ".dsh-wt_bindList{max-height:280px;overflow:auto;position:static}",
+      ".dsh-wt_bindListPop{display:flex;flex-direction:column;padding:6px}",
+      ".dsh-wt_bindListPop .dsh-wt_bindList{max-height:320px}",
+      ".dsh-wt_customRow{display:flex;align-items:center;gap:8px}",
+      ".dsh-wt_customLabel{flex:none;font-size:11.5px;color:var(--dsw-alias-label-secondary,#9aa4b2)}",
+      ".dsh-wt_customSelect{flex:1;min-width:0;padding:5px 8px;background:var(--dsw-alias-fill-l1,rgba(255,255,255,.03));border:1px solid var(--dsw-alias-border-l1,#262b36);border-radius:6px;color:var(--dsw-alias-label-primary,#e6e8eb);font:inherit;font-size:12px;outline:none}",
+      ".dsh-wt_customSelect option{background-color:var(--dsw-alias-bg-base,#0b0e14);color:var(--dsw-alias-label-primary,#e6e8eb)}",
+      // 自制下拉（文件夹分组 + 细分隔线）
+      ".dsh-wt_select{position:relative;flex:1;min-width:0}",
+      ".dsh-wt_selectBtn{display:flex;align-items:center;gap:6px;width:100%;box-sizing:border-box;padding:5px 8px;background:var(--dsw-alias-fill-l1,rgba(255,255,255,.03));border:1px solid var(--dsw-alias-border-l1,#262b36);border-radius:6px;color:var(--dsw-alias-label-primary,#e6e8eb);font:inherit;font-size:12px;line-height:18px;cursor:pointer}",
+      ".dsh-wt_selectBtn:hover{border-color:var(--dsw-alias-border-l2,#3a4150)}",
+      ".dsh-wt_selectVal{flex:1;min-width:0;text-align:left;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}",
+      ".dsh-wt_selectPh{color:var(--dsw-alias-label-tertiary,#6e7683)}",
+      ".dsh-wt_selectCaret{flex:none;color:var(--dsw-alias-label-tertiary,#6e7683);font-size:10px;line-height:1}",
+      ".dsh-wt_selectList{margin-top:4px;max-height:180px;overflow:auto;border:1px solid var(--dsw-alias-border-l2,#3a4150);border-radius:8px;background:var(--dsw-alias-bg-base,#0b0e14);padding:4px;box-shadow:var(--dsw-shadow-lv2,0 8px 24px rgba(0,0,0,.4))}",
+      ".dsh-wt_selectItem{display:flex;align-items:center;gap:6px;width:100%;padding:6px 8px;border:none;border-radius:5px;background:transparent;color:var(--dsw-alias-label-primary,#e6e8eb);font:inherit;font-size:12px;line-height:17px;cursor:pointer;text-align:left}",
+      ".dsh-wt_selectItem:hover{background:var(--dsw-alias-fill-l1,rgba(255,255,255,.05))}",
+      ".dsh-wt_selectItemOn{background:var(--dsw-alias-fill-l1,rgba(255,255,255,.06));color:var(--dsw-alias-state-accent-primary,#4f8ef7)}",
+      ".dsh-wt_selectItemTitle{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}",
+      ".dsh-wt_selectCurrent{flex:none;font-size:10px;color:var(--dsw-alias-label-tertiary,#6e7683)}",
+      ".dsh-wt_selectDivider{height:1px;background:var(--dsw-alias-border-l1,#262b36);margin:6px 2px}",
+      // 文件夹分组标题：与选项同字号、加粗、左侧蓝色竖条 + 微底色，明显区别于下方对话
+      ".dsh-wt_selectGroup{display:flex;align-items:center;gap:6px;margin:2px 0 2px;padding:6px 8px;border-left:2px solid var(--dsw-alias-state-accent-primary,#4f8ef7);border-radius:4px;background:var(--dsw-alias-fill-l1,rgba(255,255,255,.04));font-size:12px;font-weight:600;letter-spacing:.02em;color:var(--dsw-alias-label-secondary,#9aa4b2);user-select:none}",
+      ".dsh-wt_customSend{align-self:flex-end;padding:6px 14px;border:none;border-radius:6px;background:var(--dsw-alias-state-accent-primary,#4f8ef7);color:#fff;font:inherit;font-size:12px;cursor:pointer}",
+      ".dsh-wt_customSend:disabled{opacity:.55;cursor:default}",
+      ".dsh-wt_customFail{font-size:11px;color:var(--dsw-alias-state-danger,#e5484d);margin:0}",
+      ".dsh-wt_customDone{font-size:26px;line-height:32px}",
+      ".dsh-wt_customDoneText{font-size:13px;font-weight:600;color:var(--dsw-alias-label-primary,#e6e8eb);margin:4px 0 0}",
+      ".dsh-wt_customDoneHint{font-size:11.5px;color:var(--dsw-alias-label-secondary,#9aa4b2);margin:0}",
+      ".dsh-wt_customDone{display:block}",
+      ".dsh-wt_customBox:has(.dsh-wt_customDone){flex-direction:column;gap:4px;text-align:center}",
+      ".dsh-wt_panePick{flex:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;width:92px;height:78px;padding:8px;border:1px solid var(--dsw-alias-border-l1,#262b36);border-radius:10px;background:var(--dsw-alias-fill-l1,rgba(255,255,255,.02));color:var(--dsw-alias-label-primary,#e6e8eb);font:inherit;font-size:11px;line-height:15px;cursor:pointer;transition:border-color .15s,background .15s,transform .15s}",
+      ".dsh-wt_panePick:hover{border-color:var(--dsw-alias-state-accent-primary,#4f8ef7);background:var(--dsw-alias-fill-l1,rgba(255,255,255,.05));transform:translateY(-1px)}",
+      ".dsh-wt_panePick span{font-size:22px;line-height:24px}",
+      ".dsh-wt_paneCustom{flex:none;width:100%;max-width:320px;display:flex;align-items:center;gap:6px;padding:4px}",
+      ".dsh-wt_paneCustom input{flex:1;min-width:0;background:var(--dsw-alias-fill-l1,rgba(255,255,255,.03));border:1px solid var(--dsw-alias-border-l1,#262b36);border-radius:6px;color:var(--dsw-alias-label-primary,#e6e8eb);font:inherit;font-size:12px;line-height:18px;padding:5px 8px;outline:none}",
+      ".dsh-wt_paneCustom input:focus{border-color:var(--dsw-alias-state-accent-primary,#4f8ef7)}",
+      ".dsh-wt_paneCustomGo{flex:none;padding:5px 10px;border:none;border-radius:6px;background:var(--dsw-alias-state-accent-primary,#4f8ef7);color:#fff;font:inherit;font-size:12px;cursor:pointer}",
+      ".dsh-wt_browserBar{flex:none;display:flex;align-items:center;gap:5px;padding:4px 6px;border-bottom:1px solid var(--dsw-alias-border-l1,#262b36);background:var(--dsw-alias-fill-l1,rgba(255,255,255,.02))}",
+      ".dsh-wt_browserInput{flex:1;min-width:0;background:transparent;border:none;outline:none;color:var(--dsw-alias-label-primary,#e6e8eb);font:inherit;font-size:11px;line-height:16px}",
+      ".dsh-wt_browserGo{flex:none;width:20px;height:20px;padding:0;border:none;border-radius:4px;background:transparent;color:var(--dsw-alias-label-secondary,#9aa4b2);font-size:12px;cursor:pointer}",
+      ".dsh-wt_browserGo:hover{color:var(--dsw-alias-label-primary,#e6e8eb);background:var(--dsw-alias-fill-l1,rgba(255,255,255,.06))}",
+      ".dsh-wt_paneWip{flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:var(--dsw-alias-label-tertiary,#6e7683)}",
+      ".dsh-wt_paneWipIcon{font-size:26px;line-height:30px}",
+      ".dsh-wt_paneWipText{font-size:11px}",
+      ".dsh-wt_splitFlip{flex:none;display:flex;align-items:center;justify-content:center;width:20px;height:20px;padding:0;border:none;border-radius:4px;background:transparent;color:var(--dsw-alias-label-secondary,#9aa4b2);font-size:13px;cursor:pointer}",
+      ".dsh-wt_splitFlip:hover{color:var(--dsw-alias-label-primary,#e6e8eb);background:var(--dsw-alias-fill-l1,rgba(255,255,255,.06))}",
+      // + 右侧弹出面板
+      ".dsh-wt_popBackdrop{position:fixed;left:0;top:0;right:0;bottom:0;z-index:79;background:transparent}",
+      ".dsh-wt_folderBrowser{position:fixed;z-index:89;left:50%;top:50%;transform:translate(-50%,-50%);display:flex;flex-direction:column;gap:8px;box-sizing:border-box;width:min(460px,calc(100vw - 32px));max-height:min(72vh,560px);padding:12px;border:1px solid var(--dsw-alias-border-l2,#3a4150);border-radius:10px;background:var(--dsw-alias-bg-base,#0b0e14);color:var(--dsw-alias-label-primary,#e6e8eb);box-shadow:var(--dsw-shadow-lv2,0 12px 30px rgba(0,0,0,.42))}",
+      ".dsh-wt_folderBrowserHead{position:relative;display:flex;align-items:center;min-height:22px;padding-right:26px;font-size:13px;font-weight:600}",
+      ".dsh-wt_folderBrowserPathRow{display:flex;gap:6px}",
+      ".dsh-wt_folderBrowserPathRow input{flex:1;min-width:0;box-sizing:border-box;height:30px;padding:4px 8px;border:1px solid var(--dsw-alias-border-l1,#262b36);border-radius:6px;background:var(--dsw-alias-fill-l1,rgba(255,255,255,.02));color:var(--dsw-alias-label-primary,#e6e8eb);font:inherit;font-size:12px;outline:none}",
+      ".dsh-wt_folderBrowserPathRow input:focus{border-color:var(--dsw-alias-state-accent-primary,#4f8ef7)}",
+      ".dsh-wt_folderBrowserPathRow button,.dsh-wt_folderBrowserNav button,.dsh-wt_folderBrowserActions button{flex:none;padding:5px 9px;border:1px solid var(--dsw-alias-border-l1,#262b36);border-radius:6px;background:var(--dsw-alias-fill-l1,rgba(255,255,255,.02));color:var(--dsw-alias-label-primary,#e6e8eb);font:inherit;font-size:12px;cursor:pointer}",
+      ".dsh-wt_folderBrowserPathRow button:hover,.dsh-wt_folderBrowserNav button:hover,.dsh-wt_folderBrowserActions button:hover{border-color:var(--dsw-alias-state-accent-primary,#4f8ef7)}",
+      ".dsh-wt_folderBrowserPathRow button:disabled,.dsh-wt_folderBrowserNav button:disabled,.dsh-wt_folderBrowserActions button:disabled{opacity:.5;cursor:default}",
+      ".dsh-wt_folderBrowserNav{display:flex;align-items:center;gap:7px;min-width:0}",
+      ".dsh-wt_folderBrowserNav span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--dsw-alias-label-secondary,#9aa4b2);font-size:11px}",
+      ".dsh-wt_folderBrowserList{display:flex;flex:1;flex-direction:column;min-height:120px;max-height:320px;overflow:auto;border:1px solid var(--dsw-alias-border-l1,#262b36);border-radius:7px;padding:3px}",
+      ".dsh-wt_folderBrowserList p{margin:auto 6px;color:var(--dsw-alias-label-tertiary,#6e7683);font-size:12px;text-align:center}",
+      ".dsh-wt_folderBrowserList .dsh-wt_addError{color:var(--dsw-alias-state-danger,#e5484d)}",
+      ".dsh-wt_folderBrowserList button{display:flex;align-items:center;gap:7px;min-height:28px;padding:4px 7px;border:none;border-radius:5px;background:transparent;color:var(--dsw-alias-label-primary,#e6e8eb);font:inherit;font-size:12px;line-height:18px;text-align:left;cursor:pointer}",
+      ".dsh-wt_folderBrowserList button:hover{background:var(--dsw-alias-fill-l1,rgba(255,255,255,.06))}",
+      ".dsh-wt_folderBrowserList button span:last-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}",
+      ".dsh-wt_folderBrowserHint{margin:0;color:var(--dsw-alias-label-tertiary,#6e7683);font-size:11px}",
+      ".dsh-wt_folderBrowserActions{display:flex;justify-content:flex-end;gap:7px}",
+      ".dsh-wt_folderBrowserActions .dsh-wt_addBtn{border:none;background:var(--dsw-alias-state-accent-primary,#4f8ef7);color:#fff}",
+      // 删除二次确认（fixed 居中模态，压在弹窗之上）
+      ".dsh-wt_confirmBackdrop{position:fixed;left:0;top:0;right:0;bottom:0;z-index:81;background:rgba(0,0,0,.35)}",
+      ".dsh-wt_confirm{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:82;width:292px;display:flex;flex-direction:column;gap:8px;padding:14px;border:1px solid var(--dsw-alias-border-l2,#3a4150);border-radius:10px;background:var(--dsw-alias-bg-base,#0b0e14);box-shadow:var(--dsw-shadow-lv2,0 8px 24px rgba(0,0,0,.4))}",
+      ".dsh-wt_confirmTitle{font-size:13px;font-weight:600;color:var(--dsw-alias-label-primary,#e6e8eb)}",
+      ".dsh-wt_confirmBody{font-size:11.5px;line-height:17px;color:var(--dsw-alias-label-secondary,#9aa4b2)}",
+      ".dsh-wt_confirmActions{display:flex;justify-content:flex-end;gap:8px;margin-top:4px}",
+      ".dsh-wt_confirmCancel{padding:5px 12px;border:1px solid var(--dsw-alias-border-l2,#3a4150);border-radius:6px;background:transparent;color:var(--dsw-alias-label-secondary,#9aa4b2);font:inherit;font-size:12px;cursor:pointer}",
+      ".dsh-wt_confirmCancel:hover{color:var(--dsw-alias-label-primary,#e6e8eb);background:var(--dsw-alias-fill-l1,rgba(255,255,255,.05))}",
+      ".dsh-wt_confirmDelete{padding:5px 12px;border:none;border-radius:6px;background:var(--dsw-alias-state-danger,#e5484d);color:#fff;font:inherit;font-size:12px;cursor:pointer}",
+      ".dsh-wt_confirmDelete:hover{filter:brightness(1.1)}",
+      ".dsh-wt_pop{max-height:min(540px,calc(100vh - 32px));overflow:auto;box-shadow:var(--dsw-shadow-lv2,0 8px 24px rgba(0,0,0,.4))}",
+      ".dsh-wt_settings{box-sizing:border-box;position:relative;max-height:min(54vh,460px);overflow:auto}",
+      ".dsh-wt_settingsInline{position:static !important;left:auto !important;top:auto !important;right:auto !important;bottom:auto !important;width:auto !important;max-width:100%;margin:8px 8px 10px;box-shadow:none !important}",
+      // 功能窗（资源管理器/SCM/任务/终端）
+      ".dsh-wt_subBar{flex:none;display:flex;align-items:center;gap:4px;padding:3px 6px;border-bottom:1px solid var(--dsw-alias-border-l1,#262b36);background:var(--dsw-alias-fill-l1,rgba(255,255,255,.02))}",
+      ".dsh-wt_subBtn{flex:none;display:flex;align-items:center;justify-content:center;width:20px;height:20px;padding:0;border:none;border-radius:4px;background:transparent;color:var(--dsw-alias-label-secondary,#9aa4b2);font-size:11px;cursor:pointer}",
+      ".dsh-wt_subBtn:hover{color:var(--dsw-alias-label-primary,#e6e8eb);background:var(--dsw-alias-fill-l1,rgba(255,255,255,.06))}",
+      ".dsh-wt_subPath{flex:1;min-width:0;font-size:10.5px;color:var(--dsw-alias-label-tertiary,#6e7683);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}",
+      ".dsh-wt_subList{flex:1;min-height:0;overflow:auto;padding:3px}",
+      ".dsh-wt_subRow{display:flex;align-items:center;gap:6px;width:100%;box-sizing:border-box;padding:3px 6px;border:none;border-radius:5px;background:transparent;color:var(--dsw-alias-label-primary,#e6e8eb);font:inherit;font-size:11px;line-height:16px;cursor:pointer;text-align:left}",
+      ".dsh-wt_subRow:hover{background:var(--dsw-alias-fill-l1,rgba(255,255,255,.05))}",
+      ".dsh-wt_subRowStatic{cursor:default}",
+      ".dsh-wt_subRowStatic:hover{background:transparent}",
+      ".dsh-wt_subIcon{flex:none;font-size:11px}",
+      ".dsh-wt_subName{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}",
+      ".dsh-wt_subEmpty{padding:14px 10px;font-size:11px;color:var(--dsw-alias-label-tertiary,#6e7683);text-align:center}",
+      ".dsh-wt_subTag{flex:none;font-size:9px;color:var(--dsw-alias-label-tertiary,#6e7683);padding:0 5px;border-radius:8px;background:var(--dsw-alias-fill-l1,rgba(255,255,255,.06))}",
+      ".dsh-wt_gitXY{flex:none;width:20px;font-size:9px;text-align:center;border-radius:4px;padding:1px 0}",
+      ".dsh-wt_gitXYMod{color:#e5b567;background:rgba(229,181,103,.12)}",
+      ".dsh-wt_gitXYNew{color:#7fd88f;background:rgba(127,216,143,.12)}",
+      ".dsh-wt_jobDot{flex:none;font-size:8px;line-height:16px}",
+      ".dsh-wt_jobDot-running{color:#e5b567}",
+      ".dsh-wt_jobDot-completed{color:#7fd88f}",
+      ".dsh-wt_jobDot-failed{color:#e5484d}",
+      ".dsh-wt_jobDot-killed{color:#6e7683}",
+      ".dsh-wt_jobDot-stopping{color:#9aa4b2}",
+      ".dsh-wt_termHost{flex:1;min-height:0;padding:6px 2px 2px 8px;background:#010409;overflow:hidden}",
+      ".dsh-wt_termHost .xterm{height:100%}",
+      // 窗内标签页
+      ".dsh-wt_tabBar{flex:none;display:flex;align-items:center;gap:3px;padding:3px 5px 0;border-bottom:1px solid var(--dsw-alias-border-l1,#262b36);background:var(--dsw-alias-fill-l1,rgba(255,255,255,.02));overflow-x:auto}",
+      ".dsh-wt_tab{flex:none;display:flex;align-items:center;gap:5px;max-width:150px;padding:3px 8px;border:1px solid transparent;border-bottom:none;border-radius:6px 6px 0 0;color:var(--dsw-alias-label-secondary,#9aa4b2);font-size:10.5px;line-height:16px;cursor:grab;user-select:none;-webkit-user-select:none}",
+      ".dsh-wt_tab:active{cursor:grabbing}",
+      ".dsh-wt_tab:hover{background:var(--dsw-alias-fill-l1,rgba(255,255,255,.04))}",
+      ".dsh-wt_tabOn{color:var(--dsw-alias-label-primary,#e6e8eb);background:var(--dsw-alias-bg-base,#0b0e14);border-color:var(--dsw-alias-border-l1,#262b36)}",
+      ".dsh-wt_tabTitle{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}",
+      ".dsh-wt_tabClose{flex:none;width:14px;height:14px;padding:0;border:none;border-radius:3px;background:transparent;color:var(--dsw-alias-label-tertiary,#6e7683);font-size:9px;line-height:1;cursor:pointer}",
+      ".dsh-wt_tabClose:hover{color:var(--dsw-alias-label-primary,#e6e8eb);background:var(--dsw-alias-fill-l1,rgba(255,255,255,.08))}",
+      // 树形资源管理器
+      ".dsh-wt_treeRow{display:flex;align-items:center;gap:5px;width:100%;box-sizing:border-box;padding:3px 6px;border:none;border-radius:5px;background:transparent;color:var(--dsw-alias-label-primary,#e6e8eb);font:inherit;font-size:11px;line-height:16px;cursor:pointer;text-align:left}",
+      ".dsh-wt_treeRow:hover{background:var(--dsw-alias-fill-l1,rgba(255,255,255,.05))}",
+      ".dsh-wt_treeArrow{flex:none;width:10px;font-size:8px;color:var(--dsw-alias-label-tertiary,#6e7683);transition:transform .12s ease}",
+      ".dsh-wt_treeArrowOpen{transform:rotate(90deg)}",
+      ".dsh-wt_treeIcon{flex:none}",
+      ".dsh-wt_treeName{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}",
+      ".dsh-wt_subSection{flex:none;padding:6px 8px 2px;font-size:10px;font-weight:600;letter-spacing:.05em;color:var(--dsw-alias-label-tertiary,#6e7683)}",
+      // 控制室面板：项目卡片网格（每行 3 张、超出换行；DSH 简洁 + 苹果式卡片）。
+      // 主题变量自带作用域：dark 缺省；data-wt-theme=light 换浅色；system 由面板读宿主 color-scheme 落成 dark/light。
+      ".dsh-wt_console{--wt-bg:#0a0d13;--wt-card:#171c25;--wt-cardHover:#1d232e;--wt-border:#2a3140;--wt-borderHover:#39445a;--wt-text:#e6e8eb;--wt-text2:#9aa4b2;--wt-text3:#6e7683;--wt-chip:rgba(255,255,255,.06);--wt-grid:rgba(255,255,255,.045);--wt-shadow:0 6px 20px rgba(0,0,0,.35);position:relative;flex:1;min-height:0;overflow:auto;padding:22px;background-image:linear-gradient(var(--wt-grid) 1px,transparent 1px),linear-gradient(90deg,var(--wt-grid) 1px,transparent 1px);background-size:30px 30px;background-color:var(--wt-bg)}",
+      // 工作中的卡片流光：光带加长羽化 + 光层超出卡片（移动时不露整齐边缘），每 ~3.2s 从左上斜扫到右下
+      ".dsh-wt_consoleSweep{position:absolute;inset:-30%;border-radius:inherit;pointer-events:none;background:linear-gradient(115deg,rgba(255,255,255,.01) 0%,rgba(255,255,255,.045) 30%,rgba(255,255,255,.13) 50%,rgba(255,255,255,.045) 70%,rgba(255,255,255,.01) 100%);opacity:0;animation:consoleSweep 3.2s ease-in-out infinite}",
+      ".dsh-wt_console[data-wt-theme=light] .dsh-wt_consoleSweep{background:linear-gradient(115deg,rgba(255,255,255,.1) 0%,rgba(255,255,255,.3) 30%,rgba(255,255,255,.55) 50%,rgba(255,255,255,.3) 70%,rgba(255,255,255,.1) 100%)}",
+      "@keyframes consoleSweep{0%{opacity:0;transform:translate(-12%,-12%)}35%{opacity:1}55%{opacity:1}92%,100%{opacity:0;transform:translate(12%,12%)}}",
+      ".dsh-wt_console[data-wt-theme=light]{--wt-bg:#eef1f5;--wt-card:#ffffff;--wt-cardHover:#f7f9fb;--wt-border:#d8dee6;--wt-borderHover:#b9c4d2;--wt-grid:rgba(27,31,36,.07);--wt-text:#1c2128;--wt-text2:#57606a;--wt-text3:#8b949e;--wt-chip:rgba(27,31,36,.07);--wt-shadow:0 6px 20px rgba(31,41,55,.10)}",
+      ".dsh-wt_consoleHead{display:flex;align-items:center;justify-content:flex-end;gap:10px;margin-bottom:12px}",
+      ".dsh-wt_consoleTitle{font-size:14px;font-weight:700;line-height:20px;color:var(--wt-text)}",
+      ".dsh-wt_consoleTheme{display:inline-flex;align-items:center;padding:2px;border:1px solid var(--wt-border);border-radius:999px;background:var(--wt-card)}",
+      ".dsh-wt_consoleThemeBtn{flex:none;padding:3px 9px;border:none;border-radius:999px;background:transparent;color:var(--wt-text3);font:inherit;font-size:12px;line-height:18px;cursor:pointer;opacity:.85}",
+      ".dsh-wt_consoleThemeBtn:hover{opacity:1;background:var(--wt-chip)}",
+      ".dsh-wt_consoleThemeBtnOn{background:var(--wt-chip);color:var(--wt-text);opacity:1}",
+      ".dsh-wt_consoleGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:64px;align-content:start;margin-top:clamp(32px,9vh,110px);max-width:856px;margin-left:auto;margin-right:auto}",
+      ".dsh-wt_consoleCard{position:relative;display:flex;flex-direction:column;gap:14px;aspect-ratio:1/1;min-height:192px;padding:21px;background:linear-gradient(135deg,rgba(255,255,255,.22) 0%,rgba(255,255,255,.07) 30%,rgba(255,255,255,.01) 60%,rgba(0,0,0,.07) 100%),rgba(18,23,32,.24);border:1px solid transparent;border-radius:16px;box-shadow:0 10px 28px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.13);cursor:pointer;transition:transform .14s ease,box-shadow .14s ease;overflow:hidden}",
+      // 玻璃边缘：四角黑白渐变描边（左上/右下=白，右上/左下=黑），1px 环挖空实现
+      '.dsh-wt_consoleCard::after{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;background:conic-gradient(from 45deg,rgba(0,0,0,.4) 0deg,rgba(255,255,255,.55) 90deg,rgba(0,0,0,.4) 180deg,rgba(255,255,255,.55) 270deg,rgba(0,0,0,.4) 360deg);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude;pointer-events:none;opacity:.5}',
+      ".dsh-wt_console[data-wt-theme=light] .dsh-wt_consoleCard{background:linear-gradient(135deg,rgba(255,255,255,1) 0%,rgba(255,255,255,.65) 30%,rgba(255,255,255,.12) 60%,rgba(31,41,55,.06) 100%),rgba(255,255,255,.34);box-shadow:0 10px 28px rgba(31,41,55,.18),inset 0 1px 0 rgba(255,255,255,1)}",
+      ".dsh-wt_console[data-wt-theme=light] .dsh-wt_consoleCard::after{background:conic-gradient(from 45deg,rgba(27,31,36,.4) 0deg,rgba(255,255,255,1) 90deg,rgba(27,31,36,.4) 180deg,rgba(255,255,255,1) 270deg,rgba(27,31,36,.4) 360deg);opacity:.9}",
+      // 状态光效卡片：玻璃边缘让位给霓虹描边/旋转光环
+      ".dsh-wt_consoleCard-glowDone::after,.dsh-wt_consoleCard-glowNeed::after{opacity:0}",
+      ".dsh-wt_consoleCard:hover{transform:translateY(-2px);box-shadow:0 14px 32px rgba(0,0,0,.32),inset 0 1px 0 rgba(255,255,255,.09)}",
+      ".dsh-wt_consoleCardSelf{cursor:default;opacity:.97}",
+      ".dsh-wt_consoleCardHead{display:flex;align-items:center;gap:13px;min-width:0}",
+      ".dsh-wt_consoleIcon{flex:none;font-size:31px;line-height:1}",
+      ".dsh-wt_consoleName{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:20px;font-weight:700;line-height:28px;color:var(--wt-text)}",
+      ".dsh-wt_consoleDivider{flex:none;height:1px;background:var(--wt-border)}",
+      ".dsh-wt_consoleStatusRow{display:flex;align-items:baseline;justify-content:space-between;gap:9px;min-width:0}",
+      ".dsh-wt_consoleStatus{flex:none;font-size:22px;font-weight:700;line-height:30px;color:var(--wt-text2)}",
+      ".dsh-wt_consoleStatus-busy{color:var(--dsw-alias-state-accent-primary,#4f8ef7)}",
+      ".dsh-wt_consoleStatus-need{color:var(--dsw-alias-state-warning,#d29922)}",
+      ".dsh-wt_consoleStatus-done{color:var(--dsw-alias-state-success,#3fb950)}",
+      ".dsh-wt_consoleRuntime{flex:none;font-size:17px;font-weight:600;line-height:24px;color:var(--wt-text2);font-variant-numeric:tabular-nums}",
+      ".dsh-wt_consolePreview{display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden;font-size:8.5px;line-height:13px;color:var(--wt-text2);word-break:break-word}",
+      ".dsh-wt_consolePreviewNone{color:var(--wt-text3);font-style:italic;-webkit-line-clamp:1}",
+      // 三色光效：整卡霓虹描边光晕（像侧栏双圆点的发光质感）——完成=绿、待决=黄；工作=蓝色描边顺时针旋转
+      ".dsh-wt_consoleCard-glowDone{border-color:rgba(63,185,80,.9);box-shadow:0 0 8px rgba(63,185,80,.5),0 0 26px rgba(63,185,80,.3),inset 0 0 16px rgba(63,185,80,.07)}",
+      ".dsh-wt_consoleCard-glowNeed{border-color:rgba(210,153,34,.95);box-shadow:0 0 8px rgba(210,153,34,.5),0 0 26px rgba(210,153,34,.3),inset 0 0 16px rgba(210,153,34,.08)}",
+      '@property --consoleAngle{syntax:"<angle>";initial-value:0deg;inherits:false}',
+      ".dsh-wt_consoleCard-busy{box-shadow:0 0 10px rgba(94,160,255,.55),0 0 34px rgba(79,142,247,.4)}",
+      '.dsh-wt_consoleCard-busy::before{content:"";position:absolute;inset:-4px;border-radius:19px;padding:4px;background:conic-gradient(from var(--consoleAngle),transparent 0deg,rgba(94,160,255,0) 25deg,#dcebff 55deg,#9cc6ff 85deg,rgba(94,160,255,0) 125deg,transparent 200deg);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude;animation:consoleAngleSpin 1.4s linear infinite;filter:drop-shadow(0 0 8px rgba(140,190,255,.85));pointer-events:none}',
+      "@keyframes consoleAngleSpin{to{--consoleAngle:360deg}}",
+      ".dsh-wt_consoleEmpty{padding:40px 0;text-align:center;font-size:12px;color:var(--wt-text3)}",
+      // 创建卡片：虚线 + 居中加号，永远最后一位
+      // 创建卡片：玻璃底 + 虚线边，永远最后一位
+      ".dsh-wt_consoleAdd{justify-content:center;align-items:center;gap:10px;background:radial-gradient(circle at 50% 42%,rgba(255,255,255,.09),rgba(255,255,255,0) 65%),rgba(18,23,32,.34);border:1.5px dashed var(--wt-borderHover)}",
+      ".dsh-wt_consoleAdd::after{display:none}",
+      ".dsh-wt_console[data-wt-theme=light] .dsh-wt_consoleAdd{background:radial-gradient(circle at 50% 42%,rgba(255,255,255,.95),rgba(255,255,255,0) 65%),rgba(255,255,255,.55)}",
+      ".dsh-wt_consoleAdd:hover{border-color:var(--dsw-alias-state-accent-primary,#4f8ef7);background:rgba(23,28,37,.45)}",
+      ".dsh-wt_consoleAddPlus{font-size:34px;line-height:1;color:var(--wt-text2);font-weight:400}",
+      ".dsh-wt_consoleAdd:hover .dsh-wt_consoleAddPlus{color:var(--dsw-alias-state-accent-primary,#4f8ef7)}",
+      ".dsh-wt_consoleAddLabel{font-size:17px;font-weight:600;color:var(--wt-text2)}",
+      ".dsh-wt_consoleAdd:hover .dsh-wt_consoleAddLabel{color:var(--dsw-alias-state-accent-primary,#4f8ef7)}",
+      // 控制室入口卡：统筹主程序的差异化（渐变底 + 微光；无描边，颜色更亮更饱和）
+      ".dsh-wt_projects .dsh-wt_consoleEntry{background:linear-gradient(135deg,rgba(109,164,255,.30),rgba(167,130,255,.22));border-color:transparent;box-shadow:0 0 14px rgba(96,150,255,.22)}",
+      ".dsh-wt_projects .dsh-wt_consoleEntry:hover{background:linear-gradient(135deg,rgba(109,164,255,.42),rgba(167,130,255,.32));box-shadow:0 0 18px rgba(96,150,255,.32)}",
+      ".dsh-wt_projects .dsh-wt_consoleEntry[data-on=true]{background:linear-gradient(135deg,rgba(109,164,255,.38),rgba(167,130,255,.28));box-shadow:0 0 18px rgba(96,150,255,.34)}",
+      ".dsh-wt_projects .dsh-wt_consoleEntry .dsh-wt_layoutIcon{font-size:15px}",
+      ".dsh-wt_projects .dsh-wt_consoleEntry .dsh-wt_layoutName{font-weight:600;color:var(--dsw-alias-label-primary,#e6e8eb)}",
+      // 控制室强制绑定弹窗：左加入现有 / 右新建对话
+      ".dsh-wt_consoleBindCols{display:flex;gap:12px}",
+      ".dsh-wt_consoleBindCol{flex:1;min-width:0;display:flex;flex-direction:column;gap:6px}",
+      ".dsh-wt_consoleBindColNew{border-left:1px solid var(--dsw-alias-border-l1,#262b36);padding-left:12px}",
+      ".dsh-wt_consoleBindLabel{font-size:12px;font-weight:600;line-height:18px;color:var(--dsw-alias-label-primary,#e6e8eb)}",
+      ".dsh-wt_consoleBindList{max-height:300px;overflow:auto;position:static}",
+      ".dsh-wt_consoleBindEmpty{padding:20px 0;text-align:center;font-size:11px;color:var(--dsw-alias-label-tertiary,#6e7683)}",
+      ".dsh-wt_consoleSelect,.dsh-wt_consoleInput{width:100%;box-sizing:border-box;padding:6px 8px;background:var(--dsw-alias-fill-l1,rgba(255,255,255,.03));border:1px solid var(--dsw-alias-border-l1,#262b36);border-radius:8px;color:var(--dsw-alias-label-primary,#e6e8eb);font:inherit;font-size:11.5px;line-height:16px;outline:none}",
+      ".dsh-wt_consoleSelect:focus,.dsh-wt_consoleInput:focus{border-color:var(--dsw-alias-state-accent-primary,#4f8ef7)}",
+      ".dsh-wt_consoleErr{margin:0;font-size:11px;line-height:16px;color:var(--dsw-alias-state-danger,#f85149)}",
+      ".dsh-wt_consoleCreateBtn{margin-top:2px;padding:7px 10px;border:1px solid var(--dsw-alias-state-accent-primary,#4f8ef7);border-radius:8px;background:transparent;color:var(--dsw-alias-state-accent-primary,#4f8ef7);font:inherit;font-size:12px;line-height:18px;cursor:pointer}",
+      ".dsh-wt_consoleCreateBtn:hover:not(:disabled){background:var(--dsw-alias-fill-l1,rgba(255,255,255,.05))}",
+      ".dsh-wt_consoleCreateBtn:disabled{opacity:.55;cursor:default}",
+      // ── 更新提示：侧栏标题旁徽标（仅图标 + 琥珀呼吸光）与设置面板更新卡 / 版本行 ──
+      ".dsh-wt_updateBadge{flex:none;display:flex;align-items:center;justify-content:center;width:18px;height:18px;margin-left:3px;padding:0;border:none;border-radius:50%;background:rgba(245,185,66,.16);color:#f7d488;font-size:11px;line-height:1;cursor:pointer;position:relative}",
+      '.dsh-wt_updateBadge::after{content:"";position:absolute;inset:-1px;border-radius:50%;border:1px solid rgba(245,185,66,.55);animation:dsh-wt_updatePulse 1.8s ease-out infinite}',
+      "@keyframes dsh-wt_updatePulse{0%{opacity:.9;box-shadow:0 0 0 0 rgba(245,185,66,.5)}70%{opacity:.35;box-shadow:0 0 0 6px rgba(245,185,66,0)}100%{opacity:.9;box-shadow:0 0 0 0 rgba(245,185,66,0)}}",
+      ".dsh-wt_updateCard{margin:0 0 10px;padding:10px;border:1px solid rgba(245,185,66,.45);border-radius:10px;background:rgba(245,185,66,.08);display:flex;flex-direction:column;gap:6px}",
+      ".dsh-wt_updateHead{display:flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;color:#f7d488}",
+      ".dsh-wt_updateDot{width:7px;height:7px;border-radius:50%;background:#f5b942;animation:dsh-wt_updatePulse 1.8s ease-out infinite}",
+      ".dsh-wt_updateVers{font-size:11.5px;color:var(--dsw-alias-label-tertiary,#7d8aa5)}",
+      ".dsh-wt_updateNotes{max-height:96px;overflow:auto;font-size:11px;line-height:1.6;color:var(--dsw-alias-label-tertiary,#7d8aa5);white-space:pre-wrap;word-break:break-all}",
+      ".dsh-wt_updateCmd{margin:2px 0;padding:7px 8px;background:var(--dsw-alias-bg-base,#0b0e14);border:1px solid var(--dsw-alias-border-l1,#262b36);border-radius:8px;font-family:Consolas,monospace;font-size:10.5px;line-height:1.5;color:#9cc6ff;word-break:break-all}",
+      ".dsh-wt_updateBtns{display:flex;gap:6px;flex-wrap:wrap}",
+      ".dsh-wt_updateBtn{display:inline-flex;align-items:center;gap:5px;padding:5px 8px;border-radius:7px;border:1px solid var(--dsw-alias-border-l1,#262b36);background:transparent;color:var(--dsw-alias-label-secondary,#aab6cd);font-size:11px;cursor:pointer}",
+      ".dsh-wt_updateBtn svg{width:12px;height:12px;flex:none}",
+      ".dsh-wt_updateBadge svg{width:12px;height:12px;flex:none}",
+      ".dsh-wt_updateBtn:hover{background:var(--dsw-alias-fill-l1,rgba(255,255,255,.06))}",
+      ".dsh-wt_updateBtnCopy{border-color:var(--dsw-alias-state-accent-primary,#4f8ef7);background:rgba(79,142,247,.18);color:#cfe0ff}",
+      ".dsh-wt_updateHint{font-size:10.5px;color:var(--dsw-alias-label-tertiary,#7d8aa5)}",
+      ".dsh-wt_versionRow{margin-top:8px;padding-top:8px;border-top:1px solid var(--dsw-alias-border-l1,#262b36);display:flex;align-items:center;justify-content:space-between;font-size:11px;color:var(--dsw-alias-label-tertiary,#7d8aa5)}",
+      ".dsh-wt_updateToggle{display:flex;align-items:center;gap:6px;cursor:pointer;user-select:none}",
+      ".dsh-wt_versionActions{display:flex;align-items:center;gap:8px}",
+      ".dsh-wt_updateSwitch{position:relative;width:26px;height:14px;border-radius:999px;background:var(--dsw-alias-state-accent-primary,#4f8ef7);cursor:pointer}",
+      '.dsh-wt_updateSwitch::after{content:"";position:absolute;top:2px;right:2px;width:10px;height:10px;border-radius:50%;background:#fff;transition:right .15s}',
+      ".dsh-wt_updateSwitch[data-off=true]{background:var(--dsw-alias-border-l1,#333a48)}",
+      ".dsh-wt_updateSwitch[data-off=true]::after{right:14px}"
+    ].join("\n");
+  }
+});
+
+// src/client/locales.ts
+var zh, en, NS;
+var init_locales = __esm({
+  "src/client/locales.ts"() {
+    zh = {
+      "title": "\u5DE5\u4F5C\u53F0",
+      "rail.title": "\u5DE5\u4F5C\u53F0\uFF08\u5C55\u5F00\u4FA7\u8FB9\u680F\u67E5\u770B\uFF09",
+      "handle.title": "\u6309\u4F4F\u62D6\u52A8\u4F4D\u7F6E \xB7 \u53CC\u51FB\u590D\u4F4D",
+      "handle.aria": "\u62D6\u52A8\u5DE5\u4F5C\u53F0\u4F4D\u7F6E",
+      "menu.search": "\u641C\u7D22\u9879\u76EE",
+      "menu.viewOptions": "\u8BBE\u7F6E",
+      "menu.add": "\u6DFB\u52A0\u9879\u76EE",
+      "search.placeholder": "\u641C\u7D22\u9879\u76EE\u2026",
+      "search.close": "\u5173\u95ED\u641C\u7D22",
+      "sort.label": "\u6392\u5E8F\u65B9\u5F0F",
+      "sort.manual": "\u624B\u52A8",
+      "sort.recent": "\u6700\u8FD1",
+      "menu.manage": "\u7BA1\u7406\u9879\u76EE\u2026",
+      "add.guideTitle": "\u63A5\u5165\u65B0\u9879\u76EE",
+      "add.guideBody": "\u5DE5\u4F5C\u53F0\u91CC\u7684\u9879\u76EE\u5C31\u662F DSH \u63D2\u4EF6\u2014\u2014\u63D2\u4EF6\u6CE8\u518C\u4E00\u5F20\u300C\u5DE5\u4F5C\u53F0\u9879\u76EE\u5361\u7247\u300D\u5373\u81EA\u52A8\u5165\u9A7B\uFF08\u534F\u8BAE\u89C1\u9879\u76EE PRD \xA75.3\uFF09\u3002\u5DF2\u5B89\u88C5\u4F46\u672A\u5165\u9A7B\u7684\u63D2\u4EF6\u9700\u5728\u63D2\u4EF6\u4EE3\u7801\u91CC\u5B8C\u6210\u6CE8\u518C\u3002",
+      "add.market": "\u6D4F\u89C8\u63D2\u4EF6\u5E02\u573A",
+      "add.shortcutTitle": "\u672C\u5730\u5FEB\u6377\u65B9\u5F0F",
+      "add.shortcutDesc": "\u628A\u4EFB\u610F\u7F51\u5740\u6536\u8FDB\u5DE5\u4F5C\u53F0\uFF0C\u70B9\u51FB\u65B0\u6807\u7B7E\u6253\u5F00\uFF08\u4EC5\u5B58\u672C\u673A\uFF09\u3002",
+      "add.shortcutNamePh": "\u540D\u79F0",
+      "add.shortcutIcon": "\u56FE\u6807\uFF08emoji\uFF0C\u53EF\u9009\uFF09",
+      "add.shortcutHref": "\u94FE\u63A5\uFF08http/https\uFF09",
+      "add.shortcutAdd": "\u6DFB\u52A0",
+      "add.shortcutInvalid": "\u8BF7\u586B\u5199\u540D\u79F0\u4E0E\u5408\u6CD5\u7684 http/https \u94FE\u63A5",
+      "manage.title": "\u7BA1\u7406\u9879\u76EE",
+      "manage.done": "\u5B8C\u6210",
+      "manage.renamePh": "\u663E\u793A\u540D",
+      "manage.hide": "\u9690\u85CF",
+      "manage.show": "\u663E\u793A",
+      "manage.removed": "\u5DF2\u5220\u9664\u7684\u9879\u76EE",
+      "manage.readd": "\u91CD\u65B0\u6DFB\u52A0",
+      "manage.deleteShortcut": "\u5220\u9664\u5FEB\u6377\u65B9\u5F0F",
+      "shortcut.badge": "\u672C\u5730",
+      "add.chooseLayout": "\u9009\u62E9\u5E03\u5C40\u6A21\u5F0F",
+      "add.layoutNamePh": "\u5E03\u5C40\u540D\u79F0",
+      "add.defaultName": "\u65B0\u5EFA\u5E03\u5C40 {index}",
+      "add.folderParent": "\u9879\u76EE\u6587\u4EF6\u5939",
+      "add.folderPick": "\u9009\u62E9\u4F4D\u7F6E\u2026",
+      "add.folderNone": "\u8F93\u5165\u7EDD\u5BF9\u8DEF\u5F84\uFF0C\u6216\u70B9\u53F3\u4FA7\u300C\u9009\u62E9\u4F4D\u7F6E\u2026\u300D\u6311\u9009\u6587\u4EF6\u5939",
+      "add.folderPicking": "\u6B63\u5728\u6253\u5F00\u2026",
+      "add.folderPickFail": "\u65E0\u6CD5\u6253\u5F00\u76EE\u5F55\u9009\u62E9\u5668\uFF0C\u8BF7\u76F4\u63A5\u8F93\u5165\u6587\u4EF6\u5939\u7684\u7EDD\u5BF9\u8DEF\u5F84\u3002",
+      "add.folderBrowserTitle": "\u9009\u62E9\u9879\u76EE\u6587\u4EF6\u5939",
+      "add.folderBrowserPath": "\u6587\u4EF6\u5939\u8DEF\u5F84",
+      "add.folderBrowserUp": "\u4E0A\u4E00\u7EA7",
+      "add.folderBrowserRefresh": "\u5237\u65B0",
+      "add.folderBrowserEmpty": "\u5F53\u524D\u76EE\u5F55\u6CA1\u6709\u53EF\u8FDB\u5165\u7684\u5B50\u6587\u4EF6\u5939",
+      "add.folderBrowserTruncated": "\u76EE\u5F55\u9879\u8FC7\u591A\uFF0C\u4EC5\u663E\u793A\u524D 500 \u9879",
+      "add.folderBrowserSelect": "\u9009\u62E9\u5F53\u524D\u6587\u4EF6\u5939",
+      "add.folderBrowserCancel": "\u53D6\u6D88",
+      "add.folderBrowserFail": "\u65E0\u6CD5\u8BFB\u53D6\u76EE\u5F55\uFF0C\u8BF7\u68C0\u67E5\u8DEF\u5F84\u540E\u91CD\u8BD5\u3002",
+      "add.folderRequired": "\u8BF7\u5148\u9009\u62E9\u9879\u76EE\u6587\u4EF6\u5939\u7684\u4F4D\u7F6E",
+      "add.layoutSave": "\u8FDB\u5165\u5DE5\u4F5C\u533A",
+      "add.layoutInvalid": "\u8BF7\u586B\u5199\u5E03\u5C40\u540D\u79F0",
+      "manage.deleteLayout": "\u5220\u9664\u5E03\u5C40",
+      "manage.deleteProject": "\u5220\u9664\u9879\u76EE",
+      "manage.changeView": "\u53D8\u66F4\u89C6\u56FE",
+      "viewPick.title": "\u9009\u62E9\u65B0\u89C6\u56FE\uFF08\u5185\u5BB9\u7A97\u81EA\u52A8\u8FC1\u5165\uFF09",
+      "confirm.title": "\u5220\u9664\u9879\u76EE",
+      "confirm.cancel": "\u53D6\u6D88",
+      "confirm.delete": "\u5220\u9664",
+      "confirm.layoutBody": "\u786E\u5B9A\u5220\u9664\u300C{name}\u300D\uFF1F\u8BE5\u5DE5\u4F5C\u533A\u53CA\u5176\u5E03\u5C40\u5C06\u88AB\u79FB\u9664\uFF0C\u6B64\u64CD\u4F5C\u4E0D\u53EF\u6062\u590D\u3002",
+      "confirm.shortcutBody": "\u786E\u5B9A\u5220\u9664\u5FEB\u6377\u65B9\u5F0F\u300C{name}\u300D\uFF1F\u6B64\u64CD\u4F5C\u4E0D\u53EF\u6062\u590D\u3002",
+      "confirm.projectBody": "\u300C{name}\u300D\u5C06\u4ECE\u5DE5\u4F5C\u53F0\u5F7B\u5E95\u79FB\u9664\uFF08\u5BF9\u8BDD\u4E0E\u9879\u76EE\u6587\u4EF6\u90FD\u4FDD\u7559\uFF0C\u53EA\u662F\u4E0D\u518D\u663E\u793A\u9879\u76EE\u5361\u7247\uFF09\u3002",
+      "pane.browser": "\u6D4F\u89C8\u5668",
+      "pane.explorer": "\u8D44\u6E90\u7BA1\u7406\u5668",
+      "pane.scm": "\u6E90\u4EE3\u7801\u7BA1\u7406",
+      "pane.tasks": "\u4EFB\u52A1\u7BA1\u7406",
+      "pane.terminal": "\u7EC8\u7AEF",
+      "pane.custom": "\u81EA\u5B9A\u4E49",
+      "pane.anim": "\u52A8\u753B",
+      "pane.console": "\u63A7\u5236\u5BA4",
+      "pane.refresh": "\u5237\u65B0",
+      "pane.animUrlPh": "\u7C98\u8D34\u52A8\u753B\u7AD9\u70B9\u5730\u5740\u540E\u56DE\u8F66",
+      "custom.title": "\u81EA\u5B9A\u4E49\u8FD9\u4E2A\u7A97\u53E3",
+      "custom.hint": "\u53D1\u9001\u540E\u5C06\u81EA\u52A8\u65B0\u5EFA\u4E00\u4E2A\u4F1A\u8BDD\uFF0C\u4E13\u95E8\u8D1F\u8D23\u8FD9\u4E2A\u7A97\u53E3\u7684\u81EA\u5B9A\u4E49\u8BBE\u8BA1\u3002",
+      "custom.placeholder": "\u544A\u8BC9 AI \u4F60\u60F3\u8BA9\u8FD9\u4E2A\u7A97\u53E3\u505A\u4EC0\u4E48\uFF0C\u4F8B\u5982\uFF1A\u505A\u4E00\u4E2A\u5C55\u793A\u6211\u65C5\u884C\u8DB3\u8FF9\u7684\u65F6\u95F4\u7EBF\u9875\u9762\u2026",
+      "custom.project": "\u6240\u5C5E\u9879\u76EE",
+      "custom.modeNew": "\u65B0\u5EFA\u5BF9\u8BDD",
+      "custom.modeSend": "\u53D1\u9001\u5230\u4F1A\u8BDD",
+      "custom.session": "\u9009\u62E9\u4F1A\u8BDD",
+      "custom.sessionCurrent": "\uFF08\u5F53\u524D\uFF09",
+      "custom.hintSend": "\u5185\u5BB9\u5C06\u76F4\u63A5\u53D1\u9001\u5230\u4F60\u9009\u62E9\u7684\u4F1A\u8BDD\uFF08\u9ED8\u8BA4\u5F53\u524D\u4F1A\u8BDD\uFF09\uFF0C\u7528\u4E8E\u8BA8\u8BBA\u8FD9\u4E2A\u7A97\u53E3\u7684\u81EA\u5B9A\u4E49\u8BBE\u8BA1\u3002",
+      "custom.send": "\u53D1\u9001\u5E76\u65B0\u5EFA\u5BF9\u8BDD",
+      "custom.sendToSession": "\u53D1\u9001\u5230\u8BE5\u4F1A\u8BDD",
+      "custom.sent": "\u5DF2\u53D1\u9001\u5230\u4F1A\u8BDD",
+      "custom.done": "\u5DF2\u65B0\u5EFA\u4E13\u5C5E\u5BF9\u8BDD",
+      "custom.doneHint": "AI \u6B63\u5728\u65B0\u4F1A\u8BDD\u4E2D\u4E3A\u4F60\u8BBE\u8BA1\u8FD9\u4E2A\u7A97\u53E3\u3002\u5173\u95ED\u672C\u6807\u7B7E\u5373\u53EF\u8FD4\u56DE\u7A97\u53E3\u9009\u62E9\u3002",
+      "custom.fail": "\u521B\u5EFA\u5BF9\u8BDD\u5931\u8D25",
+      "custom.group": "\u5206\u7EC4\uFF08\u5DE5\u4F5C\u533A\uFF09",
+      "custom.groupNone": "\u672A\u5206\u7EC4",
+      "custom.groupNew": "\uFF0B \u65B0\u5EFA\u4E00\u4E2A\u5206\u7EC4\u2026",
+      "custom.groupNewParent": "\u5206\u7EC4\u7236\u76EE\u5F55",
+      "custom.groupNewName": "\u65B0\u5206\u7EC4\u540D",
+      "custom.groupNewParentPh": "\u4F8B\u5982 E:\\AI_Workspace\\DeepseekHarness",
+      "custom.groupNewNamePh": "\u4F8B\u5982 MyProject\uFF08\u5C06\u65B0\u5EFA\u6B64\u6587\u4EF6\u5939\u5E76\u6CE8\u518C\u4E3A\u5206\u7EC4\uFF09",
+      "custom.groupNeedPath": "\u8BF7\u586B\u5199\u5206\u7EC4\u7236\u76EE\u5F55\u548C\u65B0\u5206\u7EC4\u540D",
+      "bind.title": "\u7ED1\u5B9A\u5BF9\u8BDD",
+      "bind.unbind": "\u89E3\u7ED1",
+      "bind.unbound": "\u672A\u7ED1\u5B9A\u5BF9\u8BDD",
+      "bind.titleUnbound": "\u7ED1\u5B9A\u5BF9\u8BDD\uFF08\u672A\u7ED1\u5B9A \u25CB\u25CB\uFF09\uFF1A\u70B9\u51FB\u9009\u62E9\u8981\u8DDF\u968F\u7684\u5BF9\u8BDD",
+      "bind.titleBound": "\u5DF2\u7ED1\u5B9A\u5BF9\u8BDD\uFF08\u25CF\u25CF\uFF09\uFF1A\u70B9\u51FB\u66F4\u6362\u6216\u89E3\u7ED1",
+      "bind.tipUnbound": "\u672A\u7ED1\u5B9A\u5BF9\u8BDD\uFF1A\u70B9\u51FB\u9009\u62E9\u8981\u8DDF\u968F\u7684\u5BF9\u8BDD",
+      "bind.tipDone": "\uFF08\u4EFB\u52A1\u5DF2\u5B8C\u6210\uFF0C\u70B9\u51FB\u9879\u76EE\u67E5\u770B\uFF09",
+      "bind.tipBusy": "\uFF08\u5BF9\u8BDD\u6B63\u5728\u5904\u7406\u4EFB\u52A1\u2026\uFF09",
+      "bind.tipNeed": "\uFF08\u9700\u8981\u4F60\u7684\u51B3\u5B9A\uFF0C\u70B9\u51FB\u9879\u76EE\u5904\u7406\uFF09",
+      "bind.folder": "\u9879\u76EE\u6587\u4EF6\u5939",
+      "bind.folderChange": "\u66F4\u6539",
+      "bind.folderNone": "\u672A\u8BBE\u7F6E\uFF08\u5EFA\u8BAE\u8BBE\u7F6E\uFF1A\u9879\u76EE\u4EA7\u51FA\u6587\u4EF6\u90FD\u4F1A\u653E\u8FDB\u8FD9\u91CC\uFF09",
+      "bind.tipBound": "\u5DF2\u7ED1\u5B9A\u5BF9\u8BDD\uFF1A{name}",
+      "bind.clickPick": "\u70B9\u51FB\u9009\u62E9\u5BF9\u8BDD",
+      "bind.hint": "\u6253\u5F00\u9879\u76EE\u65F6\uFF0C\u53F3\u4FA7\u5BF9\u8BDD\u7A97\u4F1A\u81EA\u52A8\u5207\u6362\u5230\u8FD9\u4E2A\u5BF9\u8BDD\u3002",
+      "customLayout.add": "\u81EA\u5B9A\u4E49",
+      "customLayout.addTitle": "\u81EA\u5B9A\u4E49\u4E00\u4E2A\u5E03\u5C40\uFF08\u751F\u6210\u63D0\u793A\u8BCD\uFF09",
+      "customLayout.title": "\u81EA\u5B9A\u4E49\u5E03\u5C40",
+      "customLayout.placeholder": "\u63CF\u8FF0\u4F60\u60F3\u8981\u7684\u5E03\u5C40\uFF0C\u4F8B\u5982\uFF1A\u53F3\u4FA7\u7AD6\u957F\u5BF9\u8BDD\u7A97\uFF0C\u5DE6\u4FA7\u4E0A\u4E0B\u4E24\u4E2A\u4E00\u6837\u5927\u7684\u7A97\u2026",
+      "customLayout.copy": "\u590D\u5236\u63D0\u793A\u8BCD\u5230\u526A\u8D34\u677F",
+      "customLayout.copied": "\u63D0\u793A\u8BCD\u5DF2\u590D\u5236\u5230\u526A\u8D34\u677F\u3002\u53BB\u4EFB\u610F\u4E00\u4E2A DSH \u5BF9\u8BDD\u91CC\u7C98\u8D34\u53D1\u9001\uFF0C\u5BF9\u65B9\u7684 dsh \u5C31\u77E5\u9053\u8981\u505A\u4EC0\u4E48\u4E86\u3002",
+      "customLayout.copyFail": "\u590D\u5236\u5931\u8D25\uFF0C\u8BF7\u624B\u52A8\u5168\u9009\u8F93\u5165\u6846\u5185\u5BB9\u590D\u5236\u3002",
+      "custom.autoBound": "\u5DF2\u81EA\u52A8\u628A\u8FD9\u4E2A\u9879\u76EE\u7ED1\u5B9A\u5230\u8FD9\u4E2A\u5BF9\u8BDD\uFF08\u5361\u7247\u4E0A\u7684 \u25CF\u25CF \u6309\u94AE\u53EF\u66F4\u6362\u6216\u89E3\u7ED1\uFF09\u3002",
+      "custom.keptBinding": "\u8BE5\u9879\u76EE\u5DF2\u6709\u7ED1\u5B9A\u7684\u5BF9\u8BDD\uFF0C\u6309\u89C4\u5219\u672A\u81EA\u52A8\u66F4\u6539\u3002",
+      "console.name": "\u63A7\u5236\u5BA4",
+      "console.title": "\u63A7\u5236\u5BA4",
+      "console.themeLabel": "\u9762\u677F\u4E3B\u9898",
+      "console.themeDark": "\u6DF1\u8272",
+      "console.themeLight": "\u767D\u8272",
+      "console.themeSystem": "\u8DDF\u968F\u7CFB\u7EDF",
+      "console.idle": "\u7A7A\u95F2",
+      "console.busy": "\u5DE5\u4F5C\u4E2D",
+      "console.need": "\u5F85\u4F60\u51B3\u5B9A",
+      "console.done": "\u5DF2\u5B8C\u6210",
+      "console.kids": "\u5B50\u4EE3\u7406",
+      "console.noPreview": "\u6682\u65E0\u6D88\u606F",
+      "console.unboundShort": "\u672A\u7ED1\u5B9A\u5BF9\u8BDD",
+      "console.jump": "\u8DF3\u8F6C\u5230\u7ED1\u5B9A\u5BF9\u8BDD",
+      "console.empty": "\u8FD8\u6CA1\u6709\u9879\u76EE",
+      "console.joinExisting": "\u52A0\u5165\u73B0\u6709\u5BF9\u8BDD",
+      "console.newConv": "\u65B0\u5EFA\u5BF9\u8BDD",
+      "console.groupNone": "\u65E0\u5206\u7EC4\uFF08\u7528\u9879\u76EE\u6587\u4EF6\u5939\uFF09",
+      "console.groupExisting": "\u52A0\u5165\u73B0\u6709\u5206\u7EC4",
+      "console.groupNew": "\u65B0\u5EFA\u5206\u7EC4",
+      "console.newParentPh": "\u5206\u7EC4\u7236\u76EE\u5F55\uFF0C\u4F8B\u5982 E:\\AI_Workspace",
+      "console.newNamePh": "\u5206\u7EC4\u6587\u4EF6\u5939\u540D\uFF08\u5C06\u521B\u5EFA\u5E76\u6CE8\u518C\uFF09",
+      "console.createBind": "\u65B0\u5EFA\u5E76\u7ED1\u5B9A",
+      "console.bindFail": "\u521B\u5EFA\u5931\u8D25\uFF0C\u8BF7\u91CD\u8BD5",
+      "console.noSessions": "\u6CA1\u6709\u53EF\u7528\u5BF9\u8BDD",
+      "console.addProject": "\u6DFB\u52A0\u9879\u76EE",
+      "pane.wip": "\u5F00\u53D1\u4E2D\uFF08\u540E\u7EED\u7248\u672C\u63A5\u5165\uFF09",
+      "pane.explorerNoCwd": "\u5F53\u524D\u4F1A\u8BDD\u6CA1\u6709\u5DE5\u4F5C\u76EE\u5F55",
+      "pane.openLater": "\u8BE5\u7C7B\u578B\u6682\u4E0D\u652F\u6301\u9884\u89C8",
+      "file.loading": "\u52A0\u8F7D\u4E2D\u2026",
+      "file.fail": "\u6587\u4EF6\u8BFB\u53D6\u5931\u8D25",
+      "file.preview": "\u9884\u89C8",
+      "file.edit": "\u7F16\u8F91",
+      "file.save": "\u4FDD\u5B58",
+      "file.saveFail": "\u4FDD\u5B58\u5931\u8D25",
+      "pane.gitNotRepo": "\u5F53\u524D\u76EE\u5F55\u4E0D\u662F git \u4ED3\u5E93",
+      "pane.gitClean": "\u5DE5\u4F5C\u533A\u5E72\u51C0",
+      "pane.jobsEmpty": "\u5F53\u524D\u4F1A\u8BDD\u6682\u65E0\u540E\u53F0\u4EFB\u52A1",
+      "pane.termFail": "\u7EC8\u7AEF\u4E0D\u53EF\u7528\uFF08\u5BBF\u4E3B\u7F3A\u5C11 node-pty/ws \u6216\u8FDE\u63A5\u5931\u8D25\uFF09",
+      "pane.closeTab": "\u5173\u95ED\u6807\u7B7E\u9875",
+      "pane.jobsTitle": "\u540E\u53F0\u4EFB\u52A1",
+      "pane.subagents": "\u5B50\u4EE3\u7406",
+      "pane.subagentsEmpty": "\u5F53\u524D\u4F1A\u8BDD\u6682\u65E0\u5B50\u4EE3\u7406",
+      "split.flip": "\u5207\u6362\u5BF9\u8BDD\u7A97\u4F4D\u7F6E\uFF08\u5DE6\u21C4\u53F3\uFF09",
+      "split.dragSwap": "\u62D6\u52A8\u6807\u9898\u680F\u4E0E\u5176\u4ED6\u7A97\u4EA4\u6362\u4F4D\u7F6E",
+      "icons.title": "\u9009\u62E9\u56FE\u6807",
+      "icons.change": "\u66F4\u6362\u56FE\u6807",
+      "empty": "\u6682\u65E0\u9879\u76EE",
+      "update.badgeTitle": "\u6709\u65B0\u7248\u672C\u53EF\u7528",
+      "update.available": "\u65B0\u7248\u672C\u53EF\u7528",
+      "update.current": "\u5F53\u524D\u7248\u672C",
+      "update.copyAi": "\u590D\u5236 AI \u63D0\u793A\u8BCD",
+      "update.skip": "\u5FFD\u7565\u6B64\u7248\u672C",
+      "update.autoCheck": "\u81EA\u52A8\u68C0\u67E5\u66F4\u65B0",
+      "update.checkNow": "\u7ACB\u5373\u68C0\u67E5",
+      "update.checkFail": "\u4E0A\u6B21\u68C0\u67E5\u672A\u6210\u529F",
+      "update.checking": "\u68C0\u67E5\u4E2D\u2026",
+      "update.upToDate": "\u5DF2\u662F\u6700\u65B0\u7248\u672C",
+      "update.copied": "\u5DF2\u590D\u5236",
+      "update.copyFail": "\u590D\u5236\u5931\u8D25\uFF0C\u8BF7\u624B\u52A8\u9009\u62E9\u6587\u672C",
+      "update.skipDone": "\u5DF2\u5FFD\u7565\u6B64\u7248\u672C\uFF08\u4E0B\u4E00\u7248\u53D1\u5E03\u65F6\u518D\u63D0\u9192\uFF09",
+      "update.upgradeHint": "\u6267\u884C\u547D\u4EE4\u540E\u9700\u91CD\u542F dsh web \u5E76\u5237\u65B0\u9875\u9762"
+    };
+    en = {
+      "title": "Worktable",
+      "rail.title": "Worktable (expand sidebar to view)",
+      "handle.title": "Drag to move \xB7 double-click to reset",
+      "handle.aria": "Drag worktable position",
+      "menu.search": "Search projects",
+      "menu.viewOptions": "Settings",
+      "menu.add": "Add project",
+      "search.placeholder": "Search projects\u2026",
+      "search.close": "Close search",
+      "sort.label": "Sort by",
+      "sort.manual": "Manual",
+      "sort.recent": "Recent",
+      "menu.manage": "Manage projects\u2026",
+      "add.guideTitle": "Add a project",
+      "add.guideBody": "Projects in the worktable are DSH plugins \u2014 a plugin joins by registering a worktable project card (protocol in the project PRD \xA75.3). Installed plugins that have not registered need to do so in their code.",
+      "add.market": "Browse plugin marketplace",
+      "add.shortcutTitle": "Local shortcut",
+      "add.shortcutDesc": "Pin any URL into the worktable; opens in a new tab (stored locally only).",
+      "add.shortcutNamePh": "Name",
+      "add.shortcutIcon": "Icon (emoji, optional)",
+      "add.shortcutHref": "URL (http/https)",
+      "add.shortcutAdd": "Add",
+      "add.shortcutInvalid": "Enter a name and a valid http/https URL",
+      "manage.title": "Manage projects",
+      "manage.done": "Done",
+      "manage.renamePh": "Display name",
+      "manage.hide": "Hide",
+      "manage.show": "Show",
+      "manage.removed": "Removed projects",
+      "manage.readd": "Re-add",
+      "manage.deleteShortcut": "Delete shortcut",
+      "shortcut.badge": "Local",
+      "add.chooseLayout": "Choose a layout",
+      "add.layoutNamePh": "Layout name",
+      "add.defaultName": "New layout {index}",
+      "add.folderParent": "Project folder",
+      "add.folderPick": "Choose\u2026",
+      "add.folderNone": "Enter an absolute path, or click Choose\u2026 to pick a folder",
+      "add.folderPicking": "Opening\u2026",
+      "add.folderPickFail": "Could not open the folder picker. Enter an absolute folder path instead.",
+      "add.folderBrowserTitle": "Choose project folder",
+      "add.folderBrowserPath": "Folder path",
+      "add.folderBrowserUp": "Up",
+      "add.folderBrowserRefresh": "Refresh",
+      "add.folderBrowserEmpty": "No child folders in this directory",
+      "add.folderBrowserTruncated": "Too many entries; showing the first 500",
+      "add.folderBrowserSelect": "Use this folder",
+      "add.folderBrowserCancel": "Cancel",
+      "add.folderBrowserFail": "Could not read this directory. Check the path and try again.",
+      "add.folderRequired": "Pick the project folder location first",
+      "add.layoutSave": "Enter workspace",
+      "add.layoutInvalid": "Enter a layout name",
+      "manage.deleteLayout": "Delete layout",
+      "manage.deleteProject": "Delete project",
+      "manage.changeView": "Change layout",
+      "viewPick.title": "Pick a new layout (panes migrate automatically)",
+      "confirm.title": "Delete project",
+      "confirm.cancel": "Cancel",
+      "confirm.delete": "Delete",
+      "confirm.layoutBody": 'Delete "{name}"? Its workspace and layout will be removed. This cannot be undone.',
+      "confirm.shortcutBody": 'Delete shortcut "{name}"? This cannot be undone.',
+      "confirm.projectBody": '"{name}" will be removed from the worktable permanently (the conversation and project files are kept).',
+      "pane.browser": "Browser",
+      "pane.explorer": "Explorer",
+      "pane.scm": "Source control",
+      "pane.tasks": "Tasks",
+      "pane.terminal": "Terminal",
+      "pane.custom": "Custom",
+      "pane.anim": "Animation",
+      "pane.console": "Console",
+      "pane.refresh": "Refresh",
+      "pane.animUrlPh": "Paste the animation site URL and press Enter",
+      "custom.title": "Customize this pane",
+      "custom.hint": "Sending will create a new conversation dedicated to designing this pane.",
+      "custom.placeholder": "Tell the AI what you want this pane to do, e.g. a timeline page of my travels\u2026",
+      "custom.project": "Project",
+      "custom.modeNew": "New conversation",
+      "custom.modeSend": "Send to a conversation",
+      "custom.session": "Conversation",
+      "custom.sessionCurrent": " (current)",
+      "custom.hintSend": "The content will be sent directly to the conversation you pick (current by default).",
+      "custom.send": "Send & create conversation",
+      "custom.sendToSession": "Send to this conversation",
+      "custom.sent": "Sent to the conversation",
+      "custom.done": "Conversation created",
+      "custom.doneHint": "The AI is designing your pane in the new conversation. Close this tab to return to the pane picker.",
+      "custom.fail": "Failed to create conversation",
+      "custom.group": "Group (workspace)",
+      "custom.groupNone": "Ungrouped",
+      "custom.groupNew": "\uFF0B Create a new group\u2026",
+      "custom.groupNewParent": "Group parent folder",
+      "custom.groupNewName": "New group name",
+      "custom.groupNewParentPh": "e.g. E:\\AI_Workspace\\DeepseekHarness",
+      "custom.groupNewNamePh": "e.g. MyProject (folder will be created and registered)",
+      "custom.groupNeedPath": "Fill in the parent folder and new group name",
+      "bind.title": "Bind conversation",
+      "bind.unbind": "Unbind",
+      "bind.unbound": "No conversation bound",
+      "bind.titleUnbound": "Bind conversation (unbound \u25CB\u25CB): pick the conversation to follow",
+      "bind.titleBound": "Conversation bound (\u25CF\u25CF): click to change or unbind",
+      "bind.tipUnbound": "No conversation bound \u2014 click to pick one",
+      "bind.tipDone": " (task completed \u2014 click the project to view)",
+      "bind.tipBusy": " (conversation is working on the task\u2026)",
+      "bind.tipNeed": " (needs your decision \u2014 click the project to handle)",
+      "bind.folder": "Project folder",
+      "bind.folderChange": "Change",
+      "bind.folderNone": "Not set (recommended: project outputs go here)",
+      "bind.tipBound": "Bound to: {name}",
+      "bind.clickPick": "click to pick",
+      "bind.hint": "Opening the project switches the right chat pane to this conversation.",
+      "customLayout.add": "Custom",
+      "customLayout.addTitle": "Customize a layout (generate a prompt)",
+      "customLayout.title": "Custom layout",
+      "customLayout.placeholder": "Describe the layout you want, e.g. a tall chat column on the right and two equal panes stacked on the left\u2026",
+      "customLayout.copy": "Copy prompt to clipboard",
+      "customLayout.copied": "Prompt copied to clipboard. Paste it into any DSH conversation and send \u2014 that dsh will know what to do.",
+      "customLayout.copyFail": "Copy failed \u2014 select the text above and copy it manually.",
+      "custom.autoBound": "This project was auto-bound to this conversation (use the \u25CF\u25CF button on its card to change or unbind).",
+      "custom.keptBinding": "This project already has a bound conversation, so it was not auto-changed.",
+      "console.name": "Console",
+      "console.title": "Console",
+      "console.themeLabel": "Panel theme",
+      "console.themeDark": "Dark",
+      "console.themeLight": "Light",
+      "console.themeSystem": "System",
+      "console.idle": "Idle",
+      "console.busy": "Working",
+      "console.need": "Needs you",
+      "console.done": "Done",
+      "console.kids": "subagents",
+      "console.noPreview": "No messages yet",
+      "console.unboundShort": "No conversation bound",
+      "console.jump": "Jump to bound conversation",
+      "console.empty": "No projects yet",
+      "console.joinExisting": "Join existing conversation",
+      "console.newConv": "New conversation",
+      "console.groupNone": "No group (use project folder)",
+      "console.groupExisting": "Join existing group",
+      "console.groupNew": "New group",
+      "console.newParentPh": "Group parent folder, e.g. E:\\AI_Workspace",
+      "console.newNamePh": "Group folder name (created & registered)",
+      "console.createBind": "Create & bind",
+      "console.bindFail": "Creation failed, try again",
+      "console.noSessions": "No sessions available",
+      "console.addProject": "Add project",
+      "pane.wip": "Coming in a later version",
+      "pane.explorerNoCwd": "No working directory for the current session",
+      "pane.openLater": "Preview not supported for this type",
+      "file.loading": "Loading\u2026",
+      "file.fail": "Failed to read file",
+      "file.preview": "Preview",
+      "file.edit": "Edit",
+      "file.save": "Save",
+      "file.saveFail": "Save failed",
+      "pane.gitNotRepo": "Not a git repository",
+      "pane.gitClean": "Working tree clean",
+      "pane.jobsEmpty": "No background jobs in the current session",
+      "pane.termFail": "Terminal unavailable (host missing node-pty/ws, or connection failed)",
+      "pane.closeTab": "Close tab",
+      "pane.jobsTitle": "Background jobs",
+      "pane.subagents": "Subagents",
+      "pane.subagentsEmpty": "No subagents in the current session",
+      "split.flip": "Flip chat side (left \u21C4 right)",
+      "split.dragSwap": "Drag the title bar to swap panes",
+      "icons.title": "Pick an icon",
+      "icons.change": "Change icon",
+      "empty": "No projects yet",
+      "update.badgeTitle": "New version available",
+      "update.available": "New version available",
+      "update.current": "Current version",
+      "update.copyAi": "Copy AI prompt",
+      "update.skip": "Skip this version",
+      "update.autoCheck": "Auto-check updates",
+      "update.checkNow": "Check now",
+      "update.checkFail": "Last check failed",
+      "update.checking": "Checking\u2026",
+      "update.upToDate": "Up to date",
+      "update.copied": "Copied",
+      "update.copyFail": "Copy failed \u2014 select the text manually",
+      "update.skipDone": "Skipped (will remind on the next release)",
+      "update.upgradeHint": "Run the command, then restart dsh web and refresh"
+    };
+    NS = "worktable";
+  }
+});
+
+// src/client/pathutil.ts
+function isAbs(p) {
+  if (/^[A-Za-z]:[\\/]/.test(p)) return true;
+  if (p.startsWith("\\\\")) return true;
+  if (p.startsWith("/")) return true;
+  return false;
+}
+function joinPath(base2, rel) {
+  const relTrim = rel.replace(/^[\\/]+/, "").replace(/[\\/]+$/, "");
+  const sep = base2.includes("\\") ? "\\" : "/";
+  if (base2 === "/" || base2 === "\\") return base2 + relTrim;
+  if (/^[A-Za-z]:[\\/]$/.test(base2)) return base2 + relTrim;
+  const baseTrim = base2.replace(/[\\/]+$/, "");
+  if (!baseTrim) return relTrim || sep;
+  return baseTrim + sep + relTrim;
+}
+function parentPathOf(p) {
+  const idx = Math.max(p.lastIndexOf("/"), p.lastIndexOf("\\"));
+  if (idx < 0) return p;
+  if (idx === 0) return p[0];
+  if (idx === 2 && /^[A-Za-z]:[\\/]/.test(p)) return p.slice(0, 3);
+  return p.slice(0, idx);
+}
+function basenameOf(p) {
+  const idx = Math.max(p.lastIndexOf("/"), p.lastIndexOf("\\"));
+  return idx < 0 ? p : p.slice(idx + 1);
+}
+var init_pathutil = __esm({
+  "src/client/pathutil.ts"() {
+  }
+});
 
 // node_modules/xterm/lib/xterm.js
 var require_xterm = __commonJS({
@@ -5978,6 +7113,5340 @@ WARNING: This link could potentially be dangerous`)) {
   }
 });
 
+// node_modules/mdurl/lib/decode.mjs
+function getDecodeCache(exclude) {
+  let cache = decodeCache[exclude];
+  if (cache) {
+    return cache;
+  }
+  cache = decodeCache[exclude] = [];
+  for (let i = 0; i < 128; i++) {
+    const ch = String.fromCharCode(i);
+    cache.push(ch);
+  }
+  for (let i = 0; i < exclude.length; i++) {
+    const ch = exclude.charCodeAt(i);
+    cache[ch] = "%" + ("0" + ch.toString(16).toUpperCase()).slice(-2);
+  }
+  return cache;
+}
+function decode(string, exclude) {
+  if (typeof exclude !== "string") {
+    exclude = decode.defaultChars;
+  }
+  const cache = getDecodeCache(exclude);
+  return string.replace(/(%[a-f0-9]{2})+/gi, function(seq) {
+    let result = "";
+    for (let i = 0, l = seq.length; i < l; i += 3) {
+      const b1 = parseInt(seq.slice(i + 1, i + 3), 16);
+      if (b1 < 128) {
+        result += cache[b1];
+        continue;
+      }
+      if ((b1 & 224) === 192 && i + 3 < l) {
+        const b2 = parseInt(seq.slice(i + 4, i + 6), 16);
+        if ((b2 & 192) === 128) {
+          const chr = b1 << 6 & 1984 | b2 & 63;
+          if (chr < 128) {
+            result += "\uFFFD\uFFFD";
+          } else {
+            result += String.fromCharCode(chr);
+          }
+          i += 3;
+          continue;
+        }
+      }
+      if ((b1 & 240) === 224 && i + 6 < l) {
+        const b2 = parseInt(seq.slice(i + 4, i + 6), 16);
+        const b3 = parseInt(seq.slice(i + 7, i + 9), 16);
+        if ((b2 & 192) === 128 && (b3 & 192) === 128) {
+          const chr = b1 << 12 & 61440 | b2 << 6 & 4032 | b3 & 63;
+          if (chr < 2048 || chr >= 55296 && chr <= 57343) {
+            result += "\uFFFD\uFFFD\uFFFD";
+          } else {
+            result += String.fromCharCode(chr);
+          }
+          i += 6;
+          continue;
+        }
+      }
+      if ((b1 & 248) === 240 && i + 9 < l) {
+        const b2 = parseInt(seq.slice(i + 4, i + 6), 16);
+        const b3 = parseInt(seq.slice(i + 7, i + 9), 16);
+        const b4 = parseInt(seq.slice(i + 10, i + 12), 16);
+        if ((b2 & 192) === 128 && (b3 & 192) === 128 && (b4 & 192) === 128) {
+          let chr = b1 << 18 & 1835008 | b2 << 12 & 258048 | b3 << 6 & 4032 | b4 & 63;
+          if (chr < 65536 || chr > 1114111) {
+            result += "\uFFFD\uFFFD\uFFFD\uFFFD";
+          } else {
+            chr -= 65536;
+            result += String.fromCharCode(55296 + (chr >> 10), 56320 + (chr & 1023));
+          }
+          i += 9;
+          continue;
+        }
+      }
+      result += "\uFFFD";
+    }
+    return result;
+  });
+}
+var decodeCache, decode_default;
+var init_decode = __esm({
+  "node_modules/mdurl/lib/decode.mjs"() {
+    decodeCache = {};
+    decode.defaultChars = ";/?:@&=+$,#";
+    decode.componentChars = "";
+    decode_default = decode;
+  }
+});
+
+// node_modules/mdurl/lib/encode.mjs
+function getEncodeCache(exclude) {
+  let cache = encodeCache[exclude];
+  if (cache) {
+    return cache;
+  }
+  cache = encodeCache[exclude] = [];
+  for (let i = 0; i < 128; i++) {
+    const ch = String.fromCharCode(i);
+    if (/^[0-9a-z]$/i.test(ch)) {
+      cache.push(ch);
+    } else {
+      cache.push("%" + ("0" + i.toString(16).toUpperCase()).slice(-2));
+    }
+  }
+  for (let i = 0; i < exclude.length; i++) {
+    cache[exclude.charCodeAt(i)] = exclude[i];
+  }
+  return cache;
+}
+function encode(string, exclude, keepEscaped) {
+  if (typeof exclude !== "string") {
+    keepEscaped = exclude;
+    exclude = encode.defaultChars;
+  }
+  if (typeof keepEscaped === "undefined") {
+    keepEscaped = true;
+  }
+  const cache = getEncodeCache(exclude);
+  let result = "";
+  for (let i = 0, l = string.length; i < l; i++) {
+    const code2 = string.charCodeAt(i);
+    if (keepEscaped && code2 === 37 && i + 2 < l) {
+      if (/^[0-9a-f]{2}$/i.test(string.slice(i + 1, i + 3))) {
+        result += string.slice(i, i + 3);
+        i += 2;
+        continue;
+      }
+    }
+    if (code2 < 128) {
+      result += cache[code2];
+      continue;
+    }
+    if (code2 >= 55296 && code2 <= 57343) {
+      if (code2 >= 55296 && code2 <= 56319 && i + 1 < l) {
+        const nextCode = string.charCodeAt(i + 1);
+        if (nextCode >= 56320 && nextCode <= 57343) {
+          result += encodeURIComponent(string[i] + string[i + 1]);
+          i++;
+          continue;
+        }
+      }
+      result += "%EF%BF%BD";
+      continue;
+    }
+    result += encodeURIComponent(string[i]);
+  }
+  return result;
+}
+var encodeCache, encode_default;
+var init_encode = __esm({
+  "node_modules/mdurl/lib/encode.mjs"() {
+    encodeCache = {};
+    encode.defaultChars = ";/?:@&=+$,-_.!~*'()#";
+    encode.componentChars = "-_.!~*'()";
+    encode_default = encode;
+  }
+});
+
+// node_modules/mdurl/lib/format.mjs
+function format(url) {
+  let result = "";
+  result += url.protocol || "";
+  result += url.slashes ? "//" : "";
+  result += url.auth ? url.auth + "@" : "";
+  if (url.hostname && url.hostname.indexOf(":") !== -1) {
+    result += "[" + url.hostname + "]";
+  } else {
+    result += url.hostname || "";
+  }
+  result += url.port ? ":" + url.port : "";
+  result += url.pathname || "";
+  result += url.search || "";
+  result += url.hash || "";
+  return result;
+}
+var init_format = __esm({
+  "node_modules/mdurl/lib/format.mjs"() {
+  }
+});
+
+// node_modules/mdurl/lib/parse.mjs
+function Url() {
+  this.protocol = null;
+  this.slashes = null;
+  this.auth = null;
+  this.port = null;
+  this.hostname = null;
+  this.hash = null;
+  this.search = null;
+  this.pathname = null;
+}
+function urlParse(url, slashesDenoteHost) {
+  if (url && url instanceof Url) return url;
+  const u = new Url();
+  u.parse(url, slashesDenoteHost);
+  return u;
+}
+var protocolPattern, portPattern, simplePathPattern, delims, unwise, autoEscape, nonHostChars, hostEndingChars, hostnameMaxLen, hostnamePartPattern, hostnamePartStart, hostlessProtocol, slashedProtocol, parse_default;
+var init_parse = __esm({
+  "node_modules/mdurl/lib/parse.mjs"() {
+    protocolPattern = /^([a-z0-9.+-]+:)/i;
+    portPattern = /:[0-9]*$/;
+    simplePathPattern = /^(\/\/?(?!\/)[^\?\s]*)(\?[^\s]*)?$/;
+    delims = ["<", ">", '"', "`", " ", "\r", "\n", "	"];
+    unwise = ["{", "}", "|", "\\", "^", "`"].concat(delims);
+    autoEscape = ["'"].concat(unwise);
+    nonHostChars = ["%", "/", "?", ";", "#"].concat(autoEscape);
+    hostEndingChars = ["/", "?", "#"];
+    hostnameMaxLen = 255;
+    hostnamePartPattern = /^[+a-z0-9A-Z_-]{0,63}$/;
+    hostnamePartStart = /^([+a-z0-9A-Z_-]{0,63})(.*)$/;
+    hostlessProtocol = {
+      javascript: true,
+      "javascript:": true
+    };
+    slashedProtocol = {
+      http: true,
+      https: true,
+      ftp: true,
+      gopher: true,
+      file: true,
+      "http:": true,
+      "https:": true,
+      "ftp:": true,
+      "gopher:": true,
+      "file:": true
+    };
+    Url.prototype.parse = function(url, slashesDenoteHost) {
+      let lowerProto, hec, slashes;
+      let rest = url;
+      rest = rest.trim();
+      if (!slashesDenoteHost && url.split("#").length === 1) {
+        const simplePath = simplePathPattern.exec(rest);
+        if (simplePath) {
+          this.pathname = simplePath[1];
+          if (simplePath[2]) {
+            this.search = simplePath[2];
+          }
+          return this;
+        }
+      }
+      let proto = protocolPattern.exec(rest);
+      if (proto) {
+        proto = proto[0];
+        lowerProto = proto.toLowerCase();
+        this.protocol = proto;
+        rest = rest.substr(proto.length);
+      }
+      if (slashesDenoteHost || proto || rest.match(/^\/\/[^@\/]+@[^@\/]+/)) {
+        slashes = rest.substr(0, 2) === "//";
+        if (slashes && !(proto && hostlessProtocol[proto])) {
+          rest = rest.substr(2);
+          this.slashes = true;
+        }
+      }
+      if (!hostlessProtocol[proto] && (slashes || proto && !slashedProtocol[proto])) {
+        let hostEnd = -1;
+        for (let i = 0; i < hostEndingChars.length; i++) {
+          hec = rest.indexOf(hostEndingChars[i]);
+          if (hec !== -1 && (hostEnd === -1 || hec < hostEnd)) {
+            hostEnd = hec;
+          }
+        }
+        let auth, atSign;
+        if (hostEnd === -1) {
+          atSign = rest.lastIndexOf("@");
+        } else {
+          atSign = rest.lastIndexOf("@", hostEnd);
+        }
+        if (atSign !== -1) {
+          auth = rest.slice(0, atSign);
+          rest = rest.slice(atSign + 1);
+          this.auth = auth;
+        }
+        hostEnd = -1;
+        for (let i = 0; i < nonHostChars.length; i++) {
+          hec = rest.indexOf(nonHostChars[i]);
+          if (hec !== -1 && (hostEnd === -1 || hec < hostEnd)) {
+            hostEnd = hec;
+          }
+        }
+        if (hostEnd === -1) {
+          hostEnd = rest.length;
+        }
+        if (rest[hostEnd - 1] === ":") {
+          hostEnd--;
+        }
+        const host = rest.slice(0, hostEnd);
+        rest = rest.slice(hostEnd);
+        this.parseHost(host);
+        this.hostname = this.hostname || "";
+        const ipv6Hostname = this.hostname[0] === "[" && this.hostname[this.hostname.length - 1] === "]";
+        if (!ipv6Hostname) {
+          const hostparts = this.hostname.split(/\./);
+          for (let i = 0, l = hostparts.length; i < l; i++) {
+            const part = hostparts[i];
+            if (!part) {
+              continue;
+            }
+            if (!part.match(hostnamePartPattern)) {
+              let newpart = "";
+              for (let j = 0, k = part.length; j < k; j++) {
+                if (part.charCodeAt(j) > 127) {
+                  newpart += "x";
+                } else {
+                  newpart += part[j];
+                }
+              }
+              if (!newpart.match(hostnamePartPattern)) {
+                const validParts = hostparts.slice(0, i);
+                const notHost = hostparts.slice(i + 1);
+                const bit = part.match(hostnamePartStart);
+                if (bit) {
+                  validParts.push(bit[1]);
+                  notHost.unshift(bit[2]);
+                }
+                if (notHost.length) {
+                  rest = notHost.join(".") + rest;
+                }
+                this.hostname = validParts.join(".");
+                break;
+              }
+            }
+          }
+        }
+        if (this.hostname.length > hostnameMaxLen) {
+          this.hostname = "";
+        }
+        if (ipv6Hostname) {
+          this.hostname = this.hostname.substr(1, this.hostname.length - 2);
+        }
+      }
+      const hash = rest.indexOf("#");
+      if (hash !== -1) {
+        this.hash = rest.substr(hash);
+        rest = rest.slice(0, hash);
+      }
+      const qm = rest.indexOf("?");
+      if (qm !== -1) {
+        this.search = rest.substr(qm);
+        rest = rest.slice(0, qm);
+      }
+      if (rest) {
+        this.pathname = rest;
+      }
+      if (slashedProtocol[lowerProto] && this.hostname && !this.pathname) {
+        this.pathname = "";
+      }
+      return this;
+    };
+    Url.prototype.parseHost = function(host) {
+      let port = portPattern.exec(host);
+      if (port) {
+        port = port[0];
+        if (port !== ":") {
+          this.port = port.substr(1);
+        }
+        host = host.substr(0, host.length - port.length);
+      }
+      if (host) {
+        this.hostname = host;
+      }
+    };
+    parse_default = urlParse;
+  }
+});
+
+// node_modules/mdurl/index.mjs
+var mdurl_exports = {};
+__export(mdurl_exports, {
+  decode: () => decode_default,
+  encode: () => encode_default,
+  format: () => format,
+  parse: () => parse_default
+});
+var init_mdurl = __esm({
+  "node_modules/mdurl/index.mjs"() {
+    init_decode();
+    init_encode();
+    init_format();
+    init_parse();
+  }
+});
+
+// node_modules/uc.micro/build/index.mjs
+var build_exports = {};
+__export(build_exports, {
+  Any: () => Any,
+  Cc: () => Cc,
+  Cf: () => Cf,
+  P: () => P,
+  S: () => S,
+  Z: () => Z
+});
+var Any, Cc, Cf, P, S, Z;
+var init_build = __esm({
+  "node_modules/uc.micro/build/index.mjs"() {
+    Any = /[\0-\uD7FF\uE000-\uFFFF]|[\uD800-\uDBFF][\uDC00-\uDFFF]|[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?:[^\uD800-\uDBFF]|^)[\uDC00-\uDFFF]/;
+    Cc = /[\0-\x1F\x7F-\x9F]/;
+    Cf = /[\xAD\u0600-\u0605\u061C\u06DD\u070F\u0890\u0891\u08E2\u180E\u200B-\u200F\u202A-\u202E\u2060-\u2064\u2066-\u206F\uFEFF\uFFF9-\uFFFB]|\uD804[\uDCBD\uDCCD]|\uD80D[\uDC30-\uDC3F]|\uD82F[\uDCA0-\uDCA3]|\uD834[\uDD73-\uDD7A]|\uDB40[\uDC01\uDC20-\uDC7F]/;
+    P = /[!-#%-\*,-\/:;\?@\[-\]_\{\}\xA1\xA7\xAB\xB6\xB7\xBB\xBF\u037E\u0387\u055A-\u055F\u0589\u058A\u05BE\u05C0\u05C3\u05C6\u05F3\u05F4\u0609\u060A\u060C\u060D\u061B\u061D-\u061F\u066A-\u066D\u06D4\u0700-\u070D\u07F7-\u07F9\u0830-\u083E\u085E\u0964\u0965\u0970\u09FD\u0A76\u0AF0\u0C77\u0C84\u0DF4\u0E4F\u0E5A\u0E5B\u0F04-\u0F12\u0F14\u0F3A-\u0F3D\u0F85\u0FD0-\u0FD4\u0FD9\u0FDA\u104A-\u104F\u10FB\u1360-\u1368\u1400\u166E\u169B\u169C\u16EB-\u16ED\u1735\u1736\u17D4-\u17D6\u17D8-\u17DA\u1800-\u180A\u1944\u1945\u1A1E\u1A1F\u1AA0-\u1AA6\u1AA8-\u1AAD\u1B4E\u1B4F\u1B5A-\u1B60\u1B7D-\u1B7F\u1BFC-\u1BFF\u1C3B-\u1C3F\u1C7E\u1C7F\u1CC0-\u1CC7\u1CD3\u2010-\u2027\u2030-\u2043\u2045-\u2051\u2053-\u205E\u207D\u207E\u208D\u208E\u2308-\u230B\u2329\u232A\u2768-\u2775\u27C5\u27C6\u27E6-\u27EF\u2983-\u2998\u29D8-\u29DB\u29FC\u29FD\u2CF9-\u2CFC\u2CFE\u2CFF\u2D70\u2E00-\u2E2E\u2E30-\u2E4F\u2E52-\u2E5D\u3001-\u3003\u3008-\u3011\u3014-\u301F\u3030\u303D\u30A0\u30FB\uA4FE\uA4FF\uA60D-\uA60F\uA673\uA67E\uA6F2-\uA6F7\uA874-\uA877\uA8CE\uA8CF\uA8F8-\uA8FA\uA8FC\uA92E\uA92F\uA95F\uA9C1-\uA9CD\uA9DE\uA9DF\uAA5C-\uAA5F\uAADE\uAADF\uAAF0\uAAF1\uABEB\uFD3E\uFD3F\uFE10-\uFE19\uFE30-\uFE52\uFE54-\uFE61\uFE63\uFE68\uFE6A\uFE6B\uFF01-\uFF03\uFF05-\uFF0A\uFF0C-\uFF0F\uFF1A\uFF1B\uFF1F\uFF20\uFF3B-\uFF3D\uFF3F\uFF5B\uFF5D\uFF5F-\uFF65]|\uD800[\uDD00-\uDD02\uDF9F\uDFD0]|\uD801\uDD6F|\uD802[\uDC57\uDD1F\uDD3F\uDE50-\uDE58\uDE7F\uDEF0-\uDEF6\uDF39-\uDF3F\uDF99-\uDF9C]|\uD803[\uDD6E\uDEAD\uDED0\uDF55-\uDF59\uDF86-\uDF89]|\uD804[\uDC47-\uDC4D\uDCBB\uDCBC\uDCBE-\uDCC1\uDD40-\uDD43\uDD74\uDD75\uDDC5-\uDDC8\uDDCD\uDDDB\uDDDD-\uDDDF\uDE38-\uDE3D\uDEA9\uDFD4\uDFD5\uDFD7\uDFD8]|\uD805[\uDC4B-\uDC4F\uDC5A\uDC5B\uDC5D\uDCC6\uDDC1-\uDDD7\uDE41-\uDE43\uDE60-\uDE6C\uDEB9\uDF3C-\uDF3E]|\uD806[\uDC3B\uDD44-\uDD46\uDDE2\uDE3F-\uDE46\uDE9A-\uDE9C\uDE9E-\uDEA2\uDF00-\uDF09\uDFE1]|\uD807[\uDC41-\uDC45\uDC70\uDC71\uDEF7\uDEF8\uDF43-\uDF4F\uDFFF]|\uD809[\uDC70-\uDC74]|\uD80B[\uDFF1\uDFF2]|\uD81A[\uDE6E\uDE6F\uDEF5\uDF37-\uDF3B\uDF44]|\uD81B[\uDD6D-\uDD6F\uDE97-\uDE9A\uDFE2]|\uD82F\uDC9F|\uD836[\uDE87-\uDE8B]|\uD839\uDDFF|\uD83A[\uDD5E\uDD5F]/;
+    S = /[\$\+<->\^`\|~\xA2-\xA6\xA8\xA9\xAC\xAE-\xB1\xB4\xB8\xD7\xF7\u02C2-\u02C5\u02D2-\u02DF\u02E5-\u02EB\u02ED\u02EF-\u02FF\u0375\u0384\u0385\u03F6\u0482\u058D-\u058F\u0606-\u0608\u060B\u060E\u060F\u06DE\u06E9\u06FD\u06FE\u07F6\u07FE\u07FF\u0888\u09F2\u09F3\u09FA\u09FB\u0AF1\u0B70\u0BF3-\u0BFA\u0C7F\u0D4F\u0D79\u0E3F\u0F01-\u0F03\u0F13\u0F15-\u0F17\u0F1A-\u0F1F\u0F34\u0F36\u0F38\u0FBE-\u0FC5\u0FC7-\u0FCC\u0FCE\u0FCF\u0FD5-\u0FD8\u109E\u109F\u1390-\u1399\u166D\u17DB\u1940\u19DE-\u19FF\u1B61-\u1B6A\u1B74-\u1B7C\u1FBD\u1FBF-\u1FC1\u1FCD-\u1FCF\u1FDD-\u1FDF\u1FED-\u1FEF\u1FFD\u1FFE\u2044\u2052\u207A-\u207C\u208A-\u208C\u20A0-\u20C1\u2100\u2101\u2103-\u2106\u2108\u2109\u2114\u2116-\u2118\u211E-\u2123\u2125\u2127\u2129\u212E\u213A\u213B\u2140-\u2144\u214A-\u214D\u214F\u218A\u218B\u2190-\u2307\u230C-\u2328\u232B-\u2429\u2440-\u244A\u249C-\u24E9\u2500-\u2767\u2794-\u27C4\u27C7-\u27E5\u27F0-\u2982\u2999-\u29D7\u29DC-\u29FB\u29FE-\u2B73\u2B76-\u2BFF\u2CE5-\u2CEA\u2E50\u2E51\u2E80-\u2E99\u2E9B-\u2EF3\u2F00-\u2FD5\u2FF0-\u2FFF\u3004\u3012\u3013\u3020\u3036\u3037\u303E\u303F\u309B\u309C\u3190\u3191\u3196-\u319F\u31C0-\u31E5\u31EF\u3200-\u321E\u322A-\u3247\u3250\u3260-\u327F\u328A-\u32B0\u32C0-\u33FF\u4DC0-\u4DFF\uA490-\uA4C6\uA700-\uA716\uA720\uA721\uA789\uA78A\uA828-\uA82B\uA836-\uA839\uAA77-\uAA79\uAB5B\uAB6A\uAB6B\uFB29\uFBB2-\uFBD2\uFD40-\uFD4F\uFD90\uFD91\uFDC8-\uFDCF\uFDFC-\uFDFF\uFE62\uFE64-\uFE66\uFE69\uFF04\uFF0B\uFF1C-\uFF1E\uFF3E\uFF40\uFF5C\uFF5E\uFFE0-\uFFE6\uFFE8-\uFFEE\uFFFC\uFFFD]|\uD800[\uDD37-\uDD3F\uDD79-\uDD89\uDD8C-\uDD8E\uDD90-\uDD9C\uDDA0\uDDD0-\uDDFC]|\uD802[\uDC77\uDC78\uDEC8]|\uD803[\uDD8E\uDD8F\uDED1-\uDED8]|\uD805\uDF3F|\uD807[\uDFD5-\uDFF1]|\uD81A[\uDF3C-\uDF3F\uDF45]|\uD82F\uDC9C|\uD833[\uDC00-\uDCEF\uDCFA-\uDCFC\uDD00-\uDEB3\uDEBA-\uDED0\uDEE0-\uDEF0\uDF50-\uDFC3]|\uD834[\uDC00-\uDCF5\uDD00-\uDD26\uDD29-\uDD64\uDD6A-\uDD6C\uDD83\uDD84\uDD8C-\uDDA9\uDDAE-\uDDEA\uDE00-\uDE41\uDE45\uDF00-\uDF56]|\uD835[\uDEC1\uDEDB\uDEFB\uDF15\uDF35\uDF4F\uDF6F\uDF89\uDFA9\uDFC3]|\uD836[\uDC00-\uDDFF\uDE37-\uDE3A\uDE6D-\uDE74\uDE76-\uDE83\uDE85\uDE86]|\uD838[\uDD4F\uDEFF]|\uD83B[\uDCAC\uDCB0\uDD2E\uDEF0\uDEF1]|\uD83C[\uDC00-\uDC2B\uDC30-\uDC93\uDCA0-\uDCAE\uDCB1-\uDCBF\uDCC1-\uDCCF\uDCD1-\uDCF5\uDD0D-\uDDAD\uDDE6-\uDE02\uDE10-\uDE3B\uDE40-\uDE48\uDE50\uDE51\uDE60-\uDE65\uDF00-\uDFFF]|\uD83D[\uDC00-\uDED8\uDEDC-\uDEEC\uDEF0-\uDEFC\uDF00-\uDFD9\uDFE0-\uDFEB\uDFF0]|\uD83E[\uDC00-\uDC0B\uDC10-\uDC47\uDC50-\uDC59\uDC60-\uDC87\uDC90-\uDCAD\uDCB0-\uDCBB\uDCC0\uDCC1\uDCD0-\uDCD8\uDD00-\uDE57\uDE60-\uDE6D\uDE70-\uDE7C\uDE80-\uDE8A\uDE8E-\uDEC6\uDEC8\uDECD-\uDEDC\uDEDF-\uDEEA\uDEEF-\uDEF8\uDF00-\uDF92\uDF94-\uDFEF\uDFFA]/;
+    Z = /[ \xA0\u1680\u2000-\u200A\u2028\u2029\u202F\u205F\u3000]/;
+  }
+});
+
+// node_modules/entities/dist/decode-codepoint.js
+function replaceCodePoint(codePoint) {
+  if (codePoint >= 55296 && codePoint <= 57343 || codePoint > 1114111) {
+    return 65533;
+  }
+  return decodeMap.get(codePoint) ?? codePoint;
+}
+var decodeMap;
+var init_decode_codepoint = __esm({
+  "node_modules/entities/dist/decode-codepoint.js"() {
+    decodeMap = /* @__PURE__ */ new Map([
+      [0, 65533],
+      // C1 Unicode control character reference replacements
+      [128, 8364],
+      [130, 8218],
+      [131, 402],
+      [132, 8222],
+      [133, 8230],
+      [134, 8224],
+      [135, 8225],
+      [136, 710],
+      [137, 8240],
+      [138, 352],
+      [139, 8249],
+      [140, 338],
+      [142, 381],
+      [145, 8216],
+      [146, 8217],
+      [147, 8220],
+      [148, 8221],
+      [149, 8226],
+      [150, 8211],
+      [151, 8212],
+      [152, 732],
+      [153, 8482],
+      [154, 353],
+      [155, 8250],
+      [156, 339],
+      [158, 382],
+      [159, 376]
+    ]);
+  }
+});
+
+// node_modules/entities/dist/internal/decode-shared.js
+function decodeBase64(input) {
+  const binary = atob(input);
+  const evenLength = binary.length & ~1;
+  const out = new Uint16Array(evenLength / 2);
+  for (let index = 0, outIndex = 0; index < evenLength; index += 2) {
+    const lo = binary.charCodeAt(index);
+    const hi = binary.charCodeAt(index + 1);
+    out[outIndex++] = lo | hi << 8;
+  }
+  return out;
+}
+var init_decode_shared = __esm({
+  "node_modules/entities/dist/internal/decode-shared.js"() {
+  }
+});
+
+// node_modules/entities/dist/generated/decode-data-html.js
+var htmlDecodeTree;
+var init_decode_data_html = __esm({
+  "node_modules/entities/dist/generated/decode-data-html.js"() {
+    init_decode_shared();
+    htmlDecodeTree = /* @__PURE__ */ decodeBase64("QR08ALkAAgH6AYsDNQR2BO0EPgXZBQEGLAbdBxMISQrvCmQLfQurDKQNLw4fD4YPpA+6D/IPAAAAAAAAAAAAAAAAKhBMEY8TmxUWF2EYLBkxGuAa3RsJHDscWR8YIC8jSCSIJcMl6ie3Ku8rEC0CLjoupS7kLgAIRU1hYmNmZ2xtbm9wcnN0dVQAWgBeAGUAaQBzAHcAfgCBAIQAhwCSAJoAoACsALMAbABpAGcAO4DGAMZAUAA7gCYAJkBjAHUAdABlADuAwQDBQHIiZXZlAAJhAAFpeW0AcgByAGMAO4DCAMJAEGRyAADgNdgE3XIAYQB2AGUAO4DAAMBA8CFoYZFj4SFjcgBhZAAAoFMqAAFncIsAjgBvAG4ABGFmAADgNdg43fAlbHlGdW5jdGlvbgCgYSBpAG4AZwA7gMUAxUAAAWNzpACoAHIAAOA12Jzc6SFnbgCgVCJpAGwAZABlADuAwwDDQG0AbAA7gMQAxEAABGFjZWZvcnN1xQDYANoA7QDxAPYA+QD8AAABY3LJAM8AayNzbGFzaAAAoBYidgHTANUAAKDnKmUAZAAAoAYjeQARZIABY3J0AOAA5QDrAGEidXNlAACgNSLuI291bGxpcwCgLCFhAJJjcgAA4DXYBd1wAGYAAOA12Dnd5SF2ZdhiYwDyAOoAbSJwZXEAAKBOIgAHSE9hY2RlZmhpbG9yc3UXARoBHwE6AVIBVQFiAWQBZgGCAakB6QHtAfIBYwB5ACdkUABZADuAqQCpQIABY3B5ACUBKAE1AfUhdGUGYWmg0iJ0KGFsRGlmZmVyZW50aWFsRAAAoEUhbCJleXMAAKAtIQACYWVpb0EBRAFKAU0B8iFvbgxhZABpAGwAO4DHAMdAcgBjAAhhbiJpbnQAAKAwIm8AdAAKYQABZG5ZAV0BaSJsbGEAuGB0I2VyRG90ALdg8gA5AWkAp2NyImNsZQAAAkRNUFRwAXQBeQF9AW8AdAAAoJkiaSJudXMAAKCWIuwhdXMAoJUiaSJtZXMAAKCXIm8AAAFjc4cBlAFrKndpc2VDb250b3VySW50ZWdyYWwAAKAyImUjQ3VybHkAAAFEUZwBpAFvJXVibGVRdW90ZQAAoB0gdSJvdGUAAKAZIAACbG5wdbABtgHNAdgBbwBuAGWgNyIAoHQqgAFnaXQAvAHBAcUB8iJ1ZW50AKBhIm4AdAAAoC8i7yV1ckludGVncmFsAKAuIgABZnLRAdMBAKACIe8iZHVjdACgECJuLnRlckNsb2Nrd2lzZUNvbnRvdXJJbnRlZ3JhbAAAoDMi7yFzcwCgLypjAHIAAOA12J7ccABDoNMiYQBwAACgTSKABURKU1phY2VmaW9zAAsCEgIVAhgCGwIsAjQCOQI9AnMCfwNvoEUh9CJyYWhkAKARKWMAeQACZGMAeQAFZGMAeQAPZIABZ3JzACECJQIoAuchZXIAoCEgcgAAoKEhaAB2AACg5CoAAWF5MAIzAvIhb24OYRRkbAB0oAciYQCUY3IAAOA12AfdAAFhZkECawIAAWNtRQJnAvIjaXRpY2FsAAJBREdUUAJUAl8CYwJjInV0ZQC0YG8AdAFZAloC2WJiJGxlQWN1dGUA3WJyImF2ZQBgYGkibGRlANxi7yFuZACgxCJmJWVyZW50aWFsRAAAoEYhcAR9AgAAAAAAAIECjgIAABoDZgAA4DXYO91EoagAhQKJAm8AdAAAoNwgcSJ1YWwAAKBQIuIhbGUAA0NETFJVVpkCqAK1Au8C/wIRA28AbgB0AG8AdQByAEkAbgB0AGUAZwByAGEA7ADEAW8AdAKvAgAAAACwAqhgbiNBcnJvdwAAoNMhAAFlb7kC0AJmAHQAgAFBUlQAwQLGAs0CciJyb3cAAKDQIekkZ2h0QXJyb3cAoNQhZQDlACsCbgBnAAABTFLWAugC5SFmdAABQVLcAuECciJyb3cAAKD4J+kkZ2h0QXJyb3cAoPon6SRnaHRBcnJvdwCg+SdpImdodAAAAUFU9gL7AnIicm93AACg0iFlAGUAAKCoInAAQQIGAwAAAAALA3Iicm93AACg0SFvJHduQXJyb3cAAKDVIWUlcnRpY2FsQmFyAACgJSJuAAADQUJMUlRhJAM2AzoDWgNxA3oDciJyb3cAAKGTIUJVLAMwA2EAcgAAoBMpcCNBcnJvdwAAoPUhciJldmUAEWPlIWZ00gJDAwAASwMAAFIDaSVnaHRWZWN0b3IAAKBQKWUkZVZlY3RvcgAAoF4p5SJjdG9yQqC9IWEAcgAAoFYpaSJnaHQA1AFiAwAAaQNlJGVWZWN0b3IAAKBfKeUiY3RvckKgwSFhAHIAAKBXKWUAZQBBoKQiciJyb3cAAKCnIXIAcgBvAPcAtAIAAWN0gwOHA3IAAOA12J/c8iFvaxBhAAhOVGFjZGZnbG1vcHFzdHV4owOlA6kDsAO/A8IDxgPNA9ID8gP9AwEEFAQeBCAEJQRHAEphSAA7gNAA0EBjAHUAdABlADuAyQDJQIABYWl5ALYDuQO+A/Ihb24aYXIAYwA7gMoAykAtZG8AdAAWYXIAAOA12AjdcgBhAHYAZQA7gMgAyEDlIm1lbnQAoAgiAAFhcNYD2QNjAHIAEmF0AHkAUwLhAwAAAADpA20lYWxsU3F1YXJlAACg+yVlJ3J5U21hbGxTcXVhcmUAAKCrJQABZ3D2A/kDbwBuABhhZgAA4DXYPN3zImlsb26VY3UAAAFhaQYEDgRsAFSgdSppImxkZQAAoEIi7CNpYnJpdW0AoMwhAAFjaRgEGwRyAACgMCFtAACgcyphAJdjbQBsADuAywDLQAABaXApBC0E8yF0cwCgAyLvJG5lbnRpYWxFAKBHIYACY2Zpb3MAPQQ/BEMEXQRyBHkAJGRyAADgNdgJ3WwibGVkAFMCTAQAAAAAVARtJWFsbFNxdWFyZQAAoPwlZSdyeVNtYWxsU3F1YXJlAACgqiVwA2UEAABpBAAAAABtBGYAAOA12D3dwSFsbACgACLyI2llcnRyZgCgMSFjAPIAcQQABkpUYWJjZGZnb3JzdIgEiwSOBJMElwSkBKcEqwStBLIE5QTqBGMAeQADZDuAPgA+QO0hbWFkoJMD3GNyImV2ZQAeYYABZWl5AJ0EoASjBOQhaWwiYXIAYwAcYRNkbwB0ACBhcgAA4DXYCt0AoNkicABmAADgNdg+3eUiYXRlcgADRUZHTFNUvwTIBM8E1QTZBOAEcSJ1YWwATKBlIuUhc3MAoNsidSRsbEVxdWFsAACgZyJyI2VhdGVyAACgoirlIXNzAKB3IuwkYW50RXF1YWwAoH4qaSJsZGUAAKBzImMAcgAA4DXYotwAoGsiAARBYWNmaW9zdfkE/QQFBQgFCwUTBSIFKwVSIkRjeQAqZAABY3QBBQQFZQBrAMdiXmDpIXJjJGFyAACgDCFsJWJlcnRTcGFjZQAAoAsh8AEYBQAAGwVmAACgDSHpJXpvbnRhbExpbmUAoAAlAAFjdCYFKAXyABIF8iFvayZhbQBwAEQBMQU5BW8AdwBuAEgAdQBtAPAAAAFxInVhbAAAoE8iAAdFSk9hY2RmZ21ub3N0dVMFVgVZBVwFYwVtBXAFcwV6BZAFtgXFBckFzQVjAHkAFWTsIWlnMmFjAHkAAWRjAHUAdABlADuAzQDNQAABaXlnBWwFcgBjADuAzgDOQBhkbwB0ADBhcgAAoBEhcgBhAHYAZQA7gMwAzEAAoREhYXB/BYsFAAFjZ4MFhQVyACphaSNuYXJ5SQAAoEghbABpAGUA8wD6AvQBlQUAAKUFZaAsIgABZ3KaBZ4F8iFhbACgKyLzI2VjdGlvbgCgwiJpI3NpYmxlAAABQ1SsBbEFbyJtbWEAAKBjIGkibWVzAACgYiCAAWdwdAC8Bb8FwwVvAG4ALmFmAADgNdhA3WEAmWNjAHIAAKAQIWkibGRlAChh6wHSBQAA1QVjAHkABmRsADuAzwDPQIACY2Zvc3UA4QXpBe0F8gX9BQABaXnlBegFcgBjADRhGWRyAADgNdgN3XAAZgAA4DXYQd3jAfcFAAD7BXIAAOA12KXc8iFjeQhk6yFjeQRkgANISmFjZm9zAAwGDwYSBhUGHQYhBiYGYwB5ACVkYwB5AAxk8CFwYZpjAAFleRkGHAbkIWlsNmEaZHIAAOA12A7dcABmAADgNdhC3WMAcgAA4DXYptyABUpUYWNlZmxtb3N0AD0GQAZDBl4GawZkB2gHcAd0B80H2gdjAHkACWQ7gDwAPECAAmNtbnByAEwGTwZSBlUGWwb1IXRlOWHiIWRhm2NnAACg6ifsI2FjZXRyZgCgEiFyAACgniGAAWFleQBkBmcGagbyIW9uPWHkIWlsO2EbZAABZnNvBjQHdAAABUFDREZSVFVWYXKABp4GpAbGBssG3AYDByEHwQIqBwABbnKEBowGZyVsZUJyYWNrZXQAAKDoJ/Ihb3cAoZAhQlKTBpcGYQByAACg5CHpJGdodEFycm93AKDGIWUjaWxpbmcAAKAII28A9QGqBgAAsgZiJWxlQnJhY2tldAAAoOYnbgDUAbcGAAC+BmUkZVZlY3RvcgAAoGEp5SJjdG9yQqDDIWEAcgAAoFkpbCJvb3IAAKAKI2kiZ2h0AAABQVbSBtcGciJyb3cAAKCUIeUiY3RvcgCgTikAAWVy4AbwBmUAAKGjIkFW5gbrBnIicm93AACgpCHlImN0b3IAoFopaSNhbmdsZQBCorIi+wYAAAAA/wZhAHIAAKDPKXEidWFsAACgtCJwAIABRFRWAAoHEQcYB+8kd25WZWN0b3IAoFEpZSRlVmVjdG9yAACgYCnlImN0b3JCoL8hYQByAACgWCnlImN0b3JCoLwhYQByAACgUilpAGcAaAB0AGEAcgByAG8A9wDMAnMAAANFRkdMU1Q/B0cHTgdUB1gHXwfxJXVhbEdyZWF0ZXIAoNoidSRsbEVxdWFsAACgZiJyI2VhdGVyAACgdiLlIXNzAKChKuwkYW50RXF1YWwAoH0qaSJsZGUAAKByInIAAOA12A/dZaDYIuYjdGFycm93AKDaIWkiZG90AD9hgAFucHcAege1B7kHZwAAAkxSbHKCB5QHmwerB+UhZnQAAUFSiAeNB3Iicm93AACg9SfpJGdodEFycm93AKD3J+kkZ2h0QXJyb3cAoPYn5SFmdAABYXLcAqEHaQBnAGgAdABhAHIAcgBvAPcA5wJpAGcAaAB0AGEAcgByAG8A9wDuAmYAAOA12EPdZQByAAABTFK/B8YHZSRmdEFycm93AACgmSHpJGdodEFycm93AKCYIYABY2h0ANMH1QfXB/IAWgYAoLAh8iFva0FhAKBqIgAEYWNlZmlvc3XpB+wH7gf/BwMICQgOCBEIcAAAoAUpeQAcZAABZGzyB/kHaSR1bVNwYWNlAACgXyBsI2ludHJmAACgMyFyAADgNdgQ3e4jdXNQbHVzAKATInAAZgAA4DXYRN1jAPIA/gecY4AESmFjZWZvc3R1ACEIJAgoCDUIgQiFCDsKQApHCmMAeQAKZGMidXRlAENhgAFhZXkALggxCDQI8iFvbkdh5CFpbEVhHWSAAWdzdwA7CGEIfQjhInRpdmWAAU1UVgBECEwIWQhlJWRpdW1TcGFjZQAAoAsgaABpAAABY25SCFMIawBTAHAAYQBjAOUASwhlAHIAeQBUAGgAaQDuAFQI9CFlZAABR0xnCHUIcgBlAGEAdABlAHIARwByAGUAYQB0AGUA8gDrBGUAcwBzAEwAZQBzAPMA2wdMImluZQAKYHIAAOA12BHdAAJCbnB0jAiRCJkInAhyImVhawAAoGAgwiZyZWFraW5nU3BhY2WgYGYAAKAVIUOq7CqzCMIIzQgAAOcIGwkAAAAAAAAtCQAAbwkAAIcJAACdCcAJGQoAADQKAAFvdbYIvAjuI2dydWVudACgYiJwIkNhcAAAoG0ibyh1YmxlVmVydGljYWxCYXIAAKAmIoABbHF4ANII1wjhCOUibWVudACgCSL1IWFsVKBgImkibGRlAADgQiI4A2kic3RzAACgBCJyI2VhdGVyAACjbyJFRkdMU1T1CPoIAgkJCQ0JFQlxInVhbAAAoHEidSRsbEVxdWFsAADgZyI4A3IjZWF0ZXIAAOBrIjgD5SFzcwCgeSLsJGFudEVxdWFsAOB+KjgDaSJsZGUAAKB1IvUhbXBEASAJJwnvI3duSHVtcADgTiI4A3EidWFsAADgTyI4A2UAAAFmczEJRgn0JFRyaWFuZ2xlQqLqIj0JAAAAAEIJYQByAADgzyk4A3EidWFsAACg7CJzAICibiJFR0xTVABRCVYJXAlhCWkJcSJ1YWwAAKBwInIjZWF0ZXIAAKB4IuUhc3MA4GoiOAPsJGFudEVxdWFsAOB9KjgDaSJsZGUAAKB0IuUic3RlZAABR0x1CX8J8iZlYXRlckdyZWF0ZXIA4KIqOAPlI3NzTGVzcwDgoSo4A/IjZWNlZGVzAKGAIkVTjwmVCXEidWFsAADgryo4A+wkYW50RXF1YWwAoOAiAAFlaaAJqQl2JmVyc2VFbGVtZW50AACgDCLnJWh0VHJpYW5nbGVCousitgkAAAAAuwlhAHIAAODQKTgDcSJ1YWwAAKDtIgABcXXDCeAJdSNhcmVTdQAAAWJwywnVCfMhZXRF4I8iOANxInVhbAAAoOIi5SJyc2V0ReCQIjgDcSJ1YWwAAKDjIoABYmNwAOYJ8AkNCvMhZXRF4IIi0iBxInVhbAAAoIgi4yJlZWRzgKGBIkVTVAD6CQAKBwpxInVhbAAA4LAqOAPsJGFudEVxdWFsAKDhImkibGRlAADgfyI4A+UicnNldEXggyLSIHEidWFsAACgiSJpImxkZQCAoUEiRUZUACIKJwouCnEidWFsAACgRCJ1JGxsRXF1YWwAAKBHImkibGRlAACgSSJlJXJ0aWNhbEJhcgAAoCQiYwByAADgNdip3GkAbABkAGUAO4DRANFAnWMAB0VhY2RmZ21vcHJzdHV2XgphCmgKcgp2CnoKgQqRCpYKqwqtCrsKyArNCuwhaWdSYWMAdQB0AGUAO4DTANNAAAFpeWwKcQpyAGMAO4DUANRAHmRiImxhYwBQYXIAAOA12BLdcgBhAHYAZQA7gNIA0kCAAWFlaQCHCooKjQpjAHIATGFnAGEAqWNjInJvbgCfY3AAZgAA4DXYRt3lI25DdXJseQABRFGeCqYKbyV1YmxlUXVvdGUAAKAcIHUib3RlAACgGCAAoFQqAAFjbLEKtQpyAADgNdiq3GEAcwBoADuA2ADYQGkAbAHACsUKZABlADuA1QDVQGUAcwAAoDcqbQBsADuA1gDWQGUAcgAAAUJQ0wrmCgABYXLXCtoKcgAAoD4gYQBjAAABZWvgCuIKAKDeI2UAdAAAoLQjYSVyZW50aGVzaXMAAKDcI4AEYWNmaGlsb3JzAP0KAwsFCwkLCwsMCxELIwtaC3IjdGlhbEQAAKACInkAH2RyAADgNdgT3WkApmOgY/Ujc01pbnVzsWAAAWlwFQsgC24AYwBhAHIAZQBwAGwAYQBuAOUACgVmAACgGSGAobsqZWlvACoLRQtJC+MiZWRlc4CheiJFU1QANAs5C0ALcSJ1YWwAAKCvKuwkYW50RXF1YWwAoHwiaSJsZGUAAKB+Im0AZQAAoDMgAAFkcE0LUQv1IWN0AKAPIm8jcnRpb24AYaA3ImwAAKAdIgABY2leC2ILcgAA4DXYq9yoYwACVWZvc2oLbwtzC3cLTwBUADuAIgAiQHIAAOA12BTdcABmAACgGiFjAHIAAOA12KzcAAZCRWFjZWZoaW9yc3WPC5MLlwupC7YL2AvbC90LhQyTDJoMowzhIXJyAKAQKUcAO4CuAK5AgAFjbnIAnQugC6ML9SF0ZVRhZwAAoOsncgB0oKAhbAAAoBYpgAFhZXkArwuyC7UL8iFvblhh5CFpbFZhIGR2oBwhZSJyc2UAAAFFVb8LzwsAAWxxwwvIC+UibWVudACgCyL1JGlsaWJyaXVtAKDLIXAmRXF1aWxpYnJpdW0AAKBvKXIAAKAcIW8AoWPnIWh0AARBQ0RGVFVWYewLCgwQDDIMNwxeDHwM9gIAAW5y8Av4C2clbGVCcmFja2V0AACg6SfyIW93AKGSIUJM/wsDDGEAcgAAoOUhZSRmdEFycm93AACgxCFlI2lsaW5nAACgCSNvAPUBFgwAAB4MYiVsZUJyYWNrZXQAAKDnJ24A1AEjDAAAKgxlJGVWZWN0b3IAAKBdKeUiY3RvckKgwiFhAHIAAKBVKWwib29yAACgCyMAAWVyOwxLDGUAAKGiIkFWQQxGDHIicm93AACgpiHlImN0b3IAoFspaSNhbmdsZQBCorMiVgwAAAAAWgxhAHIAAKDQKXEidWFsAACgtSJwAIABRFRWAGUMbAxzDO8kd25WZWN0b3IAoE8pZSRlVmVjdG9yAACgXCnlImN0b3JCoL4hYQByAACgVCnlImN0b3JCoMAhYQByAACgUykAAXB1iQyMDGYAAKAdIe4kZEltcGxpZXMAoHAp6SRnaHRhcnJvdwCg2yEAAWNongyhDHIAAKAbIQCgsSHsJGVEZWxheWVkAKD0KYAGSE9hY2ZoaW1vcXN0dQC/DMgMzAzQDOIM5gwKDQ0NFA0ZDU8NVA1YDQABQ2PDDMYMyCFjeSlkeQAoZEYiVGN5ACxkYyJ1dGUAWmEAorwqYWVpedgM2wzeDOEM8iFvbmBh5CFpbF5hcgBjAFxhIWRyAADgNdgW3e8hcnQAAkRMUlXvDPYM/QwEDW8kd25BcnJvdwAAoJMhZSRmdEFycm93AACgkCHpJGdodEFycm93AKCSIXAjQXJyb3cAAKCRIechbWGjY+EkbGxDaXJjbGUAoBgicABmAADgNdhK3XICHw0AAAAAIg10AACgGiLhIXJlgKGhJUlTVQAqDTINSg3uJXRlcnNlY3Rpb24AoJMidQAAAWJwNw1ADfMhZXRFoI8icSJ1YWwAAKCRIuUicnNldEWgkCJxInVhbAAAoJIibiJpb24AAKCUImMAcgAA4DXYrtxhAHIAAKDGIgACYmNtcF8Nag2ODZANc6DQImUAdABFoNAicSJ1YWwAAKCGIgABY2huDYkNZSJlZHMAgKF7IkVTVAB4DX0NhA1xInVhbAAAoLAq7CRhbnRFcXVhbACgfSJpImxkZQAAoH8iVABoAGEA9ADHCwCgESIAodEiZXOVDZ8NciJzZXQARaCDInEidWFsAACghyJlAHQAAKDRIoAFSFJTYWNmaGlvcnMAtQ27Db8NyA3ODdsN3w3+DRgOHQ4jDk8AUgBOADuA3gDeQMEhREUAoCIhAAFIY8MNxg1jAHkAC2R5ACZkAAFidcwNzQ0JYKRjgAFhZXkA1A3XDdoN8iFvbmRh5CFpbGJhImRyAADgNdgX3QABZWnjDe4N8gHoDQAA7Q3lImZvcmUAoDQiYQCYYwABY27yDfkNayNTcGFjZQAA4F8gCiDTInBhY2UAoAkg7CFkZYChPCJFRlQABw4MDhMOcSJ1YWwAAKBDInUkbGxFcXVhbAAAoEUiaSJsZGUAAKBIInAAZgAA4DXYS93pI3BsZURvdACg2yAAAWN0Jw4rDnIAAOA12K/c8iFva2Zh4QpFDlYOYA5qDgAAbg5yDgAAAAAAAAAAAAB5DnwOqA6zDgAADg8RDxYPGg8AAWNySA5ODnUAdABlADuA2gDaQHIAb6CfIeMhaXIAoEkpcgDjAVsOAABdDnkADmR2AGUAbGEAAWl5Yw5oDnIAYwA7gNsA20AjZGIibGFjAHBhcgAA4DXYGN1yAGEAdgBlADuA2QDZQOEhY3JqYQABZGl/Dp8OZQByAAABQlCFDpcOAAFhcokOiw5yAF9gYQBjAAABZWuRDpMOAKDfI2UAdAAAoLUjYSVyZW50aGVzaXMAAKDdI28AbgBQoMMi7CF1cwCgjiIAAWdwqw6uDm8AbgByYWYAAOA12EzdAARBREVUYWRwc78O0g7ZDuEOBQPqDvMOBw9yInJvdwDCoZEhyA4AAMwOYQByAACgEilvJHduQXJyb3cAAKDFIW8kd25BcnJvdwAAoJUhcSV1aWxpYnJpdW0AAKBuKWUAZQBBoKUiciJyb3cAAKClIW8AdwBuAGEAcgByAG8A9wAQA2UAcgAAAUxS+Q4AD2UkZnRBcnJvdwAAoJYh6SRnaHRBcnJvdwCglyFpAGyg0gNvAG4ApWPpIW5nbmFjAHIAAOA12LDcaSJsZGUAaGFtAGwAO4DcANxAgAREYmNkZWZvc3YALQ8xDzUPNw89D3IPdg97D4AP4SFzaACgqyJhAHIAAKDrKnkAEmThIXNobKCpIgCg5ioAAWVyQQ9DDwCgwSKAAWJ0eQBJD00Paw9hAHIAAKAWIGmgFiDjIWFsAAJCTFNUWA9cD18PZg9hAHIAAKAjIukhbmV8YGUkcGFyYXRvcgAAoFgnaSJsZGUAAKBAItQkaGluU3BhY2UAoAogcgAA4DXYGd1wAGYAAOA12E3dYwByAADgNdix3GQiYXNoAACgqiKAAmNlZm9zAI4PkQ+VD5kPng/pIXJjdGHkIWdlAKDAInIAAOA12BrdcABmAADgNdhO3WMAcgAA4DXYstwAAmZpb3OqD64Prw+0D3IAAOA12BvdnmNwAGYAAOA12E/dYwByAADgNdiz3IAEQUlVYWNmb3N1AMgPyw/OD9EP2A/gD+QP6Q/uD2MAeQAvZGMAeQAHZGMAeQAuZGMAdQB0AGUAO4DdAN1AAAFpedwP3w9yAGMAdmErZHIAAOA12BzdcABmAADgNdhQ3WMAcgAA4DXYtNxtAGwAeGEABEhhY2RlZm9z/g8BEAUQDRAQEB0QIBAkEGMAeQAWZGMidXRlAHlhAAFheQkQDBDyIW9ufWEXZG8AdAB7YfIBFRAAABwQbwBXAGkAZAB0AOgAVAhhAJZjcgAAoCghcABmAACgJCFjAHIAAOA12LXc4QtCEEkQTRAAAGcQbRByEAAAAAAAAAAAeRCKEJcQ8hD9EAAAGxEhETIROREAAD4RYwB1AHQAZQA7gOEA4UByImV2ZQADYYCiPiJFZGl1eQBWEFkQWxBgEGUQAOA+IjMDAKA/InIAYwA7gOIA4kB0AGUAO4C0ALRAMGRsAGkAZwA7gOYA5kByoGEgAOA12B7dcgBhAHYAZQA7gOAA4EAAAWVwfBCGEAABZnCAEIQQ8yF5bQCgNSHoAIMQaABhALFjAAFhcI0QWwAAAWNskRCTEHIAAWFnAACgPypkApwQAAAAALEQAKInImFkc3ajEKcQqRCuEG4AZAAAoFUqAKBcKmwib3BlAACgWCoAoFoqAKMgImVsbXJzersQvRDAEN0Q5RDtEACgpCllAACgICJzAGQAYaAhImEEzhDQENIQ1BDWENgQ2hDcEACgqCkAoKkpAKCqKQCgqykAoKwpAKCtKQCgrikAoK8pdAB2oB8iYgBkoL4iAKCdKQABcHTpEOwQaAAAoCIixWDhIXJyAKB8IwABZ3D1EPgQbwBuAAVhZgAA4DXYUt0Ao0giRWFlaW9wBxEJEQ0RDxESERQRAKBwKuMhaXIAoG8qAKBKImQAAKBLInMAJ2DyIW94ZaBIIvEADhFpAG4AZwA7gOUA5UCAAWN0eQAmESoRKxFyAADgNdi23CpgbQBwAGWgSCLxAPgBaQBsAGQAZQA7gOMA40BtAGwAO4DkAORAAAFjaUERRxFvAG4AaQBuAPQA6AFuAHQAAKARKgAITmFiY2RlZmlrbG5vcHJzdWQRaBGXEZ8RpxGrEdIR1hErEjASexKKEn0RThNbE3oTbwB0AACg7SoAAWNybBGJEWsAAAJjZXBzdBF4EX0RghHvIW5nAKBMInAjc2lsb24A9mNyImltZQAAoDUgaQBtAGWgPSJxAACgzSJ2AY0RkRFlAGUAAKC9ImUAZABnoAUjZQAAoAUjcgBrAHSgtSPiIXJrAKC2IwABb3mjEaYRbgDnAHcRMWTxIXVvAKAeIIACY21wcnQAtBG5Eb4RwRHFEeEhdXPloDUi5ABwInR5dgAAoLApcwDpAH0RbgBvAPUA6gCAAWFodwDLEcwRzhGyYwCgNiHlIWVuAKBsInIAAOA12B/dZwCAA2Nvc3R1dncA4xHyEQUSEhIhEiYSKRKAAWFpdQDpEesR7xHwAKMFcgBjAACg7yVwAACgwyKAAWRwdAD4EfwRABJvAHQAAKAAKuwhdXMAoAEqaSJtZXMAAKACKnECCxIAAAAADxLjIXVwAKAGKmEAcgAAoAUm8iNpYW5nbGUAAWR1GhIeEu8hd24AoL0lcAAAoLMlcCJsdXMAAKAEKmUA5QBCD+UAkg9hInJvdwAAoA0pgAFha28ANhJoEncSAAFjbjoSZRJrAIABbHN0AEESRxJNEm8jemVuZ2UAAKDrKXEAdQBhAHIA5QBcBPIjaWFuZ2xlgKG0JWRscgBYElwSYBLvIXduAKC+JeUhZnQAoMIlaSJnaHQAAKC4JWsAAKAjJLEBbRIAAHUSsgFxEgAAcxIAoJIlAKCRJTQAAKCTJWMAawAAoIglAAFlb38ShxJx4D0A5SD1IWl2AOBhIuUgdAAAoBAjAAJwdHd4kRKVEpsSnxJmAADgNdhT3XSgpSJvAG0AAKClIvQhaWUAoMgiAAZESFVWYmRobXB0dXayEsES0RLgEvcS+xIKExoTHxMjEygTNxMAAkxSbHK5ErsSvRK/EgCgVyUAoFQlAKBWJQCgUyUAolAlRFVkdckSyxLNEs8SAKBmJQCgaSUAoGQlAKBnJQACTFJsctgS2hLcEt4SAKBdJQCgWiUAoFwlAKBZJQCjUSVITFJobHLrEu0S7xLxEvMS9RIAoGwlAKBjJQCgYCUAoGslAKBiJQCgXyVvAHgAAKDJKQACTFJscgITBBMGEwgTAKBVJQCgUiUAoBAlAKAMJQCiACVEVWR1EhMUExYTGBMAoGUlAKBoJQCgLCUAoDQlaSJudXMAAKCfIuwhdXMAoJ4iaSJtZXMAAKCgIgACTFJsci8TMRMzEzUTAKBbJQCgWCUAoBglAKAUJQCjAiVITFJobHJCE0QTRhNIE0oTTBMAoGolAKBhJQCgXiUAoDwlAKAkJQCgHCUAAWV2UhNVE3YA5QD5AGIAYQByADuApgCmQAACY2Vpb2ITZhNqE24TcgAA4DXYt9xtAGkAAKBPIG0A5aA9IogRbAAAoVwAYmh0E3YTAKDFKfMhdWIAoMgnbAF+E4QTbABloCIgdAAAoCIgcAAAoU4iRWWJE4sTAKCuKvGgTyI8BeEMqRMAAN8TABQDFB8UAAAjFDQUAAAAAIUUAAAAAI0UAAAAANcU4xT3FPsUAACIFQAAlhWAAWNwcgCuE7ET1RP1IXRlB2GAoikiYWJjZHMAuxO/E8QTzhPSE24AZAAAoEQqciJjdXAAAKBJKgABYXXIE8sTcAAAoEsqcAAAoEcqbwB0AACgQCoA4CkiAP4AAWVv2RPcE3QAAKBBIO4ABAUAAmFlaXXlE+8T9RP4E/AB6hMAAO0TcwAAoE0qbwBuAA1hZABpAGwAO4DnAOdAcgBjAAlhcABzAHOgTCptAACgUCpvAHQAC2GAAWRtbgAIFA0UEhRpAGwAO4C4ALhAcCJ0eXYAAKCyKXQAAIGiADtlGBQZFKJAcgBkAG8A9ABiAXIAAOA12CDdgAFjZWkAKBQqFDIUeQBHZGMAawBtoBMn4SFyawCgEyfHY3IAAKPLJUVjZWZtcz8UQRRHFHcUfBSAFACgwykAocYCZWxGFEkUcQAAoFciZQBhAlAUAAAAAGAUciJyb3cAAAFsclYUWhTlIWZ0AKC6IWkiZ2h0AACguyGAAlJTYWNkAGgUaRRrFG8UcxSuYACgyCRzAHQAAKCbIukhcmMAoJoi4SFzaACgnSJuImludAAAoBAqaQBkAACg7yrjIWlyAKDCKfUhYnN1oGMmaQB0AACgYybsApMUmhS2FAAAwxRvAG4AZaA6APGgVCKrAG0CnxQAAAAAoxRhAHSgLABAYAChASJmbKcUqRTuABMNZQAAAW14rhSyFOUhbnQAoAEiZQDzANIB5wG6FAAAwBRkoEUibwB0AACgbSpuAPQAzAGAAWZyeQDIFMsUzhQA4DXYVN1vAOQA1wEAgakAO3MeAdMUcgAAoBchAAFhb9oU3hRyAHIAAKC1IXMAcwAAoBcnAAFjdeYU6hRyAADgNdi43AABYnDuFPIUZaDPKgCg0SploNAqAKDSKuQhb3QAoO8igANkZWxwcnZ3AAYVEBUbFSEVRBVlFYQV4SFycgABbHIMFQ4VAKA4KQCgNSlwAhYVAAAAABkVcgAAoN4iYwAAoN8i4SFycnCgtiEAoD0pgKIqImJjZG9zACsVMBU6FT4VQRVyImNhcAAAoEgqAAFhdTQVNxVwAACgRipwAACgSipvAHQAAKCNInIAAKBFKgDgKiIA/gACYWxydksVURVuFXMVcgByAG2gtyEAoDwpeQCAAWV2dwBYFWUVaRVxAHACXxUAAAAAYxVyAGUA4wAXFXUA4wAZFWUAZQAAoM4iZSJkZ2UAAKDPImUAbgA7gKQApEBlI2Fycm93AAABbHJ7FX8V5SFmdACgtiFpImdodAAAoLchZQDkAG0VAAFjaYsVkRVvAG4AaQBuAPQAkwFuAHQAAKAxImwiY3R5AACgLSOACUFIYWJjZGVmaGlqbG9yc3R1d3oAuBW7Fb8V1RXgFegV+RUKFhUWHxZUFlcWZRbFFtsW7xb7FgUXChdyAPIAtAJhAHIAAKBlKQACZ2xyc8YVyhXOFdAV5yFlcgCgICDlIXRoAKA4IfIA9QxoAHagECAAoKMiawHZFd4VYSJyb3cAAKAPKWEA4wBfAgABYXnkFecV8iFvbg9hNGQAoUYhYW/tFfQVAAFnciEC8RVyAACgyiF0InNlcQAAoHcqgAFnbG0A/xUCFgUWO4CwALBAdABhALRjcCJ0eXYAAKCxKQABaXIOFhIW8yFodACgfykA4DXYId1hAHIAAAFschsWHRYAoMMhAKDCIYACYWVnc3YAKBauAjYWOhY+Fm0AAKHEIm9zLhY0Fm4AZABzoMQi9SFpdACgZiZhIm1tYQDdY2kAbgAAoPIiAKH3AGlvQxZRFmQAZQAAgfcAO29KFksW90BuI3RpbWVzAACgxyJuAPgAUBZjAHkAUmRjAG8CXhYAAAAAYhZyAG4AAKAeI28AcAAAoA0jgAJscHR1dwBuFnEWdRaSFp4W7CFhciRgZgAA4DXYVd0AotkCZW1wc30WhBaJFo0WcQBkoFAibwB0AACgUSJpIm51cwAAoDgi7CF1cwCgFCLxInVhcmUAoKEiYgBsAGUAYgBhAHIAdwBlAGQAZwDlANcAbgCAAWFkaAClFqoWtBZyAHIAbwD3APUMbwB3AG4AYQByAHIAbwB3APMA8xVhI3Jwb29uAAABbHK8FsAWZQBmAPQAHBZpAGcAaAD0AB4WYgHJFs8WawBhAHIAbwD3AJILbwLUFgAAAADYFnIAbgAAoB8jbwBwAACgDCOAAWNvdADhFukW7BYAAXJ55RboFgDgNdi53FVkbAAAoPYp8iFvaxFhAAFkcvMW9xZvAHQAAKDxImkA5qC/JVsSAAFhaP8WAhdyAPIANQNhAPIA1wvhIm5nbGUAoKYpAAFjaQ4XEBd5AF9k5yJyYXJyAKD/JwAJRGFjZGVmZ2xtbm9wcXJzdHV4MRc4F0YXWxcyBF4XaRd5F40XrBe0F78X2RcVGCEYLRg1GEAYAAFEbzUXgRZvAPQA+BUAAWNzPBdCF3UAdABlADuA6QDpQPQhZXIAoG4qAAJhaW95TRdQF1YXWhfyIW9uG2FyAGOgViI7gOoA6kDsIW9uAKBVIk1kbwB0ABdhAAFEcmIXZhdvAHQAAKBSIgDgNdgi3XKhmipuF3QXYQB2AGUAO4DoAOhAZKCWKm8AdAAAoJgqgKGZKmlscwCAF4UXhxfuInRlcnMAoOcjAKATIWSglSpvAHQAAKCXKoABYXBzAJMXlheiF2MAcgATYXQAeQBzogUinxcAAAAAoRdlAHQAAKAFInAAMaADIDMBqRerFwCgBCAAoAUgAAFnc7AXsRdLYXAAAKACIAABZ3C4F7sXbwBuABlhZgAA4DXYVt2AAWFscwDFF8sXzxdyAHOg1SJsAACg4yl1AHMAAKBxKmkAAKG1A2x21RfYF28AbgC1Y/VjAAJjc3V24BfoF/0XEBgAAWlv5BdWF3IAYwAAoFYiaQLuFwAAAADwF+0ADQThIW50AAFnbPUX+Rd0AHIAAKCWKuUhc3MAoJUqgAFhZWkAAxgGGAoYbABzAD1gcwB0AACgXyJ2AESgYSJEAACgeCrwImFyc2wAoOUpAAFEYRkYHRhvAHQAAKBTInIAcgAAoHEpgAFjZGkAJxgqGO0XcgAAoC8hbwD0AIwCAAFhaDEYMhi3YzuA8ADwQAABbXI5GD0YbAA7gOsA60BvAACgrCCAAWNpcABGGEgYSxhsACFgcwD0ACwEAAFlb08YVxhjAHQAYQB0AGkAbwDuABoEbgBlAG4AdABpAGEAbADlADME4Ql1GAAAgRgAAIMYiBgAAAAAoRilGAAAqhgAALsYvhjRGAAA1xgnGWwAbABpAG4AZwBkAG8AdABzAGUA8QBlF3kARGRtImFsZQAAoEAmgAFpbHIAjRiRGJ0Y7CFpZwCgA/tpApcYAAAAAJoYZwAAoAD7aQBnAACgBPsA4DXYI93sIWlnAKAB++whaWcA4GYAagCAAWFsdACvGLIYthh0AACgbSZpAGcAAKAC+24AcwAAoLElbwBmAJJh8AHCGAAAxhhmAADgNdhX3QABYWvJGMwYbADsAGsEdqDUIgCg2SphI3J0aW50AACgDSoAAWFv2hgiGQABY3PeGB8ZsQPnGP0YBRkSGRUZAAAdGbID7xjyGPQY9xj5GAAA+xg7gL0AvUAAoFMhO4C8ALxAAKBVIQCgWSEAoFshswEBGQAAAxkAoFQhAKBWIbQCCxkOGQAAAAAQGTuAvgC+QACgVyEAoFwhNQAAoFghtgEZGQAAGxkAoFohAKBdITgAAKBeIWwAAKBEIHcAbgAAoCIjYwByAADgNdi73IAIRWFiY2RlZmdpamxub3JzdHYARhlKGVoZXhlmGWkZkhmWGZkZnRmgGa0ZxhnLGc8Z4BkjGmygZyIAoIwqgAFjbXAAUBlTGVgZ9SF0ZfVhbQBhAOSgswM6FgCghipyImV2ZQAfYQABaXliGWUZcgBjAB1hM2RvAHQAIWGAoWUibHFzAMYEcBl6GfGhZSLOBAAAdhlsAGEAbgD0AN8EgKF+KmNkbACBGYQZjBljAACgqSpvAHQAb6CAKmyggioAoIQqZeDbIgD+cwAAoJQqcgAA4DXYJN3noGsirATtIWVsAKA3IWMAeQBTZIChdyJFYWoApxmpGasZAKCSKgCgpSoAoKQqAAJFYWVztBm2Gb0ZwhkAoGkicABwoIoq8iFveACgiipxoIgq8aCIKrUZaQBtAACg5yJwAGYAAOA12FjdYQB2AOUAYwIAAWNp0xnWGXIAAKAKIW0AAKFzImVs3BneGQCgjioAoJAqAIM+ADtjZGxxco0E6xn0GfgZ/BkBGgABY2nvGfEZAKCnKnIAAKB6Km8AdAAAoNci0CFhcgCglSl1ImVzdAAAoHwqgAJhZGVscwAKGvQZFhrVBCAa8AEPGgAAFBpwAHIAbwD4AFkZcgAAoHgpcQAAAWxxxAQbGmwAZQBzAPMASRlpAO0A5AQAAWVuJxouGnIjdG5lcXEAAOBpIgD+xQAsGgAFQWFiY2Vma29zeUAaQxpmGmoabRqDGocalhrCGtMacgDyAMwCAAJpbG1yShpOGlAaVBpyAHMA8ABxD2YAvWBpAGwA9AASBQABZHJYGlsaYwB5AEpkAKGUIWN3YBpkGmkAcgAAoEgpAKCtIWEAcgAAoA8h6SFyYyVhgAFhbHIAcxp7Gn8a8iF0c3WgZSZpAHQAAKBlJuwhaXAAoCYg4yFvbgCguSJyAADgNdgl3XMAAAFld4wakRphInJvdwAAoCUpYSJyb3cAAKAmKYACYW1vcHIAnxqjGqcauhq+GnIAcgAAoP8h9CFodACgOyJrAAABbHKsGrMaZSRmdGFycm93AACgqSHpJGdodGFycm93AKCqIWYAAOA12Fnd4iFhcgCgFSCAAWNsdADIGswa0BpyAADgNdi93GEAcwDoAGka8iFvaydhAAFicNca2xr1IWxsAKBDIOghZW4AoBAg4Qr2GgAA/RoAAAgbExsaGwAAIRs7GwAAAAA+G2IbmRuVG6sbAACyG80b0htjAHUAdABlADuA7QDtQAChYyBpeQEbBhtyAGMAO4DuAO5AOGQAAWN4CxsNG3kANWRjAGwAO4ChAKFAAAFmcssCFhsA4DXYJt1yAGEAdgBlADuA7ADsQIChSCFpbm8AJxsyGzYbAAFpbisbLxtuAHQAAKAMKnQAAKAtIuYhaW4AoNwpdABhAACgKSHsIWlnM2GAAWFvcABDG1sbXhuAAWNndABJG0sbWRtyACthgAFlbHAAcQVRG1UbaQBuAOUAyAVhAHIA9AByBWgAMWFmAACgtyJlAGQAtWEAoggiY2ZvdGkbbRt1G3kb4SFyZQCgBSFpAG4AdKAeImkAZQAAoN0pZABvAPQAWxsAoisiY2VscIEbhRuPG5QbYQBsAACguiIAAWdyiRuNG2UAcgDzACMQ4wCCG2EicmhrAACgFyryIW9kAKA8KgACY2dwdJ8boRukG6gbeQBRZG8AbgAvYWYAAOA12FrdYQC5Y3UAZQBzAHQAO4C/AL9AAAFjabUbuRtyAADgNdi+3G4AAKIIIkVkc3bCG8QbyBvQAwCg+SJvAHQAAKD1Inag9CIAoPMiaaBiIOwhZGUpYesB1hsAANkbYwB5AFZkbAA7gO8A70AAA2NmbW9zdeYb7hvyG/Ub+hsFHAABaXnqG+0bcgBjADVhOWRyAADgNdgn3eEhdGg3YnAAZgAA4DXYW93jAf8bAAADHHIAAOA12L/c8iFjeVhk6yFjeVRkAARhY2ZnaGpvcxUcGhwiHCYcKhwtHDAcNRzwIXBhdqC6A/BjAAFleR4cIRzkIWls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ZmdobG1vcHJzdHV3CiwNLBEsHSwnLDEsQCxLLFIsYix6LIQsjyzLLOgs7Sz/LAotcgDyAAkDYQByAACgYykAAWNyFSwbLHUAdABlADuA+gD6QPIACQ1yAOMBIywAACUseQBeZHYAZQBtYQABaXkrLDAscgBjADuA+wD7QENkgAFhYmgANyw6LD0scgDyANEO7CFhY3FhYQDyAOAOAAFpckQsSCzzIWh0AKB+KQDgNdgy3XIAYQB2AGUAO4D5APlAYQFWLF8scgAAAWxyWixcLACgvyEAoL4hbABrAACggCUAAWN0Zix2LG8CbCwAAAAAcyxyAG4AZaAcI3IAAKAcI28AcAAAoA8jcgBpAACg+CUAAWFsfiyBLGMAcgBrYTuAqACoQAABZ3CILIssbwBuAHNhZgAA4DXYZt0AA2FkaGxzdZksniynLLgsuyzFLHIAcgBvAPcACQ1vAHcAbgBhAHIAcgBvAPcA2A5hI3Jwb29uAAABbHKvLLMsZQBmAPQAWyxpAGcAaAD0AF0sdQDzAKYOaQAAocUDaGzBLMIs0mNvAG4AxWPwI2Fycm93cwCgyCGAAWNpdADRLOEs5CxvAtcsAAAAAN4scgBuAGWgHSNyAACgHSNvAHAAAKAOI24AZwBvYXIAaQAAoPklYwByAADgNdjK3IABZGlyAPMs9yz6LG8AdAAAoPAi7CFkZWlhaQBmoLUlAKC0JQABYW0DLQYtcgDyAMosbAA7gPwA/EDhIm5nbGUAoKcpgAdBQkRhY2RlZmxub3Byc3oAJy0qLTAtNC2bLZ0toS2/LcMtxy3TLdgt3C3gLfwtcgDyABADYQByAHag6CoAoOkqYQBzAOgA/gIAAW5yOC08LechcnQAoJwpgANla25wcnN0AJkpSC1NLVQtXi1iLYItYQBwAHAA4QAaHG8AdABoAGkAbgDnAKEXgAFoaXIAoSmzJFotbwBwAPQAdCVooJUh7wD4JgABaXVmLWotZwBtAOEAuygAAWJwbi14LXMjZXRuZXEAceCKIgD+AODLKgD+cyNldG5lcQBx4IsiAP4A4MwqAP4AAWhyhi2KLWUAdADhABIraSNhbmdsZQAAAWxyki2WLeUhZnQAoLIiaSJnaHQAAKCzInkAMmThIXNoAKCiIoABZWxyAKcttC24LWKiKCKuLQAAAACyLWEAcgAAoLsicQAAoFoi7CFpcACg7iIAAWJ0vC1eD2EA8gBfD3IAAOA12DPddAByAOkAlS1zAHUAAAFicM0t0C0A4IIi0iAA4IMi0iBwAGYAAOA12GfdcgBvAPAAWQt0AHIA6QCaLQABY3XkLegtcgAA4DXYy9wAAWJw7C30LW4AAAFFZXUt8S0A4IoiAP5uAAABRWV/LfktAOCLIgD+6SJnemFnAKCaKYADY2Vmb3BycwANLhAuJS4pLiMuLi40LukhcmN1YQABZGkULiEuAAFiZxguHC5hAHIAAKBfKmUAcaAnIgCgWSLlIXJwAKAYIXIAAOA12DTdcABmAADgNdho3WWgQCJhAHQA6ABqD2MAcgAA4DXYzNzjCuQRUC4AAFQuAABYLmIuAAAAAGMubS5wLnQuAAAAAIguki4AAJouJxIqEnQAcgDpAB0ScgAA4DXYNd0AAUFhWy5eLnIA8gDnAnIA8gCTB75jAAFBYWYuaS5yAPIA4AJyAPIAjAdhAPAAeh5pAHMAAKD7IoABZHB0APgReS6DLgABZmx9LoAuAOA12GnddQDzAP8RaQBtAOUABBIAAUFhiy6OLnIA8gDuAnIA8gCaBwABY3GVLgoScgAA4DXYzdwAAXB0nS6hLmwAdQDzACUScgDpACASAARhY2VmaW9zdbEuvC7ELsguzC7PLtQu2S5jAAABdXm2LrsudABlADuA/QD9QE9kAAFpecAuwy5yAGMAd2FLZG4AO4ClAKVAcgAA4DXYNt1jAHkAV2RwAGYAAOA12GrdYwByAADgNdjO3AABY23dLt8ueQBOZGwAO4D/AP9AAAVhY2RlZmhpb3N38y73Lv8uAi8MLxAvEy8YLx0vIi9jInV0ZQB6YQABYXn7Lv4u8iFvbn5hN2RvAHQAfGEAAWV0Bi8KL3QAcgDmAB8QYQC2Y3IAAOA12DfdYwB5ADZk5yJyYXJyAKDdIXAAZgAA4DXYa91jAHIAAOA12M/cAAFqbiYvKC8AoA0gagAAoAwg");
+  }
+});
+
+// node_modules/entities/dist/internal/bin-trie-flags.js
+var BinTrieFlags;
+var init_bin_trie_flags = __esm({
+  "node_modules/entities/dist/internal/bin-trie-flags.js"() {
+    (function(BinTrieFlags2) {
+      BinTrieFlags2[BinTrieFlags2["VALUE_LENGTH"] = 49152] = "VALUE_LENGTH";
+      BinTrieFlags2[BinTrieFlags2["FLAG13"] = 8192] = "FLAG13";
+      BinTrieFlags2[BinTrieFlags2["BRANCH_LENGTH"] = 8064] = "BRANCH_LENGTH";
+      BinTrieFlags2[BinTrieFlags2["JUMP_TABLE"] = 127] = "JUMP_TABLE";
+    })(BinTrieFlags || (BinTrieFlags = {}));
+  }
+});
+
+// node_modules/entities/dist/decode.js
+function isNumber(code2) {
+  return code2 >= CharCodes.ZERO && code2 <= CharCodes.NINE;
+}
+function isHexadecimalCharacter(code2) {
+  return code2 >= CharCodes.UPPER_A && code2 <= CharCodes.UPPER_F || code2 >= CharCodes.LOWER_A && code2 <= CharCodes.LOWER_F;
+}
+function isAsciiAlphaNumeric(code2) {
+  return code2 >= CharCodes.UPPER_A && code2 <= CharCodes.UPPER_Z || code2 >= CharCodes.LOWER_A && code2 <= CharCodes.LOWER_Z || isNumber(code2);
+}
+function isEntityInAttributeInvalidEnd(code2) {
+  return code2 === CharCodes.EQUALS || isAsciiAlphaNumeric(code2);
+}
+function getDecoder(decodeTree) {
+  let returnValue = "";
+  const decoder = new EntityDecoder(decodeTree, (data) => returnValue += String.fromCodePoint(data));
+  return function decodeWithTrie(input, decodeMode) {
+    let lastIndex = 0;
+    let offset = 0;
+    while ((offset = input.indexOf("&", offset)) >= 0) {
+      returnValue += input.slice(lastIndex, offset);
+      decoder.startEntity(decodeMode);
+      const length = decoder.write(
+        input,
+        // Skip the "&"
+        offset + 1
+      );
+      if (length < 0) {
+        lastIndex = offset + decoder.end();
+        break;
+      }
+      lastIndex = offset + length;
+      offset = length === 0 ? lastIndex + 1 : lastIndex;
+    }
+    const result = returnValue + input.slice(lastIndex);
+    returnValue = "";
+    return result;
+  };
+}
+function determineBranch(decodeTree, current, nodeIndex, char) {
+  const branchCount = (current & BinTrieFlags.BRANCH_LENGTH) >> 7;
+  const jumpOffset = current & BinTrieFlags.JUMP_TABLE;
+  if (branchCount === 0) {
+    return jumpOffset !== 0 && char === jumpOffset ? nodeIndex : -1;
+  }
+  if (jumpOffset) {
+    const value = char - jumpOffset;
+    return value < 0 || value >= branchCount ? -1 : decodeTree[nodeIndex + value] - 1;
+  }
+  const packedKeySlots = branchCount + 1 >> 1;
+  let lo = 0;
+  let hi = branchCount - 1;
+  while (lo <= hi) {
+    const mid = lo + hi >>> 1;
+    const slot = mid >> 1;
+    const packed = decodeTree[nodeIndex + slot];
+    const midKey = packed >> (mid & 1) * 8 & 255;
+    if (midKey < char) {
+      lo = mid + 1;
+    } else if (midKey > char) {
+      hi = mid - 1;
+    } else {
+      return decodeTree[nodeIndex + packedKeySlots + mid];
+    }
+  }
+  return -1;
+}
+function decodeHTMLStrict(htmlString) {
+  return htmlDecoder(htmlString, DecodingMode.Strict);
+}
+var CharCodes, TO_LOWER_BIT, EntityDecoderState, DecodingMode, EntityDecoder, htmlDecoder;
+var init_decode2 = __esm({
+  "node_modules/entities/dist/decode.js"() {
+    init_decode_codepoint();
+    init_decode_data_html();
+    init_bin_trie_flags();
+    (function(CharCodes2) {
+      CharCodes2[CharCodes2["NUM"] = 35] = "NUM";
+      CharCodes2[CharCodes2["SEMI"] = 59] = "SEMI";
+      CharCodes2[CharCodes2["EQUALS"] = 61] = "EQUALS";
+      CharCodes2[CharCodes2["ZERO"] = 48] = "ZERO";
+      CharCodes2[CharCodes2["NINE"] = 57] = "NINE";
+      CharCodes2[CharCodes2["LOWER_A"] = 97] = "LOWER_A";
+      CharCodes2[CharCodes2["LOWER_F"] = 102] = "LOWER_F";
+      CharCodes2[CharCodes2["LOWER_X"] = 120] = "LOWER_X";
+      CharCodes2[CharCodes2["LOWER_Z"] = 122] = "LOWER_Z";
+      CharCodes2[CharCodes2["UPPER_A"] = 65] = "UPPER_A";
+      CharCodes2[CharCodes2["UPPER_F"] = 70] = "UPPER_F";
+      CharCodes2[CharCodes2["UPPER_Z"] = 90] = "UPPER_Z";
+    })(CharCodes || (CharCodes = {}));
+    TO_LOWER_BIT = 32;
+    (function(EntityDecoderState2) {
+      EntityDecoderState2[EntityDecoderState2["EntityStart"] = 0] = "EntityStart";
+      EntityDecoderState2[EntityDecoderState2["NumericStart"] = 1] = "NumericStart";
+      EntityDecoderState2[EntityDecoderState2["NumericDecimal"] = 2] = "NumericDecimal";
+      EntityDecoderState2[EntityDecoderState2["NumericHex"] = 3] = "NumericHex";
+      EntityDecoderState2[EntityDecoderState2["NamedEntity"] = 4] = "NamedEntity";
+    })(EntityDecoderState || (EntityDecoderState = {}));
+    (function(DecodingMode2) {
+      DecodingMode2[DecodingMode2["Legacy"] = 0] = "Legacy";
+      DecodingMode2[DecodingMode2["Strict"] = 1] = "Strict";
+      DecodingMode2[DecodingMode2["Attribute"] = 2] = "Attribute";
+    })(DecodingMode || (DecodingMode = {}));
+    EntityDecoder = class {
+      decodeTree;
+      emitCodePoint;
+      errors;
+      constructor(decodeTree, emitCodePoint, errors2) {
+        this.decodeTree = decodeTree;
+        this.emitCodePoint = emitCodePoint;
+        this.errors = errors2;
+      }
+      /** The current state of the decoder. */
+      state = EntityDecoderState.EntityStart;
+      /** Characters that were consumed while parsing an entity. */
+      consumed = 1;
+      /**
+       * The result of the entity.
+       *
+       * Either the result index of a numeric entity, or the codepoint of a
+       * numeric entity.
+       */
+      result = 0;
+      /** The current index in the decode tree. */
+      treeIndex = 0;
+      /** The number of characters that were consumed in excess. */
+      excess = 1;
+      /** The mode in which the decoder is operating. */
+      decodeMode = DecodingMode.Strict;
+      /** The number of characters that have been consumed in the current run. */
+      runConsumed = 0;
+      /**
+       * Resets the instance to make it reusable.
+       * @param decodeMode Entity decoding mode to use.
+       */
+      startEntity(decodeMode) {
+        this.decodeMode = decodeMode;
+        this.state = EntityDecoderState.EntityStart;
+        this.result = 0;
+        this.treeIndex = 0;
+        this.excess = 1;
+        this.consumed = 1;
+        this.runConsumed = 0;
+      }
+      /**
+       * Write an entity to the decoder. This can be called multiple times with partial entities.
+       * If the entity is incomplete, the decoder will return -1.
+       *
+       * Mirrors the implementation of `getDecoder`, but with the ability to stop decoding if the
+       * entity is incomplete, and resume when the next string is written.
+       * @param input The string containing the entity (or a continuation of the entity).
+       * @param offset The offset at which the entity begins. Should be 0 if this is not the first call.
+       * @returns The number of characters that were consumed, or -1 if the entity is incomplete.
+       */
+      write(input, offset) {
+        switch (this.state) {
+          case EntityDecoderState.EntityStart: {
+            if (input.charCodeAt(offset) === CharCodes.NUM) {
+              this.state = EntityDecoderState.NumericStart;
+              this.consumed += 1;
+              return this.stateNumericStart(input, offset + 1);
+            }
+            this.state = EntityDecoderState.NamedEntity;
+            return this.stateNamedEntity(input, offset);
+          }
+          case EntityDecoderState.NumericStart: {
+            return this.stateNumericStart(input, offset);
+          }
+          case EntityDecoderState.NumericDecimal: {
+            return this.stateNumericDecimal(input, offset);
+          }
+          case EntityDecoderState.NumericHex: {
+            return this.stateNumericHex(input, offset);
+          }
+          case EntityDecoderState.NamedEntity: {
+            return this.stateNamedEntity(input, offset);
+          }
+        }
+      }
+      /**
+       * Switches between the numeric decimal and hexadecimal states.
+       *
+       * Equivalent to the `Numeric character reference state` in the HTML spec.
+       * @param input The string containing the entity (or a continuation of the entity).
+       * @param offset The current offset.
+       * @returns The number of characters that were consumed, or -1 if the entity is incomplete.
+       */
+      stateNumericStart(input, offset) {
+        if (offset >= input.length) {
+          return -1;
+        }
+        if ((input.charCodeAt(offset) | TO_LOWER_BIT) === CharCodes.LOWER_X) {
+          this.state = EntityDecoderState.NumericHex;
+          this.consumed += 1;
+          return this.stateNumericHex(input, offset + 1);
+        }
+        this.state = EntityDecoderState.NumericDecimal;
+        return this.stateNumericDecimal(input, offset);
+      }
+      /**
+       * Parses a hexadecimal numeric entity.
+       *
+       * Equivalent to the `Hexademical character reference state` in the HTML spec.
+       * @param input The string containing the entity (or a continuation of the entity).
+       * @param offset The current offset.
+       * @returns The number of characters that were consumed, or -1 if the entity is incomplete.
+       */
+      stateNumericHex(input, offset) {
+        while (offset < input.length) {
+          const char = input.charCodeAt(offset);
+          if (isNumber(char) || isHexadecimalCharacter(char)) {
+            const digit = char <= CharCodes.NINE ? char - CharCodes.ZERO : (char | TO_LOWER_BIT) - CharCodes.LOWER_A + 10;
+            this.result = this.result * 16 + digit;
+            this.consumed++;
+            offset++;
+          } else {
+            return this.emitNumericEntity(char, 3);
+          }
+        }
+        return -1;
+      }
+      /**
+       * Parses a decimal numeric entity.
+       *
+       * Equivalent to the `Decimal character reference state` in the HTML spec.
+       * @param input The string containing the entity (or a continuation of the entity).
+       * @param offset The current offset.
+       * @returns The number of characters that were consumed, or -1 if the entity is incomplete.
+       */
+      stateNumericDecimal(input, offset) {
+        while (offset < input.length) {
+          const char = input.charCodeAt(offset);
+          if (isNumber(char)) {
+            this.result = this.result * 10 + (char - CharCodes.ZERO);
+            this.consumed++;
+            offset++;
+          } else {
+            return this.emitNumericEntity(char, 2);
+          }
+        }
+        return -1;
+      }
+      /**
+       * Validate and emit a numeric entity.
+       *
+       * Implements the logic from the `Hexademical character reference start
+       * state` and `Numeric character reference end state` in the HTML spec.
+       * @param lastCp The last code point of the entity. Used to see if the
+       *               entity was terminated with a semicolon.
+       * @param expectedLength The minimum number of characters that should be
+       *                       consumed. Used to validate that at least one digit
+       *                       was consumed.
+       * @returns The number of characters that were consumed.
+       */
+      emitNumericEntity(lastCp, expectedLength) {
+        if (this.consumed <= expectedLength) {
+          this.errors?.absenceOfDigitsInNumericCharacterReference(this.consumed);
+          return 0;
+        }
+        if (lastCp === CharCodes.SEMI) {
+          this.consumed += 1;
+        } else if (this.decodeMode === DecodingMode.Strict) {
+          return 0;
+        }
+        this.emitCodePoint(replaceCodePoint(this.result), this.consumed);
+        if (this.errors) {
+          if (lastCp !== CharCodes.SEMI) {
+            this.errors.missingSemicolonAfterCharacterReference();
+          }
+          this.errors.validateNumericCharacterReference(this.result);
+        }
+        return this.consumed;
+      }
+      /**
+       * Parses a named entity.
+       *
+       * Equivalent to the `Named character reference state` in the HTML spec.
+       * @param input The string containing the entity (or a continuation of the entity).
+       * @param offset The current offset.
+       * @returns The number of characters that were consumed, or -1 if the entity is incomplete.
+       */
+      stateNamedEntity(input, offset) {
+        const { decodeTree } = this;
+        let current = decodeTree[this.treeIndex];
+        let valueLength = (current & BinTrieFlags.VALUE_LENGTH) >> 14;
+        while (offset < input.length) {
+          if (valueLength === 0 && (current & BinTrieFlags.FLAG13) !== 0) {
+            const runLength = (current & BinTrieFlags.BRANCH_LENGTH) >> 7;
+            if (this.runConsumed === 0) {
+              const firstChar = current & BinTrieFlags.JUMP_TABLE;
+              if (input.charCodeAt(offset) !== firstChar) {
+                return this.result === 0 ? 0 : this.emitNotTerminatedNamedEntity();
+              }
+              offset++;
+              this.excess++;
+              this.runConsumed++;
+            }
+            while (this.runConsumed < runLength) {
+              if (offset >= input.length) {
+                return -1;
+              }
+              const charIndexInPacked = this.runConsumed - 1;
+              const packedWord = decodeTree[this.treeIndex + 1 + (charIndexInPacked >> 1)];
+              const expectedChar = charIndexInPacked % 2 === 0 ? packedWord & 255 : packedWord >> 8 & 255;
+              if (input.charCodeAt(offset) !== expectedChar) {
+                this.runConsumed = 0;
+                return this.result === 0 ? 0 : this.emitNotTerminatedNamedEntity();
+              }
+              offset++;
+              this.excess++;
+              this.runConsumed++;
+            }
+            this.runConsumed = 0;
+            this.treeIndex += 1 + (runLength >> 1);
+            current = decodeTree[this.treeIndex];
+            valueLength = (current & BinTrieFlags.VALUE_LENGTH) >> 14;
+          }
+          if (offset >= input.length)
+            break;
+          const char = input.charCodeAt(offset);
+          if (char === CharCodes.SEMI && valueLength !== 0 && (current & BinTrieFlags.FLAG13) !== 0) {
+            return this.emitNamedEntityData(this.treeIndex, valueLength, this.consumed + this.excess);
+          }
+          this.treeIndex = determineBranch(decodeTree, current, this.treeIndex + Math.max(1, valueLength), char);
+          if (this.treeIndex < 0) {
+            return this.result === 0 || // If we are parsing an attribute
+            this.decodeMode === DecodingMode.Attribute && // We shouldn't have consumed any characters after the entity,
+            (valueLength === 0 || // And there should be no invalid characters.
+            isEntityInAttributeInvalidEnd(char)) ? 0 : this.emitNotTerminatedNamedEntity();
+          }
+          current = decodeTree[this.treeIndex];
+          valueLength = (current & BinTrieFlags.VALUE_LENGTH) >> 14;
+          if (valueLength !== 0) {
+            if (char === CharCodes.SEMI) {
+              return this.emitNamedEntityData(this.treeIndex, valueLength, this.consumed + this.excess);
+            }
+            if (this.decodeMode !== DecodingMode.Strict && (current & BinTrieFlags.FLAG13) === 0) {
+              this.result = this.treeIndex;
+              this.consumed += this.excess;
+              this.excess = 0;
+            }
+          }
+          offset++;
+          this.excess++;
+        }
+        return -1;
+      }
+      /**
+       * Emit a named entity that was not terminated with a semicolon.
+       * @returns The number of characters consumed.
+       */
+      emitNotTerminatedNamedEntity() {
+        const { result, decodeTree } = this;
+        const valueLength = (decodeTree[result] & BinTrieFlags.VALUE_LENGTH) >> 14;
+        this.emitNamedEntityData(result, valueLength, this.consumed);
+        this.errors?.missingSemicolonAfterCharacterReference();
+        return this.consumed;
+      }
+      /**
+       * Emit a named entity.
+       * @param result The index of the entity in the decode tree.
+       * @param valueLength The number of bytes in the entity.
+       * @param consumed The number of characters consumed.
+       * @returns The number of characters consumed.
+       */
+      emitNamedEntityData(result, valueLength, consumed) {
+        const { decodeTree } = this;
+        this.emitCodePoint(valueLength === 1 ? decodeTree[result] & ~(BinTrieFlags.VALUE_LENGTH | BinTrieFlags.FLAG13) : decodeTree[result + 1], consumed);
+        if (valueLength === 3) {
+          this.emitCodePoint(decodeTree[result + 2], consumed);
+        }
+        return consumed;
+      }
+      /**
+       * Signal to the parser that the end of the input was reached.
+       *
+       * Remaining data will be emitted and relevant errors will be produced.
+       * @returns The number of characters consumed.
+       */
+      end() {
+        switch (this.state) {
+          case EntityDecoderState.NamedEntity: {
+            return this.result !== 0 && (this.decodeMode !== DecodingMode.Attribute || this.result === this.treeIndex) ? this.emitNotTerminatedNamedEntity() : 0;
+          }
+          // Otherwise, emit a numeric entity if we have one.
+          case EntityDecoderState.NumericDecimal: {
+            return this.emitNumericEntity(0, 2);
+          }
+          case EntityDecoderState.NumericHex: {
+            return this.emitNumericEntity(0, 3);
+          }
+          case EntityDecoderState.NumericStart: {
+            this.errors?.absenceOfDigitsInNumericCharacterReference(this.consumed);
+            return 0;
+          }
+          case EntityDecoderState.EntityStart: {
+            return 0;
+          }
+        }
+      }
+    };
+    htmlDecoder = /* @__PURE__ */ getDecoder(htmlDecodeTree);
+  }
+});
+
+// node_modules/entities/dist/index.js
+var EntityLevel, EncodingMode;
+var init_dist = __esm({
+  "node_modules/entities/dist/index.js"() {
+    init_decode2();
+    (function(EntityLevel2) {
+      EntityLevel2[EntityLevel2["XML"] = 0] = "XML";
+      EntityLevel2[EntityLevel2["HTML"] = 1] = "HTML";
+    })(EntityLevel || (EntityLevel = {}));
+    (function(EncodingMode2) {
+      EncodingMode2[EncodingMode2["UTF8"] = 0] = "UTF8";
+      EncodingMode2[EncodingMode2["ASCII"] = 1] = "ASCII";
+      EncodingMode2[EncodingMode2["Extensive"] = 2] = "Extensive";
+      EncodingMode2[EncodingMode2["Attribute"] = 3] = "Attribute";
+      EncodingMode2[EncodingMode2["Text"] = 4] = "Text";
+    })(EncodingMode || (EncodingMode = {}));
+  }
+});
+
+// node_modules/linkify-it/build/index.mjs
+function unpackTlds() {
+  const result = tlds_default.split("|");
+  tlds_2ch.split("|").forEach((item) => {
+    const sep = item.indexOf(":");
+    const prefix = item.slice(0, sep);
+    for (const suffix of item.slice(sep + 1)) result.push(prefix + suffix);
+  });
+  return result;
+}
+var REBuilder, web_schema, defaultSchemas, tlds_2ch, tlds_default, defaultOptions, Match, LinkifyIt;
+var init_build2 = __esm({
+  "node_modules/linkify-it/build/index.mjs"() {
+    init_build();
+    REBuilder = class {
+      src_Any = Any.source;
+      src_Cc = Cc.source;
+      src_Z = Z.source;
+      src_P = P.source;
+      src_ZPCc = [
+        this.src_Z,
+        this.src_P,
+        this.src_Cc
+      ].join("|");
+      src_ZCc = [this.src_Z, this.src_Cc].join("|");
+      cache = {};
+      opts = {
+        maxLength: 1e4,
+        urlAuth: false,
+        schema_names: []
+      };
+      constructor(opts = {}) {
+        this.opts = {
+          ...this.opts,
+          ...opts
+        };
+      }
+      set(opts = {}) {
+        this.opts = {
+          ...this.opts,
+          ...opts
+        };
+        this.cache = {};
+        return this;
+      }
+      escapeRE(str) {
+        return str.replace(/[.?*+^$[\]\\(){}|-]/g, "\\$&");
+      }
+      nestedPairRE(open, close, depth = 4) {
+        const openRE = this.escapeRE(open);
+        const closeRE = this.escapeRE(close);
+        const atom = `(?:(?!${this.src_ZCc}|${openRE}|${closeRE}).)`;
+        let pair = `${openRE}${atom}{0,1000}${closeRE}`;
+        for (let level = 2; level <= depth; level++) pair = `${openRE}(?:${atom}|${pair}){0,1000}${closeRE}`;
+        return pair;
+      }
+      get_text_separators() {
+        return this.cache.text_separators ??= /[><\uff5c]/;
+      }
+      get_pseudo_letter() {
+        return this.cache.src_pseudo_letter ??= new RegExp(`(?:(?!${this.get_text_separators().source}|${this.src_ZPCc})${this.src_Any})`);
+      }
+      get_ipv4_addr() {
+        return this.cache.src_ip4 ??= /* @__PURE__ */ new RegExp("(?:(?:25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9][0-9]|[0-9])[.]){3}(?:25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9][0-9]|[0-9])");
+      }
+      get_ipv6_addr() {
+        const h16 = "[0-9A-Fa-f]{1,4}";
+        const ls32 = `(?:(?:${h16}:${h16})|${this.get_ipv4_addr().source})`;
+        return this.cache.src_ip6_addr ??= new RegExp(`(?:(?:${h16}:){6}${ls32}|::(?:${h16}:){5}${ls32}|(?:${h16})?::(?:${h16}:){4}${ls32}|(?:(?:${h16}:){0,1}${h16})?::(?:${h16}:){3}${ls32}|(?:(?:${h16}:){0,2}${h16})?::(?:${h16}:){2}${ls32}|(?:(?:${h16}:){0,3}${h16})?::${h16}:${ls32}|(?:(?:${h16}:){0,4}${h16})?::${ls32}|(?:(?:${h16}:){0,5}${h16})?::${h16}|(?:(?:${h16}:){0,6}${h16})?::)`);
+      }
+      get_ipv6_url_host() {
+        return this.cache.src_ip6_host ??= new RegExp(`\\[${this.get_ipv6_addr().source}\\]`);
+      }
+      get_ipv6_mail_host() {
+        return this.cache.src_ipv6_mail_host ??= new RegExp(`\\[IPv6:${this.get_ipv6_addr().source}\\]`);
+      }
+      get_auth() {
+        return this.cache.src_auth ??= new RegExp(`(?:(?:(?!${this.src_ZCc}|[@/\\[\\]()]).){1,50}@)?`);
+      }
+      get_port() {
+        return this.cache.src_port ??= /* @__PURE__ */ new RegExp("(?::(?:6(?:[0-4]\\d{3}|5(?:[0-4]\\d{2}|5(?:[0-2]\\d|3[0-5])))|[1-5]?\\d{1,4}))?");
+      }
+      get_host_terminator() {
+        return this.cache.src_host_terminator ??= new RegExp(`(?=$|${this.get_text_separators().source}|${this.src_ZPCc})(?!${this.opts["---"] ? "-(?!--)|" : "-|"}_|:\\d|\\.-|\\.(?!$|${this.src_ZPCc}))`);
+      }
+      get_path_terminator() {
+        return this.cache.src_path_terminator ??= new RegExp(`${this.src_ZPCc}|${this.get_text_separators().source}`);
+      }
+      get_path() {
+        return this.cache.src_path ??= new RegExp(`(?:[/?#](?:${this.nestedPairRE("[", "]")}|${this.nestedPairRE("(", ")")}|${this.nestedPairRE("{", "}")}|\\"(?:(?!${this.src_ZCc}|["]).){1,100}\\"|\\'(?:(?!${this.src_ZCc}|[']).){1,100}\\'|\\'(?=${this.get_pseudo_letter().source}|[-])|\\.{2,20}[:]?[a-zA-Z0-9%/&]|\\.(?!${this.src_ZCc}|[.]|$)|` + (this.opts["---"] ? "\\-(?!--(?:[^-]|$))(?:-{0,19})|" : "\\-{1,20}|") + `,(?!${this.src_ZCc}|$)|;(?!${this.src_ZCc}|$)|\\!{1,20}(?!${this.src_ZCc}|[!]|$)|\\?(?!${this.src_ZCc}|[?]|$)|` + this.get_path_extra().source + `[\\\\/:%@#&=_~*]|(?!${this.get_path_terminator().source}).){1,${this.opts.maxLength}}|\\/)?`);
+      }
+      get_mail_name() {
+        return this.cache.src_mail_name ??= /* @__PURE__ */ new RegExp("[-!#$%&'*+/=?^_`{|}~a-zA-Z0-9](?:[-!#$%&'*+/=?^_`{|}~a-zA-Z0-9]|[.](?=[-!#$%&'*+/=?^_`{|}~a-zA-Z0-9])){0,63}");
+      }
+      get_xn() {
+        return this.cache.src_xn ??= /* @__PURE__ */ new RegExp("xn--[a-z0-9\\-]{1,59}");
+      }
+      get_tld() {
+        if (this.cache.tld) return this.cache.tld;
+        const tlds_src = [...new Set(this.opts.tlds || [])].sort().reverse().join("|");
+        this.cache.tld = new RegExp(`${tlds_src || "$#none#$"}|${this.get_xn().source}`);
+        return this.cache.tld;
+      }
+      get_domain_root() {
+        return this.cache.src_domain_root ??= new RegExp("(?:" + this.get_xn().source + `|${this.get_pseudo_letter().source}{1,63})`);
+      }
+      get_domain() {
+        return this.cache.src_domain ??= new RegExp("(?:" + this.get_xn().source + `|(?:${this.get_pseudo_letter().source})|(?:${this.get_pseudo_letter().source}(?:-|${this.get_pseudo_letter().source}){0,61}${this.get_pseudo_letter().source}))`);
+      }
+      get_url_host_port() {
+        return this.cache.url_host_port ??= new RegExp("(?:" + this.get_ipv6_url_host().source + `|(?:(?:(?:${this.get_domain().source})\\.){0,10}${this.get_domain().source}))` + this.get_port().source + this.get_host_terminator().source);
+      }
+      get_fuzzy_url_host_port() {
+        return this.cache.fuzzy_url_host_port ??= new RegExp("(?:" + (this.opts.fuzzyIP ? this.get_ipv4_addr().source + "|" : "") + `(?:(?:(?:${this.get_domain().source})\\.){1,10}(?:${this.get_tld().source})))` + this.get_host_terminator().source);
+      }
+      get_mail_host() {
+        return this.cache.src_mail_host ??= new RegExp("(?:" + this.get_ipv6_mail_host().source + `|(?:(?:(?:${this.get_domain().source})\\.){0,4}${this.get_domain().source}))` + this.get_host_terminator().source);
+      }
+      get_fuzzy_mail_host() {
+        return this.cache.src_fuzzy_mail_host ??= new RegExp("(?:" + this.get_ipv6_mail_host().source + `|(?:(?:(?:${this.get_domain().source})[.]){1,4}${this.get_domain_root().source}))` + this.get_host_terminator().source);
+      }
+      get_path_extra() {
+        return this.cache.src_path_extra ??= /* @__PURE__ */ new RegExp("");
+      }
+      get_fuzzy_mail_host_search() {
+        return this.cache.mail_fuzzy_host_search ??= new RegExp(`@${this.get_fuzzy_mail_host().source}`, "ig");
+      }
+      get_fuzzy_link_search() {
+        return this.cache.link_fuzzy_search ??= new RegExp(`(^|(?![.:/\\-_@])(?:[$+<=>^\`|\uFF5C]|${this.src_ZPCc}))(?:(?![$+<=>^\`|\uFF5C])${this.get_fuzzy_url_host_port().source}${this.get_path().source})`, "ig");
+      }
+      get_http_validator() {
+        return this.cache.http_validator ??= new RegExp("\\/\\/" + (this.opts.urlAuth ? this.get_auth().source : "") + this.get_url_host_port().source + this.get_path().source, "iy");
+      }
+      get_relative_proto_validator() {
+        return this.cache.relative_proto_validator ??= new RegExp((this.opts.urlAuth ? this.get_auth().source : "") + `(?:localhost|${this.get_ipv6_url_host().source}|(?:(?:${this.get_domain().source})[.]){1,10}${this.get_domain_root().source})` + this.get_port().source + this.get_host_terminator().source + this.get_path().source, "iy");
+      }
+      get_mail_name_validator() {
+        return this.cache.mail_name_validator ??= new RegExp(`(?:^|${this.get_text_separators().source}|"|\\(|${this.src_ZCc})(${this.get_mail_name().source})$`);
+      }
+      get_mailto_validator() {
+        return this.cache.mailto_validator ??= new RegExp(`${this.get_mail_name().source}@${this.get_mail_host().source}`, "iy");
+      }
+      get_schema_names() {
+        return this.cache.schema_names ??= new RegExp((this.opts.schema_names || []).map((name) => this.escapeRE(name)).join("|"));
+      }
+      get_schema_search() {
+        return this.cache.schema_search ??= new RegExp(`(^|(?!_)(?:[><\uFF5C]|${this.src_ZPCc}))(${this.get_schema_names().source})`, "ig");
+      }
+      get_schema_at_start() {
+        return this.cache.schema_at_start ??= new RegExp(`^${this.get_schema_search().source}`, "i");
+      }
+    };
+    web_schema = {
+      validate: (text2, pos, self2) => {
+        const re = self2.re.get_http_validator();
+        re.lastIndex = pos;
+        const m = re.exec(text2);
+        return m ? m[0].length : 0;
+      },
+      normalize: (match, self2) => self2.normalize(match)
+    };
+    defaultSchemas = {
+      "http:": web_schema,
+      "https:": web_schema,
+      "ftp:": web_schema,
+      "//": {
+        validate: function(text2, pos, self2) {
+          const re = self2.re.get_relative_proto_validator();
+          re.lastIndex = pos;
+          const m = re.exec(text2);
+          if (m) {
+            if (pos >= 3 && text2[pos - 3] === ":") return 0;
+            if (pos >= 3 && text2[pos - 3] === "/") return 0;
+            return m[0].length;
+          }
+          return 0;
+        },
+        normalize: (match, self2) => self2.normalize(match)
+      },
+      "mailto:": {
+        validate: function(text2, pos, self2) {
+          const re = self2.re.get_mailto_validator();
+          re.lastIndex = pos;
+          const m = re.exec(text2);
+          return m ? m[0].length : 0;
+        },
+        normalize: (match, self2) => self2.normalize(match)
+      }
+    };
+    tlds_2ch = "a:cdefgilmnoqrstuwxz|b:abdefghijmnorstvwyz|c:acdfghiklmnoruvwxyz|d:ejkmoz|e:cegrstu|f:ijkmor|g:abdefghilmnpqrstuwy|h:kmnrtu|i:delmnoqrst|j:emop|k:eghimnprwyz|l:abcikrstuvy|m:acdeghklmnopqrstuvwxyz|n:acefgilopruz|o:m|p:aefghklmnrstwy|q:a|r:eosuw|s:abcdeghijklmnortuvxyz|t:cdfghjklmnortvwz|u:agksyz|v:aceginu|w:fs|y:et|z:amw";
+    tlds_default = "biz|com|edu|gov|net|org|pro|web|xxx|aero|asia|coop|info|museum|name|shop|\u0440\u0444";
+    defaultOptions = {
+      fuzzyLink: false,
+      fuzzyEmail: true,
+      fuzzyIP: false,
+      "---": false,
+      tlds: unpackTlds(),
+      urlAuth: false,
+      maxLength: 1e4
+    };
+    Match = class {
+      /** Prefix (protocol) for matched string. Empty for fuzzy links. */
+      schema;
+      /** First position of matched string. */
+      index;
+      /** Next position after matched string. */
+      lastIndex;
+      /** Matched string. */
+      raw;
+      /** Normalized text of matched string. */
+      text;
+      /** Normalized URL of matched string. */
+      url;
+      constructor(text2, schema, index, lastIndex) {
+        const raw = text2.slice(index, lastIndex);
+        this.schema = schema.toLowerCase();
+        this.index = index;
+        this.lastIndex = lastIndex;
+        this.raw = raw;
+        this.text = raw;
+        this.url = raw;
+      }
+    };
+    LinkifyIt = class {
+      __opts__;
+      __schemas__;
+      re;
+      /**
+      * Creates new linkifier instance.
+      *
+      * By default understands:
+      *
+      * - `http(s)://...` , `ftp://...`, `mailto:...` & `//...` links
+      * - "fuzzy" emails (foo@bar.com).
+      *
+      * See {@link LinkifyConstructorOptions} for available options.
+      *
+      * @param options Recognition options.
+      *
+      * @example
+      * ```javascript
+      * import { LinkifyIt } from 'linkify-it'
+      *
+      * const linkify = new LinkifyIt({ fuzzyLink: true })
+      *
+      * linkify
+      *   .tlds(require('tlds'))       // Reload with full TLD list
+      *   .tlds('onion', true)         // Add unofficial `.onion` domain
+      *   .add('ftp:', null)           // Disable `ftp:` protocol
+      *   .set({ fuzzyIP: true })      // Enable IPs in fuzzy links
+      *
+      * console.log(linkify.test('Site github.com!')) // true
+      * console.log(linkify.match('Site github.com!'))
+      * ```
+      */
+      constructor(options = {}) {
+        const { rebuilder, ...linkifyOptions } = options;
+        this.__opts__ = {
+          ...defaultOptions,
+          ...linkifyOptions
+        };
+        this.__schemas__ = { ...defaultSchemas };
+        this.re = rebuilder || new REBuilder();
+        this.re.set({
+          ...this.__opts__,
+          schema_names: Object.keys(this.__schemas__)
+        });
+      }
+      /**
+      * Add new rule definition.
+      *
+      * `schema` is a link prefix (usually, protocol name with `:` at the end,
+      * `skype:` for example). `linkify-it` makes sure that prefix is not
+      * preceded with alphanumeric char and symbols. Only whitespaces and
+      * punctuation allowed.
+      *
+      * `definition` is a rule to check tail after link prefix. To disable an
+      * existing rule, pass `null`.
+      *
+      * @param schema Rule name (fixed pattern prefix).
+      * @param definition Schema definition, or `null` to disable the rule.
+      *
+      * See [twitter mentions example](https://github.com/markdown-it/linkify-it/blob/master/examples/twitter.mjs).
+      */
+      add(schema, definition = null) {
+        if (!definition) delete this.__schemas__[schema];
+        else {
+          const def = {
+            normalize: (match, self2) => self2.normalize(match),
+            ...definition
+          };
+          this.__schemas__[schema] = def;
+        }
+        this.re.set({
+          ...this.__opts__,
+          schema_names: Object.keys(this.__schemas__)
+        });
+        return this;
+      }
+      /**
+      * Set recognition options for links without schema.
+      *
+      * @param options Recognition options.
+      */
+      set(options = {}) {
+        this.__opts__ = {
+          ...this.__opts__,
+          ...options
+        };
+        this.re.set({
+          ...this.__opts__,
+          schema_names: Object.keys(this.__schemas__)
+        });
+        return this;
+      }
+      /**
+      * Searches linkifiable pattern and returns `true` on success or `false` on fail.
+      *
+      * @param text Text to scan.
+      */
+      test(text2) {
+        if (!text2.length) return false;
+        let m, re;
+        re = this.re.get_schema_search();
+        re.lastIndex = 0;
+        while ((m = re.exec(text2)) !== null) if (this.testSchemaAt(text2, m[2], re.lastIndex)) return true;
+        if (this.__opts__.fuzzyLink && this.__schemas__["http:"]) {
+          re = this.re.get_fuzzy_link_search();
+          re.lastIndex = 0;
+          if (re.exec(text2) !== null) return true;
+        }
+        if (this.__opts__.fuzzyEmail && this.__schemas__["mailto:"]) {
+          if (text2.indexOf("@") >= 0) {
+            const mailHostRe = this.re.get_fuzzy_mail_host_search();
+            const mailNameRe = this.re.get_mail_name_validator();
+            mailHostRe.lastIndex = 0;
+            while ((m = mailHostRe.exec(text2)) !== null) {
+              const name = text2.slice(Math.max(0, m.index - 65), m.index);
+              if (mailNameRe.test(name)) return true;
+            }
+          }
+        }
+        return false;
+      }
+      /**
+      * Similar to {@link LinkifyIt.test} but checks only specific protocol tail exactly
+      * at given position. Returns length of found pattern (0 on fail).
+      *
+      * @param text Text to scan.
+      * @param schema Rule (schema) name.
+      * @param pos Text offset to check from.
+      */
+      testSchemaAt(text2, schema, pos) {
+        if (!this.__schemas__[schema.toLowerCase()]) return 0;
+        return this.__schemas__[schema.toLowerCase()].validate(text2.slice(0, pos + this.__opts__.maxLength), pos, this);
+      }
+      /**
+      * Returns array of found link descriptions or `null` on fail. We strongly
+      * recommend to use {@link LinkifyIt.test} first, for best speed.
+      *
+      * @param text Text to scan.
+      */
+      match(text2) {
+        const result = [];
+        const schemaRe = this.re.get_schema_search();
+        let fuzzyLinkRe;
+        let mailHostRe;
+        let mailNameRe;
+        let fuzzyLinkCandidate;
+        let fuzzyEmailCandidate;
+        let schemaPrefix;
+        let schemaDone = false;
+        let fuzzyLinkDone = false;
+        let fuzzyEmailDone = false;
+        let pos = 0;
+        if (!text2.length) return null;
+        schemaRe.lastIndex = 0;
+        if (this.__opts__.fuzzyLink && this.__schemas__["http:"]) {
+          fuzzyLinkRe = this.re.get_fuzzy_link_search();
+          fuzzyLinkRe.lastIndex = 0;
+        }
+        if (this.__opts__.fuzzyEmail && this.__schemas__["mailto:"]) {
+          mailHostRe = this.re.get_fuzzy_mail_host_search();
+          mailHostRe.lastIndex = 0;
+          mailNameRe = this.re.get_mail_name_validator();
+        }
+        for (; ; ) {
+          const scanFrom = Math.max(pos - 1, 0);
+          if (mailHostRe && mailNameRe && !fuzzyEmailDone && (!fuzzyEmailCandidate || fuzzyEmailCandidate.index < pos)) {
+            if (mailHostRe.lastIndex < scanFrom) mailHostRe.lastIndex = scanFrom;
+            for (; ; ) {
+              const m = mailHostRe.exec(text2);
+              if (!m) {
+                fuzzyEmailDone = true;
+                fuzzyEmailCandidate = void 0;
+                break;
+              }
+              const name = mailNameRe.exec(text2.slice(Math.max(0, m.index - 65), m.index));
+              if (!name) continue;
+              fuzzyEmailCandidate = {
+                schema: "mailto:",
+                index: m.index - name[1].length,
+                lastIndex: m.index + m[0].length
+              };
+              if (fuzzyEmailCandidate.index >= pos) break;
+              if (mailHostRe.lastIndex < scanFrom) mailHostRe.lastIndex = scanFrom;
+            }
+          }
+          if (fuzzyLinkRe && !fuzzyLinkDone && (!fuzzyLinkCandidate || fuzzyLinkCandidate.index < pos)) {
+            if (fuzzyLinkRe.lastIndex < scanFrom) fuzzyLinkRe.lastIndex = scanFrom;
+            for (; ; ) {
+              const m = fuzzyLinkRe.exec(text2);
+              if (!m) {
+                fuzzyLinkDone = true;
+                fuzzyLinkCandidate = void 0;
+                break;
+              }
+              fuzzyLinkCandidate = {
+                schema: "",
+                index: m.index + m[1].length,
+                lastIndex: m.index + m[0].length
+              };
+              if (fuzzyLinkCandidate.index >= pos) break;
+              if (fuzzyLinkRe.lastIndex < scanFrom) fuzzyLinkRe.lastIndex = scanFrom;
+            }
+          }
+          let fuzzyCandidate = fuzzyEmailCandidate;
+          if (!fuzzyCandidate || fuzzyLinkCandidate && (fuzzyLinkCandidate.index < fuzzyCandidate.index || fuzzyLinkCandidate.index === fuzzyCandidate.index && fuzzyLinkCandidate.lastIndex > fuzzyCandidate.lastIndex)) fuzzyCandidate = fuzzyLinkCandidate;
+          let schemaCandidate;
+          if (!schemaDone) for (; ; ) {
+            if (!schemaPrefix) {
+              if (schemaRe.lastIndex < scanFrom) schemaRe.lastIndex = scanFrom;
+              const m = schemaRe.exec(text2);
+              if (!m) {
+                schemaDone = true;
+                break;
+              }
+              schemaPrefix = {
+                schema: m[2],
+                index: m.index + m[1].length,
+                lastIndex: m.index + m[0].length
+              };
+            }
+            if (schemaPrefix.index < pos) {
+              schemaPrefix = void 0;
+              continue;
+            }
+            if (fuzzyCandidate && schemaPrefix.index > fuzzyCandidate.index) break;
+            const prefix = schemaPrefix;
+            schemaPrefix = void 0;
+            const len = this.testSchemaAt(text2, prefix.schema, prefix.lastIndex);
+            if (len) {
+              schemaCandidate = {
+                schema: prefix.schema,
+                index: prefix.index,
+                lastIndex: prefix.lastIndex + len
+              };
+              break;
+            }
+          }
+          let candidate = schemaCandidate;
+          if (!candidate || fuzzyEmailCandidate && (fuzzyEmailCandidate.index < candidate.index || fuzzyEmailCandidate.index === candidate.index && fuzzyEmailCandidate.lastIndex > candidate.lastIndex)) candidate = fuzzyEmailCandidate;
+          if (!candidate || fuzzyLinkCandidate && (fuzzyLinkCandidate.index < candidate.index || fuzzyLinkCandidate.index === candidate.index && fuzzyLinkCandidate.lastIndex > candidate.lastIndex)) candidate = fuzzyLinkCandidate;
+          if (!candidate) break;
+          if (candidate === fuzzyEmailCandidate) fuzzyEmailCandidate = void 0;
+          else if (candidate === fuzzyLinkCandidate) fuzzyLinkCandidate = void 0;
+          const match = new Match(text2, candidate.schema, candidate.index, candidate.lastIndex);
+          if (match.schema) this.__schemas__[match.schema].normalize(match, this);
+          else this.normalize(match);
+          result.push(match);
+          pos = candidate.lastIndex;
+        }
+        if (result.length) return result;
+        return null;
+      }
+      /**
+      * Returns fully-formed (not fuzzy) link if it starts at the beginning
+      * of the string, and null otherwise.
+      *
+      * @param text Text to scan.
+      */
+      matchAtStart(text2) {
+        if (!text2.length) return null;
+        const m = this.re.get_schema_at_start().exec(text2);
+        if (!m) return null;
+        const len = this.testSchemaAt(text2, m[2], m[0].length);
+        if (!len) return null;
+        const match = new Match(text2, m[2], m.index + m[1].length, m.index + m[0].length + len);
+        this.__schemas__[match.schema].normalize(match, this);
+        return match;
+      }
+      /**
+      * Load (or merge) new TLDs list. Those are used for fuzzy links (without
+      * prefix) to avoid false positives. By default this algorithm is used:
+      *
+      * - hostname with any 2-letter root zones are ok.
+      * - biz|com|edu|gov|net|org|pro|web|xxx|aero|asia|coop|info|museum|name|shop|рф
+      *   are ok.
+      * - encoded (`xn--...`) root zones are ok.
+      *
+      * If list is replaced, then exact match for 2-chars root zones will be checked.
+      *
+      * @param list List of TLDs.
+      * @param keepOld Merge with current list if `true` (`false` by default).
+      */
+      tlds(list2, keepOld = false) {
+        list2 = Array.isArray(list2) ? list2 : [list2];
+        if (!keepOld) this.__opts__.tlds = list2;
+        else this.__opts__.tlds = this.__opts__.tlds.concat(list2);
+        this.re.set({
+          ...this.__opts__,
+          schema_names: Object.keys(this.__schemas__)
+        });
+        return this;
+      }
+      /**
+      * Default normalizer (if schema does not define its own).
+      *
+      * @param match Match to normalize.
+      */
+      normalize(match) {
+        if (!match.schema) match.url = `http://${match.url}`;
+        if (match.schema === "mailto:" && !/^mailto:/i.test(match.url)) match.url = `mailto:${match.url}`;
+      }
+    };
+  }
+});
+
+// node_modules/punycode.js/punycode.es6.js
+function error(type) {
+  throw new RangeError(errors[type]);
+}
+function map(array, callback) {
+  const result = [];
+  let length = array.length;
+  while (length--) {
+    result[length] = callback(array[length]);
+  }
+  return result;
+}
+function mapDomain(domain, callback) {
+  const parts = domain.split("@");
+  let result = "";
+  if (parts.length > 1) {
+    result = parts[0] + "@";
+    domain = parts[1];
+  }
+  domain = domain.replace(regexSeparators, ".");
+  const labels = domain.split(".");
+  const encoded = map(labels, callback).join(".");
+  return result + encoded;
+}
+function ucs2decode(string) {
+  const output = [];
+  let counter = 0;
+  const length = string.length;
+  while (counter < length) {
+    const value = string.charCodeAt(counter++);
+    if (value >= 55296 && value <= 56319 && counter < length) {
+      const extra = string.charCodeAt(counter++);
+      if ((extra & 64512) == 56320) {
+        output.push(((value & 1023) << 10) + (extra & 1023) + 65536);
+      } else {
+        output.push(value);
+        counter--;
+      }
+    } else {
+      output.push(value);
+    }
+  }
+  return output;
+}
+var maxInt, base, tMin, tMax, skew, damp, initialBias, initialN, delimiter, regexPunycode, regexNonASCII, regexSeparators, errors, baseMinusTMin, floor, stringFromCharCode, ucs2encode, basicToDigit, digitToBasic, adapt, decode2, encode2, toUnicode, toASCII, punycode, punycode_es6_default;
+var init_punycode_es6 = __esm({
+  "node_modules/punycode.js/punycode.es6.js"() {
+    "use strict";
+    maxInt = 2147483647;
+    base = 36;
+    tMin = 1;
+    tMax = 26;
+    skew = 38;
+    damp = 700;
+    initialBias = 72;
+    initialN = 128;
+    delimiter = "-";
+    regexPunycode = /^xn--/;
+    regexNonASCII = /[^\0-\x7F]/;
+    regexSeparators = /[\x2E\u3002\uFF0E\uFF61]/g;
+    errors = {
+      "overflow": "Overflow: input needs wider integers to process",
+      "not-basic": "Illegal input >= 0x80 (not a basic code point)",
+      "invalid-input": "Invalid input"
+    };
+    baseMinusTMin = base - tMin;
+    floor = Math.floor;
+    stringFromCharCode = String.fromCharCode;
+    ucs2encode = (codePoints) => String.fromCodePoint(...codePoints);
+    basicToDigit = function(codePoint) {
+      if (codePoint >= 48 && codePoint < 58) {
+        return 26 + (codePoint - 48);
+      }
+      if (codePoint >= 65 && codePoint < 91) {
+        return codePoint - 65;
+      }
+      if (codePoint >= 97 && codePoint < 123) {
+        return codePoint - 97;
+      }
+      return base;
+    };
+    digitToBasic = function(digit, flag) {
+      return digit + 22 + 75 * (digit < 26) - ((flag != 0) << 5);
+    };
+    adapt = function(delta, numPoints, firstTime) {
+      let k = 0;
+      delta = firstTime ? floor(delta / damp) : delta >> 1;
+      delta += floor(delta / numPoints);
+      for (; delta > baseMinusTMin * tMax >> 1; k += base) {
+        delta = floor(delta / baseMinusTMin);
+      }
+      return floor(k + (baseMinusTMin + 1) * delta / (delta + skew));
+    };
+    decode2 = function(input) {
+      const output = [];
+      const inputLength = input.length;
+      let i = 0;
+      let n = initialN;
+      let bias = initialBias;
+      let basic = input.lastIndexOf(delimiter);
+      if (basic < 0) {
+        basic = 0;
+      }
+      for (let j = 0; j < basic; ++j) {
+        if (input.charCodeAt(j) >= 128) {
+          error("not-basic");
+        }
+        output.push(input.charCodeAt(j));
+      }
+      for (let index = basic > 0 ? basic + 1 : 0; index < inputLength; ) {
+        const oldi = i;
+        for (let w = 1, k = base; ; k += base) {
+          if (index >= inputLength) {
+            error("invalid-input");
+          }
+          const digit = basicToDigit(input.charCodeAt(index++));
+          if (digit >= base) {
+            error("invalid-input");
+          }
+          if (digit > floor((maxInt - i) / w)) {
+            error("overflow");
+          }
+          i += digit * w;
+          const t = k <= bias ? tMin : k >= bias + tMax ? tMax : k - bias;
+          if (digit < t) {
+            break;
+          }
+          const baseMinusT = base - t;
+          if (w > floor(maxInt / baseMinusT)) {
+            error("overflow");
+          }
+          w *= baseMinusT;
+        }
+        const out = output.length + 1;
+        bias = adapt(i - oldi, out, oldi == 0);
+        if (floor(i / out) > maxInt - n) {
+          error("overflow");
+        }
+        n += floor(i / out);
+        i %= out;
+        output.splice(i++, 0, n);
+      }
+      return String.fromCodePoint(...output);
+    };
+    encode2 = function(input) {
+      const output = [];
+      input = ucs2decode(input);
+      const inputLength = input.length;
+      let n = initialN;
+      let delta = 0;
+      let bias = initialBias;
+      for (const currentValue of input) {
+        if (currentValue < 128) {
+          output.push(stringFromCharCode(currentValue));
+        }
+      }
+      const basicLength = output.length;
+      let handledCPCount = basicLength;
+      if (basicLength) {
+        output.push(delimiter);
+      }
+      while (handledCPCount < inputLength) {
+        let m = maxInt;
+        for (const currentValue of input) {
+          if (currentValue >= n && currentValue < m) {
+            m = currentValue;
+          }
+        }
+        const handledCPCountPlusOne = handledCPCount + 1;
+        if (m - n > floor((maxInt - delta) / handledCPCountPlusOne)) {
+          error("overflow");
+        }
+        delta += (m - n) * handledCPCountPlusOne;
+        n = m;
+        for (const currentValue of input) {
+          if (currentValue < n && ++delta > maxInt) {
+            error("overflow");
+          }
+          if (currentValue === n) {
+            let q = delta;
+            for (let k = base; ; k += base) {
+              const t = k <= bias ? tMin : k >= bias + tMax ? tMax : k - bias;
+              if (q < t) {
+                break;
+              }
+              const qMinusT = q - t;
+              const baseMinusT = base - t;
+              output.push(
+                stringFromCharCode(digitToBasic(t + qMinusT % baseMinusT, 0))
+              );
+              q = floor(qMinusT / baseMinusT);
+            }
+            output.push(stringFromCharCode(digitToBasic(q, 0)));
+            bias = adapt(delta, handledCPCountPlusOne, handledCPCount === basicLength);
+            delta = 0;
+            ++handledCPCount;
+          }
+        }
+        ++delta;
+        ++n;
+      }
+      return output.join("");
+    };
+    toUnicode = function(input) {
+      return mapDomain(input, function(string) {
+        return regexPunycode.test(string) ? decode2(string.slice(4).toLowerCase()) : string;
+      });
+    };
+    toASCII = function(input) {
+      return mapDomain(input, function(string) {
+        return regexNonASCII.test(string) ? "xn--" + encode2(string) : string;
+      });
+    };
+    punycode = {
+      /**
+       * A string representing the current Punycode.js version number.
+       * @memberOf punycode
+       * @type String
+       */
+      "version": "2.3.1",
+      /**
+       * An object of methods to convert from JavaScript's internal character
+       * representation (UCS-2) to Unicode code points, and back.
+       * @see <https://mathiasbynens.be/notes/javascript-encoding>
+       * @memberOf punycode
+       * @type Object
+       */
+      "ucs2": {
+        "decode": ucs2decode,
+        "encode": ucs2encode
+      },
+      "decode": decode2,
+      "encode": encode2,
+      "toASCII": toASCII,
+      "toUnicode": toUnicode
+    };
+    punycode_es6_default = punycode;
+  }
+});
+
+// node_modules/markdown-it/dist/markdown-it.mjs
+function callable(cls) {
+  const wrapper = function(...args) {
+    return Reflect.construct(cls, args, new.target && new.target !== wrapper ? new.target : cls);
+  };
+  Object.defineProperty(wrapper, "name", { value: cls.name });
+  Object.setPrototypeOf(wrapper, cls);
+  wrapper.prototype = cls.prototype;
+  return wrapper;
+}
+function arrayReplaceAt(src, pos, newElements) {
+  return [].concat(src.slice(0, pos), newElements, src.slice(pos + 1));
+}
+function isValidEntityCode(c) {
+  if (c >= 55296 && c <= 57343) return false;
+  if (c >= 64976 && c <= 65007) return false;
+  if ((c & 65535) === 65535 || (c & 65535) === 65534) return false;
+  if (c >= 0 && c <= 8) return false;
+  if (c === 11) return false;
+  if (c >= 14 && c <= 31) return false;
+  if (c >= 127 && c <= 159) return false;
+  if (c > 1114111) return false;
+  return true;
+}
+function fromCodePoint(c) {
+  if (c > 65535) {
+    c -= 65536;
+    const surrogate1 = 55296 + (c >> 10);
+    const surrogate2 = 56320 + (c & 1023);
+    return String.fromCharCode(surrogate1, surrogate2);
+  }
+  return String.fromCharCode(c);
+}
+function replaceEntityPattern(match, name) {
+  if (name.charCodeAt(0) === 35 && DIGITAL_ENTITY_TEST_RE.test(name)) {
+    const code2 = name[1].toLowerCase() === "x" ? parseInt(name.slice(2), 16) : parseInt(name.slice(1), 10);
+    if (isValidEntityCode(code2)) return fromCodePoint(code2);
+    return match;
+  }
+  const decoded = decodeHTMLStrict(match);
+  if (decoded !== match) return decoded;
+  return match;
+}
+function unescapeMd(str) {
+  if (str.indexOf("\\") < 0) return str;
+  return str.replace(UNESCAPE_MD_RE, "$1");
+}
+function unescapeAll(str) {
+  if (str.indexOf("\\") < 0 && str.indexOf("&") < 0) return str;
+  return str.replace(UNESCAPE_ALL_RE, function(match, escaped, entity2) {
+    if (escaped) return escaped;
+    return replaceEntityPattern(match, entity2);
+  });
+}
+function replaceUnsafeChar(ch) {
+  return HTML_REPLACEMENTS[ch];
+}
+function escapeHtml(str) {
+  if (HTML_ESCAPE_TEST_RE.test(str)) return str.replace(HTML_ESCAPE_REPLACE_RE, replaceUnsafeChar);
+  return str;
+}
+function escapeRE(str) {
+  return str.replace(REGEXP_ESCAPE_RE, "\\$&");
+}
+function isSpace(code2) {
+  switch (code2) {
+    case 9:
+    case 32:
+      return true;
+  }
+  return false;
+}
+function isWhiteSpace(code2) {
+  if (code2 >= 8192 && code2 <= 8202) return true;
+  switch (code2) {
+    case 9:
+    case 10:
+    case 11:
+    case 12:
+    case 13:
+    case 32:
+    case 160:
+    case 5760:
+    case 8239:
+    case 8287:
+    case 12288:
+      return true;
+  }
+  return false;
+}
+function isPunctChar(ch) {
+  return P.test(ch) || S.test(ch);
+}
+function isPunctCharCode(code2) {
+  return isPunctChar(fromCodePoint(code2));
+}
+function isMdAsciiPunct(ch) {
+  switch (ch) {
+    case 33:
+    case 34:
+    case 35:
+    case 36:
+    case 37:
+    case 38:
+    case 39:
+    case 40:
+    case 41:
+    case 42:
+    case 43:
+    case 44:
+    case 45:
+    case 46:
+    case 47:
+    case 58:
+    case 59:
+    case 60:
+    case 61:
+    case 62:
+    case 63:
+    case 64:
+    case 91:
+    case 92:
+    case 93:
+    case 94:
+    case 95:
+    case 96:
+    case 123:
+    case 124:
+    case 125:
+    case 126:
+      return true;
+    default:
+      return false;
+  }
+}
+function normalizeReference(str) {
+  str = str.trim().replace(/\s+/g, " ");
+  return str.toLowerCase().toUpperCase();
+}
+function isAsciiTrimmable(c) {
+  return c === 32 || c === 9 || c === 10 || c === 13;
+}
+function asciiTrim(str) {
+  let start = 0;
+  for (; start < str.length; start++) if (!isAsciiTrimmable(str.charCodeAt(start))) break;
+  let end = str.length - 1;
+  for (; end >= start; end--) if (!isAsciiTrimmable(str.charCodeAt(end))) break;
+  return str.slice(start, end + 1);
+}
+function parseLinkLabel(state, start, disableNested) {
+  let level, found, marker, prevPos;
+  const max = state.posMax;
+  const oldPos = state.pos;
+  state.pos = start + 1;
+  level = 1;
+  while (state.pos < max) {
+    marker = state.src.charCodeAt(state.pos);
+    if (marker === 93) {
+      level--;
+      if (level === 0) {
+        found = true;
+        break;
+      }
+    }
+    prevPos = state.pos;
+    state.md.inline.skipToken(state);
+    if (marker === 91) {
+      if (prevPos === state.pos - 1) level++;
+      else if (disableNested) {
+        state.pos = oldPos;
+        return -1;
+      }
+    }
+  }
+  let labelEnd = -1;
+  if (found) labelEnd = state.pos;
+  state.pos = oldPos;
+  return labelEnd;
+}
+function parseLinkDestination(str, start, max) {
+  let code2;
+  let pos = start;
+  const result = {
+    ok: false,
+    pos: 0,
+    str: ""
+  };
+  if (str.charCodeAt(pos) === 60) {
+    pos++;
+    while (pos < max) {
+      code2 = str.charCodeAt(pos);
+      if (code2 === 10) return result;
+      if (code2 === 60) return result;
+      if (code2 === 62) {
+        result.pos = pos + 1;
+        result.str = unescapeAll(str.slice(start + 1, pos));
+        result.ok = true;
+        return result;
+      }
+      if (code2 === 92 && pos + 1 < max) {
+        pos += 2;
+        continue;
+      }
+      pos++;
+    }
+    return result;
+  }
+  let level = 0;
+  while (pos < max) {
+    code2 = str.charCodeAt(pos);
+    if (code2 === 32) break;
+    if (code2 < 32 || code2 === 127) break;
+    if (code2 === 92 && pos + 1 < max) {
+      if (str.charCodeAt(pos + 1) === 32) {
+        pos++;
+        continue;
+      }
+      pos += 2;
+      continue;
+    }
+    if (code2 === 40) {
+      level++;
+      if (level > 32) return result;
+    }
+    if (code2 === 41) {
+      if (level === 0) break;
+      level--;
+    }
+    pos++;
+  }
+  if (start === pos) return result;
+  if (level !== 0) return result;
+  result.str = unescapeAll(str.slice(start, pos));
+  result.pos = pos;
+  result.ok = true;
+  return result;
+}
+function parseLinkTitle(str, start, max, prev_state) {
+  let code2;
+  let pos = start;
+  const state = {
+    ok: false,
+    can_continue: false,
+    pos: 0,
+    str: "",
+    marker: 0
+  };
+  if (prev_state) {
+    state.str = prev_state.str;
+    state.marker = prev_state.marker;
+  } else {
+    if (pos >= max) return state;
+    let marker = str.charCodeAt(pos);
+    if (marker !== 34 && marker !== 39 && marker !== 40) return state;
+    start++;
+    pos++;
+    if (marker === 40) marker = 41;
+    state.marker = marker;
+  }
+  while (pos < max) {
+    code2 = str.charCodeAt(pos);
+    if (code2 === state.marker) {
+      state.pos = pos + 1;
+      state.str += unescapeAll(str.slice(start, pos));
+      state.ok = true;
+      return state;
+    } else if (code2 === 40 && state.marker === 41) return state;
+    else if (code2 === 92 && pos + 1 < max) pos++;
+    pos++;
+  }
+  state.can_continue = true;
+  state.str += unescapeAll(str.slice(start, pos));
+  return state;
+}
+function _typeof(o) {
+  "@babel/helpers - typeof";
+  return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o2) {
+    return typeof o2;
+  } : function(o2) {
+    return o2 && "function" == typeof Symbol && o2.constructor === Symbol && o2 !== Symbol.prototype ? "symbol" : typeof o2;
+  }, _typeof(o);
+}
+function toPrimitive(t, r) {
+  if ("object" != _typeof(t) || !t) return t;
+  var e = t[Symbol.toPrimitive];
+  if (void 0 !== e) {
+    var i = e.call(t, r || "default");
+    if ("object" != _typeof(i)) return i;
+    throw new TypeError("@@toPrimitive must return a primitive value.");
+  }
+  return ("string" === r ? String : Number)(t);
+}
+function toPropertyKey(t) {
+  var i = toPrimitive(t, "string");
+  return "symbol" == _typeof(i) ? i : i + "";
+}
+function _defineProperty(e, r, t) {
+  return (r = toPropertyKey(r)) in e ? Object.defineProperty(e, r, {
+    value: t,
+    enumerable: true,
+    configurable: true,
+    writable: true
+  }) : e[r] = t, e;
+}
+function normalize(state) {
+  let str;
+  str = state.src.replace(NEWLINES_RE, "\n");
+  str = str.replace(NULL_RE, "\uFFFD");
+  state.src = str;
+}
+function block(state) {
+  let token;
+  if (state.inlineMode) {
+    token = new state.Token("inline", "", 0);
+    token.content = state.src;
+    token.map = [0, 1];
+    token.children = [];
+    state.tokens.push(token);
+  } else state.md.block.parse(state.src, state.md, state.env, state.tokens);
+}
+function strip_references(state) {
+  const tokens = state.tokens;
+  let last = 0;
+  for (let curr = 0; curr < tokens.length; curr++) {
+    if (tokens[curr].type === "reference_definition") continue;
+    if (curr !== last) tokens[last] = tokens[curr];
+    last++;
+  }
+  if (tokens.length !== last) tokens.length = last;
+}
+function inline(state) {
+  const tokens = state.tokens;
+  for (let i = 0, l = tokens.length; i < l; i++) {
+    const tok = tokens[i];
+    if (tok.type === "inline") state.md.inline.parse(tok.content, state.md, state.env, tok.children);
+  }
+}
+function isLinkOpen$1(str) {
+  return /^<a[>\s]/i.test(str);
+}
+function isLinkClose$1(str) {
+  return /^<\/a\s*>/i.test(str);
+}
+function linkify$1(state) {
+  const blockTokens = state.tokens;
+  if (!state.md.options.linkify) return;
+  for (let j = 0, l = blockTokens.length; j < l; j++) {
+    if (blockTokens[j].type !== "inline" || !state.md.linkify.test(blockTokens[j].content)) continue;
+    let tokens = blockTokens[j].children;
+    let htmlLinkLevel = 0;
+    for (let i = tokens.length - 1; i >= 0; i--) {
+      const currentToken = tokens[i];
+      if (currentToken.type === "link_close") {
+        i--;
+        while (tokens[i].level !== currentToken.level && tokens[i].type !== "link_open") i--;
+        continue;
+      }
+      if (currentToken.type === "html_inline") {
+        if (isLinkOpen$1(currentToken.content) && htmlLinkLevel > 0) htmlLinkLevel--;
+        if (isLinkClose$1(currentToken.content)) htmlLinkLevel++;
+      }
+      if (htmlLinkLevel > 0) continue;
+      if (currentToken.type === "text" && state.md.linkify.test(currentToken.content)) {
+        const text2 = currentToken.content;
+        let links = state.md.linkify.match(text2);
+        const nodes = [];
+        let level = currentToken.level;
+        let lastPos = 0;
+        if (links.length > 0 && links[0].index === 0 && i > 0 && tokens[i - 1].type === "text_special") links = links.slice(1);
+        for (let ln = 0; ln < links.length; ln++) {
+          const url = links[ln].url;
+          const fullUrl = state.md.normalizeLink(url);
+          if (!state.md.validateLink(fullUrl)) continue;
+          let urlText = links[ln].text;
+          if (!links[ln].schema) urlText = state.md.normalizeLinkText(`http://${urlText}`).replace(/^http:\/\//, "");
+          else if (links[ln].schema === "mailto:" && !/^mailto:/i.test(urlText)) urlText = state.md.normalizeLinkText(`mailto:${urlText}`).replace(/^mailto:/, "");
+          else urlText = state.md.normalizeLinkText(urlText);
+          const pos = links[ln].index;
+          if (pos > lastPos) {
+            const token = new state.Token("text", "", 0);
+            token.content = text2.slice(lastPos, pos);
+            token.level = level;
+            nodes.push(token);
+          }
+          const token_o = new state.Token("link_open", "a", 1);
+          token_o.attrs = [["href", fullUrl]];
+          token_o.level = level++;
+          token_o.markup = "linkify";
+          token_o.info = "auto";
+          nodes.push(token_o);
+          const token_t = new state.Token("text", "", 0);
+          token_t.content = urlText;
+          token_t.level = level;
+          nodes.push(token_t);
+          const token_c = new state.Token("link_close", "a", -1);
+          token_c.level = --level;
+          token_c.markup = "linkify";
+          token_c.info = "auto";
+          nodes.push(token_c);
+          lastPos = links[ln].lastIndex;
+        }
+        if (lastPos < text2.length) {
+          const token = new state.Token("text", "", 0);
+          token.content = text2.slice(lastPos);
+          token.level = level;
+          nodes.push(token);
+        }
+        blockTokens[j].children = tokens = arrayReplaceAt(tokens, i, nodes);
+      }
+    }
+  }
+}
+function replaceFn(match, name) {
+  return SCOPED_ABBR[name.toLowerCase()];
+}
+function replace_scoped(inlineTokens) {
+  let inside_autolink = 0;
+  for (let i = inlineTokens.length - 1; i >= 0; i--) {
+    const token = inlineTokens[i];
+    if (token.type === "text" && !inside_autolink) token.content = token.content.replace(SCOPED_ABBR_RE, replaceFn);
+    if (token.type === "link_open" && token.info === "auto") inside_autolink--;
+    if (token.type === "link_close" && token.info === "auto") inside_autolink++;
+  }
+}
+function replace_rare(inlineTokens) {
+  let inside_autolink = 0;
+  for (let i = inlineTokens.length - 1; i >= 0; i--) {
+    const token = inlineTokens[i];
+    if (token.type === "text" && !inside_autolink) {
+      if (RARE_RE.test(token.content)) token.content = token.content.replace(/\+-/g, "\xB1").replace(/\.{2,}/g, "\u2026").replace(/([?!])…/g, "$1..").replace(/([?!]){4,}/g, "$1$1$1").replace(/,{2,}/g, ",").replace(/(^|[^-])---(?=[^-]|$)/gm, "$1\u2014").replace(/(^|\s)--(?=\s|$)/gm, "$1\u2013").replace(/(^|[^-\s])--(?=[^-\s]|$)/gm, "$1\u2013");
+    }
+    if (token.type === "link_open" && token.info === "auto") inside_autolink--;
+    if (token.type === "link_close" && token.info === "auto") inside_autolink++;
+  }
+}
+function replace(state) {
+  let blkIdx;
+  if (!state.md.options.typographer) return;
+  for (blkIdx = state.tokens.length - 1; blkIdx >= 0; blkIdx--) {
+    if (state.tokens[blkIdx].type !== "inline") continue;
+    if (SCOPED_ABBR_TEST_RE.test(state.tokens[blkIdx].content)) replace_scoped(state.tokens[blkIdx].children);
+    if (RARE_RE.test(state.tokens[blkIdx].content)) replace_rare(state.tokens[blkIdx].children);
+  }
+}
+function addReplacement(replacements, tokenIdx, pos, ch) {
+  if (!replacements[tokenIdx]) replacements[tokenIdx] = [];
+  replacements[tokenIdx].push({
+    pos,
+    ch
+  });
+}
+function applyReplacements(str, replacements) {
+  let result = "";
+  let lastPos = 0;
+  replacements.sort((a, b) => a.pos - b.pos);
+  for (let i = 0; i < replacements.length; i++) {
+    const replacement = replacements[i];
+    result += str.slice(lastPos, replacement.pos) + replacement.ch;
+    lastPos = replacement.pos + 1;
+  }
+  return result + str.slice(lastPos);
+}
+function process_inlines(tokens, state) {
+  let j;
+  const stack = [];
+  const replacements = {};
+  for (let i = 0; i < tokens.length; i++) {
+    const token = tokens[i];
+    const thisLevel = tokens[i].level;
+    for (j = stack.length - 1; j >= 0; j--) if (stack[j].level <= thisLevel) break;
+    stack.length = j + 1;
+    if (token.type !== "text") continue;
+    const text2 = token.content;
+    let pos = 0;
+    const max = text2.length;
+    OUTER: while (pos < max) {
+      QUOTE_RE.lastIndex = pos;
+      const t = QUOTE_RE.exec(text2);
+      if (!t) break;
+      let canOpen = true;
+      let canClose = true;
+      pos = t.index + 1;
+      const isSingle = t[0] === "'";
+      let lastChar = 32;
+      if (t.index - 1 >= 0) lastChar = text2.charCodeAt(t.index - 1);
+      else for (j = i - 1; j >= 0; j--) {
+        if (tokens[j].type === "softbreak" || tokens[j].type === "hardbreak") break;
+        if (!tokens[j].content) continue;
+        lastChar = tokens[j].content.charCodeAt(tokens[j].content.length - 1);
+        break;
+      }
+      let nextChar = 32;
+      if (pos < max) nextChar = text2.charCodeAt(pos);
+      else for (j = i + 1; j < tokens.length; j++) {
+        if (tokens[j].type === "softbreak" || tokens[j].type === "hardbreak") break;
+        if (!tokens[j].content) continue;
+        nextChar = tokens[j].content.charCodeAt(0);
+        break;
+      }
+      const isLastPunctChar = isMdAsciiPunct(lastChar) || isPunctCharCode(lastChar);
+      const isNextPunctChar = isMdAsciiPunct(nextChar) || isPunctCharCode(nextChar);
+      const isLastWhiteSpace = isWhiteSpace(lastChar);
+      const isNextWhiteSpace = isWhiteSpace(nextChar);
+      if (isNextWhiteSpace) canOpen = false;
+      else if (isNextPunctChar) {
+        if (!(isLastWhiteSpace || isLastPunctChar)) canOpen = false;
+      }
+      if (isLastWhiteSpace) canClose = false;
+      else if (isLastPunctChar) {
+        if (!(isNextWhiteSpace || isNextPunctChar)) canClose = false;
+      }
+      if (nextChar === 34 && t[0] === '"') {
+        if (lastChar >= 48 && lastChar <= 57) canClose = canOpen = false;
+      }
+      if (canOpen && canClose) {
+        canOpen = isLastPunctChar;
+        canClose = isNextPunctChar;
+      }
+      if (!canOpen && !canClose) {
+        if (isSingle) addReplacement(replacements, i, t.index, APOSTROPHE);
+        continue;
+      }
+      if (canClose) for (j = stack.length - 1; j >= 0; j--) {
+        let item = stack[j];
+        if (stack[j].level < thisLevel) break;
+        if (item.single === isSingle && stack[j].level === thisLevel) {
+          item = stack[j];
+          let openQuote;
+          let closeQuote;
+          if (isSingle) {
+            openQuote = state.md.options.quotes[2];
+            closeQuote = state.md.options.quotes[3];
+          } else {
+            openQuote = state.md.options.quotes[0];
+            closeQuote = state.md.options.quotes[1];
+          }
+          addReplacement(replacements, i, t.index, closeQuote);
+          addReplacement(replacements, item.token, item.pos, openQuote);
+          stack.length = j;
+          continue OUTER;
+        }
+      }
+      if (canOpen) stack.push({
+        token: i,
+        pos: t.index,
+        single: isSingle,
+        level: thisLevel
+      });
+      else if (canClose && isSingle) addReplacement(replacements, i, t.index, APOSTROPHE);
+    }
+  }
+  Object.keys(replacements).forEach(function(tokenIdx) {
+    const idx = Number(tokenIdx);
+    tokens[idx].content = applyReplacements(tokens[idx].content, replacements[tokenIdx]);
+  });
+}
+function smartquotes(state) {
+  if (!state.md.options.typographer) return;
+  for (let blkIdx = state.tokens.length - 1; blkIdx >= 0; blkIdx--) {
+    if (state.tokens[blkIdx].type !== "inline" || !QUOTE_TEST_RE.test(state.tokens[blkIdx].content)) continue;
+    process_inlines(state.tokens[blkIdx].children, state);
+  }
+}
+function join_alt(tokens) {
+  let curr, last;
+  const max = tokens.length;
+  for (curr = 0; curr < max; curr++) if (tokens[curr].type === "text_special") tokens[curr].type = "text";
+  for (curr = last = 0; curr < max; curr++) if (tokens[curr].type === "text" && curr + 1 < max && tokens[curr + 1].type === "text") tokens[curr + 1].content = tokens[curr].content + tokens[curr + 1].content;
+  else {
+    if (curr !== last) tokens[last] = tokens[curr];
+    last++;
+  }
+  if (curr !== last) tokens.length = last;
+}
+function text_join(state) {
+  let curr, last;
+  const blockTokens = state.tokens;
+  const l = blockTokens.length;
+  for (let j = 0; j < l; j++) {
+    if (blockTokens[j].type !== "inline") continue;
+    const tokens = blockTokens[j].children;
+    const max = tokens.length;
+    for (curr = 0; curr < max; curr++) {
+      if (tokens[curr].type === "text_special") tokens[curr].type = "text";
+      if (tokens[curr].children) join_alt(tokens[curr].children);
+    }
+    for (curr = last = 0; curr < max; curr++) if (tokens[curr].type === "text" && curr + 1 < max && tokens[curr + 1].type === "text") tokens[curr + 1].content = tokens[curr].content + tokens[curr + 1].content;
+    else {
+      if (curr !== last) tokens[last] = tokens[curr];
+      last++;
+    }
+    if (curr !== last) tokens.length = last;
+  }
+}
+function getLine(state, line) {
+  const pos = state.bMarks[line] + state.tShift[line];
+  const max = state.eMarks[line];
+  return state.src.slice(pos, max);
+}
+function escapedSplit(str) {
+  const result = [];
+  const max = str.length;
+  let pos = 0;
+  let ch = str.charCodeAt(pos);
+  let isEscaped = false;
+  let lastPos = 0;
+  let current = "";
+  while (pos < max) {
+    if (ch === 124) if (!isEscaped) {
+      result.push(current + str.substring(lastPos, pos));
+      current = "";
+      lastPos = pos + 1;
+    } else {
+      current += str.substring(lastPos, pos - 1);
+      lastPos = pos;
+    }
+    isEscaped = ch === 92;
+    pos++;
+    ch = str.charCodeAt(pos);
+  }
+  result.push(current + str.substring(lastPos));
+  return result;
+}
+function table(state, startLine, endLine, silent) {
+  if (startLine + 2 > endLine) return false;
+  let nextLine = startLine + 1;
+  if (state.sCount[nextLine] < state.blkIndent) return false;
+  if (state.sCount[nextLine] - state.blkIndent >= 4) return false;
+  let pos = state.bMarks[nextLine] + state.tShift[nextLine];
+  if (pos >= state.eMarks[nextLine]) return false;
+  const firstCh = state.src.charCodeAt(pos++);
+  if (firstCh !== 124 && firstCh !== 45 && firstCh !== 58) return false;
+  if (pos >= state.eMarks[nextLine]) return false;
+  const secondCh = state.src.charCodeAt(pos++);
+  if (secondCh !== 124 && secondCh !== 45 && secondCh !== 58 && !isSpace(secondCh)) return false;
+  if (firstCh === 45 && isSpace(secondCh)) return false;
+  while (pos < state.eMarks[nextLine]) {
+    const ch = state.src.charCodeAt(pos);
+    if (ch !== 124 && ch !== 45 && ch !== 58 && !isSpace(ch)) return false;
+    pos++;
+  }
+  let lineText = getLine(state, startLine + 1);
+  let columns = lineText.split("|");
+  const aligns = [];
+  for (let i = 0; i < columns.length; i++) {
+    const t = columns[i].trim();
+    if (!t) if (i === 0 || i === columns.length - 1) continue;
+    else return false;
+    if (!/^:?-+:?$/.test(t)) return false;
+    if (t.charCodeAt(t.length - 1) === 58) aligns.push(t.charCodeAt(0) === 58 ? "center" : "right");
+    else if (t.charCodeAt(0) === 58) aligns.push("left");
+    else aligns.push("");
+  }
+  lineText = getLine(state, startLine).trim();
+  if (lineText.indexOf("|") === -1) return false;
+  if (state.sCount[startLine] - state.blkIndent >= 4) return false;
+  columns = escapedSplit(lineText);
+  if (columns.length && columns[0] === "") columns.shift();
+  if (columns.length && columns[columns.length - 1] === "") columns.pop();
+  const columnCount = columns.length;
+  if (columnCount === 0 || columnCount !== aligns.length) return false;
+  if (silent) return true;
+  const oldParentType = state.parentType;
+  state.parentType = "table";
+  const terminatorRules = state.md.block.ruler.getRules("blockquote");
+  const token_to = state.push("table_open", "table", 1);
+  const tableLines = [startLine, 0];
+  token_to.map = tableLines;
+  const token_tho = state.push("thead_open", "thead", 1);
+  token_tho.map = [startLine, startLine + 1];
+  const token_htro = state.push("tr_open", "tr", 1);
+  token_htro.map = [startLine, startLine + 1];
+  for (let i = 0; i < columns.length; i++) {
+    const token_ho = state.push("th_open", "th", 1);
+    if (aligns[i]) token_ho.attrs = [["style", `text-align:${aligns[i]}`]];
+    const token_il = state.push("inline", "", 0);
+    token_il.content = columns[i].trim();
+    token_il.children = [];
+    state.push("th_close", "th", -1);
+  }
+  state.push("tr_close", "tr", -1);
+  state.push("thead_close", "thead", -1);
+  let tbodyLines;
+  let autocompletedCells = 0;
+  for (nextLine = startLine + 2; nextLine < endLine; nextLine++) {
+    if (state.sCount[nextLine] < state.blkIndent) break;
+    let terminate = false;
+    for (let i = 0, l = terminatorRules.length; i < l; i++) if (terminatorRules[i](state, nextLine, endLine, true)) {
+      terminate = true;
+      break;
+    }
+    if (terminate) break;
+    lineText = getLine(state, nextLine).trim();
+    if (!lineText) break;
+    if (state.sCount[nextLine] - state.blkIndent >= 4) break;
+    columns = escapedSplit(lineText);
+    if (columns.length && columns[0] === "") columns.shift();
+    if (columns.length && columns[columns.length - 1] === "") columns.pop();
+    autocompletedCells += columnCount - columns.length;
+    if (autocompletedCells > MAX_AUTOCOMPLETED_CELLS) break;
+    if (nextLine === startLine + 2) {
+      const token_tbo = state.push("tbody_open", "tbody", 1);
+      token_tbo.map = tbodyLines = [startLine + 2, 0];
+    }
+    const token_tro = state.push("tr_open", "tr", 1);
+    token_tro.map = [nextLine, nextLine + 1];
+    for (let i = 0; i < columnCount; i++) {
+      const token_tdo = state.push("td_open", "td", 1);
+      if (aligns[i]) token_tdo.attrs = [["style", `text-align:${aligns[i]}`]];
+      const token_il = state.push("inline", "", 0);
+      token_il.content = columns[i] ? columns[i].trim() : "";
+      token_il.children = [];
+      state.push("td_close", "td", -1);
+    }
+    state.push("tr_close", "tr", -1);
+  }
+  if (tbodyLines) {
+    state.push("tbody_close", "tbody", -1);
+    tbodyLines[1] = nextLine;
+  }
+  state.push("table_close", "table", -1);
+  tableLines[1] = nextLine;
+  state.parentType = oldParentType;
+  state.line = nextLine;
+  return true;
+}
+function code(state, startLine, endLine) {
+  if (state.sCount[startLine] - state.blkIndent < 4) return false;
+  let nextLine = startLine + 1;
+  let last = nextLine;
+  while (nextLine < endLine) {
+    if (state.isEmpty(nextLine)) {
+      nextLine++;
+      continue;
+    }
+    if (state.sCount[nextLine] - state.blkIndent >= 4) {
+      nextLine++;
+      last = nextLine;
+      continue;
+    }
+    break;
+  }
+  state.line = last;
+  const token = state.push("code_block", "code", 0);
+  token.content = state.getLines(startLine, last, 4 + state.blkIndent, false) + "\n";
+  token.map = [startLine, state.line];
+  return true;
+}
+function fence(state, startLine, endLine, silent) {
+  let pos = state.bMarks[startLine] + state.tShift[startLine];
+  let max = state.eMarks[startLine];
+  if (state.sCount[startLine] - state.blkIndent >= 4) return false;
+  if (pos + 3 > max) return false;
+  const marker = state.src.charCodeAt(pos);
+  if (marker !== 126 && marker !== 96) return false;
+  let mem = pos;
+  pos = state.skipChars(pos, marker);
+  let len = pos - mem;
+  if (len < 3) return false;
+  const markup = state.src.slice(mem, pos);
+  const params = state.src.slice(pos, max);
+  if (marker === 96) {
+    if (params.indexOf(String.fromCharCode(marker)) >= 0) return false;
+  }
+  if (silent) return true;
+  let nextLine = startLine;
+  let haveEndMarker = false;
+  for (; ; ) {
+    nextLine++;
+    if (nextLine >= endLine) break;
+    pos = mem = state.bMarks[nextLine] + state.tShift[nextLine];
+    max = state.eMarks[nextLine];
+    if (pos < max && state.sCount[nextLine] < state.blkIndent) break;
+    if (state.src.charCodeAt(pos) !== marker) continue;
+    if (state.sCount[nextLine] - state.blkIndent >= 4) continue;
+    pos = state.skipChars(pos, marker);
+    if (pos - mem < len) continue;
+    pos = state.skipSpaces(pos);
+    if (pos < max) continue;
+    haveEndMarker = true;
+    break;
+  }
+  len = state.sCount[startLine];
+  state.line = nextLine + (haveEndMarker ? 1 : 0);
+  const token = state.push("fence", "code", 0);
+  token.info = params;
+  token.content = state.getLines(startLine + 1, nextLine, len, true);
+  token.markup = markup;
+  token.map = [startLine, state.line];
+  return true;
+}
+function blockquote(state, startLine, endLine, silent) {
+  let pos = state.bMarks[startLine] + state.tShift[startLine];
+  let max = state.eMarks[startLine];
+  const oldLineMax = state.lineMax;
+  if (state.sCount[startLine] - state.blkIndent >= 4) return false;
+  if (state.src.charCodeAt(pos) !== 62) return false;
+  if (silent) return true;
+  const oldBMarks = [];
+  const oldBSCount = [];
+  const oldSCount = [];
+  const oldTShift = [];
+  const terminatorRules = state.md.block.ruler.getRules("blockquote");
+  const oldParentType = state.parentType;
+  state.parentType = "blockquote";
+  let lastLineEmpty = false;
+  let nextLine;
+  for (nextLine = startLine; nextLine < endLine; nextLine++) {
+    const isOutdented = state.sCount[nextLine] < state.blkIndent;
+    pos = state.bMarks[nextLine] + state.tShift[nextLine];
+    max = state.eMarks[nextLine];
+    if (pos >= max) break;
+    if (state.src.charCodeAt(pos++) === 62 && !isOutdented) {
+      let initial = state.sCount[nextLine] + 1;
+      let spaceAfterMarker;
+      let adjustTab;
+      if (state.src.charCodeAt(pos) === 32) {
+        pos++;
+        initial++;
+        adjustTab = false;
+        spaceAfterMarker = true;
+      } else if (state.src.charCodeAt(pos) === 9) {
+        spaceAfterMarker = true;
+        if ((state.bsCount[nextLine] + initial) % 4 === 3) {
+          pos++;
+          initial++;
+          adjustTab = false;
+        } else adjustTab = true;
+      } else spaceAfterMarker = false;
+      let offset = initial;
+      oldBMarks.push(state.bMarks[nextLine]);
+      state.bMarks[nextLine] = pos;
+      while (pos < max) {
+        const ch = state.src.charCodeAt(pos);
+        if (isSpace(ch)) if (ch === 9) offset += 4 - (offset + state.bsCount[nextLine] + (adjustTab ? 1 : 0)) % 4;
+        else offset++;
+        else break;
+        pos++;
+      }
+      lastLineEmpty = pos >= max;
+      oldBSCount.push(state.bsCount[nextLine]);
+      state.bsCount[nextLine] = state.sCount[nextLine] + 1 + (spaceAfterMarker ? 1 : 0);
+      oldSCount.push(state.sCount[nextLine]);
+      state.sCount[nextLine] = offset - initial;
+      oldTShift.push(state.tShift[nextLine]);
+      state.tShift[nextLine] = pos - state.bMarks[nextLine];
+      continue;
+    }
+    if (lastLineEmpty) break;
+    let terminate = false;
+    for (let i = 0, l = terminatorRules.length; i < l; i++) if (terminatorRules[i](state, nextLine, endLine, true)) {
+      terminate = true;
+      break;
+    }
+    if (terminate) {
+      state.lineMax = nextLine;
+      if (state.blkIndent !== 0) {
+        oldBMarks.push(state.bMarks[nextLine]);
+        oldBSCount.push(state.bsCount[nextLine]);
+        oldTShift.push(state.tShift[nextLine]);
+        oldSCount.push(state.sCount[nextLine]);
+        state.sCount[nextLine] -= state.blkIndent;
+      }
+      break;
+    }
+    oldBMarks.push(state.bMarks[nextLine]);
+    oldBSCount.push(state.bsCount[nextLine]);
+    oldTShift.push(state.tShift[nextLine]);
+    oldSCount.push(state.sCount[nextLine]);
+    state.sCount[nextLine] = -1;
+  }
+  const oldIndent = state.blkIndent;
+  state.blkIndent = 0;
+  const token_o = state.push("blockquote_open", "blockquote", 1);
+  token_o.markup = ">";
+  const lines = [startLine, 0];
+  token_o.map = lines;
+  state.md.block.tokenize(state, startLine, nextLine);
+  const token_c = state.push("blockquote_close", "blockquote", -1);
+  token_c.markup = ">";
+  state.lineMax = oldLineMax;
+  state.parentType = oldParentType;
+  lines[1] = state.line;
+  for (let i = 0; i < oldTShift.length; i++) {
+    state.bMarks[i + startLine] = oldBMarks[i];
+    state.tShift[i + startLine] = oldTShift[i];
+    state.sCount[i + startLine] = oldSCount[i];
+    state.bsCount[i + startLine] = oldBSCount[i];
+  }
+  state.blkIndent = oldIndent;
+  return true;
+}
+function hr(state, startLine, endLine, silent) {
+  const max = state.eMarks[startLine];
+  if (state.sCount[startLine] - state.blkIndent >= 4) return false;
+  let pos = state.bMarks[startLine] + state.tShift[startLine];
+  const marker = state.src.charCodeAt(pos++);
+  if (marker !== 42 && marker !== 45 && marker !== 95) return false;
+  let cnt = 1;
+  while (pos < max) {
+    const ch = state.src.charCodeAt(pos++);
+    if (ch !== marker && !isSpace(ch)) return false;
+    if (ch === marker) cnt++;
+  }
+  if (cnt < 3) return false;
+  if (silent) return true;
+  state.line = startLine + 1;
+  const token = state.push("hr", "hr", 0);
+  token.map = [startLine, state.line];
+  token.markup = Array(cnt + 1).join(String.fromCharCode(marker));
+  return true;
+}
+function skipBulletListMarker(state, startLine) {
+  const max = state.eMarks[startLine];
+  let pos = state.bMarks[startLine] + state.tShift[startLine];
+  const marker = state.src.charCodeAt(pos++);
+  if (marker !== 42 && marker !== 45 && marker !== 43) return -1;
+  if (pos < max) {
+    if (!isSpace(state.src.charCodeAt(pos))) return -1;
+  }
+  return pos;
+}
+function skipOrderedListMarker(state, startLine) {
+  const start = state.bMarks[startLine] + state.tShift[startLine];
+  const max = state.eMarks[startLine];
+  let pos = start;
+  if (pos + 1 >= max) return -1;
+  let ch = state.src.charCodeAt(pos++);
+  if (ch < 48 || ch > 57) return -1;
+  for (; ; ) {
+    if (pos >= max) return -1;
+    ch = state.src.charCodeAt(pos++);
+    if (ch >= 48 && ch <= 57) {
+      if (pos - start >= 10) return -1;
+      continue;
+    }
+    if (ch === 41 || ch === 46) break;
+    return -1;
+  }
+  if (pos < max) {
+    ch = state.src.charCodeAt(pos);
+    if (!isSpace(ch)) return -1;
+  }
+  return pos;
+}
+function markTightParagraphs(state, idx) {
+  const level = state.level + 2;
+  for (let i = idx + 2, l = state.tokens.length - 2; i < l; i++) if (state.tokens[i].level === level && state.tokens[i].type === "paragraph_open") {
+    state.tokens[i + 2].hidden = true;
+    state.tokens[i].hidden = true;
+    i += 2;
+  }
+}
+function list(state, startLine, endLine, silent) {
+  let max, pos, start, token;
+  let nextLine = startLine;
+  let tight = true;
+  if (state.sCount[nextLine] - state.blkIndent >= 4) return false;
+  if (state.listIndent >= 0 && state.sCount[nextLine] - state.listIndent >= 4 && state.sCount[nextLine] < state.blkIndent) return false;
+  let isTerminatingParagraph = false;
+  if (silent && state.parentType === "paragraph") {
+    if (state.sCount[nextLine] >= state.blkIndent) isTerminatingParagraph = true;
+  }
+  let isOrdered;
+  let markerValue;
+  let posAfterMarker;
+  if ((posAfterMarker = skipOrderedListMarker(state, nextLine)) >= 0) {
+    isOrdered = true;
+    start = state.bMarks[nextLine] + state.tShift[nextLine];
+    markerValue = Number(state.src.slice(start, posAfterMarker - 1));
+    if (isTerminatingParagraph && markerValue !== 1) return false;
+  } else if ((posAfterMarker = skipBulletListMarker(state, nextLine)) >= 0) isOrdered = false;
+  else return false;
+  if (isTerminatingParagraph) {
+    if (state.skipSpaces(posAfterMarker) >= state.eMarks[nextLine]) return false;
+  }
+  if (silent) return true;
+  const markerCharCode = state.src.charCodeAt(posAfterMarker - 1);
+  const listTokIdx = state.tokens.length;
+  if (isOrdered) {
+    token = state.push("ordered_list_open", "ol", 1);
+    if (markerValue !== 1) token.attrs = [["start", markerValue]];
+  } else token = state.push("bullet_list_open", "ul", 1);
+  const listLines = [nextLine, 0];
+  token.map = listLines;
+  token.markup = String.fromCharCode(markerCharCode);
+  let prevEmptyEnd = false;
+  const terminatorRules = state.md.block.ruler.getRules("list");
+  const oldParentType = state.parentType;
+  state.parentType = "list";
+  while (nextLine < endLine) {
+    pos = posAfterMarker;
+    max = state.eMarks[nextLine];
+    const initial = state.sCount[nextLine] + posAfterMarker - (state.bMarks[nextLine] + state.tShift[nextLine]);
+    let offset = initial;
+    while (pos < max) {
+      const ch = state.src.charCodeAt(pos);
+      if (ch === 9) offset += 4 - (offset + state.bsCount[nextLine]) % 4;
+      else if (ch === 32) offset++;
+      else break;
+      pos++;
+    }
+    const contentStart = pos;
+    let indentAfterMarker;
+    if (contentStart >= max) indentAfterMarker = 1;
+    else indentAfterMarker = offset - initial;
+    if (indentAfterMarker > 4) indentAfterMarker = 1;
+    const indent = initial + indentAfterMarker;
+    token = state.push("list_item_open", "li", 1);
+    token.markup = String.fromCharCode(markerCharCode);
+    const itemLines = [nextLine, 0];
+    token.map = itemLines;
+    if (isOrdered) token.info = state.src.slice(start, posAfterMarker - 1);
+    const oldTight = state.tight;
+    const oldTShift = state.tShift[nextLine];
+    const oldSCount = state.sCount[nextLine];
+    const oldListIndent = state.listIndent;
+    state.listIndent = state.blkIndent;
+    state.blkIndent = indent;
+    state.tight = true;
+    state.tShift[nextLine] = contentStart - state.bMarks[nextLine];
+    state.sCount[nextLine] = offset;
+    if (contentStart >= max && state.isEmpty(nextLine + 1)) state.line = Math.min(state.line + 2, endLine);
+    else state.md.block.tokenize(state, nextLine, endLine);
+    if (!state.tight || prevEmptyEnd) tight = false;
+    prevEmptyEnd = state.line - nextLine > 1 && state.isEmpty(state.line - 1);
+    state.blkIndent = state.listIndent;
+    state.listIndent = oldListIndent;
+    state.tShift[nextLine] = oldTShift;
+    state.sCount[nextLine] = oldSCount;
+    state.tight = oldTight;
+    token = state.push("list_item_close", "li", -1);
+    token.markup = String.fromCharCode(markerCharCode);
+    nextLine = state.line;
+    itemLines[1] = nextLine;
+    if (nextLine >= endLine) break;
+    if (state.sCount[nextLine] < state.blkIndent) break;
+    if (state.sCount[nextLine] - state.blkIndent >= 4) break;
+    let terminate = false;
+    for (let i = 0, l = terminatorRules.length; i < l; i++) if (terminatorRules[i](state, nextLine, endLine, true)) {
+      terminate = true;
+      break;
+    }
+    if (terminate) break;
+    if (isOrdered) {
+      posAfterMarker = skipOrderedListMarker(state, nextLine);
+      if (posAfterMarker < 0) break;
+      start = state.bMarks[nextLine] + state.tShift[nextLine];
+    } else {
+      posAfterMarker = skipBulletListMarker(state, nextLine);
+      if (posAfterMarker < 0) break;
+    }
+    if (markerCharCode !== state.src.charCodeAt(posAfterMarker - 1)) break;
+  }
+  if (isOrdered) token = state.push("ordered_list_close", "ol", -1);
+  else token = state.push("bullet_list_close", "ul", -1);
+  token.markup = String.fromCharCode(markerCharCode);
+  listLines[1] = nextLine;
+  state.line = nextLine;
+  state.parentType = oldParentType;
+  if (tight) markTightParagraphs(state, listTokIdx);
+  return true;
+}
+function reference(state, startLine, _endLine, silent) {
+  let pos = state.bMarks[startLine] + state.tShift[startLine];
+  let max = state.eMarks[startLine];
+  let nextLine = startLine + 1;
+  if (state.sCount[startLine] - state.blkIndent >= 4) return false;
+  if (state.src.charCodeAt(pos) !== 91) return false;
+  function getNextLine(nextLine2) {
+    const endLine = state.lineMax;
+    if (nextLine2 >= endLine || state.isEmpty(nextLine2)) return null;
+    let isContinuation = false;
+    if (state.sCount[nextLine2] - state.blkIndent > 3) isContinuation = true;
+    if (state.sCount[nextLine2] < 0) isContinuation = true;
+    if (!isContinuation) {
+      const terminatorRules = state.md.block.ruler.getRules("reference");
+      const oldParentType = state.parentType;
+      state.parentType = "reference";
+      let terminate = false;
+      for (let i = 0, l = terminatorRules.length; i < l; i++) if (terminatorRules[i](state, nextLine2, endLine, true)) {
+        terminate = true;
+        break;
+      }
+      state.parentType = oldParentType;
+      if (terminate) return null;
+    }
+    const pos2 = state.bMarks[nextLine2] + state.tShift[nextLine2];
+    const max2 = state.eMarks[nextLine2];
+    return state.src.slice(pos2, max2 + 1);
+  }
+  let str = state.src.slice(pos, max + 1);
+  max = str.length;
+  let labelEnd = -1;
+  for (pos = 1; pos < max; pos++) {
+    const ch = str.charCodeAt(pos);
+    if (ch === 91) return false;
+    else if (ch === 93) {
+      labelEnd = pos;
+      break;
+    } else if (ch === 10) {
+      const lineContent = getNextLine(nextLine);
+      if (lineContent !== null) {
+        str += lineContent;
+        max = str.length;
+        nextLine++;
+      }
+    } else if (ch === 92) {
+      pos++;
+      if (pos < max && str.charCodeAt(pos) === 10) {
+        const lineContent = getNextLine(nextLine);
+        if (lineContent !== null) {
+          str += lineContent;
+          max = str.length;
+          nextLine++;
+        }
+      }
+    }
+  }
+  if (labelEnd < 0 || str.charCodeAt(labelEnd + 1) !== 58) return false;
+  for (pos = labelEnd + 2; pos < max; pos++) {
+    const ch = str.charCodeAt(pos);
+    if (ch === 10) {
+      const lineContent = getNextLine(nextLine);
+      if (lineContent !== null) {
+        str += lineContent;
+        max = str.length;
+        nextLine++;
+      }
+    } else if (isSpace(ch)) {
+    } else break;
+  }
+  const destRes = state.md.helpers.parseLinkDestination(str, pos, max);
+  if (!destRes.ok) return false;
+  const href = state.md.normalizeLink(destRes.str);
+  if (!state.md.validateLink(href)) return false;
+  pos = destRes.pos;
+  const destEndPos = pos;
+  const destEndLineNo = nextLine;
+  const start = pos;
+  for (; pos < max; pos++) {
+    const ch = str.charCodeAt(pos);
+    if (ch === 10) {
+      const lineContent = getNextLine(nextLine);
+      if (lineContent !== null) {
+        str += lineContent;
+        max = str.length;
+        nextLine++;
+      }
+    } else if (isSpace(ch)) {
+    } else break;
+  }
+  let titleRes = state.md.helpers.parseLinkTitle(str, pos, max);
+  while (titleRes.can_continue) {
+    const lineContent = getNextLine(nextLine);
+    if (lineContent === null) break;
+    str += lineContent;
+    pos = max;
+    max = str.length;
+    nextLine++;
+    titleRes = state.md.helpers.parseLinkTitle(str, pos, max, titleRes);
+  }
+  let title;
+  if (pos < max && start !== pos && titleRes.ok) {
+    title = titleRes.str;
+    pos = titleRes.pos;
+  } else {
+    title = "";
+    pos = destEndPos;
+    nextLine = destEndLineNo;
+  }
+  while (pos < max) {
+    if (!isSpace(str.charCodeAt(pos))) break;
+    pos++;
+  }
+  if (pos < max && str.charCodeAt(pos) !== 10) {
+    if (title) {
+      title = "";
+      pos = destEndPos;
+      nextLine = destEndLineNo;
+      while (pos < max) {
+        if (!isSpace(str.charCodeAt(pos))) break;
+        pos++;
+      }
+    }
+  }
+  if (pos < max && str.charCodeAt(pos) !== 10) return false;
+  const label = normalizeReference(str.slice(1, labelEnd));
+  if (!label) return false;
+  if (silent) return true;
+  if (typeof state.env.references === "undefined") state.env.references = {};
+  if (typeof state.env.references[label] === "undefined") state.env.references[label] = {
+    title,
+    href
+  };
+  const token = state.push("reference_definition", "", 0);
+  token.map = [startLine, nextLine];
+  token.hidden = true;
+  const meta = /* @__PURE__ */ Object.create(null);
+  meta.label = label;
+  token.meta = meta;
+  state.line = nextLine;
+  return true;
+}
+function html_block(state, startLine, endLine, silent) {
+  let pos = state.bMarks[startLine] + state.tShift[startLine];
+  let max = state.eMarks[startLine];
+  if (state.sCount[startLine] - state.blkIndent >= 4) return false;
+  if (!state.md.options.html) return false;
+  if (state.src.charCodeAt(pos) !== 60) return false;
+  let lineText = state.src.slice(pos, max);
+  let i = 0;
+  for (; i < HTML_SEQUENCES.length; i++) if (HTML_SEQUENCES[i][0].test(lineText)) break;
+  if (i === HTML_SEQUENCES.length) return false;
+  if (silent) return HTML_SEQUENCES[i][2];
+  let nextLine = startLine + 1;
+  const endsOnBlankLine = HTML_SEQUENCES[i][1].test("");
+  if (!HTML_SEQUENCES[i][1].test(lineText)) for (; nextLine < endLine; nextLine++) {
+    if (state.sCount[nextLine] < state.blkIndent) {
+      if (endsOnBlankLine || !state.isEmpty(nextLine)) break;
+    }
+    pos = state.bMarks[nextLine] + state.tShift[nextLine];
+    max = state.eMarks[nextLine];
+    lineText = state.src.slice(pos, max);
+    if (HTML_SEQUENCES[i][1].test(lineText)) {
+      if (lineText.length !== 0) nextLine++;
+      break;
+    }
+  }
+  state.line = nextLine;
+  const token = state.push("html_block", "", 0);
+  token.map = [startLine, nextLine];
+  token.content = state.getLines(startLine, nextLine, state.blkIndent, true);
+  return true;
+}
+function heading(state, startLine, endLine, silent) {
+  let pos = state.bMarks[startLine] + state.tShift[startLine];
+  let max = state.eMarks[startLine];
+  if (state.sCount[startLine] - state.blkIndent >= 4) return false;
+  let ch = state.src.charCodeAt(pos);
+  if (ch !== 35 || pos >= max) return false;
+  let level = 1;
+  ch = state.src.charCodeAt(++pos);
+  while (ch === 35 && pos < max && level <= 6) {
+    level++;
+    ch = state.src.charCodeAt(++pos);
+  }
+  if (level > 6 || pos < max && !isSpace(ch)) return false;
+  if (silent) return true;
+  max = state.skipSpacesBack(max, pos);
+  const tmp = state.skipCharsBack(max, 35, pos);
+  if (tmp > pos && isSpace(state.src.charCodeAt(tmp - 1))) max = tmp;
+  state.line = startLine + 1;
+  const token_o = state.push("heading_open", `h${level}`, 1);
+  token_o.markup = "########".slice(0, level);
+  token_o.map = [startLine, state.line];
+  const token_i = state.push("inline", "", 0);
+  token_i.content = asciiTrim(state.src.slice(pos, max));
+  token_i.map = [startLine, state.line];
+  token_i.children = [];
+  const token_c = state.push("heading_close", `h${level}`, -1);
+  token_c.markup = "########".slice(0, level);
+  return true;
+}
+function lheading(state, startLine, endLine) {
+  const terminatorRules = state.md.block.ruler.getRules("paragraph");
+  if (state.sCount[startLine] - state.blkIndent >= 4) return false;
+  const oldParentType = state.parentType;
+  state.parentType = "paragraph";
+  let level = 0;
+  let marker;
+  let nextLine = startLine + 1;
+  for (; nextLine < endLine && !state.isEmpty(nextLine); nextLine++) {
+    if (state.sCount[nextLine] - state.blkIndent > 3) continue;
+    if (state.sCount[nextLine] >= state.blkIndent) {
+      let pos = state.bMarks[nextLine] + state.tShift[nextLine];
+      const max = state.eMarks[nextLine];
+      if (pos < max) {
+        marker = state.src.charCodeAt(pos);
+        if (marker === 45 || marker === 61) {
+          pos = state.skipChars(pos, marker);
+          pos = state.skipSpaces(pos);
+          if (pos >= max) {
+            level = marker === 61 ? 1 : 2;
+            break;
+          }
+        }
+      }
+    }
+    if (state.sCount[nextLine] < 0) continue;
+    let terminate = false;
+    for (let i = 0, l = terminatorRules.length; i < l; i++) if (terminatorRules[i](state, nextLine, endLine, true)) {
+      terminate = true;
+      break;
+    }
+    if (terminate) break;
+  }
+  if (!level) {
+    state.parentType = oldParentType;
+    return false;
+  }
+  const content = asciiTrim(state.getLines(startLine, nextLine, state.blkIndent, false));
+  state.line = nextLine + 1;
+  const token_o = state.push("heading_open", `h${level}`, 1);
+  token_o.markup = String.fromCharCode(marker);
+  token_o.map = [startLine, state.line];
+  const token_i = state.push("inline", "", 0);
+  token_i.content = content;
+  token_i.map = [startLine, state.line - 1];
+  token_i.children = [];
+  const token_c = state.push("heading_close", `h${level}`, -1);
+  token_c.markup = String.fromCharCode(marker);
+  state.parentType = oldParentType;
+  return true;
+}
+function paragraph(state, startLine, endLine) {
+  const terminatorRules = state.md.block.ruler.getRules("paragraph");
+  const oldParentType = state.parentType;
+  let nextLine = startLine + 1;
+  state.parentType = "paragraph";
+  for (; nextLine < endLine && !state.isEmpty(nextLine); nextLine++) {
+    if (state.sCount[nextLine] - state.blkIndent > 3) continue;
+    if (state.sCount[nextLine] < 0) continue;
+    let terminate = false;
+    for (let i = 0, l = terminatorRules.length; i < l; i++) if (terminatorRules[i](state, nextLine, endLine, true)) {
+      terminate = true;
+      break;
+    }
+    if (terminate) break;
+  }
+  const content = asciiTrim(state.getLines(startLine, nextLine, state.blkIndent, false));
+  state.line = nextLine;
+  const token_o = state.push("paragraph_open", "p", 1);
+  token_o.map = [startLine, state.line];
+  const token_i = state.push("inline", "", 0);
+  token_i.content = content;
+  token_i.map = [startLine, state.line];
+  token_i.children = [];
+  state.push("paragraph_close", "p", -1);
+  state.parentType = oldParentType;
+  return true;
+}
+function isTerminatorChar(ch) {
+  switch (ch) {
+    case 10:
+    case 33:
+    case 35:
+    case 36:
+    case 37:
+    case 38:
+    case 42:
+    case 43:
+    case 45:
+    case 58:
+    case 60:
+    case 61:
+    case 62:
+    case 64:
+    case 91:
+    case 92:
+    case 93:
+    case 94:
+    case 95:
+    case 96:
+    case 123:
+    case 125:
+    case 126:
+      return true;
+    default:
+      return false;
+  }
+}
+function text(state, silent) {
+  let pos = state.pos;
+  while (pos < state.posMax && !isTerminatorChar(state.src.charCodeAt(pos))) pos++;
+  if (pos === state.pos) return false;
+  if (!silent) state.pending += state.src.slice(state.pos, pos);
+  state.pos = pos;
+  return true;
+}
+function linkify(state, silent) {
+  if (!state.md.options.linkify) return false;
+  if (state.linkLevel > 0) return false;
+  const pos = state.pos;
+  const max = state.posMax;
+  if (pos + 3 > max) return false;
+  if (state.src.charCodeAt(pos) !== 58) return false;
+  if (state.src.charCodeAt(pos + 1) !== 47) return false;
+  if (state.src.charCodeAt(pos + 2) !== 47) return false;
+  const match = state.pending.match(SCHEME_RE);
+  if (!match) return false;
+  const proto = match[1];
+  const link2 = state.md.linkify.matchAtStart(state.src.slice(pos - proto.length));
+  if (!link2) return false;
+  let url = link2.url;
+  if (url.length <= proto.length) return false;
+  let urlEnd = url.length;
+  while (urlEnd > 0 && url.charCodeAt(urlEnd - 1) === 42) urlEnd--;
+  if (urlEnd !== url.length) url = url.slice(0, urlEnd);
+  const fullUrl = state.md.normalizeLink(url);
+  if (!state.md.validateLink(fullUrl)) return false;
+  if (!silent) {
+    state.pending = state.pending.slice(0, -proto.length);
+    const token_o = state.push("link_open", "a", 1);
+    token_o.attrs = [["href", fullUrl]];
+    token_o.markup = "linkify";
+    token_o.info = "auto";
+    const token_t = state.push("text", "", 0);
+    token_t.content = state.md.normalizeLinkText(url);
+    const token_c = state.push("link_close", "a", -1);
+    token_c.markup = "linkify";
+    token_c.info = "auto";
+  }
+  state.pos += url.length - proto.length;
+  return true;
+}
+function newline(state, silent) {
+  let pos = state.pos;
+  if (state.src.charCodeAt(pos) !== 10) return false;
+  const pmax = state.pending.length - 1;
+  const max = state.posMax;
+  if (!silent) if (pmax >= 0 && state.pending.charCodeAt(pmax) === 32) if (pmax >= 1 && state.pending.charCodeAt(pmax - 1) === 32) {
+    let ws = pmax - 1;
+    while (ws >= 1 && state.pending.charCodeAt(ws - 1) === 32) ws--;
+    state.pending = state.pending.slice(0, ws);
+    state.push("hardbreak", "br", 0);
+  } else {
+    state.pending = state.pending.slice(0, -1);
+    state.push("softbreak", "br", 0);
+  }
+  else state.push("softbreak", "br", 0);
+  pos++;
+  while (pos < max && isSpace(state.src.charCodeAt(pos))) pos++;
+  state.pos = pos;
+  return true;
+}
+function escape(state, silent) {
+  let pos = state.pos;
+  const max = state.posMax;
+  if (state.src.charCodeAt(pos) !== 92) return false;
+  pos++;
+  if (pos >= max) return false;
+  let ch1 = state.src.charCodeAt(pos);
+  if (ch1 === 10) {
+    if (!silent) state.push("hardbreak", "br", 0);
+    pos++;
+    while (pos < max) {
+      ch1 = state.src.charCodeAt(pos);
+      if (!isSpace(ch1)) break;
+      pos++;
+    }
+    state.pos = pos;
+    return true;
+  }
+  if (ch1 === 32) {
+    if (!silent) {
+      const token = state.push("text_special", "", 0);
+      token.content = "\\";
+      token.markup = "\\";
+      token.info = "escape";
+    }
+    state.pos = pos;
+    return true;
+  }
+  let escapedStr = state.src[pos];
+  if (ch1 >= 55296 && ch1 <= 56319 && pos + 1 < max) {
+    const ch2 = state.src.charCodeAt(pos + 1);
+    if (ch2 >= 56320 && ch2 <= 57343) {
+      escapedStr += state.src[pos + 1];
+      pos++;
+    }
+  }
+  const origStr = "\\" + escapedStr;
+  if (!silent) {
+    const token = state.push("text_special", "", 0);
+    if (ch1 < 256 && ESCAPED[ch1] !== 0) token.content = escapedStr;
+    else token.content = origStr;
+    token.markup = origStr;
+    token.info = "escape";
+  }
+  state.pos = pos + 1;
+  return true;
+}
+function backtick(state, silent) {
+  let pos = state.pos;
+  if (state.src.charCodeAt(pos) !== 96) return false;
+  const start = pos;
+  pos++;
+  const max = state.posMax;
+  while (pos < max && state.src.charCodeAt(pos) === 96) pos++;
+  const marker = state.src.slice(start, pos);
+  const openerLength = marker.length;
+  if (state.backticksScanned && (state.backticks[openerLength] || 0) <= start) {
+    if (!silent) state.pending += marker;
+    state.pos += openerLength;
+    return true;
+  }
+  let matchEnd = pos;
+  let matchStart;
+  while ((matchStart = state.src.indexOf("`", matchEnd)) !== -1) {
+    matchEnd = matchStart + 1;
+    while (matchEnd < max && state.src.charCodeAt(matchEnd) === 96) matchEnd++;
+    const closerLength = matchEnd - matchStart;
+    if (closerLength === openerLength) {
+      if (!silent) {
+        const token = state.push("code_inline", "code", 0);
+        token.markup = marker;
+        token.content = state.src.slice(pos, matchStart).replace(/\n/g, " ").replace(/^ (.+) $/, "$1");
+      }
+      state.pos = matchEnd;
+      return true;
+    }
+    state.backticks[closerLength] = matchStart;
+  }
+  state.backticksScanned = true;
+  if (!silent) state.pending += marker;
+  state.pos += openerLength;
+  return true;
+}
+function strikethrough_tokenize(state, silent) {
+  const start = state.pos;
+  const marker = state.src.charCodeAt(start);
+  if (silent) return false;
+  if (marker !== 126) return false;
+  const scanned = state.scanDelims(state.pos, true);
+  let len = scanned.length;
+  const ch = String.fromCharCode(marker);
+  if (len < 2) return false;
+  let token;
+  if (len % 2) {
+    token = state.push("text", "", 0);
+    token.content = ch;
+    len--;
+  }
+  for (let i = 0; i < len; i += 2) {
+    token = state.push("text", "", 0);
+    token.content = ch + ch;
+    state.delimiters.push({
+      marker,
+      length: 0,
+      token: state.tokens.length - 1,
+      end: -1,
+      open: scanned.can_open,
+      close: scanned.can_close
+    });
+  }
+  state.pos += scanned.length;
+  return true;
+}
+function postProcess$1(state, delimiters) {
+  let token;
+  const loneMarkers = [];
+  const max = delimiters.length;
+  for (let i = 0; i < max; i++) {
+    const startDelim = delimiters[i];
+    if (startDelim.marker !== 126) continue;
+    if (startDelim.end === -1) continue;
+    const endDelim = delimiters[startDelim.end];
+    token = state.tokens[startDelim.token];
+    token.type = "s_open";
+    token.tag = "s";
+    token.nesting = 1;
+    token.markup = "~~";
+    token.content = "";
+    token = state.tokens[endDelim.token];
+    token.type = "s_close";
+    token.tag = "s";
+    token.nesting = -1;
+    token.markup = "~~";
+    token.content = "";
+    if (state.tokens[endDelim.token - 1].type === "text" && state.tokens[endDelim.token - 1].content === "~") loneMarkers.push(endDelim.token - 1);
+  }
+  while (loneMarkers.length) {
+    const i = loneMarkers.pop();
+    let j = i + 1;
+    while (j < state.tokens.length && state.tokens[j].type === "s_close") j++;
+    j--;
+    if (i !== j) {
+      token = state.tokens[j];
+      state.tokens[j] = state.tokens[i];
+      state.tokens[i] = token;
+    }
+  }
+}
+function strikethrough_postProcess(state) {
+  const tokens_meta = state.tokens_meta;
+  const max = state.tokens_meta.length;
+  postProcess$1(state, state.delimiters);
+  for (let curr = 0; curr < max; curr++) {
+    var _tokens_meta$curr;
+    const delimiters = (_tokens_meta$curr = tokens_meta[curr]) === null || _tokens_meta$curr === void 0 ? void 0 : _tokens_meta$curr.delimiters;
+    if (delimiters) postProcess$1(state, delimiters);
+  }
+}
+function emphasis_tokenize(state, silent) {
+  const start = state.pos;
+  const marker = state.src.charCodeAt(start);
+  if (silent) return false;
+  if (marker !== 95 && marker !== 42) return false;
+  const scanned = state.scanDelims(state.pos, marker === 42);
+  for (let i = 0; i < scanned.length; i++) {
+    const token = state.push("text", "", 0);
+    token.content = String.fromCharCode(marker);
+    state.delimiters.push({
+      marker,
+      length: scanned.length,
+      token: state.tokens.length - 1,
+      end: -1,
+      open: scanned.can_open,
+      close: scanned.can_close
+    });
+  }
+  state.pos += scanned.length;
+  return true;
+}
+function postProcess(state, delimiters) {
+  const max = delimiters.length;
+  for (let i = max - 1; i >= 0; i--) {
+    const startDelim = delimiters[i];
+    if (startDelim.marker !== 95 && startDelim.marker !== 42) continue;
+    if (startDelim.end === -1) continue;
+    const endDelim = delimiters[startDelim.end];
+    const isStrong = i > 0 && delimiters[i - 1].end === startDelim.end + 1 && delimiters[i - 1].marker === startDelim.marker && delimiters[i - 1].token === startDelim.token - 1 && delimiters[startDelim.end + 1].token === endDelim.token + 1;
+    const ch = String.fromCharCode(startDelim.marker);
+    const token_o = state.tokens[startDelim.token];
+    token_o.type = isStrong ? "strong_open" : "em_open";
+    token_o.tag = isStrong ? "strong" : "em";
+    token_o.nesting = 1;
+    token_o.markup = isStrong ? ch + ch : ch;
+    token_o.content = "";
+    const token_c = state.tokens[endDelim.token];
+    token_c.type = isStrong ? "strong_close" : "em_close";
+    token_c.tag = isStrong ? "strong" : "em";
+    token_c.nesting = -1;
+    token_c.markup = isStrong ? ch + ch : ch;
+    token_c.content = "";
+    if (isStrong) {
+      state.tokens[delimiters[i - 1].token].content = "";
+      state.tokens[delimiters[startDelim.end + 1].token].content = "";
+      i--;
+    }
+  }
+}
+function emphasis_post_process(state) {
+  const tokens_meta = state.tokens_meta;
+  const max = state.tokens_meta.length;
+  postProcess(state, state.delimiters);
+  for (let curr = 0; curr < max; curr++) {
+    var _tokens_meta$curr;
+    const delimiters = (_tokens_meta$curr = tokens_meta[curr]) === null || _tokens_meta$curr === void 0 ? void 0 : _tokens_meta$curr.delimiters;
+    if (delimiters) postProcess(state, delimiters);
+  }
+}
+function link(state, silent) {
+  let code2, label, res, ref;
+  let href = "";
+  let title = "";
+  let start = state.pos;
+  let parseReference = true;
+  if (state.src.charCodeAt(state.pos) !== 91) return false;
+  const oldPos = state.pos;
+  const max = state.posMax;
+  const labelStart = state.pos + 1;
+  const labelEnd = state.md.helpers.parseLinkLabel(state, state.pos, true);
+  if (labelEnd < 0) return false;
+  let pos = labelEnd + 1;
+  if (pos < max && state.src.charCodeAt(pos) === 40) {
+    parseReference = false;
+    pos++;
+    for (; pos < max; pos++) {
+      code2 = state.src.charCodeAt(pos);
+      if (!isSpace(code2) && code2 !== 10) break;
+    }
+    if (pos >= max) return false;
+    start = pos;
+    res = state.md.helpers.parseLinkDestination(state.src, pos, state.posMax);
+    if (res.ok) {
+      href = state.md.normalizeLink(res.str);
+      if (state.md.validateLink(href)) pos = res.pos;
+      else href = "";
+      start = pos;
+      for (; pos < max; pos++) {
+        code2 = state.src.charCodeAt(pos);
+        if (!isSpace(code2) && code2 !== 10) break;
+      }
+      res = state.md.helpers.parseLinkTitle(state.src, pos, state.posMax);
+      if (pos < max && start !== pos && res.ok) {
+        title = res.str;
+        pos = res.pos;
+        for (; pos < max; pos++) {
+          code2 = state.src.charCodeAt(pos);
+          if (!isSpace(code2) && code2 !== 10) break;
+        }
+      }
+    }
+    if (pos >= max || state.src.charCodeAt(pos) !== 41) parseReference = true;
+    pos++;
+  }
+  if (parseReference) {
+    if (typeof state.env.references === "undefined") return false;
+    if (pos < max && state.src.charCodeAt(pos) === 91) {
+      start = pos + 1;
+      pos = state.md.helpers.parseLinkLabel(state, pos);
+      if (pos >= 0) label = state.src.slice(start, pos++);
+      else pos = labelEnd + 1;
+    } else pos = labelEnd + 1;
+    if (!label) label = state.src.slice(labelStart, labelEnd);
+    label = normalizeReference(label);
+    ref = state.env.references[label];
+    if (!ref) {
+      state.pos = oldPos;
+      return false;
+    }
+    href = ref.href;
+    title = ref.title;
+  }
+  if (!silent) {
+    state.pos = labelStart;
+    state.posMax = labelEnd;
+    const token_o = state.push("link_open", "a", 1);
+    const attrs = [["href", href]];
+    token_o.attrs = attrs;
+    if (title) attrs.push(["title", title]);
+    if (label) {
+      const meta = /* @__PURE__ */ Object.create(null);
+      meta.label = label;
+      token_o.meta = meta;
+    }
+    state.linkLevel++;
+    state.md.inline.tokenize(state);
+    state.linkLevel--;
+    state.push("link_close", "a", -1);
+  }
+  state.pos = pos;
+  state.posMax = max;
+  return true;
+}
+function image(state, silent) {
+  let code2, content, label, pos, ref, res, title, start;
+  let href = "";
+  const oldPos = state.pos;
+  const max = state.posMax;
+  if (state.src.charCodeAt(state.pos) !== 33) return false;
+  if (state.src.charCodeAt(state.pos + 1) !== 91) return false;
+  const labelStart = state.pos + 2;
+  const labelEnd = state.md.helpers.parseLinkLabel(state, state.pos + 1, false);
+  if (labelEnd < 0) return false;
+  pos = labelEnd + 1;
+  if (pos < max && state.src.charCodeAt(pos) === 40) {
+    pos++;
+    for (; pos < max; pos++) {
+      code2 = state.src.charCodeAt(pos);
+      if (!isSpace(code2) && code2 !== 10) break;
+    }
+    if (pos >= max) return false;
+    start = pos;
+    res = state.md.helpers.parseLinkDestination(state.src, pos, state.posMax);
+    if (res.ok) {
+      href = state.md.normalizeLink(res.str);
+      if (state.md.validateLink(href)) pos = res.pos;
+      else href = "";
+    }
+    start = pos;
+    for (; pos < max; pos++) {
+      code2 = state.src.charCodeAt(pos);
+      if (!isSpace(code2) && code2 !== 10) break;
+    }
+    res = state.md.helpers.parseLinkTitle(state.src, pos, state.posMax);
+    if (pos < max && start !== pos && res.ok) {
+      title = res.str;
+      pos = res.pos;
+      for (; pos < max; pos++) {
+        code2 = state.src.charCodeAt(pos);
+        if (!isSpace(code2) && code2 !== 10) break;
+      }
+    } else title = "";
+    if (pos >= max || state.src.charCodeAt(pos) !== 41) {
+      state.pos = oldPos;
+      return false;
+    }
+    pos++;
+  } else {
+    if (typeof state.env.references === "undefined") return false;
+    if (pos < max && state.src.charCodeAt(pos) === 91) {
+      start = pos + 1;
+      pos = state.md.helpers.parseLinkLabel(state, pos);
+      if (pos >= 0) label = state.src.slice(start, pos++);
+      else pos = labelEnd + 1;
+    } else pos = labelEnd + 1;
+    if (!label) label = state.src.slice(labelStart, labelEnd);
+    label = normalizeReference(label);
+    ref = state.env.references[label];
+    if (!ref) {
+      state.pos = oldPos;
+      return false;
+    }
+    href = ref.href;
+    title = ref.title;
+  }
+  if (!silent) {
+    content = state.src.slice(labelStart, labelEnd);
+    const tokens = [];
+    state.md.inline.parse(content, state.md, state.env, tokens);
+    const token = state.push("image", "img", 0);
+    const attrs = [["src", href], ["alt", ""]];
+    token.attrs = attrs;
+    token.children = tokens;
+    token.content = content;
+    if (title) attrs.push(["title", title]);
+    if (label) {
+      const meta = /* @__PURE__ */ Object.create(null);
+      meta.label = label;
+      token.meta = meta;
+    }
+  }
+  state.pos = pos;
+  state.posMax = max;
+  return true;
+}
+function autolink(state, silent) {
+  let pos = state.pos;
+  if (state.src.charCodeAt(pos) !== 60) return false;
+  const start = state.pos;
+  const max = state.posMax;
+  for (; ; ) {
+    if (++pos >= max) return false;
+    const ch = state.src.charCodeAt(pos);
+    if (ch === 60) return false;
+    if (ch === 62) break;
+  }
+  const url = state.src.slice(start + 1, pos);
+  if (AUTOLINK_RE.test(url)) {
+    const fullUrl = state.md.normalizeLink(url);
+    if (!state.md.validateLink(fullUrl)) return false;
+    if (!silent) {
+      const token_o = state.push("link_open", "a", 1);
+      token_o.attrs = [["href", fullUrl]];
+      token_o.markup = "autolink";
+      token_o.info = "auto";
+      const token_t = state.push("text", "", 0);
+      token_t.content = state.md.normalizeLinkText(url);
+      const token_c = state.push("link_close", "a", -1);
+      token_c.markup = "autolink";
+      token_c.info = "auto";
+    }
+    state.pos += url.length + 2;
+    return true;
+  }
+  if (EMAIL_RE.test(url)) {
+    const fullUrl = state.md.normalizeLink(`mailto:${url}`);
+    if (!state.md.validateLink(fullUrl)) return false;
+    if (!silent) {
+      const token_o = state.push("link_open", "a", 1);
+      token_o.attrs = [["href", fullUrl]];
+      token_o.markup = "autolink";
+      token_o.info = "auto";
+      const token_t = state.push("text", "", 0);
+      token_t.content = state.md.normalizeLinkText(url);
+      const token_c = state.push("link_close", "a", -1);
+      token_c.markup = "autolink";
+      token_c.info = "auto";
+    }
+    state.pos += url.length + 2;
+    return true;
+  }
+  return false;
+}
+function isLinkOpen(str) {
+  return /^<a[>\s]/i.test(str);
+}
+function isLinkClose(str) {
+  return /^<\/a\s*>/i.test(str);
+}
+function isLetter(ch) {
+  const lc = ch | 32;
+  return lc >= 97 && lc <= 122;
+}
+function html_inline(state, silent) {
+  if (!state.md.options.html) return false;
+  const max = state.posMax;
+  const pos = state.pos;
+  if (state.src.charCodeAt(pos) !== 60 || pos + 2 >= max) return false;
+  const ch = state.src.charCodeAt(pos + 1);
+  if (ch !== 33 && ch !== 63 && ch !== 47 && !isLetter(ch)) return false;
+  const match = state.src.slice(pos).match(HTML_TAG_RE);
+  if (!match) return false;
+  if (!silent) {
+    const token = state.push("html_inline", "", 0);
+    token.content = match[0];
+    if (isLinkOpen(token.content)) state.linkLevel++;
+    if (isLinkClose(token.content)) state.linkLevel--;
+  }
+  state.pos += match[0].length;
+  return true;
+}
+function entity(state, silent) {
+  const pos = state.pos;
+  const max = state.posMax;
+  if (state.src.charCodeAt(pos) !== 38) return false;
+  if (pos + 1 >= max) return false;
+  if (state.src.charCodeAt(pos + 1) === 35) {
+    const match = state.src.slice(pos).match(DIGITAL_RE);
+    if (match) {
+      if (!silent) {
+        const code2 = match[1][0].toLowerCase() === "x" ? parseInt(match[1].slice(1), 16) : parseInt(match[1], 10);
+        const token = state.push("text_special", "", 0);
+        token.content = isValidEntityCode(code2) ? fromCodePoint(code2) : fromCodePoint(65533);
+        token.markup = match[0];
+        token.info = "entity";
+      }
+      state.pos += match[0].length;
+      return true;
+    }
+  } else {
+    const match = state.src.slice(pos).match(NAMED_RE);
+    if (match) {
+      const decoded = decodeHTMLStrict(match[0]);
+      if (decoded !== match[0]) {
+        if (!silent) {
+          const token = state.push("text_special", "", 0);
+          token.content = decoded;
+          token.markup = match[0];
+          token.info = "entity";
+        }
+        state.pos += match[0].length;
+        return true;
+      }
+    }
+  }
+  return false;
+}
+function processDelimiters(delimiters) {
+  const openersBottom = {};
+  const max = delimiters.length;
+  if (!max) return;
+  let headerIdx = 0;
+  let lastTokenIdx = -2;
+  const jumps = [];
+  for (let closerIdx = 0; closerIdx < max; closerIdx++) {
+    const closer = delimiters[closerIdx];
+    jumps.push(0);
+    if (delimiters[headerIdx].marker !== closer.marker || lastTokenIdx !== closer.token - 1) headerIdx = closerIdx;
+    lastTokenIdx = closer.token;
+    closer.length = closer.length || 0;
+    if (!closer.close) continue;
+    if (!openersBottom.hasOwnProperty(closer.marker)) openersBottom[closer.marker] = [
+      -1,
+      -1,
+      -1,
+      -1,
+      -1,
+      -1
+    ];
+    const minOpenerIdx = openersBottom[closer.marker][(closer.open ? 3 : 0) + closer.length % 3];
+    let openerIdx = headerIdx - jumps[headerIdx] - 1;
+    let newMinOpenerIdx = openerIdx;
+    for (; openerIdx > minOpenerIdx; openerIdx -= jumps[openerIdx] + 1) {
+      const opener = delimiters[openerIdx];
+      if (opener.marker !== closer.marker) continue;
+      if (opener.open && opener.end < 0) {
+        let isOddMatch = false;
+        if (opener.close || closer.open) {
+          if ((opener.length + closer.length) % 3 === 0) {
+            if (opener.length % 3 !== 0 || closer.length % 3 !== 0) isOddMatch = true;
+          }
+        }
+        if (!isOddMatch) {
+          const lastJump = openerIdx > 0 && !delimiters[openerIdx - 1].open ? jumps[openerIdx - 1] + 1 : 0;
+          jumps[closerIdx] = closerIdx - openerIdx + lastJump;
+          jumps[openerIdx] = lastJump;
+          closer.open = false;
+          opener.end = closerIdx;
+          opener.close = false;
+          newMinOpenerIdx = -1;
+          lastTokenIdx = -2;
+          break;
+        }
+      }
+    }
+    if (newMinOpenerIdx !== -1) openersBottom[closer.marker][(closer.open ? 3 : 0) + (closer.length || 0) % 3] = newMinOpenerIdx;
+  }
+}
+function link_pairs(state) {
+  const tokens_meta = state.tokens_meta;
+  const max = state.tokens_meta.length;
+  processDelimiters(state.delimiters);
+  for (let curr = 0; curr < max; curr++) {
+    var _tokens_meta$curr;
+    const delimiters = (_tokens_meta$curr = tokens_meta[curr]) === null || _tokens_meta$curr === void 0 ? void 0 : _tokens_meta$curr.delimiters;
+    if (delimiters) processDelimiters(delimiters);
+  }
+}
+function fragments_join(state) {
+  let curr, last;
+  let level = 0;
+  const tokens = state.tokens;
+  const max = state.tokens.length;
+  for (curr = last = 0; curr < max; curr++) {
+    if (tokens[curr].nesting < 0) level--;
+    tokens[curr].level = level;
+    if (tokens[curr].nesting > 0) level++;
+    if (tokens[curr].type === "text" && curr + 1 < max && tokens[curr + 1].type === "text") tokens[curr + 1].content = tokens[curr].content + tokens[curr + 1].content;
+    else {
+      if (curr !== last) tokens[last] = tokens[curr];
+      last++;
+    }
+  }
+  if (curr !== last) tokens.length = last;
+}
+var __defProp2, __exportAll, utils_exports, UNESCAPE_MD_RE, UNESCAPE_ALL_RE, DIGITAL_ENTITY_TEST_RE, HTML_ESCAPE_TEST_RE, HTML_ESCAPE_REPLACE_RE, HTML_REPLACEMENTS, REGEXP_ESCAPE_RE, lib, helpers_exports, Token, Ruler, default_rules, Renderer, StateCore, NEWLINES_RE, NULL_RE, RARE_RE, SCOPED_ABBR_TEST_RE, SCOPED_ABBR_RE, SCOPED_ABBR, QUOTE_TEST_RE, QUOTE_RE, APOSTROPHE, _rules$2, ParserCore, StateBlock, MAX_AUTOCOMPLETED_CELLS, html_blocks_default, open_tag, close_tag, HTML_TAG_RE, HTML_OPEN_CLOSE_TAG_RE, HTML_SEQUENCES, _rules$1, ParserBlock, StateInline, SCHEME_RE, ESCAPED, strikethrough_default, emphasis_default, EMAIL_RE, AUTOLINK_RE, DIGITAL_RE, NAMED_RE, _rules, _rules2, ParserInline, config, BAD_PROTO_RE, GOOD_DATA_RE, RECODE_HOSTNAME_FOR, MarkdownIt, MarkdownItCallable;
+var init_markdown_it = __esm({
+  "node_modules/markdown-it/dist/markdown-it.mjs"() {
+    init_mdurl();
+    init_build();
+    init_dist();
+    init_build2();
+    init_punycode_es6();
+    __defProp2 = Object.defineProperty;
+    __exportAll = (all, no_symbols) => {
+      let target = {};
+      for (var name in all) __defProp2(target, name, {
+        get: all[name],
+        enumerable: true
+      });
+      if (!no_symbols) __defProp2(target, Symbol.toStringTag, { value: "Module" });
+      return target;
+    };
+    utils_exports = /* @__PURE__ */ __exportAll({
+      arrayReplaceAt: () => arrayReplaceAt,
+      asciiTrim: () => asciiTrim,
+      callable: () => callable,
+      escapeHtml: () => escapeHtml,
+      escapeRE: () => escapeRE,
+      fromCodePoint: () => fromCodePoint,
+      isMdAsciiPunct: () => isMdAsciiPunct,
+      isPunctChar: () => isPunctChar,
+      isPunctCharCode: () => isPunctCharCode,
+      isSpace: () => isSpace,
+      isValidEntityCode: () => isValidEntityCode,
+      isWhiteSpace: () => isWhiteSpace,
+      lib: () => lib,
+      normalizeReference: () => normalizeReference,
+      unescapeAll: () => unescapeAll,
+      unescapeMd: () => unescapeMd
+    });
+    UNESCAPE_MD_RE = /\\([!"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~])/g;
+    UNESCAPE_ALL_RE = new RegExp(`${UNESCAPE_MD_RE.source}|${/&([a-z#][a-z0-9]{1,31});/gi.source}`, "gi");
+    DIGITAL_ENTITY_TEST_RE = /^#((?:x[a-f0-9]{1,8}|[0-9]{1,8}))$/i;
+    HTML_ESCAPE_TEST_RE = /[&<>"]/;
+    HTML_ESCAPE_REPLACE_RE = /[&<>"]/g;
+    HTML_REPLACEMENTS = {
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;"
+    };
+    REGEXP_ESCAPE_RE = /[.?*+^$[\]\\(){}|-]/g;
+    lib = {
+      mdurl: mdurl_exports,
+      ucmicro: build_exports
+    };
+    helpers_exports = /* @__PURE__ */ __exportAll({
+      parseLinkDestination: () => parseLinkDestination,
+      parseLinkLabel: () => parseLinkLabel,
+      parseLinkTitle: () => parseLinkTitle
+    });
+    Token = class {
+      constructor(type, tag, nesting) {
+        _defineProperty(
+          this,
+          /**
+          * Source map info. Format: `[ line_begin, line_end ]`
+          */
+          "map",
+          null
+        );
+        _defineProperty(
+          this,
+          /**
+          * nesting level, the same as `state.level`
+          */
+          "level",
+          0
+        );
+        _defineProperty(
+          this,
+          /**
+          * An array of child nodes (inline and img tokens)
+          */
+          "children",
+          null
+        );
+        _defineProperty(
+          this,
+          /**
+          * In a case of self-closing tag (code, html, fence, etc.),
+          * it has contents of this tag.
+          */
+          "content",
+          ""
+        );
+        _defineProperty(
+          this,
+          /**
+          * '*' or '_' for emphasis, fence string for fence, etc.
+          */
+          "markup",
+          ""
+        );
+        _defineProperty(
+          this,
+          /**
+          * Additional information:
+          *
+          * - Info string for "fence" tokens
+          * - The value "auto" for autolink "link_open" and "link_close" tokens
+          * - The string value of the item marker for ordered-list "list_item_open" tokens
+          */
+          "info",
+          ""
+        );
+        _defineProperty(
+          this,
+          /**
+          * True for block-level tokens, false for inline tokens.
+          * Used in renderer to calculate line breaks
+          */
+          "block",
+          false
+        );
+        _defineProperty(
+          this,
+          /**
+          * If it's true, ignore this element when rendering. Used for tight lists
+          * to hide paragraphs.
+          */
+          "hidden",
+          false
+        );
+        this.type = type;
+        this.tag = tag;
+        this.attrs = null;
+        this.nesting = nesting;
+        this.meta = null;
+      }
+      /**
+      * Search attribute index by name.
+      */
+      attrIndex(name) {
+        if (!this.attrs) return -1;
+        const attrs = this.attrs;
+        for (let i = 0, len = attrs.length; i < len; i++) if (attrs[i][0] === name) return i;
+        return -1;
+      }
+      /**
+      * Add `[ name, value ]` attribute to list. Init attrs if necessary
+      */
+      attrPush(attrData) {
+        if (this.attrs) this.attrs.push(attrData);
+        else this.attrs = [attrData];
+      }
+      /**
+      * Set `name` attribute to `value`. Override old value if exists.
+      */
+      attrSet(name, value) {
+        const idx = this.attrIndex(name);
+        const attrData = [name, value];
+        if (idx < 0) this.attrPush(attrData);
+        else this.attrs[idx] = attrData;
+      }
+      /**
+      * Get the value of attribute `name`, or null if it does not exist.
+      */
+      attrGet(name) {
+        const idx = this.attrIndex(name);
+        let value = null;
+        if (idx >= 0) value = this.attrs[idx][1];
+        return value;
+      }
+      /**
+      * Join value to existing attribute via space. Or create new attribute if not
+      * exists. Useful to operate with token classes.
+      */
+      attrJoin(name, value) {
+        const idx = this.attrIndex(name);
+        if (idx < 0) this.attrPush([name, value]);
+        else this.attrs[idx][1] = `${this.attrs[idx][1]} ${value}`;
+      }
+    };
+    Ruler = class {
+      constructor() {
+        _defineProperty(this, "__rules__", []);
+        _defineProperty(this, "__cache__", null);
+      }
+      __find__(name) {
+        for (let i = 0; i < this.__rules__.length; i++) if (this.__rules__[i].name === name) return i;
+        return -1;
+      }
+      __compile__() {
+        const chains = /* @__PURE__ */ new Set();
+        this.__rules__.forEach((rule) => {
+          if (!rule.enabled) return;
+          rule.alt.forEach((altName) => {
+            if (altName) chains.add(altName);
+          });
+        });
+        this.__cache__ = /* @__PURE__ */ Object.create(null);
+        this.__cache__[""] = [];
+        this.__rules__.forEach((rule) => {
+          if (rule.enabled) this.__cache__[""].push(rule.fn);
+        });
+        chains.forEach((chain) => {
+          this.__cache__[chain] = [];
+          this.__rules__.forEach((rule) => {
+            if (rule.enabled && rule.alt.indexOf(chain) >= 0) this.__cache__[chain].push(rule.fn);
+          });
+        });
+      }
+      /**
+      * Replace rule by name with new function & options. Throws error if name not
+      * found.
+      *
+      * @param name Rule name to replace.
+      * @param fn New rule function.
+      * @param options Rule options. `alt` is an array with names of "alternate"
+      * chains.
+      *
+      * @example Replace existing typographer replacement rule with new one
+      * ```javascript
+      * import MarkdownIt from 'markdown-it'
+      * const md = new MarkdownIt()
+      *
+      * md.core.ruler.at('replacements', function replace(state) {
+      *   //...
+      * });
+      * ```
+      */
+      at(name, fn, options = {}) {
+        const index = this.__find__(name);
+        if (index === -1) throw new Error(`Parser rule not found: ${name}`);
+        this.__rules__[index].fn = fn;
+        this.__rules__[index].alt = options.alt || [];
+        this.__cache__ = null;
+      }
+      /**
+      * Add new rule to chain before one with given name. See also
+      * {@link Ruler.after}, {@link Ruler.push}.
+      *
+      * @param beforeName New rule will be added before this one.
+      * @param ruleName Name of added rule.
+      * @param fn Rule function.
+      * @param options Rule options. `alt` is an array with names of "alternate"
+      * chains.
+      *
+      * @example
+      * ```javascript
+      * import MarkdownIt from 'markdown-it'
+      * const md = new MarkdownIt()
+      *
+      * md.block.ruler.before('paragraph', 'my_rule', function replace(state) {
+      *   //...
+      * });
+      * ```
+      */
+      before(beforeName, ruleName, fn, options = {}) {
+        const index = this.__find__(beforeName);
+        if (index === -1) throw new Error(`Parser rule not found: ${beforeName}`);
+        this.__rules__.splice(index, 0, {
+          name: ruleName,
+          enabled: true,
+          fn,
+          alt: options.alt || []
+        });
+        this.__cache__ = null;
+      }
+      /**
+      * Add new rule to chain after one with given name. See also
+      * {@link Ruler.before}, {@link Ruler.push}.
+      *
+      * @param afterName New rule will be added after this one.
+      * @param ruleName Name of added rule.
+      * @param fn Rule function.
+      * @param options Rule options. `alt` is an array with names of "alternate"
+      * chains.
+      *
+      * @example
+      * ```javascript
+      * import MarkdownIt from 'markdown-it'
+      * const md = new MarkdownIt()
+      *
+      * md.inline.ruler.after('text', 'my_rule', function replace(state) {
+      *   //...
+      * });
+      * ```
+      */
+      after(afterName, ruleName, fn, options = {}) {
+        const index = this.__find__(afterName);
+        if (index === -1) throw new Error(`Parser rule not found: ${afterName}`);
+        this.__rules__.splice(index + 1, 0, {
+          name: ruleName,
+          enabled: true,
+          fn,
+          alt: options.alt || []
+        });
+        this.__cache__ = null;
+      }
+      /**
+      * Push new rule to the end of chain. See also
+      * {@link Ruler.before}, {@link Ruler.after}.
+      *
+      * @param ruleName Name of added rule.
+      * @param fn Rule function.
+      * @param options Rule options. `alt` is an array with names of "alternate"
+      * chains.
+      *
+      * @example
+      * ```javascript
+      * import MarkdownIt from 'markdown-it'
+      * const md = new MarkdownIt()
+      *
+      * md.core.ruler.push('my_rule', function replace(state) {
+      *   //...
+      * });
+      * ```
+      */
+      push(ruleName, fn, options = {}) {
+        this.__rules__.push({
+          name: ruleName,
+          enabled: true,
+          fn,
+          alt: options.alt || []
+        });
+        this.__cache__ = null;
+      }
+      /**
+      * Enable rules with given names. If any rule name not found - throw Error.
+      * Errors can be disabled by second param.
+      *
+      * See also {@link Ruler.disable}, {@link Ruler.enableOnly}.
+      *
+      * @param list List of rule names to enable.
+      * @param ignoreInvalid Set `true` to ignore errors when rule not found.
+      * @returns List of found rule names (if no exception happened).
+      */
+      enable(list2, ignoreInvalid = false) {
+        if (!Array.isArray(list2)) list2 = [list2];
+        const result = [];
+        list2.forEach((name) => {
+          const idx = this.__find__(name);
+          if (idx < 0) {
+            if (ignoreInvalid) return;
+            throw new Error(`Rules manager: invalid rule name ${name}`);
+          }
+          this.__rules__[idx].enabled = true;
+          result.push(name);
+        });
+        this.__cache__ = null;
+        return result;
+      }
+      /**
+      * Enable rules with given names, and disable everything else. If any rule name
+      * not found - throw Error. Errors can be disabled by second param.
+      *
+      * See also {@link Ruler.disable}, {@link Ruler.enable}.
+      *
+      * @param list List of rule names to enable (whitelist).
+      * @param ignoreInvalid Set `true` to ignore errors when rule not found.
+      */
+      enableOnly(list2, ignoreInvalid = false) {
+        if (!Array.isArray(list2)) list2 = [list2];
+        this.__rules__.forEach((rule) => {
+          rule.enabled = false;
+        });
+        this.enable(list2, ignoreInvalid);
+      }
+      /**
+      * Disable rules with given names. If any rule name not found - throw Error.
+      * Errors can be disabled by second param.
+      *
+      * See also {@link Ruler.enable}, {@link Ruler.enableOnly}.
+      *
+      * @param list List of rule names to disable.
+      * @param ignoreInvalid Set `true` to ignore errors when rule not found.
+      * @returns List of found rule names (if no exception happened).
+      */
+      disable(list2, ignoreInvalid = false) {
+        if (!Array.isArray(list2)) list2 = [list2];
+        const result = [];
+        list2.forEach((name) => {
+          const idx = this.__find__(name);
+          if (idx < 0) {
+            if (ignoreInvalid) return;
+            throw new Error(`Rules manager: invalid rule name ${name}`);
+          }
+          this.__rules__[idx].enabled = false;
+          result.push(name);
+        });
+        this.__cache__ = null;
+        return result;
+      }
+      /**
+      * Return array of active functions (rules) for given chain name. It analyzes
+      * rules configuration, compiles caches if not exists and returns result.
+      *
+      * Default chain name is `''` (empty string). It can't be skipped. That's
+      * done intentionally, to keep signature monomorphic for high speed.
+      */
+      getRules(chainName) {
+        if (!this.__cache__) this.__compile__();
+        return this.__cache__[chainName] || [];
+      }
+    };
+    default_rules = {};
+    default_rules.code_inline = function(tokens, idx, options, env, slf) {
+      const token = tokens[idx];
+      return `<code${slf.renderAttrs(token)}>${escapeHtml(token.content)}</code>`;
+    };
+    default_rules.code_block = function(tokens, idx, options, env, slf) {
+      const token = tokens[idx];
+      return `<pre${slf.renderAttrs(token)}><code>${escapeHtml(tokens[idx].content)}</code></pre>
+`;
+    };
+    default_rules.fence = function(tokens, idx, options, env, slf) {
+      const token = tokens[idx];
+      const info = token.info ? unescapeAll(token.info).trim() : "";
+      let langName = "";
+      let langAttrs = "";
+      if (info) {
+        const arr = info.split(/(\s+)/g);
+        langName = arr[0];
+        langAttrs = arr.slice(2).join("");
+      }
+      let highlighted;
+      if (options.highlight) highlighted = options.highlight(token.content, langName, langAttrs) || escapeHtml(token.content);
+      else highlighted = escapeHtml(token.content);
+      if (highlighted.indexOf("<pre") === 0) return highlighted + "\n";
+      if (info) {
+        const i = token.attrIndex("class");
+        const tmpAttrs = token.attrs ? token.attrs.slice() : [];
+        if (i < 0) tmpAttrs.push(["class", `${options.langPrefix}${langName}`]);
+        else {
+          tmpAttrs[i] = [tmpAttrs[i][0], tmpAttrs[i][1]];
+          tmpAttrs[i][1] += ` ${options.langPrefix}${langName}`;
+        }
+        const tmpToken = { attrs: tmpAttrs };
+        return `<pre><code${slf.renderAttrs(tmpToken)}>${highlighted}</code></pre>
+`;
+      }
+      return `<pre><code${slf.renderAttrs(token)}>${highlighted}</code></pre>
+`;
+    };
+    default_rules.image = function(tokens, idx, options, env, slf) {
+      const token = tokens[idx];
+      token.attrs[token.attrIndex("alt")][1] = slf.renderInlineAsText(token.children, options, env);
+      return slf.renderToken(tokens, idx, options);
+    };
+    default_rules.hardbreak = function(tokens, idx, options) {
+      return options.xhtmlOut ? "<br />\n" : "<br>\n";
+    };
+    default_rules.softbreak = function(tokens, idx, options) {
+      return options.breaks ? options.xhtmlOut ? "<br />\n" : "<br>\n" : "\n";
+    };
+    default_rules.text = function(tokens, idx) {
+      return escapeHtml(tokens[idx].content);
+    };
+    default_rules.html_block = function(tokens, idx) {
+      return tokens[idx].content;
+    };
+    default_rules.html_inline = function(tokens, idx) {
+      return tokens[idx].content;
+    };
+    Renderer = class {
+      constructor() {
+        _defineProperty(
+          this,
+          /**
+          * Contains render rules for tokens. Can be updated and extended.
+          *
+          * See [source code](https://github.com/markdown-it/markdown-it/blob/master/src/renderer.ts)
+          * for more details and examples.
+          *
+          * @example Custom render rules
+          * ```javascript
+          * import MarkdownIt from 'markdown-it'
+          * const md = new MarkdownIt()
+          *
+          * md.renderer.rules.strong_open  = function () { return '<b>'; };
+          * md.renderer.rules.strong_close = function () { return '</b>'; };
+          *
+          * const result = md.renderInline(...);
+          * ```
+          *
+          * @example Each rule is called as independent static function with fixed signature
+          * ```javascript
+          * function my_token_render(tokens, idx, options, env, renderer) {
+          *   // ...
+          *   return renderedHTML;
+          * }
+          * ```
+          */
+          "rules",
+          Object.assign({}, default_rules)
+        );
+      }
+      /**
+      * Render token attributes to string.
+      */
+      renderAttrs(token) {
+        let i, l, result;
+        if (!token.attrs) return "";
+        result = "";
+        for (i = 0, l = token.attrs.length; i < l; i++) result += ` ${escapeHtml(token.attrs[i][0])}="${escapeHtml(String(token.attrs[i][1]))}"`;
+        return result;
+      }
+      /**
+      * Default token renderer. Can be overriden by custom function
+      * in {@link Renderer.rules}.
+      *
+      * @param tokens List of tokens.
+      * @param idx Token index to render.
+      * @param options Params of parser instance.
+      */
+      renderToken(tokens, idx, options) {
+        const token = tokens[idx];
+        let result = "";
+        if (token.hidden) return "";
+        let prev = idx - 1;
+        while (prev >= 0 && tokens[prev].hidden && tokens[prev].nesting === 0) prev--;
+        if (token.block && token.nesting !== -1 && prev >= 0 && tokens[prev].hidden && tokens[prev].nesting === -1) result += "\n";
+        result += (token.nesting === -1 ? "</" : "<") + token.tag;
+        result += this.renderAttrs(token);
+        if (token.nesting === 0 && options.xhtmlOut) result += " /";
+        let needLf = false;
+        if (token.block) {
+          needLf = true;
+          if (token.nesting === 1) {
+            let next = idx + 1;
+            while (next < tokens.length && tokens[next].hidden && tokens[next].nesting === 0) next++;
+            if (next < tokens.length) {
+              const nextToken = tokens[next];
+              if (nextToken.type === "inline" || nextToken.hidden) needLf = false;
+              else if (nextToken.nesting === -1 && nextToken.tag === token.tag) needLf = false;
+            }
+          }
+        }
+        result += needLf ? ">\n" : ">";
+        return result;
+      }
+      /**
+      * The same as {@link Renderer.render}, but for single token of `inline` type.
+      *
+      * @param tokens List on block tokens to render.
+      * @param options Params of parser instance.
+      * @param env Additional data from parsed input (references, for example).
+      */
+      renderInline(tokens, options, env) {
+        let result = "";
+        const rules = this.rules;
+        for (let i = 0, len = tokens.length; i < len; i++) {
+          const type = tokens[i].type;
+          if (typeof rules[type] !== "undefined") result += rules[type](tokens, i, options, env, this);
+          else result += this.renderToken(tokens, i, options);
+        }
+        return result;
+      }
+      /**
+      * Special kludge for image `alt` attributes to conform CommonMark spec.
+      * Don't try to use it! Spec requires to show `alt` content with stripped markup,
+      * instead of simple escaping.
+      *
+      * @param tokens List on block tokens to render.
+      * @param options Params of parser instance.
+      * @param env Additional data from parsed input (references, for example).
+      */
+      renderInlineAsText(tokens, options, env) {
+        let result = "";
+        for (let i = 0, len = tokens.length; i < len; i++) switch (tokens[i].type) {
+          case "text":
+          case "code_inline":
+            result += tokens[i].content;
+            break;
+          case "image":
+            result += this.renderInlineAsText(tokens[i].children, options, env);
+            break;
+          case "html_inline":
+          case "html_block":
+            result += tokens[i].content;
+            break;
+          case "softbreak":
+          case "hardbreak":
+            result += "\n";
+        }
+        return result;
+      }
+      /**
+      * Takes token stream and generates HTML. Probably, you will never need to call
+      * this method directly.
+      *
+      * @param tokens List on block tokens to render.
+      * @param options Params of parser instance.
+      * @param env Additional data from parsed input (references, for example).
+      */
+      render(tokens, options, env) {
+        let result = "";
+        const rules = this.rules;
+        for (let i = 0, len = tokens.length; i < len; i++) {
+          const type = tokens[i].type;
+          if (type === "inline") result += this.renderInline(tokens[i].children, options, env);
+          else if (typeof rules[type] !== "undefined") result += rules[type](tokens, i, options, env, this);
+          else result += this.renderToken(tokens, i, options);
+        }
+        return result;
+      }
+    };
+    StateCore = class {
+      constructor(src, md, env) {
+        _defineProperty(this, "tokens", []);
+        _defineProperty(this, "inlineMode", false);
+        _defineProperty(this, "Token", Token);
+        this.src = src;
+        this.env = env;
+        this.md = md;
+      }
+    };
+    NEWLINES_RE = /\r\n?|\n/g;
+    NULL_RE = /\0/g;
+    RARE_RE = /\+-|\.\.|\?\?\?\?|!!!!|,,|--/;
+    SCOPED_ABBR_TEST_RE = /\((c|tm|r)\)/i;
+    SCOPED_ABBR_RE = /\((c|tm|r)\)/gi;
+    SCOPED_ABBR = {
+      c: "\xA9",
+      r: "\xAE",
+      tm: "\u2122"
+    };
+    QUOTE_TEST_RE = /['"]/;
+    QUOTE_RE = /['"]/g;
+    APOSTROPHE = "\u2019";
+    _rules$2 = [
+      ["normalize", normalize],
+      ["block", block],
+      ["strip_references", strip_references],
+      ["inline", inline],
+      ["linkify", linkify$1],
+      ["replacements", replace],
+      ["smartquotes", smartquotes],
+      ["text_join", text_join]
+    ];
+    ParserCore = class {
+      constructor() {
+        _defineProperty(
+          this,
+          /**
+          * {@link Ruler} instance. Keep configuration of core rules.
+          */
+          "ruler",
+          new Ruler()
+        );
+        _defineProperty(this, "State", StateCore);
+        for (let i = 0; i < _rules$2.length; i++) this.ruler.push(_rules$2[i][0], _rules$2[i][1]);
+      }
+      /**
+      * Executes core chain rules.
+      */
+      process(state) {
+        const rules = this.ruler.getRules("");
+        for (let i = 0, l = rules.length; i < l; i++) rules[i](state);
+      }
+    };
+    StateBlock = class {
+      constructor(src, md, env, tokens) {
+        _defineProperty(this, "bMarks", []);
+        _defineProperty(this, "eMarks", []);
+        _defineProperty(this, "tShift", []);
+        _defineProperty(this, "sCount", []);
+        _defineProperty(this, "bsCount", []);
+        _defineProperty(this, "blkIndent", 0);
+        _defineProperty(this, "line", 0);
+        _defineProperty(this, "lineMax", 0);
+        _defineProperty(this, "tight", false);
+        _defineProperty(this, "listIndent", -1);
+        _defineProperty(this, "parentType", "root");
+        _defineProperty(this, "level", 0);
+        _defineProperty(this, "Token", Token);
+        this.src = src;
+        this.md = md;
+        this.env = env;
+        this.tokens = tokens;
+        const s = this.src;
+        for (let start = 0, pos = 0, indent = 0, offset = 0, len = s.length, indent_found = false; pos < len; pos++) {
+          const ch = s.charCodeAt(pos);
+          if (!indent_found) if (isSpace(ch)) {
+            indent++;
+            if (ch === 9) offset += 4 - offset % 4;
+            else offset++;
+            continue;
+          } else indent_found = true;
+          if (ch === 10 || pos === len - 1) {
+            if (ch !== 10) pos++;
+            this.bMarks.push(start);
+            this.eMarks.push(pos);
+            this.tShift.push(indent);
+            this.sCount.push(offset);
+            this.bsCount.push(0);
+            indent_found = false;
+            indent = 0;
+            offset = 0;
+            start = pos + 1;
+          }
+        }
+        this.bMarks.push(s.length);
+        this.eMarks.push(s.length);
+        this.tShift.push(0);
+        this.sCount.push(0);
+        this.bsCount.push(0);
+        this.lineMax = this.bMarks.length - 1;
+      }
+      push(type, tag, nesting) {
+        const token = new Token(type, tag, nesting);
+        token.block = true;
+        if (nesting < 0) this.level--;
+        token.level = this.level;
+        if (nesting > 0) this.level++;
+        this.tokens.push(token);
+        return token;
+      }
+      isEmpty(line) {
+        return this.bMarks[line] + this.tShift[line] >= this.eMarks[line];
+      }
+      skipEmptyLines(from) {
+        for (let max = this.lineMax; from < max; from++) if (this.bMarks[from] + this.tShift[from] < this.eMarks[from]) break;
+        return from;
+      }
+      skipSpaces(pos) {
+        for (let max = this.src.length; pos < max; pos++) if (!isSpace(this.src.charCodeAt(pos))) break;
+        return pos;
+      }
+      skipSpacesBack(pos, min) {
+        if (pos <= min) return pos;
+        while (pos > min) if (!isSpace(this.src.charCodeAt(--pos))) return pos + 1;
+        return pos;
+      }
+      skipChars(pos, code2) {
+        for (let max = this.src.length; pos < max; pos++) if (this.src.charCodeAt(pos) !== code2) break;
+        return pos;
+      }
+      skipCharsBack(pos, code2, min) {
+        if (pos <= min) return pos;
+        while (pos > min) if (code2 !== this.src.charCodeAt(--pos)) return pos + 1;
+        return pos;
+      }
+      getLines(begin, end, indent, keepLastLF) {
+        if (begin >= end) return "";
+        const queue = new Array(end - begin);
+        for (let i = 0, line = begin; line < end; line++, i++) {
+          let lineIndent = 0;
+          const lineStart = this.bMarks[line];
+          let first = lineStart;
+          let last;
+          if (line + 1 < end || keepLastLF) last = this.eMarks[line] + 1;
+          else last = this.eMarks[line];
+          while (first < last && lineIndent < indent) {
+            const ch = this.src.charCodeAt(first);
+            if (isSpace(ch)) if (ch === 9) lineIndent += 4 - (lineIndent + this.bsCount[line]) % 4;
+            else lineIndent++;
+            else if (first - lineStart < this.tShift[line]) lineIndent++;
+            else break;
+            first++;
+          }
+          if (lineIndent > indent) queue[i] = new Array(lineIndent - indent + 1).join(" ") + this.src.slice(first, last);
+          else queue[i] = this.src.slice(first, last);
+        }
+        return queue.join("");
+      }
+    };
+    MAX_AUTOCOMPLETED_CELLS = 65536;
+    html_blocks_default = [
+      "address",
+      "article",
+      "aside",
+      "base",
+      "basefont",
+      "blockquote",
+      "body",
+      "caption",
+      "center",
+      "col",
+      "colgroup",
+      "dd",
+      "details",
+      "dialog",
+      "dir",
+      "div",
+      "dl",
+      "dt",
+      "fieldset",
+      "figcaption",
+      "figure",
+      "footer",
+      "form",
+      "frame",
+      "frameset",
+      "h1",
+      "h2",
+      "h3",
+      "h4",
+      "h5",
+      "h6",
+      "head",
+      "header",
+      "hr",
+      "html",
+      "iframe",
+      "legend",
+      "li",
+      "link",
+      "main",
+      "menu",
+      "menuitem",
+      "nav",
+      "noframes",
+      "ol",
+      "optgroup",
+      "option",
+      "p",
+      "param",
+      "search",
+      "section",
+      "summary",
+      "table",
+      "tbody",
+      "td",
+      "tfoot",
+      "th",
+      "thead",
+      "title",
+      "tr",
+      "track",
+      "ul"
+    ];
+    open_tag = `<[A-Za-z][A-Za-z0-9\\-]*(?:\\s+[a-zA-Z_:][a-zA-Z0-9:._-]*(?:\\s*=\\s*(?:[^"'=<>\`\\x00-\\x20]+|'[^']*'|"[^"]*"))?)*\\s*\\/?>`;
+    close_tag = "<\\/[A-Za-z][A-Za-z0-9\\-]*\\s*>";
+    HTML_TAG_RE = new RegExp(`^(?:${open_tag}|${close_tag}|<!---?>|<!--(?:[^-]|-[^-]|--[^>])*-->|<[?][\\s\\S]*?[?]>|<![A-Za-z][^>]*>|<!\\[CDATA\\[[\\s\\S]*?\\]\\]>)`);
+    HTML_OPEN_CLOSE_TAG_RE = new RegExp(`^(?:${open_tag}|${close_tag})`);
+    HTML_SEQUENCES = [
+      [
+        /^<(script|pre|style|textarea)(?=(\s|>|$))/i,
+        /<\/(script|pre|style|textarea)>/i,
+        true
+      ],
+      [
+        /^<!--/,
+        /-->/,
+        true
+      ],
+      [
+        /^<\?/,
+        /\?>/,
+        true
+      ],
+      [
+        /^<![A-Za-z]/,
+        />/,
+        true
+      ],
+      [
+        /^<!\[CDATA\[/,
+        /\]\]>/,
+        true
+      ],
+      [
+        new RegExp(`^</?(${html_blocks_default.join("|")})(?=(\\s|/?>|$))`, "i"),
+        /^$/,
+        true
+      ],
+      [
+        new RegExp(`${HTML_OPEN_CLOSE_TAG_RE.source}\\s*$`),
+        /^$/,
+        false
+      ]
+    ];
+    _rules$1 = [
+      [
+        "table",
+        table,
+        ["paragraph", "reference"]
+      ],
+      ["code", code],
+      [
+        "fence",
+        fence,
+        [
+          "paragraph",
+          "reference",
+          "blockquote",
+          "list"
+        ]
+      ],
+      [
+        "blockquote",
+        blockquote,
+        [
+          "paragraph",
+          "reference",
+          "blockquote",
+          "list"
+        ]
+      ],
+      [
+        "hr",
+        hr,
+        [
+          "paragraph",
+          "reference",
+          "blockquote",
+          "list"
+        ]
+      ],
+      [
+        "list",
+        list,
+        [
+          "paragraph",
+          "reference",
+          "blockquote"
+        ]
+      ],
+      ["reference", reference],
+      [
+        "html_block",
+        html_block,
+        [
+          "paragraph",
+          "reference",
+          "blockquote"
+        ]
+      ],
+      [
+        "heading",
+        heading,
+        [
+          "paragraph",
+          "reference",
+          "blockquote"
+        ]
+      ],
+      ["lheading", lheading],
+      ["paragraph", paragraph]
+    ];
+    ParserBlock = class {
+      constructor() {
+        _defineProperty(
+          this,
+          /**
+          * {@link Ruler} instance. Keep configuration of block rules.
+          */
+          "ruler",
+          new Ruler()
+        );
+        _defineProperty(this, "State", StateBlock);
+        for (let i = 0; i < _rules$1.length; i++) this.ruler.push(_rules$1[i][0], _rules$1[i][1], { alt: (_rules$1[i][2] || []).slice() });
+      }
+      tokenize(state, startLine, endLine) {
+        const rules = this.ruler.getRules("");
+        const len = rules.length;
+        const maxNesting = state.md.options.maxNesting;
+        let line = startLine;
+        let hasEmptyLines = false;
+        while (line < endLine) {
+          state.line = line = state.skipEmptyLines(line);
+          if (line >= endLine) break;
+          if (state.sCount[line] < state.blkIndent) break;
+          if (state.level >= maxNesting) {
+            state.line = endLine;
+            break;
+          }
+          const prevLine = state.line;
+          let ok = false;
+          for (let i = 0; i < len; i++) {
+            ok = rules[i](state, line, endLine, false);
+            if (ok) {
+              if (prevLine >= state.line) throw new Error("block rule didn't increment state.line");
+              break;
+            }
+          }
+          if (!ok) throw new Error("none of the block rules matched");
+          state.tight = !hasEmptyLines;
+          if (state.isEmpty(state.line - 1)) hasEmptyLines = true;
+          line = state.line;
+          if (line < endLine && state.isEmpty(line)) {
+            hasEmptyLines = true;
+            line++;
+            state.line = line;
+          }
+        }
+      }
+      /**
+      * Process input string and push block tokens into `outTokens`
+      */
+      parse(src, md, env, outTokens) {
+        if (!src) return;
+        const state = new this.State(src, md, env, outTokens);
+        this.tokenize(state, state.line, state.lineMax);
+      }
+    };
+    StateInline = class {
+      constructor(src, md, env, outTokens) {
+        _defineProperty(this, "pos", 0);
+        _defineProperty(this, "level", 0);
+        _defineProperty(this, "pending", "");
+        _defineProperty(this, "pendingLevel", 0);
+        _defineProperty(this, "cache", {});
+        _defineProperty(this, "backticks", {});
+        _defineProperty(this, "backticksScanned", false);
+        _defineProperty(this, "linkLevel", 0);
+        _defineProperty(this, "delimiters", []);
+        _defineProperty(this, "_prev_delimiters", []);
+        _defineProperty(this, "Token", Token);
+        this.src = src;
+        this.env = env;
+        this.md = md;
+        this.tokens = outTokens;
+        this.tokens_meta = Array(outTokens.length);
+        this.posMax = this.src.length;
+      }
+      pushPending() {
+        const token = new Token("text", "", 0);
+        token.content = this.pending;
+        token.level = this.pendingLevel;
+        this.tokens.push(token);
+        this.pending = "";
+        return token;
+      }
+      push(type, tag, nesting) {
+        if (this.pending) this.pushPending();
+        const token = new Token(type, tag, nesting);
+        let token_meta = void 0;
+        if (nesting < 0) {
+          this.level--;
+          this.delimiters = this._prev_delimiters.pop();
+        }
+        token.level = this.level;
+        if (nesting > 0) {
+          this.level++;
+          this._prev_delimiters.push(this.delimiters);
+          this.delimiters = [];
+          token_meta = { delimiters: this.delimiters };
+        }
+        this.pendingLevel = this.level;
+        this.tokens.push(token);
+        this.tokens_meta.push(token_meta);
+        return token;
+      }
+      scanDelims(start, canSplitWord) {
+        const max = this.posMax;
+        const marker = this.src.charCodeAt(start);
+        let lastChar;
+        if (start === 0) lastChar = 32;
+        else if (start === 1) {
+          lastChar = this.src.charCodeAt(0);
+          if ((lastChar & 63488) === 55296) lastChar = 65533;
+        } else {
+          lastChar = this.src.charCodeAt(start - 1);
+          if ((lastChar & 64512) === 56320) {
+            const highSurr = this.src.charCodeAt(start - 2);
+            lastChar = (highSurr & 64512) === 55296 ? 65536 + (highSurr - 55296 << 10) + (lastChar - 56320) : 65533;
+          } else if ((lastChar & 64512) === 55296) lastChar = 65533;
+        }
+        let pos = start;
+        while (pos < max && this.src.charCodeAt(pos) === marker) pos++;
+        const count = pos - start;
+        let nextChar = pos < max ? this.src.charCodeAt(pos) : 32;
+        if ((nextChar & 64512) === 55296) {
+          const lowSurr = this.src.charCodeAt(pos + 1);
+          nextChar = (lowSurr & 64512) === 56320 ? 65536 + (nextChar - 55296 << 10) + (lowSurr - 56320) : 65533;
+        } else if ((nextChar & 64512) === 56320) nextChar = 65533;
+        const isLastPunctChar = isMdAsciiPunct(lastChar) || isPunctCharCode(lastChar);
+        const isNextPunctChar = isMdAsciiPunct(nextChar) || isPunctCharCode(nextChar);
+        const isLastWhiteSpace = isWhiteSpace(lastChar);
+        const isNextWhiteSpace = isWhiteSpace(nextChar);
+        const left_flanking = !isNextWhiteSpace && (!isNextPunctChar || isLastWhiteSpace || isLastPunctChar);
+        const right_flanking = !isLastWhiteSpace && (!isLastPunctChar || isNextWhiteSpace || isNextPunctChar);
+        return {
+          can_open: left_flanking && (canSplitWord || !right_flanking || isLastPunctChar),
+          can_close: right_flanking && (canSplitWord || !left_flanking || isNextPunctChar),
+          length: count
+        };
+      }
+    };
+    SCHEME_RE = /(?:^|[^a-z0-9.+-])([a-z][a-z0-9.+-]*)$/i;
+    ESCAPED = [];
+    for (let i = 0; i < 256; i++) ESCAPED.push(0);
+    "\\!\"#$%&'()*+,./:;<=>?@[]^_`{|}~-".split("").forEach(function(ch) {
+      ESCAPED[ch.charCodeAt(0)] = 1;
+    });
+    strikethrough_default = {
+      tokenize: strikethrough_tokenize,
+      postProcess: strikethrough_postProcess
+    };
+    emphasis_default = {
+      tokenize: emphasis_tokenize,
+      postProcess: emphasis_post_process
+    };
+    EMAIL_RE = /^([a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*)$/;
+    AUTOLINK_RE = /^([a-zA-Z][a-zA-Z0-9+.-]{1,31}):([^<>\x00-\x20]*)$/;
+    DIGITAL_RE = /^&#((?:x[a-f0-9]{1,6}|[0-9]{1,7}));/i;
+    NAMED_RE = /^&([a-z][a-z0-9]{1,31});/i;
+    _rules = [
+      ["text", text],
+      ["linkify", linkify],
+      ["newline", newline],
+      ["escape", escape],
+      ["backticks", backtick],
+      ["strikethrough", strikethrough_default.tokenize],
+      ["emphasis", emphasis_default.tokenize],
+      ["link", link],
+      ["image", image],
+      ["autolink", autolink],
+      ["html_inline", html_inline],
+      ["entity", entity]
+    ];
+    _rules2 = [
+      ["balance_pairs", link_pairs],
+      ["strikethrough", strikethrough_default.postProcess],
+      ["emphasis", emphasis_default.postProcess],
+      ["fragments_join", fragments_join]
+    ];
+    ParserInline = class {
+      constructor() {
+        _defineProperty(
+          this,
+          /**
+          * {@link Ruler} instance. Keep configuration of inline rules.
+          */
+          "ruler",
+          new Ruler()
+        );
+        _defineProperty(
+          this,
+          /**
+          * {@link Ruler} instance. Second ruler used for post-processing
+          * (e.g. in emphasis-like rules).
+          */
+          "ruler2",
+          new Ruler()
+        );
+        _defineProperty(this, "State", StateInline);
+        for (let i = 0; i < _rules.length; i++) this.ruler.push(_rules[i][0], _rules[i][1]);
+        for (let i = 0; i < _rules2.length; i++) this.ruler2.push(_rules2[i][0], _rules2[i][1]);
+      }
+      skipToken(state) {
+        const pos = state.pos;
+        const rules = this.ruler.getRules("");
+        const len = rules.length;
+        const maxNesting = state.md.options.maxNesting;
+        const cache = state.cache;
+        if (typeof cache[pos] !== "undefined") {
+          state.pos = cache[pos];
+          return;
+        }
+        let ok = false;
+        if (state.level < maxNesting) for (let i = 0; i < len; i++) {
+          state.level++;
+          ok = rules[i](state, true);
+          state.level--;
+          if (ok) {
+            if (pos >= state.pos) throw new Error("inline rule didn't increment state.pos");
+            break;
+          }
+        }
+        else state.pos = state.posMax;
+        if (!ok) state.pos++;
+        cache[pos] = state.pos;
+      }
+      tokenize(state) {
+        const rules = this.ruler.getRules("");
+        const len = rules.length;
+        const end = state.posMax;
+        const maxNesting = state.md.options.maxNesting;
+        while (state.pos < end) {
+          const prevPos = state.pos;
+          let ok = false;
+          if (state.level < maxNesting) for (let i = 0; i < len; i++) {
+            ok = rules[i](state, false);
+            if (ok) {
+              if (prevPos >= state.pos) throw new Error("inline rule didn't increment state.pos");
+              break;
+            }
+          }
+          if (ok) {
+            if (state.pos >= end) break;
+            continue;
+          }
+          state.pending += state.src[state.pos++];
+        }
+        if (state.pending) state.pushPending();
+      }
+      /**
+      * Process input string and push inline tokens into `outTokens`
+      */
+      parse(str, md, env, outTokens) {
+        const state = new this.State(str, md, env, outTokens);
+        this.tokenize(state);
+        const rules = this.ruler2.getRules("");
+        const len = rules.length;
+        for (let i = 0; i < len; i++) rules[i](state);
+      }
+    };
+    config = {
+      default: {
+        options: {
+          html: false,
+          xhtmlOut: false,
+          breaks: false,
+          langPrefix: "language-",
+          linkify: false,
+          typographer: false,
+          quotes: "\u201C\u201D\u2018\u2019",
+          highlight: null,
+          maxNesting: 100
+        },
+        components: {
+          core: {},
+          block: {},
+          inline: {}
+        }
+      },
+      zero: {
+        options: {
+          html: false,
+          xhtmlOut: false,
+          breaks: false,
+          langPrefix: "language-",
+          linkify: false,
+          typographer: false,
+          quotes: "\u201C\u201D\u2018\u2019",
+          highlight: null,
+          maxNesting: 20
+        },
+        components: {
+          core: { rules: [
+            "normalize",
+            "block",
+            "strip_references",
+            "inline",
+            "text_join"
+          ] },
+          block: { rules: ["paragraph"] },
+          inline: {
+            rules: ["text"],
+            rules2: ["balance_pairs", "fragments_join"]
+          }
+        }
+      },
+      commonmark: {
+        options: {
+          html: true,
+          xhtmlOut: true,
+          breaks: false,
+          langPrefix: "language-",
+          linkify: false,
+          typographer: false,
+          quotes: "\u201C\u201D\u2018\u2019",
+          highlight: null,
+          maxNesting: 20
+        },
+        components: {
+          core: { rules: [
+            "normalize",
+            "block",
+            "strip_references",
+            "inline",
+            "text_join"
+          ] },
+          block: { rules: [
+            "blockquote",
+            "code",
+            "fence",
+            "heading",
+            "hr",
+            "html_block",
+            "lheading",
+            "list",
+            "reference",
+            "paragraph"
+          ] },
+          inline: {
+            rules: [
+              "autolink",
+              "backticks",
+              "emphasis",
+              "entity",
+              "escape",
+              "html_inline",
+              "image",
+              "link",
+              "newline",
+              "text"
+            ],
+            rules2: [
+              "balance_pairs",
+              "emphasis",
+              "fragments_join"
+            ]
+          }
+        }
+      }
+    };
+    BAD_PROTO_RE = /^(vbscript|javascript|file|data):/;
+    GOOD_DATA_RE = /^data:image\/(gif|png|jpeg|webp);/;
+    RECODE_HOSTNAME_FOR = [
+      "http:",
+      "https:",
+      "mailto:"
+    ];
+    MarkdownIt = class {
+      /**
+      * Link validation function. CommonMark allows too much in links. By default
+      * we disable `javascript:`, `vbscript:`, `file:` schemas, and almost all `data:...` schemas
+      * except some embedded image types.
+      *
+      * You can change this behaviour:
+      *
+      * @example
+      * ```javascript
+      * import MarkdownIt from 'markdown-it'
+      * const md = new MarkdownIt()
+      *
+      * // enable everything
+      * md.validateLink = function () { return true; }
+      * ```
+      */
+      validateLink(url) {
+        const str = url.trim().toLowerCase();
+        return BAD_PROTO_RE.test(str) ? GOOD_DATA_RE.test(str) : true;
+      }
+      /**
+      * Function used to encode link url to a machine-readable format,
+      * which includes url-encoding, punycode, etc.
+      */
+      normalizeLink(url) {
+        const parsed = parse_default(url, true);
+        if (parsed.hostname) {
+          if (!parsed.protocol || RECODE_HOSTNAME_FOR.indexOf(parsed.protocol) >= 0) try {
+            parsed.hostname = punycode_es6_default.toASCII(parsed.hostname);
+          } catch (er) {
+          }
+        }
+        return encode_default(format(parsed));
+      }
+      /**
+      * Function used to decode link url to a human-readable format`
+      */
+      normalizeLinkText(url) {
+        const parsed = parse_default(url, true);
+        if (parsed.hostname) {
+          if (!parsed.protocol || RECODE_HOSTNAME_FOR.indexOf(parsed.protocol) >= 0) try {
+            parsed.hostname = punycode_es6_default.toUnicode(parsed.hostname);
+          } catch (er) {
+          }
+        }
+        return decode_default(format(parsed), decode_default.defaultChars + "%");
+      }
+      constructor(...args) {
+        _defineProperty(
+          this,
+          /**
+          * Instance of {@link ParserInline}. You may need it to add new rules when
+          * writing plugins. For simple rules control use {@link MarkdownIt.disable}
+          * and {@link MarkdownIt.enable}.
+          */
+          "inline",
+          new ParserInline()
+        );
+        _defineProperty(
+          this,
+          /**
+          * Instance of {@link ParserBlock}. You may need it to add new rules when
+          * writing plugins. For simple rules control use {@link MarkdownIt.disable}
+          * and {@link MarkdownIt.enable}.
+          */
+          "block",
+          new ParserBlock()
+        );
+        _defineProperty(
+          this,
+          /**
+          * Instance of {@link ParserCore} chain executor. You may need it to add new
+          * rules when writing plugins. For simple rules control use
+          * {@link MarkdownIt.disable} and {@link MarkdownIt.enable}.
+          */
+          "core",
+          new ParserCore()
+        );
+        _defineProperty(
+          this,
+          /**
+          * Instance of {@link Renderer}. Use it to modify output look. Or to add rendering
+          * rules for new token types, generated by plugins.
+          *
+          * See {@link Renderer} docs and
+          * [source code](https://github.com/markdown-it/markdown-it/blob/master/src/renderer.ts).
+          *
+          * @example
+          * ```javascript
+          * import MarkdownIt from 'markdown-it'
+          * const md = new MarkdownIt()
+          *
+          * function myToken(tokens, idx, options, env, self) {
+          *   //...
+          *   return result;
+          * };
+          *
+          * md.renderer.rules['my_token'] = myToken
+          * ```
+          */
+          "renderer",
+          new Renderer()
+        );
+        _defineProperty(
+          this,
+          /**
+          * [linkify-it](https://github.com/markdown-it/linkify-it) instance.
+          * Used by [linkify](https://github.com/markdown-it/markdown-it/blob/master/src/rules_core/linkify.ts)
+          * rule.
+          */
+          "linkify",
+          new LinkifyIt()
+        );
+        _defineProperty(
+          this,
+          /**
+          * Assorted utility functions, useful to write plugins. See details
+          * [here](https://github.com/markdown-it/markdown-it/blob/master/src/common/utils.ts).
+          */
+          "utils",
+          utils_exports
+        );
+        _defineProperty(
+          this,
+          /**
+          * Link components parser functions, useful to write plugins. See details
+          * [here](https://github.com/markdown-it/markdown-it/blob/master/src/helpers).
+          */
+          "helpers",
+          Object.assign({}, helpers_exports)
+        );
+        const [presetNameOrOptions, options] = args;
+        if (typeof presetNameOrOptions === "string") {
+          this.configure(presetNameOrOptions);
+          if (options) this.set(options);
+        } else {
+          this.configure("default");
+          this.set(presetNameOrOptions || {});
+        }
+      }
+      /**
+      * Set parser options (in the same format as in constructor). Probably, you
+      * will never need it, but you can change options after constructor call.
+      *
+      * __Note:__ To achieve the best possible performance, don't modify a
+      * `markdown-it` instance options on the fly. If you need multiple configurations
+      * it's best to create multiple instances and initialize each with separate
+      * config.
+      *
+      * @example
+      * ```javascript
+      * import MarkdownIt from 'markdown-it'
+      *
+      * const md = new MarkdownIt()
+      *   .set({ html: true, breaks: true })
+      *   .set({ typographer: true })
+      * ```
+      */
+      set(options) {
+        Object.assign(this.options, options);
+        return this;
+      }
+      /**
+      * Batch load of all options and compenent settings. This is internal method,
+      * and you probably will not need it. But if you will - see available presets
+      * and data structure [here](https://github.com/markdown-it/markdown-it/tree/master/src/presets)
+      *
+      * We strongly recommend to use presets instead of direct config loads. That
+      * will give better compatibility with next versions.
+      */
+      configure(presets) {
+        let p;
+        if (typeof presets === "string") {
+          const presetName = presets;
+          p = config[presetName];
+          if (!p) throw new Error(`Wrong 'markdown-it' preset "${presetName}", check name`);
+        } else p = presets;
+        if (!p) throw new Error("Wrong `markdown-it` preset, can't be empty");
+        if (p.options) this.options = { ...p.options };
+        const components = p.components;
+        if (components) {
+          var _components$inline;
+          [
+            "core",
+            "block",
+            "inline"
+          ].forEach((name) => {
+            var _components$name;
+            const rules = (_components$name = components[name]) === null || _components$name === void 0 ? void 0 : _components$name.rules;
+            if (rules) this[name].ruler.enableOnly(rules);
+          });
+          const rules2 = (_components$inline = components.inline) === null || _components$inline === void 0 ? void 0 : _components$inline.rules2;
+          if (rules2) this.inline.ruler2.enableOnly(rules2);
+        }
+        return this;
+      }
+      /**
+      * Enable list or rules. It will automatically find appropriate components,
+      * containing rules with given names. If rule not found, and `ignoreInvalid`
+      * not set - throws exception.
+      *
+      * @param list Rule name or list of rule names to enable.
+      * @param ignoreInvalid Set `true` to ignore errors when rule not found.
+      *
+      * @example
+      * ```javascript
+      * import MarkdownIt from 'markdown-it'
+      *
+      * const md = new MarkdownIt()
+      *   .enable(['sub', 'sup'])
+      *   .disable('smartquotes')
+      * ```
+      */
+      enable(list2, ignoreInvalid = false) {
+        let result = [];
+        if (!Array.isArray(list2)) list2 = [list2];
+        [
+          "core",
+          "block",
+          "inline"
+        ].forEach((chain) => {
+          result = result.concat(this[chain].ruler.enable(list2, true));
+        });
+        result = result.concat(this.inline.ruler2.enable(list2, true));
+        const missed = list2.filter((name) => result.indexOf(name) < 0);
+        if (missed.length && !ignoreInvalid) throw new Error(`MarkdownIt. Failed to enable unknown rule(s): ${missed}`);
+        return this;
+      }
+      /**
+      * The same as {@link MarkdownIt.enable}, but turn specified rules off.
+      *
+      * @param list Rule name or list of rule names to disable.
+      * @param ignoreInvalid Set `true` to ignore errors when rule not found.
+      */
+      disable(list2, ignoreInvalid = false) {
+        let result = [];
+        if (!Array.isArray(list2)) list2 = [list2];
+        [
+          "core",
+          "block",
+          "inline"
+        ].forEach((chain) => {
+          result = result.concat(this[chain].ruler.disable(list2, true));
+        });
+        result = result.concat(this.inline.ruler2.disable(list2, true));
+        const missed = list2.filter((name) => result.indexOf(name) < 0);
+        if (missed.length && !ignoreInvalid) throw new Error(`MarkdownIt. Failed to disable unknown rule(s): ${missed}`);
+        return this;
+      }
+      /**
+      * Load specified plugin with given params into current parser instance.
+      * It's just a sugar to call `plugin(md, params)` with curring.
+      *
+      * @example
+      * ```javascript
+      * import MarkdownIt from 'markdown-it'
+      * import iterator from 'markdown-it-for-inline'
+      *
+      * const md = new MarkdownIt()
+      *   .use(iterator, 'foo_replace', 'text', function (tokens, idx) {
+      *     tokens[idx].content = tokens[idx].content.replace(/foo/g, 'bar')
+      *   })
+      * ```
+      */
+      use(plugin, ...params) {
+        plugin.apply(plugin, [this, ...params]);
+        return this;
+      }
+      /**
+      * Parse input string and return list of block tokens (special token type
+      * "inline" will contain list of inline tokens). You should not call this
+      * method directly, until you write custom renderer (for example, to produce
+      * AST).
+      *
+      * `env` is used to pass data between "distributed" rules and return additional
+      * metadata like reference info, needed for the renderer. It also can be used to
+      * inject data in specific cases. Usually, you will be ok to pass `{}`,
+      * and then pass updated object to renderer.
+      *
+      * @param src Source string.
+      * @param env Environment sandbox.
+      */
+      parse(src, env) {
+        if (typeof src !== "string") throw new Error("Input data should be a String");
+        const state = new this.core.State(src, this, env);
+        this.core.process(state);
+        return state.tokens;
+      }
+      /**
+      * Render markdown string into html. It does all magic for you :).
+      *
+      * `env` can be used to inject additional metadata (`{}` by default).
+      * But you will not need it with high probability. See also comment
+      * in {@link MarkdownIt.parse}.
+      *
+      * @param src Source string.
+      * @param env Environment sandbox.
+      */
+      render(src, env = {}) {
+        return this.renderer.render(this.parse(src, env), this.options, env);
+      }
+      /**
+      * The same as {@link MarkdownIt.parse} but skip all block rules. It returns
+      * the block tokens list with the single `inline` element, containing parsed
+      * inline tokens in `children` property. Also updates `env` object.
+      *
+      * @param src Source string.
+      * @param env Environment sandbox.
+      */
+      parseInline(src, env) {
+        const state = new this.core.State(src, this, env);
+        state.inlineMode = true;
+        this.core.process(state);
+        return state.tokens;
+      }
+      /**
+      * Similar to {@link MarkdownIt.render} but for single paragraph content.
+      * Result will NOT be wrapped into `<p>` tags.
+      *
+      * @param src Source string.
+      * @param env Environment sandbox.
+      */
+      renderInline(src, env = {}) {
+        return this.renderer.render(this.parseInline(src, env), this.options, env);
+      }
+    };
+    _defineProperty(MarkdownIt, "Token", Token);
+    _defineProperty(MarkdownIt, "Ruler", Ruler);
+    _defineProperty(MarkdownIt, "Renderer", Renderer);
+    _defineProperty(MarkdownIt, "ParserCore", ParserCore);
+    _defineProperty(MarkdownIt, "StateCore", StateCore);
+    _defineProperty(MarkdownIt, "ParserBlock", ParserBlock);
+    _defineProperty(MarkdownIt, "StateBlock", StateBlock);
+    _defineProperty(MarkdownIt, "ParserInline", ParserInline);
+    _defineProperty(MarkdownIt, "StateInline", StateInline);
+    MarkdownItCallable = callable(MarkdownIt);
+  }
+});
+
 // node_modules/highlight.js/lib/core.js
 var require_core = __commonJS({
   "node_modules/highlight.js/lib/core.js"(exports, module2) {
@@ -7532,6497 +14001,16 @@ var require_core = __commonJS({
   }
 });
 
-// src/client/index.tsx
-var index_exports = {};
-__export(index_exports, {
-  WorktableSection: () => WorktableSection,
-  apply: () => apply,
-  createCustomSession: () => createCustomSession,
-  inject: () => inject,
-  sendCustomToSession: () => sendCustomToSession
-});
-module.exports = __toCommonJS(index_exports);
-var import_react2 = require("react");
-
-// node_modules/xterm/css/xterm.css
-var xterm_default = `/**
- * Copyright (c) 2014 The xterm.js authors. All rights reserved.
- * Copyright (c) 2012-2013, Christopher Jeffrey (MIT License)
- * https://github.com/chjj/term.js
- * @license MIT
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
- *
- * Originally forked from (with the author's permission):
- *   Fabrice Bellard's javascript vt100 for jslinux:
- *   http://bellard.org/jslinux/
- *   Copyright (c) 2011 Fabrice Bellard
- *   The original design remains. The terminal itself
- *   has been extended to include xterm CSI codes, among
- *   other features.
- */
-
-/**
- *  Default styles for xterm.js
- */
-
-.xterm {
-    cursor: text;
-    position: relative;
-    user-select: none;
-    -ms-user-select: none;
-    -webkit-user-select: none;
-}
-
-.xterm.focus,
-.xterm:focus {
-    outline: none;
-}
-
-.xterm .xterm-helpers {
-    position: absolute;
-    top: 0;
-    /**
-     * The z-index of the helpers must be higher than the canvases in order for
-     * IMEs to appear on top.
-     */
-    z-index: 5;
-}
-
-.xterm .xterm-helper-textarea {
-    padding: 0;
-    border: 0;
-    margin: 0;
-    /* Move textarea out of the screen to the far left, so that the cursor is not visible */
-    position: absolute;
-    opacity: 0;
-    left: -9999em;
-    top: 0;
-    width: 0;
-    height: 0;
-    z-index: -5;
-    /** Prevent wrapping so the IME appears against the textarea at the correct position */
-    white-space: nowrap;
-    overflow: hidden;
-    resize: none;
-}
-
-.xterm .composition-view {
-    /* TODO: Composition position got messed up somewhere */
-    background: #000;
-    color: #FFF;
-    display: none;
-    position: absolute;
-    white-space: nowrap;
-    z-index: 1;
-}
-
-.xterm .composition-view.active {
-    display: block;
-}
-
-.xterm .xterm-viewport {
-    /* On OS X this is required in order for the scroll bar to appear fully opaque */
-    background-color: #000;
-    overflow-y: scroll;
-    cursor: default;
-    position: absolute;
-    right: 0;
-    left: 0;
-    top: 0;
-    bottom: 0;
-}
-
-.xterm .xterm-screen {
-    position: relative;
-}
-
-.xterm .xterm-screen canvas {
-    position: absolute;
-    left: 0;
-    top: 0;
-}
-
-.xterm .xterm-scroll-area {
-    visibility: hidden;
-}
-
-.xterm-char-measure-element {
-    display: inline-block;
-    visibility: hidden;
-    position: absolute;
-    top: 0;
-    left: -9999em;
-    line-height: normal;
-}
-
-.xterm.enable-mouse-events {
-    /* When mouse events are enabled (eg. tmux), revert to the standard pointer cursor */
-    cursor: default;
-}
-
-.xterm.xterm-cursor-pointer,
-.xterm .xterm-cursor-pointer {
-    cursor: pointer;
-}
-
-.xterm.column-select.focus {
-    /* Column selection mode */
-    cursor: crosshair;
-}
-
-.xterm .xterm-accessibility,
-.xterm .xterm-message {
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    z-index: 10;
-    color: transparent;
-    pointer-events: none;
-}
-
-.xterm .live-region {
-    position: absolute;
-    left: -9999px;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-}
-
-.xterm-dim {
-    /* Dim should not apply to background, so the opacity of the foreground color is applied
-     * explicitly in the generated class and reset to 1 here */
-    opacity: 1 !important;
-}
-
-.xterm-underline-1 { text-decoration: underline; }
-.xterm-underline-2 { text-decoration: double underline; }
-.xterm-underline-3 { text-decoration: wavy underline; }
-.xterm-underline-4 { text-decoration: dotted underline; }
-.xterm-underline-5 { text-decoration: dashed underline; }
-
-.xterm-overline {
-    text-decoration: overline;
-}
-
-.xterm-overline.xterm-underline-1 { text-decoration: overline underline; }
-.xterm-overline.xterm-underline-2 { text-decoration: overline double underline; }
-.xterm-overline.xterm-underline-3 { text-decoration: overline wavy underline; }
-.xterm-overline.xterm-underline-4 { text-decoration: overline dotted underline; }
-.xterm-overline.xterm-underline-5 { text-decoration: overline dashed underline; }
-
-.xterm-strikethrough {
-    text-decoration: line-through;
-}
-
-.xterm-screen .xterm-decoration-container .xterm-decoration {
-	z-index: 6;
-	position: absolute;
-}
-
-.xterm-screen .xterm-decoration-container .xterm-decoration.xterm-decoration-top-layer {
-	z-index: 7;
-}
-
-.xterm-decoration-overview-ruler {
-    z-index: 8;
-    position: absolute;
-    top: 0;
-    right: 0;
-    pointer-events: none;
-}
-
-.xterm-decoration-top {
-    z-index: 2;
-    position: relative;
-}
-`;
-
-// src/client/styles.ts
-var css = xterm_default + "\n" + [
-  // 区块整体
-  ".dsh-wt_section{box-sizing:border-box;display:flex;flex-direction:column;gap:6px;width:100%;padding:0}",
-  ".dsh-wt_float{min-width:176px;max-width:264px;background:var(--dsw-alias-bg-base,#0b0e14);border:1px solid var(--dsw-alias-border-l2,#3a4150);border-radius:10px;padding:8px;box-shadow:var(--dsw-shadow-lv2,0 8px 24px rgba(0,0,0,.4))}",
-  ".dsh-wt_rail{pointer-events:none}",
-  ".dsh-wt_railBox{display:flex;flex-wrap:wrap;gap:5px;justify-content:center;padding:5px 3px;border:1px solid var(--dsw-alias-border-l2,#3a4150);border-radius:8px;background:var(--dsw-alias-bg-base,#0b0e14)}",
-  ".dsh-wt_railBtn{flex:none;width:22px;height:22px;padding:0;display:flex;align-items:center;justify-content:center;border:1px solid var(--dsw-alias-border-l1,#262b36);border-radius:7px;background:var(--dsw-alias-fill-l1,rgba(255,255,255,.03));color:var(--dsw-alias-label-secondary,#9aa4b2);font:inherit;font-size:13px;line-height:1;cursor:pointer;pointer-events:auto}",
-  ".dsh-wt_railBtn:hover{background:var(--dsw-alias-fill-l1,rgba(255,255,255,.08));border-color:var(--dsw-alias-state-accent-primary,#4f8ef7);color:var(--dsw-alias-label-primary,#e6e8eb)}",
-  ".dsh-wt_railIcon{font-size:17px;line-height:22px}",
-  // 分隔线
-  ".dsh-wt_divider{flex:none;height:1px;background:var(--dsw-alias-border-l1,#262b36);margin:2px 0}",
-  // 头部
-  ".dsh-wt_header{display:flex;align-items:center;gap:6px;padding:0 2px}",
-  ".dsh-wt_handle{display:flex;align-items:center;justify-content:center;width:25px;height:25px;padding:0;border:none;border-radius:5px;background:transparent;color:var(--dsw-alias-label-tertiary,#6e7683);font-size:15px;line-height:1;cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none}",
-  ".dsh-wt_handle:hover{color:var(--dsw-alias-label-primary,#e6e8eb);background:var(--dsw-alias-fill-l1,rgba(255,255,255,.05))}",
-  ".dsh-wt_handle:active{cursor:grabbing}",
-  ".dsh-wt_handle[data-float=true]{color:var(--dsw-alias-state-accent-primary,#4f8ef7)}",
-  ".dsh-wt_title{font-size:11px;font-weight:600;letter-spacing:.06em;color:var(--dsw-alias-label-secondary,#9aa4b2);cursor:grab;user-select:none;-webkit-user-select:none;touch-action:none}",
-  ".dsh-wt_actions{margin-left:auto;display:flex;align-items:center;gap:7px}",
-  ".dsh-wt_iconBtn{display:flex;align-items:center;justify-content:center;width:24px;height:22px;padding:0;border:none;border-radius:5px;background:transparent;color:var(--dsw-alias-label-secondary,#9aa4b2);font-size:12px;line-height:1;cursor:pointer}",
-  ".dsh-wt_iconBtn:hover{color:var(--dsw-alias-label-primary,#e6e8eb);background:var(--dsw-alias-fill-l1,rgba(255,255,255,.05))}",
-  // 搜索行
-  ".dsh-wt_search{display:flex;align-items:center;gap:6px;padding:3px 6px 3px 8px;border:1px solid var(--dsw-alias-border-l1,#262b36);border-radius:6px;background:var(--dsw-alias-fill-l1,rgba(255,255,255,.03))}",
-  ".dsh-wt_search input{flex:1;min-width:0;background:transparent;border:none;outline:none;color:var(--dsw-alias-label-primary,#e6e8eb);font:inherit;font-size:12px;line-height:18px}",
-  ".dsh-wt_search input::placeholder{color:var(--dsw-alias-label-tertiary,#6e7683)}",
-  ".dsh-wt_searchClear{display:flex;align-items:center;justify-content:center;width:18px;height:18px;padding:0;border:none;border-radius:4px;background:transparent;color:var(--dsw-alias-label-tertiary,#6e7683);font-size:11px;cursor:pointer}",
-  ".dsh-wt_searchClear:hover{color:var(--dsw-alias-label-primary,#e6e8eb);background:var(--dsw-alias-fill-l1,rgba(255,255,255,.06))}",
-  // 菜单与提示
-  ".dsh-wt_menu{position:relative;z-index:12;display:flex;flex-direction:column;gap:1px;padding:5px;border:1px solid var(--dsw-alias-border-l2,#3a4150);border-radius:8px;background:var(--dsw-alias-bg-base,#0b0e14);box-shadow:var(--dsw-shadow-lv2,0 8px 24px rgba(0,0,0,.4))}",
-  ".dsh-wt_menuLabel{font-size:10px;letter-spacing:.05em;color:var(--dsw-alias-label-tertiary,#6e7683);padding:3px 7px 1px}",
-  ".dsh-wt_menuItem{display:flex;align-items:center;padding:5px 8px;border:none;border-radius:5px;background:transparent;color:var(--dsw-alias-label-primary,#e6e8eb);font:inherit;font-size:12px;line-height:16px;cursor:pointer;text-align:left}",
-  ".dsh-wt_menuItem:hover{background:var(--dsw-alias-fill-l1,rgba(255,255,255,.05))}",
-  ".dsh-wt_menuItem[data-on=true]{color:var(--dsw-alias-state-accent-primary,#4f8ef7)}",
-  // 菜单分隔线
-  ".dsh-wt_menuSep{height:1px;background:var(--dsw-alias-border-l1,#262b36);margin:4px 2px}",
-  // 添加面板
-  ".dsh-wt_add{max-height:500px;overflow:auto}",
-  ".dsh-wt_addText{font-size:11px;line-height:16px;color:var(--dsw-alias-label-secondary,#9aa4b2);padding:2px 8px 4px;margin:0}",
-  ".dsh-wt_addLink{color:var(--dsw-alias-state-accent-primary,#4f8ef7);text-decoration:none}",
-  ".dsh-wt_addForm{display:flex;flex-direction:column;gap:5px;padding:4px 8px 8px}",
-  ".dsh-wt_addForm input{background:var(--dsw-alias-fill-l1,rgba(255,255,255,.03));border:1px solid var(--dsw-alias-border-l1,#262b36);border-radius:6px;color:var(--dsw-alias-label-primary,#e6e8eb);font:inherit;font-size:12px;line-height:18px;padding:5px 8px;outline:none}",
-  ".dsh-wt_addForm input:focus{border-color:var(--dsw-alias-state-accent-primary,#4f8ef7)}",
-  ".dsh-wt_addForm .dsh-wt_addIcon{width:64px}",
-  ".dsh-wt_addBtn{display:flex;align-items:center;justify-content:center;padding:5px 8px;border:none;border-radius:6px;background:var(--dsw-alias-state-accent-primary,#4f8ef7);color:#fff;font:inherit;font-size:12px;line-height:16px;cursor:pointer}",
-  ".dsh-wt_addBtn:hover{filter:brightness(1.08)}",
-  ".dsh-wt_addError{font-size:11px;color:var(--dsw-alias-state-danger,#e5484d);padding:0 8px 8px;margin:0}",
-  // 管理项目（编辑模式）
-  ".dsh-wt_manage{position:relative;z-index:12;display:flex;flex-direction:column;gap:4px;padding:6px;border:1px solid var(--dsw-alias-border-l2,#3a4150);border-radius:8px;background:var(--dsw-alias-bg-base,#0b0e14)}",
-  ".dsh-wt_manageHead{display:flex;align-items:center;justify-content:space-between;padding:1px 2px 4px}",
-  ".dsh-wt_manageTitle{font-size:11px;font-weight:600;letter-spacing:.04em;color:var(--dsw-alias-label-primary,#e6e8eb)}",
-  ".dsh-wt_settingsClose{position:absolute;top:6px;right:6px;width:20px;height:20px;padding:0;display:flex;align-items:center;justify-content:center;border:none;border-radius:6px;background:transparent;color:var(--dsw-alias-label-tertiary,#7d8aa5);font-size:13px;line-height:1;cursor:pointer}",
-  ".dsh-wt_settingsClose:hover{background:var(--dsw-alias-fill-l1,rgba(255,255,255,.06));color:var(--dsw-alias-label-primary,#dbe4f3)}",
-  ".dsh-wt_manageDone{display:flex;align-items:center;padding:2px 8px;border:none;border-radius:5px;background:transparent;color:var(--dsw-alias-state-accent-primary,#4f8ef7);font:inherit;font-size:11px;line-height:16px;cursor:pointer}",
-  ".dsh-wt_manageDone:hover{background:var(--dsw-alias-fill-l1,rgba(255,255,255,.05))}",
-  // 排序方式：一左一右两个选择按钮（手动 / 最近）
-  ".dsh-wt_sortRow{display:flex;gap:6px;padding:0 8px 2px}",
-  ".dsh-wt_sortBtn{flex:1;display:flex;align-items:center;justify-content:center;padding:4px 8px;border:1px solid var(--dsw-alias-border-l1,#262b36);border-radius:6px;background:var(--dsw-alias-fill-l1,rgba(255,255,255,.02));color:var(--dsw-alias-label-secondary,#9aa4b2);font:inherit;font-size:11px;line-height:16px;cursor:pointer}",
-  ".dsh-wt_sortBtn:hover{color:var(--dsw-alias-label-primary,#e6e8eb);border-color:var(--dsw-alias-border-l2,#3a4150)}",
-  ".dsh-wt_sortBtn[data-on=true]{border-color:var(--dsw-alias-state-accent-primary,#4f8ef7);color:var(--dsw-alias-state-accent-primary,#4f8ef7);background:var(--dsw-alias-fill-l1,rgba(255,255,255,.05))}",
-  ".dsh-wt_manageRow{display:flex;align-items:center;gap:6px;padding:4px 6px;border:1px solid transparent;border-radius:6px;background:var(--dsw-alias-fill-l1,rgba(255,255,255,.03))}",
-  ".dsh-wt_manageRow:hover{border-color:var(--dsw-alias-border-l2,#3a4150)}",
-  ".dsh-wt_manageRowOff{opacity:.45}",
-  ".dsh-wt_manageGrip{flex:none;color:var(--dsw-alias-label-tertiary,#6e7683);font-size:12px;cursor:grab;user-select:none;-webkit-user-select:none}",
-  ".dsh-wt_manageIcon{flex:none;width:20px;font-size:15px;text-align:center}",
-  ".dsh-wt_manageInput{flex:1;min-width:0;background:transparent;border:none;outline:none;color:var(--dsw-alias-label-primary,#e6e8eb);font:inherit;font-size:12px;line-height:18px;padding:2px 0}",
-  ".dsh-wt_manageBtn{flex:none;display:flex;align-items:center;justify-content:center;width:20px;height:20px;padding:0;border:none;border-radius:4px;background:transparent;color:var(--dsw-alias-label-secondary,#9aa4b2);font-size:11px;line-height:1;cursor:pointer}",
-  ".dsh-wt_manageBtn:hover{color:var(--dsw-alias-label-primary,#e6e8eb);background:var(--dsw-alias-fill-l1,rgba(255,255,255,.06))}",
-  ".dsh-wt_manageScName{flex:1;min-width:0;font-size:12px;color:var(--dsw-alias-label-secondary,#9aa4b2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}",
-  ".dsh-wt_manageReset{align-self:flex-start;margin-top:2px;padding:3px 8px;border:none;border-radius:5px;background:transparent;color:var(--dsw-alias-label-tertiary,#6e7683);font:inherit;font-size:11px;line-height:16px;cursor:pointer}",
-  ".dsh-wt_manageReset:hover{color:var(--dsw-alias-state-danger,#e5484d);background:var(--dsw-alias-fill-l1,rgba(255,255,255,.05))}",
-  // 快捷方式
-  ".dsh-wt_shortcuts{display:flex;flex-direction:column;gap:4px}",
-  ".dsh-wt_shortcut{display:flex;align-items:center;gap:7px;padding:6px 8px;border:1px solid var(--dsw-alias-border-l1,#262b36);border-radius:8px;background:var(--dsw-alias-fill-l1,rgba(255,255,255,.02));color:var(--dsw-alias-label-primary,#e6e8eb);text-decoration:none;font-size:12px;line-height:18px}",
-  ".dsh-wt_shortcut:hover{border-color:var(--dsw-alias-state-accent-primary,#4f8ef7);background:var(--dsw-alias-fill-l1,rgba(255,255,255,.05))}",
-  ".dsh-wt_shortcutIcon{flex:none;font-size:15px}",
-  ".dsh-wt_shortcutName{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}",
-  ".dsh-wt_shortcutBadge{flex:none;font-size:9px;line-height:14px;padding:0 5px;border-radius:8px;background:var(--dsw-alias-fill-l1,rgba(255,255,255,.06));color:var(--dsw-alias-label-tertiary,#6e7683)}",
-  // 项目区
-  ".dsh-wt_projects{display:flex;flex-direction:column;gap:4px}",
-  ".dsh-wt_projects[data-managing=true]{opacity:.55;pointer-events:none}",
-  ".dsh-wt_empty{padding:8px 10px;border:1px dashed var(--dsw-alias-border-l1,#262b36);border-radius:8px;color:var(--dsw-alias-label-tertiary,#6e7683);font-size:11px;text-align:center}",
-  // 分栏工作区（M1 通用引擎）
-  ".dsh-wt_splitBar{display:flex;align-items:center;gap:10px;height:26px;padding:0 10px;box-sizing:border-box;border-bottom:1px solid var(--dsw-alias-border-l1,#262b36);background:var(--dsw-alias-bg-base,#0b0e14)}",
-  ".dsh-wt_splitTitle{flex:1;min-width:0;font-size:12px;font-weight:600;color:var(--dsw-alias-label-primary,#e6e8eb);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}",
-  ".dsh-wt_splitClose{flex:none;display:flex;align-items:center;justify-content:center;width:20px;height:20px;padding:0;border:none;border-radius:4px;background:transparent;color:var(--dsw-alias-label-secondary,#9aa4b2);font-size:12px;cursor:pointer}",
-  ".dsh-wt_splitClose:hover{color:var(--dsw-alias-label-primary,#e6e8eb);background:var(--dsw-alias-fill-l1,rgba(255,255,255,.06))}",
-  ".dsh-wt_pane{display:flex;flex-direction:column;box-sizing:border-box;border:1px solid var(--dsw-alias-border-l1,#262b36);border-radius:8px;background:var(--dsw-alias-bg-base,#0b0e14);overflow:hidden;transition:border-color .15s ease,box-shadow .15s ease,transform .15s ease}",
-  // 文件预览：文本/MD 滚动容器 + MD 排版 + 图片居中
-  ".dsh-wt_fileView{flex:1;min-height:0;overflow:auto;padding:12px 14px;background:var(--dsw-alias-bg-base,#0b0e14);color:var(--dsw-alias-label-primary,#e6e8eb);font-size:12.5px;line-height:1.7}",
-  ".dsh-wt_txt{margin:0;font-family:var(--dsw-font-mono,Consolas,Menlo,monospace);font-size:12px;line-height:1.65;white-space:pre-wrap;word-break:break-word}",
-  // MD 编辑/预览切换工具栏
-  ".dsh-wt_mdBar{flex:none;display:flex;align-items:center;gap:6px;padding:4px 8px;border-bottom:1px solid var(--dsw-alias-border-l1,#262b36);background:var(--dsw-alias-fill-l1,rgba(255,255,255,.02))}",
-  ".dsh-wt_mdBtn{flex:none;padding:3px 10px;border:1px solid transparent;border-radius:5px;background:transparent;color:var(--dsw-alias-label-secondary,#9aa4b2);font:inherit;font-size:11px;line-height:16px;cursor:pointer}",
-  ".dsh-wt_mdBtn:hover{color:var(--dsw-alias-label-primary,#e6e8eb);background:var(--dsw-alias-fill-l1,rgba(255,255,255,.06))}",
-  ".dsh-wt_mdBtnOn{border-color:var(--dsw-alias-state-accent-primary,#4f8ef7);color:var(--dsw-alias-state-accent-primary,#4f8ef7);background:var(--dsw-alias-fill-l1,rgba(255,255,255,.05))}",
-  ".dsh-wt_mdSave{margin-left:auto;padding:3px 12px;border:none;border-radius:5px;background:var(--dsw-alias-state-accent-primary,#4f8ef7);color:#fff;font:inherit;font-size:11px;cursor:pointer}",
-  ".dsh-wt_mdSave:disabled{opacity:.6;cursor:default}",
-  ".dsh-wt_mdMsg{font-size:11px;color:var(--dsw-alias-state-danger,#e5484d)}",
-  ".dsh-wt_mdEdit{flex:1;min-height:0;width:100%;box-sizing:border-box;padding:12px 14px;background:var(--dsw-alias-bg-base,#0b0e14);color:var(--dsw-alias-label-primary,#e6e8eb);border:none;outline:none;resize:none;font-family:var(--dsw-font-mono,Consolas,Menlo,monospace);font-size:12px;line-height:1.7}",
-  // 代码语法着色（GitHub Dark 风格 token 配色）
-  ".dsh-wt_code{margin:0;font-family:var(--dsw-font-mono,Consolas,Menlo,monospace);font-size:12px;line-height:1.65;white-space:pre;word-break:normal}",
-  ".dsh-wt_code .hljs-keyword,.dsh-wt_code .hljs-selector-tag,.dsh-wt_code .hljs-literal,.dsh-wt_code .hljs-doctag{color:#ff7b72}",
-  ".dsh-wt_code .hljs-string,.dsh-wt_code .hljs-attr,.dsh-wt_code .hljs-regexp{color:#a5d6ff}",
-  ".dsh-wt_code .hljs-comment,.dsh-wt_code .hljs-quote{color:#8b949e;font-style:italic}",
-  ".dsh-wt_code .hljs-number,.dsh-wt_code .hljs-symbol,.dsh-wt_code .hljs-bullet{color:#79c0ff}",
-  ".dsh-wt_code .hljs-title,.dsh-wt_code .hljs-function .hljs-title,.dsh-wt_code .hljs-section{color:#d2a8ff}",
-  ".dsh-wt_code .hljs-built_in,.dsh-wt_code .hljs-type,.dsh-wt_code .hljs-class .hljs-title{color:#ffa657}",
-  ".dsh-wt_code .hljs-variable,.dsh-wt_code .hljs-params,.dsh-wt_code .hljs-meta{color:#e6edf3}",
-  ".dsh-wt_code .hljs-property,.dsh-wt_code .hljs-attribute{color:#79c0ff}",
-  ".dsh-wt_code .hljs-tag,.dsh-wt_code .hljs-name{color:#7ee787}",
-  ".dsh-wt_code .hljs-selector-class,.dsh-wt_code .hljs-selector-id{color:#d2a8ff}",
-  ".dsh-wt_code .hljs-addition{color:#7ee787}",
-  ".dsh-wt_code .hljs-deletion{color:#ff7b72}",
-  ".dsh-wt_md h1,.dsh-wt_md h2,.dsh-wt_md h3,.dsh-wt_md h4{margin:14px 0 8px;line-height:1.3;font-weight:600;color:var(--dsw-alias-label-primary,#e6e8eb)}",
-  ".dsh-wt_md h1{font-size:20px;border-bottom:1px solid var(--dsw-alias-border-l1,#262b36);padding-bottom:6px}",
-  ".dsh-wt_md h2{font-size:16.5px;border-bottom:1px solid var(--dsw-alias-border-l1,#262b36);padding-bottom:5px}",
-  ".dsh-wt_md h3{font-size:14.5px}",
-  ".dsh-wt_md h4{font-size:13px}",
-  ".dsh-wt_md p{margin:6px 0}",
-  ".dsh-wt_md a{color:var(--dsw-alias-state-accent-primary,#4f8ef7);text-decoration:none}",
-  ".dsh-wt_md a:hover{text-decoration:underline}",
-  ".dsh-wt_md code{font-family:var(--dsw-font-mono,Consolas,Menlo,monospace);font-size:11.5px;background:var(--dsw-alias-fill-l1,rgba(255,255,255,.06));padding:1px 5px;border-radius:4px}",
-  ".dsh-wt_md pre{background:var(--dsw-alias-fill-l1,rgba(255,255,255,.04));border:1px solid var(--dsw-alias-border-l1,#262b36);border-radius:8px;padding:10px 12px;overflow:auto;margin:8px 0}",
-  ".dsh-wt_md pre code{background:transparent;padding:0;font-size:12px}",
-  ".dsh-wt_md blockquote{margin:8px 0;padding:2px 12px;border-left:3px solid var(--dsw-alias-state-accent-primary,#4f8ef7);background:var(--dsw-alias-fill-l1,rgba(255,255,255,.03));color:var(--dsw-alias-label-secondary,#9aa4b2)}",
-  ".dsh-wt_md ul,.dsh-wt_md ol{margin:6px 0;padding-left:22px}",
-  ".dsh-wt_md li{margin:2px 0}",
-  ".dsh-wt_md table{border-collapse:collapse;margin:8px 0;font-size:12px}",
-  ".dsh-wt_md th,.dsh-wt_md td{border:1px solid var(--dsw-alias-border-l1,#262b36);padding:4px 10px;text-align:left}",
-  ".dsh-wt_md th{background:var(--dsw-alias-fill-l1,rgba(255,255,255,.05))}",
-  ".dsh-wt_md hr{border:none;border-top:1px solid var(--dsw-alias-border-l1,#262b36);margin:12px 0}",
-  ".dsh-wt_md img{max-width:100%}",
-  ".dsh-wt_imgView{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;overflow:auto;padding:10px;background:var(--dsw-alias-bg-base,#0b0e14)}",
-  ".dsh-wt_imgView img{max-width:100%;max-height:100%;object-fit:contain}",
-  ".dsh-wt_pane[data-drop-hover=true]{border-color:var(--dsw-alias-state-accent-primary,#4f8ef7);box-shadow:0 0 0 2px rgba(79,142,247,.4),var(--dsw-shadow-lv2,0 8px 24px rgba(0,0,0,.4));transform:scale(1.012)}",
-  ".dsh-wt_paneBar{flex:none;display:flex;align-items:center;height:22px;padding:0 8px;border-bottom:1px solid var(--dsw-alias-border-l1,#262b36);background:var(--dsw-alias-fill-l1,rgba(255,255,255,.02))}",
-  ".dsh-wt_paneTitle{flex:1;min-width:0;font-size:11px;font-weight:600;color:var(--dsw-alias-label-secondary,#9aa4b2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}",
-  ".dsh-wt_paneFrame{flex:1;width:100%;border:0;background:#010409;min-height:0}",
-  // iframe 内容标签：容器 + 右上角常驻刷新按钮
-  ".dsh-wt_tabRefresh{flex:none;width:14px;height:14px;padding:0;border:none;border-radius:3px;background:transparent;color:var(--dsw-alias-label-tertiary,#6e7683);font-size:10px;line-height:1;cursor:pointer}",
-  ".dsh-wt_tabRefresh:hover{color:var(--dsw-alias-state-accent-primary,#4f8ef7);background:var(--dsw-alias-fill-l1,rgba(255,255,255,.08))}",
-  ".dsh-wt_splitDivider{background:var(--dsw-alias-border-l2,#3a4150);cursor:col-resize;touch-action:none;box-sizing:border-box}",
-  ".dsh-wt_splitDividerH{cursor:row-resize}",
-  ".dsh-wt_splitDivider:hover,.dsh-wt_splitDividerH:hover{background:var(--dsw-alias-state-accent-primary,#4f8ef7)}",
-  // 新建工作区（拓扑预设）
-  ".dsh-wt_presets{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;padding:2px 8px 6px}",
-  ".dsh-wt_preset{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:6px 2px;border:1px solid var(--dsw-alias-border-l1,#262b36);border-radius:6px;background:transparent;color:var(--dsw-alias-label-secondary,#9aa4b2);font:inherit;font-size:10px;line-height:13px;cursor:pointer}",
-  ".dsh-wt_preset:hover{border-color:var(--dsw-alias-border-l2,#3a4150)}",
-  ".dsh-wt_preset[data-on=true]{border-color:var(--dsw-alias-state-accent-primary,#4f8ef7);color:var(--dsw-alias-state-accent-primary,#4f8ef7)}",
-  ".dsh-wt_thumb{display:flex;flex-direction:column;width:54px;height:36px;border:1px solid var(--dsw-alias-border-l2,#3a4150);border-radius:3px;overflow:hidden;background:var(--dsw-alias-fill-l1,rgba(255,255,255,.03))}",
-  ".dsh-wt_thumbRow{flex:1;display:flex;min-height:0}",
-  ".dsh-wt_thumbCols{flex-direction:row}",
-  ".dsh-wt_thumbCol{flex:1;min-width:0;display:flex;flex-direction:column}",
-  ".dsh-wt_thumbRow:last-child .dsh-wt_thumbCell{border-bottom:none}",
-  ".dsh-wt_thumbCell{flex:1;min-width:0;border-right:1px solid var(--dsw-alias-border-l1,#262b36);border-bottom:1px solid var(--dsw-alias-border-l1,#262b36);display:flex;align-items:center;justify-content:center;font-size:8px;line-height:1}",
-  ".dsh-wt_thumbRow .dsh-wt_thumbCell:last-child{border-right:none}",
-  ".dsh-wt_thumbChat{background:var(--dsw-alias-state-accent-primary,#4f8ef7);color:#fff}",
-  // 预设网格末尾的 ＋ 自定义磁贴
-  ".dsh-wt_presetAdd{border-style:dashed;color:var(--dsw-alias-state-accent-primary,#4f8ef7)}",
-  ".dsh-wt_presetAddIcon{font-size:18px;line-height:20px}",
-  ".dsh-wt_presetAddText{font-size:10px;line-height:13px}",
-  // 项目卡片上的对话绑定按钮（○○ 空心 = 未绑定 / ●● 实心 = 已绑定；CSS 双圆绘制，黑白单色克制：
-  // 未绑定次级灰空心、已绑定主色实心，不用强调色；hover 区域 = 22×22 圆角矩形按钮底，
-  // 气泡为 body 级元素向右伸出（跨层显示），垂直居中于按钮）
-  ".dsh-wt_bindBtn{position:absolute;right:26px;top:50%;transform:translateY(-50%);width:22px;height:22px;margin:0;display:block;border-radius:6px;color:var(--dsw-alias-label-secondary,#9aa4b2);cursor:pointer;user-select:none}",
-  ".dsh-wt_bindBtn:hover{background:var(--dsw-alias-fill-l2,rgba(255,255,255,.09));color:var(--dsw-alias-label-primary,#e6e8eb)}",
-  ".dsh-wt_bindBtn[data-bound=true]{color:var(--dsw-alias-label-primary,#e6e8eb)}",
-  // 任务完成提醒镜像：绿色发光 / 待决提醒：黄色发光（点击项目即 ack 恢复常态实心）；
-  // 工作中：蓝色发光 + 两圆交替亮灭（对应 DSH 对话的转圈标记，无需 ack，running 变 false 自动停）
-  ".dsh-wt_bindBtn[data-bound=done]{color:#3fb950}",
-  ".dsh-wt_bindBtn[data-bound=need]{color:#d29922}",
-  ".dsh-wt_bindBtn[data-bound=busy]{color:#4f8ef7}",
-  "@keyframes dsh-wt-busyA{0%,44%{opacity:1}50%,94%{opacity:.12}100%{opacity:1}}",
-  "@keyframes dsh-wt-busyB{0%,44%{opacity:.12}50%,94%{opacity:1}100%{opacity:.12}}",
-  ".dsh-wt_bindBtn[data-bound=busy] .dsh-wt_bindCircles::before{animation:dsh-wt-busyA 1s ease-in-out infinite}",
-  ".dsh-wt_bindBtn[data-bound=busy] .dsh-wt_bindCircles::after{animation:dsh-wt-busyB 1s ease-in-out infinite}",
-  ".dsh-wt_bindBtn[data-bound=done] .dsh-wt_bindCircles,.dsh-wt_bindBtn[data-bound=need] .dsh-wt_bindCircles,.dsh-wt_bindBtn[data-bound=busy] .dsh-wt_bindCircles{filter:drop-shadow(0 0 3px currentColor)}",
-  // 气泡为 body 级独立元素（.dsh-wt_bindTip），此处只保留按钮本体样式
-  ".dsh-wt_bindTip{position:fixed;transform:translateY(-50%);padding:5px 9px;border:1px solid var(--dsw-alias-border-l2,#3a4150);border-radius:6px;background:var(--dsw-alias-fill-l2,#171b22);color:var(--dsw-alias-label-primary,#e6e8eb);font-size:11px;line-height:15px;white-space:nowrap;pointer-events:none;z-index:1200;box-shadow:0 4px 12px rgba(0,0,0,.35);display:none}",
-  ".dsh-wt_bindCircles{position:absolute;left:50%;top:50%;width:17px;height:7px;transform:translate(-50%,-50%)}",
-  ".dsh-wt_bindCircles::before,.dsh-wt_bindCircles::after{content:'';position:absolute;top:50%;width:6px;height:6px;margin-top:-3px;border-radius:50%;box-sizing:border-box;border:1.2px solid currentColor;background:transparent}",
-  ".dsh-wt_bindCircles::before{left:0}",
-  ".dsh-wt_bindCircles::after{left:10px}",
-  ".dsh-wt_bindBtn[data-bound=true] .dsh-wt_bindCircles::before,.dsh-wt_bindBtn[data-bound=true] .dsh-wt_bindCircles::after,.dsh-wt_bindBtn[data-bound=done] .dsh-wt_bindCircles::before,.dsh-wt_bindBtn[data-bound=done] .dsh-wt_bindCircles::after,.dsh-wt_bindBtn[data-bound=need] .dsh-wt_bindCircles::before,.dsh-wt_bindBtn[data-bound=need] .dsh-wt_bindCircles::after,.dsh-wt_bindBtn[data-bound=busy] .dsh-wt_bindCircles::before,.dsh-wt_bindBtn[data-bound=busy] .dsh-wt_bindCircles::after{background:currentColor}",
-  // 布局条目卡片
-  ".dsh-wt_layout{display:flex;align-items:center;gap:7px;padding:6px 8px;border:1px solid var(--dsw-alias-border-l1,#262b36);border-radius:8px;background:var(--dsw-alias-fill-l1,rgba(255,255,255,.02));color:var(--dsw-alias-label-primary,#e6e8eb);font:inherit;font-size:12px;line-height:18px;cursor:pointer;text-align:left}",
-  ".dsh-wt_layout:hover{border-color:var(--dsw-alias-state-accent-primary,#4f8ef7);background:var(--dsw-alias-fill-l1,rgba(255,255,255,.05))}",
-  ".dsh-wt_layout[data-on=true]{border-color:var(--dsw-alias-state-accent-primary,#4f8ef7);background:var(--dsw-alias-fill-l1,rgba(255,255,255,.05))}",
-  ".dsh-wt_layout[data-on=true] .dsh-wt_layoutName{color:var(--dsw-alias-state-accent-primary,#4f8ef7)}",
-  ".dsh-wt_layoutIcon{flex:none;font-size:15px}",
-  ".dsh-wt_layoutText{flex:1;min-width:0;display:flex;flex-direction:column;gap:0}",
-  ".dsh-wt_layoutName{font-size:12px;font-weight:400;line-height:17px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}",
-  // 箭头与项目名同一行高 + 字面中心对齐；› 墨迹在字面框内偏下，整体上移 1px 使视觉居中
-  ".dsh-wt_layoutArrow{flex:none;display:inline-flex;align-items:center;height:18px;color:var(--dsw-alias-label-tertiary,#6e7683);font-size:14px;line-height:18px;transform:translateY(-1.5px)}",
-  // 入驻项目卡自带箭头（桥注入 .dsh-wt_resArrow）：与布局卡同款视觉居中
-  "button[data-wt-id] > .dsh-wt_resArrow{display:inline-flex;align-items:center;height:18px;line-height:18px;transform:translateY(-1.5px)}",
-  // 项目卡片统一：所有入驻项目卡片（data-wt-id 通用标记）与布局卡片同款常显框
-  ".dsh-wt_projects [data-wt-id]{border-color:var(--dsw-alias-border-l1,#262b36);background:var(--dsw-alias-fill-l1,rgba(255,255,255,.02))}",
-  ".dsh-wt_projects [data-wt-id]:hover{border-color:var(--dsw-alias-state-accent-primary,#4f8ef7);background:var(--dsw-alias-fill-l1,rgba(255,255,255,.05))}",
-  ".dsh-wt_projects [data-wt-id][data-on=true]{border-color:var(--dsw-alias-state-accent-primary,#4f8ef7);background:var(--dsw-alias-fill-l1,rgba(255,255,255,.05))}",
-  // 标签精简：项目卡片只留名称一行，小字描述行去掉
-  ".dsh-wt_projects [data-wt-id] > :nth-child(2) > :nth-child(2){display:none}",
-  // 图标选择弹窗（固定定位，点击项目/布局/快捷方式的图标唤出）
-  ".dsh-wt_iconPop{position:fixed;z-index:81;width:256px;padding:8px;border:1px solid var(--dsw-alias-border-l2,#3a4150);border-radius:10px;background:var(--dsw-alias-bg-base,#0b0e14);box-shadow:var(--dsw-shadow-lv2,0 8px 24px rgba(0,0,0,.4))}",
-  ".dsh-wt_iconPopTitle{font-size:10px;letter-spacing:.05em;color:var(--dsw-alias-label-tertiary,#6e7683);padding:1px 4px 6px}",
-  ".dsh-wt_iconGrid{display:grid;grid-template-columns:repeat(6,1fr);gap:4px}",
-  ".dsh-wt_iconCell{display:flex;align-items:center;justify-content:center;aspect-ratio:1;border:1px solid transparent;border-radius:6px;background:transparent;font-size:17px;line-height:1;cursor:pointer;padding:0}",
-  ".dsh-wt_iconCell:hover{background:var(--dsw-alias-fill-l1,rgba(255,255,255,.05));border-color:var(--dsw-alias-border-l2,#3a4150)}",
-  ".dsh-wt_iconCell[data-on=true]{background:var(--dsw-alias-fill-l1,rgba(255,255,255,.08));border-color:var(--dsw-alias-state-accent-primary,#4f8ef7)}",
-  // 可点图标（布局卡 / 管理行 / 快捷方式上的图标，点击换 emoji）
-  ".dsh-wt_iconPick{flex:none;display:inline-flex;align-items:center;justify-content:center;padding:1px;border:none;background:transparent;cursor:pointer;border-radius:4px}",
-  ".dsh-wt_iconPick:hover{background:var(--dsw-alias-fill-l1,rgba(255,255,255,.08))}",
-  // 四类项目卡片统一竖向高度（常驻×2 / 布局 / 快捷方式；新建条目自动继承）
-  ".dsh-wt_projects [data-wt-id],.dsh-wt_layout,.dsh-wt_shortcut{height:34px;box-sizing:border-box}",
-  // 入驻项目卡片图标覆盖：data-wt-icon 存在时用 attr() 替换显示（原字符字号压到 0）
-  ".dsh-wt_projects [data-wt-id] > :first-child[data-wt-icon]{font-size:0;line-height:20px}",
-  ".dsh-wt_projects [data-wt-id] > :first-child[data-wt-icon]::before{content:attr(data-wt-icon);font-size:15px;line-height:20px}",
-  // 常驻项目卡片与新建项目统一：emoji 字号 15px、名称不加粗
-  ".dsh-wt_projects [data-wt-id] > :first-child{font-size:15px;line-height:20px}",
-  ".dsh-wt_projects [data-wt-id] > :nth-child(2) > :first-child{font-weight:400}",
-  // 头部按钮内的官方 SVG 图标
-  ".dsh-wt_iconBtn svg{display:block}",
-  // 窗内容：选择器 / 自定义 / 浏览器 / 占位
-  ".dsh-wt_panePicker{flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:12px;overflow:auto}",
-  ".dsh-wt_panePicker-row{flex-direction:row;flex-wrap:wrap}",
-  ".dsh-wt_panePicker-grid{display:grid;grid-template-columns:auto auto;grid-template-rows:auto auto;gap:10px;place-content:center}",
-  ".dsh-wt_panePicker-col{flex-direction:column}",
-  // 自定义窗口对话框（居中卡片）
-  ".dsh-wt_customBox{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;padding:14px;overflow:auto}",
-  ".dsh-wt_customCard{display:flex;flex-direction:column;gap:10px;width:100%;max-width:360px;padding:14px;border:1px solid var(--dsw-alias-border-l2,#3a4150);border-radius:10px;background:var(--dsw-alias-bg-base,#0b0e14);box-shadow:var(--dsw-shadow-lv2,0 8px 24px rgba(0,0,0,.4))}",
-  ".dsh-wt_customTitle{font-size:13px;font-weight:600;color:var(--dsw-alias-label-primary,#e6e8eb)}",
-  ".dsh-wt_customHint{font-size:11.5px;line-height:17px;color:var(--dsw-alias-label-secondary,#9aa4b2);margin:0}",
-  // 自定义对话框：模式切换（新建对话 / 发送到会话）
-  ".dsh-wt_customModes{display:flex;gap:6px}",
-  ".dsh-wt_customModeBtn{flex:1;display:flex;align-items:center;justify-content:center;padding:4px 8px;border:1px solid var(--dsw-alias-border-l1,#262b36);border-radius:6px;background:var(--dsw-alias-fill-l1,rgba(255,255,255,.02));color:var(--dsw-alias-label-secondary,#9aa4b2);font:inherit;font-size:11px;line-height:16px;cursor:pointer}",
-  ".dsh-wt_customModeBtn:hover{color:var(--dsw-alias-label-primary,#e6e8eb);border-color:var(--dsw-alias-border-l2,#3a4150)}",
-  ".dsh-wt_customModeBtnOn{border-color:var(--dsw-alias-state-accent-primary,#4f8ef7);color:var(--dsw-alias-state-accent-primary,#4f8ef7);background:var(--dsw-alias-fill-l1,rgba(255,255,255,.05))}",
-  ".dsh-wt_customInput{width:100%;box-sizing:border-box;min-height:96px;padding:8px 10px;background:var(--dsw-alias-fill-l1,rgba(255,255,255,.03));border:1px solid var(--dsw-alias-border-l1,#262b36);border-radius:8px;color:var(--dsw-alias-label-primary,#e6e8eb);font:inherit;font-size:12px;line-height:18px;outline:none;resize:vertical}",
-  ".dsh-wt_customInput:focus{border-color:var(--dsw-alias-state-accent-primary,#4f8ef7)}",
-  // 新建分组：父目录 / 名称单行输入
-  ".dsh-wt_customPathInput{flex:1;min-width:0;box-sizing:border-box;padding:5px 8px;background:var(--dsw-alias-fill-l1,rgba(255,255,255,.03));border:1px solid var(--dsw-alias-border-l1,#262b36);border-radius:6px;color:var(--dsw-alias-label-primary,#e6e8eb);font:inherit;font-size:12px;line-height:18px;outline:none}",
-  ".dsh-wt_customPathInput:focus{border-color:var(--dsw-alias-state-accent-primary,#4f8ef7)}",
-  // 新建项目强制文件夹：两行（父目录/名称）
-  ".dsh-wt_addFolderRow{display:flex;align-items:center;gap:8px;margin-top:6px;padding:0 2px}",
-  ".dsh-wt_addFolderPath{flex:1;min-width:0;padding:4px 8px;border:1px solid var(--dsw-alias-border-l1,#262b36);border-radius:6px;background:var(--dsw-alias-fill-l1,rgba(255,255,255,.03));font-size:11.5px;line-height:17px;color:var(--dsw-alias-label-primary,#e6e8eb);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}",
-  ".dsh-wt_addFolderPathNone{color:var(--dsw-alias-label-tertiary,#6b7280);border-style:dashed}",
-  ".dsh-wt_addFolderRow .dsh-wt_customLabel{flex:none;width:auto;text-align:left}",
-  // 绑定弹窗内的项目文件夹区
-  ".dsh-wt_bindFolderBox{margin-top:8px;padding:6px 8px;background:var(--dsw-alias-fill-l1,rgba(255,255,255,.03));border:1px solid var(--dsw-alias-border-l1,#262b36);border-radius:8px}",
-  ".dsh-wt_bindFolderRow{display:flex;align-items:center;justify-content:space-between}",
-  ".dsh-wt_bindFolderLabel{font-size:12px;line-height:18px;color:var(--dsw-alias-label-primary,#e6e8eb)}",
-  ".dsh-wt_bindFolderChange{flex:none;padding:1px 8px;border:1px solid var(--dsw-alias-border-l1,#262b36);border-radius:5px;background:transparent;color:var(--dsw-alias-label-secondary,#9aa4b2);font:inherit;font-size:11px;line-height:16px;cursor:pointer}",
-  ".dsh-wt_bindFolderChange:hover{color:var(--dsw-alias-label-primary,#e6e8eb);border-color:var(--dsw-alias-border-l2,#3a4150)}",
-  ".dsh-wt_bindFolderPath{margin-top:4px;font-size:11px;line-height:16px;color:var(--dsw-alias-label-secondary,#9aa4b2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}",
-  ".dsh-wt_bindFolderPathNone{color:var(--dsw-alias-label-tertiary,#6b7280)}",
-  ".dsh-wt_bindFolderForm{display:flex;flex-direction:column;gap:6px;margin-top:6px}",
-  // 自定义布局弹窗（＋磁贴）：描述输入 + 复制提示词 + Toast
-  ".dsh-wt_customLayoutInput{width:100%;box-sizing:border-box;min-height:110px;margin-top:8px;padding:8px 10px;background:var(--dsw-alias-fill-l1,rgba(255,255,255,.03));border:1px solid var(--dsw-alias-border-l1,#262b36);border-radius:8px;color:var(--dsw-alias-label-primary,#e6e8eb);font:inherit;font-size:12px;line-height:18px;outline:none;resize:vertical}",
-  ".dsh-wt_customLayoutInput:focus{border-color:var(--dsw-alias-state-accent-primary,#4f8ef7)}",
-  ".dsh-wt_customLayoutBtn{width:100%;margin-top:8px;padding:7px 10px;border:1px solid var(--dsw-alias-state-accent-primary,#4f8ef7);border-radius:8px;background:transparent;color:var(--dsw-alias-state-accent-primary,#4f8ef7);font:inherit;font-size:12px;line-height:18px;cursor:pointer}",
-  ".dsh-wt_customLayoutBtn:hover{background:var(--dsw-alias-fill-l1,rgba(255,255,255,.05))}",
-  ".dsh-wt_customLayoutToast{margin:8px 0 0;font-size:11.5px;line-height:17px;color:var(--dsw-alias-state-success,#3fb950)}",
-  ".dsh-wt_customLayoutToastFail{color:var(--dsw-alias-state-danger,#f85149)}",
-  // 对话绑定弹窗：绑定对话框内的对话行（点击右侧弹列表）
-  ".dsh-wt_bindNoneText{font-size:12px;line-height:18px}",
-  ".dsh-wt_bindFolder{flex:none;font-size:12px;line-height:18px;color:var(--dsw-alias-label-secondary,#9aa4b2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:40%}",
-  ".dsh-wt_bindSep{flex:none;color:var(--dsw-alias-border-l2,#3a4150);font-size:11px}",
-  ".dsh-wt_bindConvRow{display:flex;align-items:center;gap:6px;width:100%;box-sizing:border-box;margin-top:4px;padding:3px 4px;border:1px solid transparent;border-radius:6px;background:transparent;color:var(--dsw-alias-label-primary,#e6e8eb);font:inherit;font-size:12px;line-height:18px;cursor:pointer;text-align:left}",
-  ".dsh-wt_bindConvRow:hover{background:var(--dsw-alias-fill-l1,rgba(255,255,255,.05));border-color:var(--dsw-alias-border-l2,#3a4150)}",
-  ".dsh-wt_bindConvRowNone{color:var(--dsw-alias-label-secondary,#9aa4b2)}",
-  ".dsh-wt_bindConvName{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}",
-  ".dsh-wt_bindConvChevron{flex:none;color:var(--dsw-alias-label-tertiary,#6b7280);font-size:9px;line-height:1}",
-  ".dsh-wt_bindHint{margin:6px 0 2px;font-size:11px;line-height:16px;color:var(--dsw-alias-label-secondary,#9aa4b2)}",
-  // 自定义窗完成页：自动绑定提示
-  ".dsh-wt_customDoneBind{margin:6px 0 0;font-size:11px;line-height:16px;color:var(--dsw-alias-state-accent-primary,#4f8ef7)}",
-  ".dsh-wt_bindUnbind{flex:none;display:inline-flex;align-items:center;gap:4px;padding:1px 8px;border:1px solid var(--dsw-alias-border-l1,#262b36);border-radius:5px;background:transparent;color:var(--dsw-alias-label-secondary,#9aa4b2);font:inherit;font-size:11px;line-height:16px;cursor:pointer}",
-  ".dsh-wt_bindUnbind:hover{color:var(--dsw-alias-state-danger,#f85149);border-color:var(--dsw-alias-state-danger,#f85149)}",
-  ".dsh-wt_bindList{max-height:280px;overflow:auto;position:static}",
-  ".dsh-wt_bindListPop{display:flex;flex-direction:column;padding:6px}",
-  ".dsh-wt_bindListPop .dsh-wt_bindList{max-height:320px}",
-  ".dsh-wt_customRow{display:flex;align-items:center;gap:8px}",
-  ".dsh-wt_customLabel{flex:none;font-size:11.5px;color:var(--dsw-alias-label-secondary,#9aa4b2)}",
-  ".dsh-wt_customSelect{flex:1;min-width:0;padding:5px 8px;background:var(--dsw-alias-fill-l1,rgba(255,255,255,.03));border:1px solid var(--dsw-alias-border-l1,#262b36);border-radius:6px;color:var(--dsw-alias-label-primary,#e6e8eb);font:inherit;font-size:12px;outline:none}",
-  ".dsh-wt_customSelect option{background-color:var(--dsw-alias-bg-base,#0b0e14);color:var(--dsw-alias-label-primary,#e6e8eb)}",
-  // 自制下拉（文件夹分组 + 细分隔线）
-  ".dsh-wt_select{position:relative;flex:1;min-width:0}",
-  ".dsh-wt_selectBtn{display:flex;align-items:center;gap:6px;width:100%;box-sizing:border-box;padding:5px 8px;background:var(--dsw-alias-fill-l1,rgba(255,255,255,.03));border:1px solid var(--dsw-alias-border-l1,#262b36);border-radius:6px;color:var(--dsw-alias-label-primary,#e6e8eb);font:inherit;font-size:12px;line-height:18px;cursor:pointer}",
-  ".dsh-wt_selectBtn:hover{border-color:var(--dsw-alias-border-l2,#3a4150)}",
-  ".dsh-wt_selectVal{flex:1;min-width:0;text-align:left;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}",
-  ".dsh-wt_selectPh{color:var(--dsw-alias-label-tertiary,#6e7683)}",
-  ".dsh-wt_selectCaret{flex:none;color:var(--dsw-alias-label-tertiary,#6e7683);font-size:10px;line-height:1}",
-  ".dsh-wt_selectList{margin-top:4px;max-height:180px;overflow:auto;border:1px solid var(--dsw-alias-border-l2,#3a4150);border-radius:8px;background:var(--dsw-alias-bg-base,#0b0e14);padding:4px;box-shadow:var(--dsw-shadow-lv2,0 8px 24px rgba(0,0,0,.4))}",
-  ".dsh-wt_selectItem{display:flex;align-items:center;gap:6px;width:100%;padding:6px 8px;border:none;border-radius:5px;background:transparent;color:var(--dsw-alias-label-primary,#e6e8eb);font:inherit;font-size:12px;line-height:17px;cursor:pointer;text-align:left}",
-  ".dsh-wt_selectItem:hover{background:var(--dsw-alias-fill-l1,rgba(255,255,255,.05))}",
-  ".dsh-wt_selectItemOn{background:var(--dsw-alias-fill-l1,rgba(255,255,255,.06));color:var(--dsw-alias-state-accent-primary,#4f8ef7)}",
-  ".dsh-wt_selectItemTitle{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}",
-  ".dsh-wt_selectCurrent{flex:none;font-size:10px;color:var(--dsw-alias-label-tertiary,#6e7683)}",
-  ".dsh-wt_selectDivider{height:1px;background:var(--dsw-alias-border-l1,#262b36);margin:6px 2px}",
-  // 文件夹分组标题：与选项同字号、加粗、左侧蓝色竖条 + 微底色，明显区别于下方对话
-  ".dsh-wt_selectGroup{display:flex;align-items:center;gap:6px;margin:2px 0 2px;padding:6px 8px;border-left:2px solid var(--dsw-alias-state-accent-primary,#4f8ef7);border-radius:4px;background:var(--dsw-alias-fill-l1,rgba(255,255,255,.04));font-size:12px;font-weight:600;letter-spacing:.02em;color:var(--dsw-alias-label-secondary,#9aa4b2);user-select:none}",
-  ".dsh-wt_customSend{align-self:flex-end;padding:6px 14px;border:none;border-radius:6px;background:var(--dsw-alias-state-accent-primary,#4f8ef7);color:#fff;font:inherit;font-size:12px;cursor:pointer}",
-  ".dsh-wt_customSend:disabled{opacity:.55;cursor:default}",
-  ".dsh-wt_customFail{font-size:11px;color:var(--dsw-alias-state-danger,#e5484d);margin:0}",
-  ".dsh-wt_customDone{font-size:26px;line-height:32px}",
-  ".dsh-wt_customDoneText{font-size:13px;font-weight:600;color:var(--dsw-alias-label-primary,#e6e8eb);margin:4px 0 0}",
-  ".dsh-wt_customDoneHint{font-size:11.5px;color:var(--dsw-alias-label-secondary,#9aa4b2);margin:0}",
-  ".dsh-wt_customDone{display:block}",
-  ".dsh-wt_customBox:has(.dsh-wt_customDone){flex-direction:column;gap:4px;text-align:center}",
-  ".dsh-wt_panePick{flex:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;width:92px;height:78px;padding:8px;border:1px solid var(--dsw-alias-border-l1,#262b36);border-radius:10px;background:var(--dsw-alias-fill-l1,rgba(255,255,255,.02));color:var(--dsw-alias-label-primary,#e6e8eb);font:inherit;font-size:11px;line-height:15px;cursor:pointer;transition:border-color .15s,background .15s,transform .15s}",
-  ".dsh-wt_panePick:hover{border-color:var(--dsw-alias-state-accent-primary,#4f8ef7);background:var(--dsw-alias-fill-l1,rgba(255,255,255,.05));transform:translateY(-1px)}",
-  ".dsh-wt_panePick span{font-size:22px;line-height:24px}",
-  ".dsh-wt_paneCustom{flex:none;width:100%;max-width:320px;display:flex;align-items:center;gap:6px;padding:4px}",
-  ".dsh-wt_paneCustom input{flex:1;min-width:0;background:var(--dsw-alias-fill-l1,rgba(255,255,255,.03));border:1px solid var(--dsw-alias-border-l1,#262b36);border-radius:6px;color:var(--dsw-alias-label-primary,#e6e8eb);font:inherit;font-size:12px;line-height:18px;padding:5px 8px;outline:none}",
-  ".dsh-wt_paneCustom input:focus{border-color:var(--dsw-alias-state-accent-primary,#4f8ef7)}",
-  ".dsh-wt_paneCustomGo{flex:none;padding:5px 10px;border:none;border-radius:6px;background:var(--dsw-alias-state-accent-primary,#4f8ef7);color:#fff;font:inherit;font-size:12px;cursor:pointer}",
-  ".dsh-wt_browserBar{flex:none;display:flex;align-items:center;gap:5px;padding:4px 6px;border-bottom:1px solid var(--dsw-alias-border-l1,#262b36);background:var(--dsw-alias-fill-l1,rgba(255,255,255,.02))}",
-  ".dsh-wt_browserInput{flex:1;min-width:0;background:transparent;border:none;outline:none;color:var(--dsw-alias-label-primary,#e6e8eb);font:inherit;font-size:11px;line-height:16px}",
-  ".dsh-wt_browserGo{flex:none;width:20px;height:20px;padding:0;border:none;border-radius:4px;background:transparent;color:var(--dsw-alias-label-secondary,#9aa4b2);font-size:12px;cursor:pointer}",
-  ".dsh-wt_browserGo:hover{color:var(--dsw-alias-label-primary,#e6e8eb);background:var(--dsw-alias-fill-l1,rgba(255,255,255,.06))}",
-  ".dsh-wt_paneWip{flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:var(--dsw-alias-label-tertiary,#6e7683)}",
-  ".dsh-wt_paneWipIcon{font-size:26px;line-height:30px}",
-  ".dsh-wt_paneWipText{font-size:11px}",
-  ".dsh-wt_splitFlip{flex:none;display:flex;align-items:center;justify-content:center;width:20px;height:20px;padding:0;border:none;border-radius:4px;background:transparent;color:var(--dsw-alias-label-secondary,#9aa4b2);font-size:13px;cursor:pointer}",
-  ".dsh-wt_splitFlip:hover{color:var(--dsw-alias-label-primary,#e6e8eb);background:var(--dsw-alias-fill-l1,rgba(255,255,255,.06))}",
-  // + 右侧弹出面板
-  ".dsh-wt_popBackdrop{position:fixed;left:0;top:0;right:0;bottom:0;z-index:79;background:transparent}",
-  // 删除二次确认（fixed 居中模态，压在弹窗之上）
-  ".dsh-wt_confirmBackdrop{position:fixed;left:0;top:0;right:0;bottom:0;z-index:81;background:rgba(0,0,0,.35)}",
-  ".dsh-wt_confirm{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:82;width:292px;display:flex;flex-direction:column;gap:8px;padding:14px;border:1px solid var(--dsw-alias-border-l2,#3a4150);border-radius:10px;background:var(--dsw-alias-bg-base,#0b0e14);box-shadow:var(--dsw-shadow-lv2,0 8px 24px rgba(0,0,0,.4))}",
-  ".dsh-wt_confirmTitle{font-size:13px;font-weight:600;color:var(--dsw-alias-label-primary,#e6e8eb)}",
-  ".dsh-wt_confirmBody{font-size:11.5px;line-height:17px;color:var(--dsw-alias-label-secondary,#9aa4b2)}",
-  ".dsh-wt_confirmActions{display:flex;justify-content:flex-end;gap:8px;margin-top:4px}",
-  ".dsh-wt_confirmCancel{padding:5px 12px;border:1px solid var(--dsw-alias-border-l2,#3a4150);border-radius:6px;background:transparent;color:var(--dsw-alias-label-secondary,#9aa4b2);font:inherit;font-size:12px;cursor:pointer}",
-  ".dsh-wt_confirmCancel:hover{color:var(--dsw-alias-label-primary,#e6e8eb);background:var(--dsw-alias-fill-l1,rgba(255,255,255,.05))}",
-  ".dsh-wt_confirmDelete{padding:5px 12px;border:none;border-radius:6px;background:var(--dsw-alias-state-danger,#e5484d);color:#fff;font:inherit;font-size:12px;cursor:pointer}",
-  ".dsh-wt_confirmDelete:hover{filter:brightness(1.1)}",
-  ".dsh-wt_pop{max-height:min(540px,calc(100vh - 32px));overflow:auto;box-shadow:var(--dsw-shadow-lv2,0 8px 24px rgba(0,0,0,.4))}",
-  // 功能窗（资源管理器/SCM/任务/终端）
-  ".dsh-wt_subBar{flex:none;display:flex;align-items:center;gap:4px;padding:3px 6px;border-bottom:1px solid var(--dsw-alias-border-l1,#262b36);background:var(--dsw-alias-fill-l1,rgba(255,255,255,.02))}",
-  ".dsh-wt_subBtn{flex:none;display:flex;align-items:center;justify-content:center;width:20px;height:20px;padding:0;border:none;border-radius:4px;background:transparent;color:var(--dsw-alias-label-secondary,#9aa4b2);font-size:11px;cursor:pointer}",
-  ".dsh-wt_subBtn:hover{color:var(--dsw-alias-label-primary,#e6e8eb);background:var(--dsw-alias-fill-l1,rgba(255,255,255,.06))}",
-  ".dsh-wt_subPath{flex:1;min-width:0;font-size:10.5px;color:var(--dsw-alias-label-tertiary,#6e7683);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}",
-  ".dsh-wt_subList{flex:1;min-height:0;overflow:auto;padding:3px}",
-  ".dsh-wt_subRow{display:flex;align-items:center;gap:6px;width:100%;box-sizing:border-box;padding:3px 6px;border:none;border-radius:5px;background:transparent;color:var(--dsw-alias-label-primary,#e6e8eb);font:inherit;font-size:11px;line-height:16px;cursor:pointer;text-align:left}",
-  ".dsh-wt_subRow:hover{background:var(--dsw-alias-fill-l1,rgba(255,255,255,.05))}",
-  ".dsh-wt_subRowStatic{cursor:default}",
-  ".dsh-wt_subRowStatic:hover{background:transparent}",
-  ".dsh-wt_subIcon{flex:none;font-size:11px}",
-  ".dsh-wt_subName{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}",
-  ".dsh-wt_subEmpty{padding:14px 10px;font-size:11px;color:var(--dsw-alias-label-tertiary,#6e7683);text-align:center}",
-  ".dsh-wt_subTag{flex:none;font-size:9px;color:var(--dsw-alias-label-tertiary,#6e7683);padding:0 5px;border-radius:8px;background:var(--dsw-alias-fill-l1,rgba(255,255,255,.06))}",
-  ".dsh-wt_gitXY{flex:none;width:20px;font-size:9px;text-align:center;border-radius:4px;padding:1px 0}",
-  ".dsh-wt_gitXYMod{color:#e5b567;background:rgba(229,181,103,.12)}",
-  ".dsh-wt_gitXYNew{color:#7fd88f;background:rgba(127,216,143,.12)}",
-  ".dsh-wt_jobDot{flex:none;font-size:8px;line-height:16px}",
-  ".dsh-wt_jobDot-running{color:#e5b567}",
-  ".dsh-wt_jobDot-completed{color:#7fd88f}",
-  ".dsh-wt_jobDot-failed{color:#e5484d}",
-  ".dsh-wt_jobDot-killed{color:#6e7683}",
-  ".dsh-wt_jobDot-stopping{color:#9aa4b2}",
-  ".dsh-wt_termHost{flex:1;min-height:0;padding:6px 2px 2px 8px;background:#010409;overflow:hidden}",
-  ".dsh-wt_termHost .xterm{height:100%}",
-  // 窗内标签页
-  ".dsh-wt_tabBar{flex:none;display:flex;align-items:center;gap:3px;padding:3px 5px 0;border-bottom:1px solid var(--dsw-alias-border-l1,#262b36);background:var(--dsw-alias-fill-l1,rgba(255,255,255,.02));overflow-x:auto}",
-  ".dsh-wt_tab{flex:none;display:flex;align-items:center;gap:5px;max-width:150px;padding:3px 8px;border:1px solid transparent;border-bottom:none;border-radius:6px 6px 0 0;color:var(--dsw-alias-label-secondary,#9aa4b2);font-size:10.5px;line-height:16px;cursor:grab;user-select:none;-webkit-user-select:none}",
-  ".dsh-wt_tab:active{cursor:grabbing}",
-  ".dsh-wt_tab:hover{background:var(--dsw-alias-fill-l1,rgba(255,255,255,.04))}",
-  ".dsh-wt_tabOn{color:var(--dsw-alias-label-primary,#e6e8eb);background:var(--dsw-alias-bg-base,#0b0e14);border-color:var(--dsw-alias-border-l1,#262b36)}",
-  ".dsh-wt_tabTitle{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}",
-  ".dsh-wt_tabClose{flex:none;width:14px;height:14px;padding:0;border:none;border-radius:3px;background:transparent;color:var(--dsw-alias-label-tertiary,#6e7683);font-size:9px;line-height:1;cursor:pointer}",
-  ".dsh-wt_tabClose:hover{color:var(--dsw-alias-label-primary,#e6e8eb);background:var(--dsw-alias-fill-l1,rgba(255,255,255,.08))}",
-  // 树形资源管理器
-  ".dsh-wt_treeRow{display:flex;align-items:center;gap:5px;width:100%;box-sizing:border-box;padding:3px 6px;border:none;border-radius:5px;background:transparent;color:var(--dsw-alias-label-primary,#e6e8eb);font:inherit;font-size:11px;line-height:16px;cursor:pointer;text-align:left}",
-  ".dsh-wt_treeRow:hover{background:var(--dsw-alias-fill-l1,rgba(255,255,255,.05))}",
-  ".dsh-wt_treeArrow{flex:none;width:10px;font-size:8px;color:var(--dsw-alias-label-tertiary,#6e7683);transition:transform .12s ease}",
-  ".dsh-wt_treeArrowOpen{transform:rotate(90deg)}",
-  ".dsh-wt_treeIcon{flex:none}",
-  ".dsh-wt_treeName{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}",
-  ".dsh-wt_subSection{flex:none;padding:6px 8px 2px;font-size:10px;font-weight:600;letter-spacing:.05em;color:var(--dsw-alias-label-tertiary,#6e7683)}",
-  // 控制室面板：项目卡片网格（每行 3 张、超出换行；DSH 简洁 + 苹果式卡片）。
-  // 主题变量自带作用域：dark 缺省；data-wt-theme=light 换浅色；system 由面板读宿主 color-scheme 落成 dark/light。
-  ".dsh-wt_console{--wt-bg:#0a0d13;--wt-card:#171c25;--wt-cardHover:#1d232e;--wt-border:#2a3140;--wt-borderHover:#39445a;--wt-text:#e6e8eb;--wt-text2:#9aa4b2;--wt-text3:#6e7683;--wt-chip:rgba(255,255,255,.06);--wt-grid:rgba(255,255,255,.045);--wt-shadow:0 6px 20px rgba(0,0,0,.35);position:relative;flex:1;min-height:0;overflow:auto;padding:22px;background-image:linear-gradient(var(--wt-grid) 1px,transparent 1px),linear-gradient(90deg,var(--wt-grid) 1px,transparent 1px);background-size:30px 30px;background-color:var(--wt-bg)}",
-  // 工作中的卡片流光：光带加长羽化 + 光层超出卡片（移动时不露整齐边缘），每 ~3.2s 从左上斜扫到右下
-  ".dsh-wt_consoleSweep{position:absolute;inset:-30%;border-radius:inherit;pointer-events:none;background:linear-gradient(115deg,rgba(255,255,255,.01) 0%,rgba(255,255,255,.045) 30%,rgba(255,255,255,.13) 50%,rgba(255,255,255,.045) 70%,rgba(255,255,255,.01) 100%);opacity:0;animation:consoleSweep 3.2s ease-in-out infinite}",
-  ".dsh-wt_console[data-wt-theme=light] .dsh-wt_consoleSweep{background:linear-gradient(115deg,rgba(255,255,255,.1) 0%,rgba(255,255,255,.3) 30%,rgba(255,255,255,.55) 50%,rgba(255,255,255,.3) 70%,rgba(255,255,255,.1) 100%)}",
-  "@keyframes consoleSweep{0%{opacity:0;transform:translate(-12%,-12%)}35%{opacity:1}55%{opacity:1}92%,100%{opacity:0;transform:translate(12%,12%)}}",
-  ".dsh-wt_console[data-wt-theme=light]{--wt-bg:#eef1f5;--wt-card:#ffffff;--wt-cardHover:#f7f9fb;--wt-border:#d8dee6;--wt-borderHover:#b9c4d2;--wt-grid:rgba(27,31,36,.07);--wt-text:#1c2128;--wt-text2:#57606a;--wt-text3:#8b949e;--wt-chip:rgba(27,31,36,.07);--wt-shadow:0 6px 20px rgba(31,41,55,.10)}",
-  ".dsh-wt_consoleHead{display:flex;align-items:center;justify-content:flex-end;gap:10px;margin-bottom:12px}",
-  ".dsh-wt_consoleTitle{font-size:14px;font-weight:700;line-height:20px;color:var(--wt-text)}",
-  ".dsh-wt_consoleTheme{display:inline-flex;align-items:center;padding:2px;border:1px solid var(--wt-border);border-radius:999px;background:var(--wt-card)}",
-  ".dsh-wt_consoleThemeBtn{flex:none;padding:3px 9px;border:none;border-radius:999px;background:transparent;color:var(--wt-text3);font:inherit;font-size:12px;line-height:18px;cursor:pointer;opacity:.85}",
-  ".dsh-wt_consoleThemeBtn:hover{opacity:1;background:var(--wt-chip)}",
-  ".dsh-wt_consoleThemeBtnOn{background:var(--wt-chip);color:var(--wt-text);opacity:1}",
-  ".dsh-wt_consoleGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:64px;align-content:start;margin-top:clamp(32px,9vh,110px);max-width:856px;margin-left:auto;margin-right:auto}",
-  ".dsh-wt_consoleCard{position:relative;display:flex;flex-direction:column;gap:14px;aspect-ratio:1/1;min-height:192px;padding:21px;background:linear-gradient(135deg,rgba(255,255,255,.22) 0%,rgba(255,255,255,.07) 30%,rgba(255,255,255,.01) 60%,rgba(0,0,0,.07) 100%),rgba(18,23,32,.24);border:1px solid transparent;border-radius:16px;box-shadow:0 10px 28px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.13);cursor:pointer;transition:transform .14s ease,box-shadow .14s ease;overflow:hidden}",
-  // 玻璃边缘：四角黑白渐变描边（左上/右下=白，右上/左下=黑），1px 环挖空实现
-  '.dsh-wt_consoleCard::after{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;background:conic-gradient(from 45deg,rgba(0,0,0,.4) 0deg,rgba(255,255,255,.55) 90deg,rgba(0,0,0,.4) 180deg,rgba(255,255,255,.55) 270deg,rgba(0,0,0,.4) 360deg);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude;pointer-events:none;opacity:.5}',
-  ".dsh-wt_console[data-wt-theme=light] .dsh-wt_consoleCard{background:linear-gradient(135deg,rgba(255,255,255,1) 0%,rgba(255,255,255,.65) 30%,rgba(255,255,255,.12) 60%,rgba(31,41,55,.06) 100%),rgba(255,255,255,.34);box-shadow:0 10px 28px rgba(31,41,55,.18),inset 0 1px 0 rgba(255,255,255,1)}",
-  ".dsh-wt_console[data-wt-theme=light] .dsh-wt_consoleCard::after{background:conic-gradient(from 45deg,rgba(27,31,36,.4) 0deg,rgba(255,255,255,1) 90deg,rgba(27,31,36,.4) 180deg,rgba(255,255,255,1) 270deg,rgba(27,31,36,.4) 360deg);opacity:.9}",
-  // 状态光效卡片：玻璃边缘让位给霓虹描边/旋转光环
-  ".dsh-wt_consoleCard-glowDone::after,.dsh-wt_consoleCard-glowNeed::after{opacity:0}",
-  ".dsh-wt_consoleCard:hover{transform:translateY(-2px);box-shadow:0 14px 32px rgba(0,0,0,.32),inset 0 1px 0 rgba(255,255,255,.09)}",
-  ".dsh-wt_consoleCardSelf{cursor:default;opacity:.97}",
-  ".dsh-wt_consoleCardHead{display:flex;align-items:center;gap:13px;min-width:0}",
-  ".dsh-wt_consoleIcon{flex:none;font-size:31px;line-height:1}",
-  ".dsh-wt_consoleName{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:20px;font-weight:700;line-height:28px;color:var(--wt-text)}",
-  ".dsh-wt_consoleDivider{flex:none;height:1px;background:var(--wt-border)}",
-  ".dsh-wt_consoleStatusRow{display:flex;align-items:baseline;justify-content:space-between;gap:9px;min-width:0}",
-  ".dsh-wt_consoleStatus{flex:none;font-size:22px;font-weight:700;line-height:30px;color:var(--wt-text2)}",
-  ".dsh-wt_consoleStatus-busy{color:var(--dsw-alias-state-accent-primary,#4f8ef7)}",
-  ".dsh-wt_consoleStatus-need{color:var(--dsw-alias-state-warning,#d29922)}",
-  ".dsh-wt_consoleStatus-done{color:var(--dsw-alias-state-success,#3fb950)}",
-  ".dsh-wt_consoleRuntime{flex:none;font-size:17px;font-weight:600;line-height:24px;color:var(--wt-text2);font-variant-numeric:tabular-nums}",
-  ".dsh-wt_consolePreview{display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden;font-size:8.5px;line-height:13px;color:var(--wt-text2);word-break:break-word}",
-  ".dsh-wt_consolePreviewNone{color:var(--wt-text3);font-style:italic;-webkit-line-clamp:1}",
-  // 三色光效：整卡霓虹描边光晕（像侧栏双圆点的发光质感）——完成=绿、待决=黄；工作=蓝色描边顺时针旋转
-  ".dsh-wt_consoleCard-glowDone{border-color:rgba(63,185,80,.9);box-shadow:0 0 8px rgba(63,185,80,.5),0 0 26px rgba(63,185,80,.3),inset 0 0 16px rgba(63,185,80,.07)}",
-  ".dsh-wt_consoleCard-glowNeed{border-color:rgba(210,153,34,.95);box-shadow:0 0 8px rgba(210,153,34,.5),0 0 26px rgba(210,153,34,.3),inset 0 0 16px rgba(210,153,34,.08)}",
-  '@property --consoleAngle{syntax:"<angle>";initial-value:0deg;inherits:false}',
-  ".dsh-wt_consoleCard-busy{box-shadow:0 0 10px rgba(94,160,255,.55),0 0 34px rgba(79,142,247,.4)}",
-  '.dsh-wt_consoleCard-busy::before{content:"";position:absolute;inset:-4px;border-radius:19px;padding:4px;background:conic-gradient(from var(--consoleAngle),transparent 0deg,rgba(94,160,255,0) 25deg,#dcebff 55deg,#9cc6ff 85deg,rgba(94,160,255,0) 125deg,transparent 200deg);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude;animation:consoleAngleSpin 1.4s linear infinite;filter:drop-shadow(0 0 8px rgba(140,190,255,.85));pointer-events:none}',
-  "@keyframes consoleAngleSpin{to{--consoleAngle:360deg}}",
-  ".dsh-wt_consoleEmpty{padding:40px 0;text-align:center;font-size:12px;color:var(--wt-text3)}",
-  // 创建卡片：虚线 + 居中加号，永远最后一位
-  // 创建卡片：玻璃底 + 虚线边，永远最后一位
-  ".dsh-wt_consoleAdd{justify-content:center;align-items:center;gap:10px;background:radial-gradient(circle at 50% 42%,rgba(255,255,255,.09),rgba(255,255,255,0) 65%),rgba(18,23,32,.34);border:1.5px dashed var(--wt-borderHover)}",
-  ".dsh-wt_consoleAdd::after{display:none}",
-  ".dsh-wt_console[data-wt-theme=light] .dsh-wt_consoleAdd{background:radial-gradient(circle at 50% 42%,rgba(255,255,255,.95),rgba(255,255,255,0) 65%),rgba(255,255,255,.55)}",
-  ".dsh-wt_consoleAdd:hover{border-color:var(--dsw-alias-state-accent-primary,#4f8ef7);background:rgba(23,28,37,.45)}",
-  ".dsh-wt_consoleAddPlus{font-size:34px;line-height:1;color:var(--wt-text2);font-weight:400}",
-  ".dsh-wt_consoleAdd:hover .dsh-wt_consoleAddPlus{color:var(--dsw-alias-state-accent-primary,#4f8ef7)}",
-  ".dsh-wt_consoleAddLabel{font-size:17px;font-weight:600;color:var(--wt-text2)}",
-  ".dsh-wt_consoleAdd:hover .dsh-wt_consoleAddLabel{color:var(--dsw-alias-state-accent-primary,#4f8ef7)}",
-  // 控制室入口卡：统筹主程序的差异化（渐变底 + 微光；无描边，颜色更亮更饱和）
-  ".dsh-wt_projects .dsh-wt_consoleEntry{background:linear-gradient(135deg,rgba(109,164,255,.30),rgba(167,130,255,.22));border-color:transparent;box-shadow:0 0 14px rgba(96,150,255,.22)}",
-  ".dsh-wt_projects .dsh-wt_consoleEntry:hover{background:linear-gradient(135deg,rgba(109,164,255,.42),rgba(167,130,255,.32));box-shadow:0 0 18px rgba(96,150,255,.32)}",
-  ".dsh-wt_projects .dsh-wt_consoleEntry[data-on=true]{background:linear-gradient(135deg,rgba(109,164,255,.38),rgba(167,130,255,.28));box-shadow:0 0 18px rgba(96,150,255,.34)}",
-  ".dsh-wt_projects .dsh-wt_consoleEntry .dsh-wt_layoutIcon{font-size:15px}",
-  ".dsh-wt_projects .dsh-wt_consoleEntry .dsh-wt_layoutName{font-weight:600;color:var(--dsw-alias-label-primary,#e6e8eb)}",
-  // 控制室强制绑定弹窗：左加入现有 / 右新建对话
-  ".dsh-wt_consoleBindCols{display:flex;gap:12px}",
-  ".dsh-wt_consoleBindCol{flex:1;min-width:0;display:flex;flex-direction:column;gap:6px}",
-  ".dsh-wt_consoleBindColNew{border-left:1px solid var(--dsw-alias-border-l1,#262b36);padding-left:12px}",
-  ".dsh-wt_consoleBindLabel{font-size:12px;font-weight:600;line-height:18px;color:var(--dsw-alias-label-primary,#e6e8eb)}",
-  ".dsh-wt_consoleBindList{max-height:300px;overflow:auto;position:static}",
-  ".dsh-wt_consoleBindEmpty{padding:20px 0;text-align:center;font-size:11px;color:var(--dsw-alias-label-tertiary,#6e7683)}",
-  ".dsh-wt_consoleSelect,.dsh-wt_consoleInput{width:100%;box-sizing:border-box;padding:6px 8px;background:var(--dsw-alias-fill-l1,rgba(255,255,255,.03));border:1px solid var(--dsw-alias-border-l1,#262b36);border-radius:8px;color:var(--dsw-alias-label-primary,#e6e8eb);font:inherit;font-size:11.5px;line-height:16px;outline:none}",
-  ".dsh-wt_consoleSelect:focus,.dsh-wt_consoleInput:focus{border-color:var(--dsw-alias-state-accent-primary,#4f8ef7)}",
-  ".dsh-wt_consoleErr{margin:0;font-size:11px;line-height:16px;color:var(--dsw-alias-state-danger,#f85149)}",
-  ".dsh-wt_consoleCreateBtn{margin-top:2px;padding:7px 10px;border:1px solid var(--dsw-alias-state-accent-primary,#4f8ef7);border-radius:8px;background:transparent;color:var(--dsw-alias-state-accent-primary,#4f8ef7);font:inherit;font-size:12px;line-height:18px;cursor:pointer}",
-  ".dsh-wt_consoleCreateBtn:hover:not(:disabled){background:var(--dsw-alias-fill-l1,rgba(255,255,255,.05))}",
-  ".dsh-wt_consoleCreateBtn:disabled{opacity:.55;cursor:default}",
-  // ── 更新提示：侧栏标题旁徽标（仅图标 + 琥珀呼吸光）与设置面板更新卡 / 版本行 ──
-  ".dsh-wt_updateBadge{flex:none;display:flex;align-items:center;justify-content:center;width:18px;height:18px;margin-left:3px;padding:0;border:none;border-radius:50%;background:rgba(245,185,66,.16);color:#f7d488;font-size:11px;line-height:1;cursor:pointer;position:relative}",
-  '.dsh-wt_updateBadge::after{content:"";position:absolute;inset:-1px;border-radius:50%;border:1px solid rgba(245,185,66,.55);animation:dsh-wt_updatePulse 1.8s ease-out infinite}',
-  "@keyframes dsh-wt_updatePulse{0%{opacity:.9;box-shadow:0 0 0 0 rgba(245,185,66,.5)}70%{opacity:.35;box-shadow:0 0 0 6px rgba(245,185,66,0)}100%{opacity:.9;box-shadow:0 0 0 0 rgba(245,185,66,0)}}",
-  ".dsh-wt_updateCard{margin:0 0 10px;padding:10px;border:1px solid rgba(245,185,66,.45);border-radius:10px;background:rgba(245,185,66,.08);display:flex;flex-direction:column;gap:6px}",
-  ".dsh-wt_updateHead{display:flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;color:#f7d488}",
-  ".dsh-wt_updateDot{width:7px;height:7px;border-radius:50%;background:#f5b942;animation:dsh-wt_updatePulse 1.8s ease-out infinite}",
-  ".dsh-wt_updateVers{font-size:11.5px;color:var(--dsw-alias-label-tertiary,#7d8aa5)}",
-  ".dsh-wt_updateNotes{max-height:96px;overflow:auto;font-size:11px;line-height:1.6;color:var(--dsw-alias-label-tertiary,#7d8aa5);white-space:pre-wrap;word-break:break-all}",
-  ".dsh-wt_updateCmd{margin:2px 0;padding:7px 8px;background:var(--dsw-alias-bg-base,#0b0e14);border:1px solid var(--dsw-alias-border-l1,#262b36);border-radius:8px;font-family:Consolas,monospace;font-size:10.5px;line-height:1.5;color:#9cc6ff;word-break:break-all}",
-  ".dsh-wt_updateBtns{display:flex;gap:6px;flex-wrap:wrap}",
-  ".dsh-wt_updateBtn{display:inline-flex;align-items:center;gap:5px;padding:5px 8px;border-radius:7px;border:1px solid var(--dsw-alias-border-l1,#262b36);background:transparent;color:var(--dsw-alias-label-secondary,#aab6cd);font-size:11px;cursor:pointer}",
-  ".dsh-wt_updateBtn svg{width:12px;height:12px;flex:none}",
-  ".dsh-wt_updateBadge svg{width:12px;height:12px;flex:none}",
-  ".dsh-wt_updateBtn:hover{background:var(--dsw-alias-fill-l1,rgba(255,255,255,.06))}",
-  ".dsh-wt_updateBtnCopy{border-color:var(--dsw-alias-state-accent-primary,#4f8ef7);background:rgba(79,142,247,.18);color:#cfe0ff}",
-  ".dsh-wt_updateHint{font-size:10.5px;color:var(--dsw-alias-label-tertiary,#7d8aa5)}",
-  ".dsh-wt_versionRow{margin-top:8px;padding-top:8px;border-top:1px solid var(--dsw-alias-border-l1,#262b36);display:flex;align-items:center;justify-content:space-between;font-size:11px;color:var(--dsw-alias-label-tertiary,#7d8aa5)}",
-  ".dsh-wt_updateToggle{display:flex;align-items:center;gap:6px;cursor:pointer;user-select:none}",
-  ".dsh-wt_versionActions{display:flex;align-items:center;gap:8px}",
-  ".dsh-wt_updateSwitch{position:relative;width:26px;height:14px;border-radius:999px;background:var(--dsw-alias-state-accent-primary,#4f8ef7);cursor:pointer}",
-  '.dsh-wt_updateSwitch::after{content:"";position:absolute;top:2px;right:2px;width:10px;height:10px;border-radius:50%;background:#fff;transition:right .15s}',
-  ".dsh-wt_updateSwitch[data-off=true]{background:var(--dsw-alias-border-l1,#333a48)}",
-  ".dsh-wt_updateSwitch[data-off=true]::after{right:14px}"
-].join("\n");
-
-// src/client/locales.ts
-var zh = {
-  "title": "\u5DE5\u4F5C\u53F0",
-  "rail.title": "\u5DE5\u4F5C\u53F0\uFF08\u5C55\u5F00\u4FA7\u8FB9\u680F\u67E5\u770B\uFF09",
-  "handle.title": "\u6309\u4F4F\u62D6\u52A8\u4F4D\u7F6E \xB7 \u53CC\u51FB\u590D\u4F4D",
-  "handle.aria": "\u62D6\u52A8\u5DE5\u4F5C\u53F0\u4F4D\u7F6E",
-  "menu.search": "\u641C\u7D22\u9879\u76EE",
-  "menu.viewOptions": "\u8BBE\u7F6E",
-  "menu.add": "\u6DFB\u52A0\u9879\u76EE",
-  "search.placeholder": "\u641C\u7D22\u9879\u76EE\u2026",
-  "search.close": "\u5173\u95ED\u641C\u7D22",
-  "sort.label": "\u6392\u5E8F\u65B9\u5F0F",
-  "sort.manual": "\u624B\u52A8",
-  "sort.recent": "\u6700\u8FD1",
-  "menu.manage": "\u7BA1\u7406\u9879\u76EE\u2026",
-  "add.guideTitle": "\u63A5\u5165\u65B0\u9879\u76EE",
-  "add.guideBody": "\u5DE5\u4F5C\u53F0\u91CC\u7684\u9879\u76EE\u5C31\u662F DSH \u63D2\u4EF6\u2014\u2014\u63D2\u4EF6\u6CE8\u518C\u4E00\u5F20\u300C\u5DE5\u4F5C\u53F0\u9879\u76EE\u5361\u7247\u300D\u5373\u81EA\u52A8\u5165\u9A7B\uFF08\u534F\u8BAE\u89C1\u9879\u76EE PRD \xA75.3\uFF09\u3002\u5DF2\u5B89\u88C5\u4F46\u672A\u5165\u9A7B\u7684\u63D2\u4EF6\u9700\u5728\u63D2\u4EF6\u4EE3\u7801\u91CC\u5B8C\u6210\u6CE8\u518C\u3002",
-  "add.market": "\u6D4F\u89C8\u63D2\u4EF6\u5E02\u573A",
-  "add.shortcutTitle": "\u672C\u5730\u5FEB\u6377\u65B9\u5F0F",
-  "add.shortcutDesc": "\u628A\u4EFB\u610F\u7F51\u5740\u6536\u8FDB\u5DE5\u4F5C\u53F0\uFF0C\u70B9\u51FB\u65B0\u6807\u7B7E\u6253\u5F00\uFF08\u4EC5\u5B58\u672C\u673A\uFF09\u3002",
-  "add.shortcutNamePh": "\u540D\u79F0",
-  "add.shortcutIcon": "\u56FE\u6807\uFF08emoji\uFF0C\u53EF\u9009\uFF09",
-  "add.shortcutHref": "\u94FE\u63A5\uFF08http/https\uFF09",
-  "add.shortcutAdd": "\u6DFB\u52A0",
-  "add.shortcutInvalid": "\u8BF7\u586B\u5199\u540D\u79F0\u4E0E\u5408\u6CD5\u7684 http/https \u94FE\u63A5",
-  "manage.title": "\u7BA1\u7406\u9879\u76EE",
-  "manage.done": "\u5B8C\u6210",
-  "manage.renamePh": "\u663E\u793A\u540D",
-  "manage.hide": "\u9690\u85CF",
-  "manage.show": "\u663E\u793A",
-  "manage.removed": "\u5DF2\u5220\u9664\u7684\u9879\u76EE",
-  "manage.readd": "\u91CD\u65B0\u6DFB\u52A0",
-  "manage.deleteShortcut": "\u5220\u9664\u5FEB\u6377\u65B9\u5F0F",
-  "shortcut.badge": "\u672C\u5730",
-  "add.chooseLayout": "\u9009\u62E9\u5E03\u5C40\u6A21\u5F0F",
-  "add.layoutNamePh": "\u5E03\u5C40\u540D\u79F0",
-  "add.folderParent": "\u9879\u76EE\u6587\u4EF6\u5939",
-  "add.folderPick": "\u9009\u62E9\u4F4D\u7F6E\u2026",
-  "add.folderNone": "\u672A\u9009\u62E9\uFF08\u70B9\u53F3\u4FA7\u300C\u9009\u62E9\u4F4D\u7F6E\u2026\u300D\u5728\u8D44\u6E90\u7BA1\u7406\u5668\u7A97\u53E3\u91CC\u6311\u4E00\u4E2A\u6587\u4EF6\u5939\uFF09",
-  "add.folderRequired": "\u8BF7\u5148\u9009\u62E9\u9879\u76EE\u6587\u4EF6\u5939\u7684\u4F4D\u7F6E",
-  "add.layoutSave": "\u8FDB\u5165\u5DE5\u4F5C\u533A",
-  "add.layoutInvalid": "\u8BF7\u586B\u5199\u5E03\u5C40\u540D\u79F0",
-  "manage.deleteLayout": "\u5220\u9664\u5E03\u5C40",
-  "manage.deleteProject": "\u5220\u9664\u9879\u76EE",
-  "manage.changeView": "\u53D8\u66F4\u89C6\u56FE",
-  "viewPick.title": "\u9009\u62E9\u65B0\u89C6\u56FE\uFF08\u5185\u5BB9\u7A97\u81EA\u52A8\u8FC1\u5165\uFF09",
-  "confirm.title": "\u5220\u9664\u9879\u76EE",
-  "confirm.cancel": "\u53D6\u6D88",
-  "confirm.delete": "\u5220\u9664",
-  "confirm.layoutBody": "\u786E\u5B9A\u5220\u9664\u300C{name}\u300D\uFF1F\u8BE5\u5DE5\u4F5C\u533A\u53CA\u5176\u5E03\u5C40\u5C06\u88AB\u79FB\u9664\uFF0C\u6B64\u64CD\u4F5C\u4E0D\u53EF\u6062\u590D\u3002",
-  "confirm.shortcutBody": "\u786E\u5B9A\u5220\u9664\u5FEB\u6377\u65B9\u5F0F\u300C{name}\u300D\uFF1F\u6B64\u64CD\u4F5C\u4E0D\u53EF\u6062\u590D\u3002",
-  "confirm.projectBody": "\u300C{name}\u300D\u5C06\u4ECE\u5DE5\u4F5C\u53F0\u5F7B\u5E95\u79FB\u9664\uFF08\u5BF9\u8BDD\u4E0E\u9879\u76EE\u6587\u4EF6\u90FD\u4FDD\u7559\uFF0C\u53EA\u662F\u4E0D\u518D\u663E\u793A\u9879\u76EE\u5361\u7247\uFF09\u3002",
-  "pane.browser": "\u6D4F\u89C8\u5668",
-  "pane.explorer": "\u8D44\u6E90\u7BA1\u7406\u5668",
-  "pane.scm": "\u6E90\u4EE3\u7801\u7BA1\u7406",
-  "pane.tasks": "\u4EFB\u52A1\u7BA1\u7406",
-  "pane.terminal": "\u7EC8\u7AEF",
-  "pane.custom": "\u81EA\u5B9A\u4E49",
-  "pane.anim": "\u52A8\u753B",
-  "pane.console": "\u63A7\u5236\u5BA4",
-  "pane.refresh": "\u5237\u65B0",
-  "pane.animUrlPh": "\u7C98\u8D34\u52A8\u753B\u7AD9\u70B9\u5730\u5740\u540E\u56DE\u8F66",
-  "custom.title": "\u81EA\u5B9A\u4E49\u8FD9\u4E2A\u7A97\u53E3",
-  "custom.hint": "\u53D1\u9001\u540E\u5C06\u81EA\u52A8\u65B0\u5EFA\u4E00\u4E2A\u4F1A\u8BDD\uFF0C\u4E13\u95E8\u8D1F\u8D23\u8FD9\u4E2A\u7A97\u53E3\u7684\u81EA\u5B9A\u4E49\u8BBE\u8BA1\u3002",
-  "custom.placeholder": "\u544A\u8BC9 AI \u4F60\u60F3\u8BA9\u8FD9\u4E2A\u7A97\u53E3\u505A\u4EC0\u4E48\uFF0C\u4F8B\u5982\uFF1A\u505A\u4E00\u4E2A\u5C55\u793A\u6211\u65C5\u884C\u8DB3\u8FF9\u7684\u65F6\u95F4\u7EBF\u9875\u9762\u2026",
-  "custom.project": "\u6240\u5C5E\u9879\u76EE",
-  "custom.modeNew": "\u65B0\u5EFA\u5BF9\u8BDD",
-  "custom.modeSend": "\u53D1\u9001\u5230\u4F1A\u8BDD",
-  "custom.session": "\u9009\u62E9\u4F1A\u8BDD",
-  "custom.sessionCurrent": "\uFF08\u5F53\u524D\uFF09",
-  "custom.hintSend": "\u5185\u5BB9\u5C06\u76F4\u63A5\u53D1\u9001\u5230\u4F60\u9009\u62E9\u7684\u4F1A\u8BDD\uFF08\u9ED8\u8BA4\u5F53\u524D\u4F1A\u8BDD\uFF09\uFF0C\u7528\u4E8E\u8BA8\u8BBA\u8FD9\u4E2A\u7A97\u53E3\u7684\u81EA\u5B9A\u4E49\u8BBE\u8BA1\u3002",
-  "custom.send": "\u53D1\u9001\u5E76\u65B0\u5EFA\u5BF9\u8BDD",
-  "custom.sendToSession": "\u53D1\u9001\u5230\u8BE5\u4F1A\u8BDD",
-  "custom.sent": "\u5DF2\u53D1\u9001\u5230\u4F1A\u8BDD",
-  "custom.done": "\u5DF2\u65B0\u5EFA\u4E13\u5C5E\u5BF9\u8BDD",
-  "custom.doneHint": "AI \u6B63\u5728\u65B0\u4F1A\u8BDD\u4E2D\u4E3A\u4F60\u8BBE\u8BA1\u8FD9\u4E2A\u7A97\u53E3\u3002\u5173\u95ED\u672C\u6807\u7B7E\u5373\u53EF\u8FD4\u56DE\u7A97\u53E3\u9009\u62E9\u3002",
-  "custom.fail": "\u521B\u5EFA\u5BF9\u8BDD\u5931\u8D25",
-  "custom.group": "\u5206\u7EC4\uFF08\u5DE5\u4F5C\u533A\uFF09",
-  "custom.groupNone": "\u672A\u5206\u7EC4",
-  "custom.groupNew": "\uFF0B \u65B0\u5EFA\u4E00\u4E2A\u5206\u7EC4\u2026",
-  "custom.groupNewParent": "\u5206\u7EC4\u7236\u76EE\u5F55",
-  "custom.groupNewName": "\u65B0\u5206\u7EC4\u540D",
-  "custom.groupNewParentPh": "\u4F8B\u5982 E:\\AI_Workspace\\DeepseekHarness",
-  "custom.groupNewNamePh": "\u4F8B\u5982 MyProject\uFF08\u5C06\u65B0\u5EFA\u6B64\u6587\u4EF6\u5939\u5E76\u6CE8\u518C\u4E3A\u5206\u7EC4\uFF09",
-  "custom.groupNeedPath": "\u8BF7\u586B\u5199\u5206\u7EC4\u7236\u76EE\u5F55\u548C\u65B0\u5206\u7EC4\u540D",
-  "bind.title": "\u7ED1\u5B9A\u5BF9\u8BDD",
-  "bind.unbind": "\u89E3\u7ED1",
-  "bind.unbound": "\u672A\u7ED1\u5B9A\u5BF9\u8BDD",
-  "bind.titleUnbound": "\u7ED1\u5B9A\u5BF9\u8BDD\uFF08\u672A\u7ED1\u5B9A \u25CB\u25CB\uFF09\uFF1A\u70B9\u51FB\u9009\u62E9\u8981\u8DDF\u968F\u7684\u5BF9\u8BDD",
-  "bind.titleBound": "\u5DF2\u7ED1\u5B9A\u5BF9\u8BDD\uFF08\u25CF\u25CF\uFF09\uFF1A\u70B9\u51FB\u66F4\u6362\u6216\u89E3\u7ED1",
-  "bind.tipUnbound": "\u672A\u7ED1\u5B9A\u5BF9\u8BDD\uFF1A\u70B9\u51FB\u9009\u62E9\u8981\u8DDF\u968F\u7684\u5BF9\u8BDD",
-  "bind.tipDone": "\uFF08\u4EFB\u52A1\u5DF2\u5B8C\u6210\uFF0C\u70B9\u51FB\u9879\u76EE\u67E5\u770B\uFF09",
-  "bind.tipBusy": "\uFF08\u5BF9\u8BDD\u6B63\u5728\u5904\u7406\u4EFB\u52A1\u2026\uFF09",
-  "bind.tipNeed": "\uFF08\u9700\u8981\u4F60\u7684\u51B3\u5B9A\uFF0C\u70B9\u51FB\u9879\u76EE\u5904\u7406\uFF09",
-  "bind.folder": "\u9879\u76EE\u6587\u4EF6\u5939",
-  "bind.folderChange": "\u66F4\u6539",
-  "bind.folderNone": "\u672A\u8BBE\u7F6E\uFF08\u5EFA\u8BAE\u8BBE\u7F6E\uFF1A\u9879\u76EE\u4EA7\u51FA\u6587\u4EF6\u90FD\u4F1A\u653E\u8FDB\u8FD9\u91CC\uFF09",
-  "bind.tipBound": "\u5DF2\u7ED1\u5B9A\u5BF9\u8BDD\uFF1A{name}",
-  "bind.clickPick": "\u70B9\u51FB\u9009\u62E9\u5BF9\u8BDD",
-  "bind.hint": "\u6253\u5F00\u9879\u76EE\u65F6\uFF0C\u53F3\u4FA7\u5BF9\u8BDD\u7A97\u4F1A\u81EA\u52A8\u5207\u6362\u5230\u8FD9\u4E2A\u5BF9\u8BDD\u3002",
-  "customLayout.add": "\u81EA\u5B9A\u4E49",
-  "customLayout.addTitle": "\u81EA\u5B9A\u4E49\u4E00\u4E2A\u5E03\u5C40\uFF08\u751F\u6210\u63D0\u793A\u8BCD\uFF09",
-  "customLayout.title": "\u81EA\u5B9A\u4E49\u5E03\u5C40",
-  "customLayout.placeholder": "\u63CF\u8FF0\u4F60\u60F3\u8981\u7684\u5E03\u5C40\uFF0C\u4F8B\u5982\uFF1A\u53F3\u4FA7\u7AD6\u957F\u5BF9\u8BDD\u7A97\uFF0C\u5DE6\u4FA7\u4E0A\u4E0B\u4E24\u4E2A\u4E00\u6837\u5927\u7684\u7A97\u2026",
-  "customLayout.copy": "\u590D\u5236\u63D0\u793A\u8BCD\u5230\u526A\u8D34\u677F",
-  "customLayout.copied": "\u63D0\u793A\u8BCD\u5DF2\u590D\u5236\u5230\u526A\u8D34\u677F\u3002\u53BB\u4EFB\u610F\u4E00\u4E2A DSH \u5BF9\u8BDD\u91CC\u7C98\u8D34\u53D1\u9001\uFF0C\u5BF9\u65B9\u7684 dsh \u5C31\u77E5\u9053\u8981\u505A\u4EC0\u4E48\u4E86\u3002",
-  "customLayout.copyFail": "\u590D\u5236\u5931\u8D25\uFF0C\u8BF7\u624B\u52A8\u5168\u9009\u8F93\u5165\u6846\u5185\u5BB9\u590D\u5236\u3002",
-  "custom.autoBound": "\u5DF2\u81EA\u52A8\u628A\u8FD9\u4E2A\u9879\u76EE\u7ED1\u5B9A\u5230\u8FD9\u4E2A\u5BF9\u8BDD\uFF08\u5361\u7247\u4E0A\u7684 \u25CF\u25CF \u6309\u94AE\u53EF\u66F4\u6362\u6216\u89E3\u7ED1\uFF09\u3002",
-  "custom.keptBinding": "\u8BE5\u9879\u76EE\u5DF2\u6709\u7ED1\u5B9A\u7684\u5BF9\u8BDD\uFF0C\u6309\u89C4\u5219\u672A\u81EA\u52A8\u66F4\u6539\u3002",
-  "console.name": "\u63A7\u5236\u5BA4",
-  "console.title": "\u63A7\u5236\u5BA4",
-  "console.themeLabel": "\u9762\u677F\u4E3B\u9898",
-  "console.themeDark": "\u6DF1\u8272",
-  "console.themeLight": "\u767D\u8272",
-  "console.themeSystem": "\u8DDF\u968F\u7CFB\u7EDF",
-  "console.idle": "\u7A7A\u95F2",
-  "console.busy": "\u5DE5\u4F5C\u4E2D",
-  "console.need": "\u5F85\u4F60\u51B3\u5B9A",
-  "console.done": "\u5DF2\u5B8C\u6210",
-  "console.kids": "\u5B50\u4EE3\u7406",
-  "console.noPreview": "\u6682\u65E0\u6D88\u606F",
-  "console.unboundShort": "\u672A\u7ED1\u5B9A\u5BF9\u8BDD",
-  "console.jump": "\u8DF3\u8F6C\u5230\u7ED1\u5B9A\u5BF9\u8BDD",
-  "console.empty": "\u8FD8\u6CA1\u6709\u9879\u76EE",
-  "console.joinExisting": "\u52A0\u5165\u73B0\u6709\u5BF9\u8BDD",
-  "console.newConv": "\u65B0\u5EFA\u5BF9\u8BDD",
-  "console.groupNone": "\u65E0\u5206\u7EC4\uFF08\u7528\u9879\u76EE\u6587\u4EF6\u5939\uFF09",
-  "console.groupExisting": "\u52A0\u5165\u73B0\u6709\u5206\u7EC4",
-  "console.groupNew": "\u65B0\u5EFA\u5206\u7EC4",
-  "console.newParentPh": "\u5206\u7EC4\u7236\u76EE\u5F55\uFF0C\u4F8B\u5982 E:\\AI_Workspace",
-  "console.newNamePh": "\u5206\u7EC4\u6587\u4EF6\u5939\u540D\uFF08\u5C06\u521B\u5EFA\u5E76\u6CE8\u518C\uFF09",
-  "console.createBind": "\u65B0\u5EFA\u5E76\u7ED1\u5B9A",
-  "console.bindFail": "\u521B\u5EFA\u5931\u8D25\uFF0C\u8BF7\u91CD\u8BD5",
-  "console.noSessions": "\u6CA1\u6709\u53EF\u7528\u5BF9\u8BDD",
-  "console.addProject": "\u6DFB\u52A0\u9879\u76EE",
-  "pane.wip": "\u5F00\u53D1\u4E2D\uFF08\u540E\u7EED\u7248\u672C\u63A5\u5165\uFF09",
-  "pane.explorerNoCwd": "\u5F53\u524D\u4F1A\u8BDD\u6CA1\u6709\u5DE5\u4F5C\u76EE\u5F55",
-  "pane.openLater": "\u8BE5\u7C7B\u578B\u6682\u4E0D\u652F\u6301\u9884\u89C8",
-  "file.loading": "\u52A0\u8F7D\u4E2D\u2026",
-  "file.fail": "\u6587\u4EF6\u8BFB\u53D6\u5931\u8D25",
-  "file.preview": "\u9884\u89C8",
-  "file.edit": "\u7F16\u8F91",
-  "file.save": "\u4FDD\u5B58",
-  "file.saveFail": "\u4FDD\u5B58\u5931\u8D25",
-  "pane.gitNotRepo": "\u5F53\u524D\u76EE\u5F55\u4E0D\u662F git \u4ED3\u5E93",
-  "pane.gitClean": "\u5DE5\u4F5C\u533A\u5E72\u51C0",
-  "pane.jobsEmpty": "\u5F53\u524D\u4F1A\u8BDD\u6682\u65E0\u540E\u53F0\u4EFB\u52A1",
-  "pane.termFail": "\u7EC8\u7AEF\u4E0D\u53EF\u7528\uFF08\u5BBF\u4E3B\u7F3A\u5C11 node-pty/ws \u6216\u8FDE\u63A5\u5931\u8D25\uFF09",
-  "pane.closeTab": "\u5173\u95ED\u6807\u7B7E\u9875",
-  "pane.jobsTitle": "\u540E\u53F0\u4EFB\u52A1",
-  "pane.subagents": "\u5B50\u4EE3\u7406",
-  "pane.subagentsEmpty": "\u5F53\u524D\u4F1A\u8BDD\u6682\u65E0\u5B50\u4EE3\u7406",
-  "split.flip": "\u5207\u6362\u5BF9\u8BDD\u7A97\u4F4D\u7F6E\uFF08\u5DE6\u21C4\u53F3\uFF09",
-  "split.dragSwap": "\u62D6\u52A8\u6807\u9898\u680F\u4E0E\u5176\u4ED6\u7A97\u4EA4\u6362\u4F4D\u7F6E",
-  "icons.title": "\u9009\u62E9\u56FE\u6807",
-  "icons.change": "\u66F4\u6362\u56FE\u6807",
-  "empty": "\u6682\u65E0\u9879\u76EE",
-  "update.badgeTitle": "\u6709\u65B0\u7248\u672C\u53EF\u7528",
-  "update.available": "\u65B0\u7248\u672C\u53EF\u7528",
-  "update.current": "\u5F53\u524D\u7248\u672C",
-  "update.copyAi": "\u590D\u5236 AI \u63D0\u793A\u8BCD",
-  "update.skip": "\u5FFD\u7565\u6B64\u7248\u672C",
-  "update.autoCheck": "\u81EA\u52A8\u68C0\u67E5\u66F4\u65B0",
-  "update.checkNow": "\u7ACB\u5373\u68C0\u67E5",
-  "update.checkFail": "\u4E0A\u6B21\u68C0\u67E5\u672A\u6210\u529F",
-  "update.checking": "\u68C0\u67E5\u4E2D\u2026",
-  "update.upToDate": "\u5DF2\u662F\u6700\u65B0\u7248\u672C",
-  "update.copied": "\u5DF2\u590D\u5236",
-  "update.copyFail": "\u590D\u5236\u5931\u8D25\uFF0C\u8BF7\u624B\u52A8\u9009\u62E9\u6587\u672C",
-  "update.skipDone": "\u5DF2\u5FFD\u7565\u6B64\u7248\u672C\uFF08\u4E0B\u4E00\u7248\u53D1\u5E03\u65F6\u518D\u63D0\u9192\uFF09",
-  "update.upgradeHint": "\u6267\u884C\u547D\u4EE4\u540E\u9700\u91CD\u542F dsh web \u5E76\u5237\u65B0\u9875\u9762"
-};
-var en = {
-  "title": "Worktable",
-  "rail.title": "Worktable (expand sidebar to view)",
-  "handle.title": "Drag to move \xB7 double-click to reset",
-  "handle.aria": "Drag worktable position",
-  "menu.search": "Search projects",
-  "menu.viewOptions": "Settings",
-  "menu.add": "Add project",
-  "search.placeholder": "Search projects\u2026",
-  "search.close": "Close search",
-  "sort.label": "Sort by",
-  "sort.manual": "Manual",
-  "sort.recent": "Recent",
-  "menu.manage": "Manage projects\u2026",
-  "add.guideTitle": "Add a project",
-  "add.guideBody": "Projects in the worktable are DSH plugins \u2014 a plugin joins by registering a worktable project card (protocol in the project PRD \xA75.3). Installed plugins that have not registered need to do so in their code.",
-  "add.market": "Browse plugin marketplace",
-  "add.shortcutTitle": "Local shortcut",
-  "add.shortcutDesc": "Pin any URL into the worktable; opens in a new tab (stored locally only).",
-  "add.shortcutNamePh": "Name",
-  "add.shortcutIcon": "Icon (emoji, optional)",
-  "add.shortcutHref": "URL (http/https)",
-  "add.shortcutAdd": "Add",
-  "add.shortcutInvalid": "Enter a name and a valid http/https URL",
-  "manage.title": "Manage projects",
-  "manage.done": "Done",
-  "manage.renamePh": "Display name",
-  "manage.hide": "Hide",
-  "manage.show": "Show",
-  "manage.removed": "Removed projects",
-  "manage.readd": "Re-add",
-  "manage.deleteShortcut": "Delete shortcut",
-  "shortcut.badge": "Local",
-  "add.chooseLayout": "Choose a layout",
-  "add.layoutNamePh": "Layout name",
-  "add.folderParent": "Project folder",
-  "add.folderPick": "Choose\u2026",
-  "add.folderNone": "Not chosen (click Choose\u2026 to pick a folder in the explorer window)",
-  "add.folderRequired": "Pick the project folder location first",
-  "add.layoutSave": "Enter workspace",
-  "add.layoutInvalid": "Enter a layout name",
-  "manage.deleteLayout": "Delete layout",
-  "manage.deleteProject": "Delete project",
-  "manage.changeView": "Change layout",
-  "viewPick.title": "Pick a new layout (panes migrate automatically)",
-  "confirm.title": "Delete project",
-  "confirm.cancel": "Cancel",
-  "confirm.delete": "Delete",
-  "confirm.layoutBody": 'Delete "{name}"? Its workspace and layout will be removed. This cannot be undone.',
-  "confirm.shortcutBody": 'Delete shortcut "{name}"? This cannot be undone.',
-  "confirm.projectBody": '"{name}" will be removed from the worktable permanently (the conversation and project files are kept).',
-  "pane.browser": "Browser",
-  "pane.explorer": "Explorer",
-  "pane.scm": "Source control",
-  "pane.tasks": "Tasks",
-  "pane.terminal": "Terminal",
-  "pane.custom": "Custom",
-  "pane.anim": "Animation",
-  "pane.console": "Console",
-  "pane.refresh": "Refresh",
-  "pane.animUrlPh": "Paste the animation site URL and press Enter",
-  "custom.title": "Customize this pane",
-  "custom.hint": "Sending will create a new conversation dedicated to designing this pane.",
-  "custom.placeholder": "Tell the AI what you want this pane to do, e.g. a timeline page of my travels\u2026",
-  "custom.project": "Project",
-  "custom.modeNew": "New conversation",
-  "custom.modeSend": "Send to a conversation",
-  "custom.session": "Conversation",
-  "custom.sessionCurrent": " (current)",
-  "custom.hintSend": "The content will be sent directly to the conversation you pick (current by default).",
-  "custom.send": "Send & create conversation",
-  "custom.sendToSession": "Send to this conversation",
-  "custom.sent": "Sent to the conversation",
-  "custom.done": "Conversation created",
-  "custom.doneHint": "The AI is designing your pane in the new conversation. Close this tab to return to the pane picker.",
-  "custom.fail": "Failed to create conversation",
-  "custom.group": "Group (workspace)",
-  "custom.groupNone": "Ungrouped",
-  "custom.groupNew": "\uFF0B Create a new group\u2026",
-  "custom.groupNewParent": "Group parent folder",
-  "custom.groupNewName": "New group name",
-  "custom.groupNewParentPh": "e.g. E:\\AI_Workspace\\DeepseekHarness",
-  "custom.groupNewNamePh": "e.g. MyProject (folder will be created and registered)",
-  "custom.groupNeedPath": "Fill in the parent folder and new group name",
-  "bind.title": "Bind conversation",
-  "bind.unbind": "Unbind",
-  "bind.unbound": "No conversation bound",
-  "bind.titleUnbound": "Bind conversation (unbound \u25CB\u25CB): pick the conversation to follow",
-  "bind.titleBound": "Conversation bound (\u25CF\u25CF): click to change or unbind",
-  "bind.tipUnbound": "No conversation bound \u2014 click to pick one",
-  "bind.tipDone": " (task completed \u2014 click the project to view)",
-  "bind.tipBusy": " (conversation is working on the task\u2026)",
-  "bind.tipNeed": " (needs your decision \u2014 click the project to handle)",
-  "bind.folder": "Project folder",
-  "bind.folderChange": "Change",
-  "bind.folderNone": "Not set (recommended: project outputs go here)",
-  "bind.tipBound": "Bound to: {name}",
-  "bind.clickPick": "click to pick",
-  "bind.hint": "Opening the project switches the right chat pane to this conversation.",
-  "customLayout.add": "Custom",
-  "customLayout.addTitle": "Customize a layout (generate a prompt)",
-  "customLayout.title": "Custom layout",
-  "customLayout.placeholder": "Describe the layout you want, e.g. a tall chat column on the right and two equal panes stacked on the left\u2026",
-  "customLayout.copy": "Copy prompt to clipboard",
-  "customLayout.copied": "Prompt copied to clipboard. Paste it into any DSH conversation and send \u2014 that dsh will know what to do.",
-  "customLayout.copyFail": "Copy failed \u2014 select the text above and copy it manually.",
-  "custom.autoBound": "This project was auto-bound to this conversation (use the \u25CF\u25CF button on its card to change or unbind).",
-  "custom.keptBinding": "This project already has a bound conversation, so it was not auto-changed.",
-  "console.name": "Console",
-  "console.title": "Console",
-  "console.themeLabel": "Panel theme",
-  "console.themeDark": "Dark",
-  "console.themeLight": "Light",
-  "console.themeSystem": "System",
-  "console.idle": "Idle",
-  "console.busy": "Working",
-  "console.need": "Needs you",
-  "console.done": "Done",
-  "console.kids": "subagents",
-  "console.noPreview": "No messages yet",
-  "console.unboundShort": "No conversation bound",
-  "console.jump": "Jump to bound conversation",
-  "console.empty": "No projects yet",
-  "console.joinExisting": "Join existing conversation",
-  "console.newConv": "New conversation",
-  "console.groupNone": "No group (use project folder)",
-  "console.groupExisting": "Join existing group",
-  "console.groupNew": "New group",
-  "console.newParentPh": "Group parent folder, e.g. E:\\AI_Workspace",
-  "console.newNamePh": "Group folder name (created & registered)",
-  "console.createBind": "Create & bind",
-  "console.bindFail": "Creation failed, try again",
-  "console.noSessions": "No sessions available",
-  "console.addProject": "Add project",
-  "pane.wip": "Coming in a later version",
-  "pane.explorerNoCwd": "No working directory for the current session",
-  "pane.openLater": "Preview not supported for this type",
-  "file.loading": "Loading\u2026",
-  "file.fail": "Failed to read file",
-  "file.preview": "Preview",
-  "file.edit": "Edit",
-  "file.save": "Save",
-  "file.saveFail": "Save failed",
-  "pane.gitNotRepo": "Not a git repository",
-  "pane.gitClean": "Working tree clean",
-  "pane.jobsEmpty": "No background jobs in the current session",
-  "pane.termFail": "Terminal unavailable (host missing node-pty/ws, or connection failed)",
-  "pane.closeTab": "Close tab",
-  "pane.jobsTitle": "Background jobs",
-  "pane.subagents": "Subagents",
-  "pane.subagentsEmpty": "No subagents in the current session",
-  "split.flip": "Flip chat side (left \u21C4 right)",
-  "split.dragSwap": "Drag the title bar to swap panes",
-  "icons.title": "Pick an icon",
-  "icons.change": "Change icon",
-  "empty": "No projects yet",
-  "update.badgeTitle": "New version available",
-  "update.available": "New version available",
-  "update.current": "Current version",
-  "update.copyAi": "Copy AI prompt",
-  "update.skip": "Skip this version",
-  "update.autoCheck": "Auto-check updates",
-  "update.checkNow": "Check now",
-  "update.checkFail": "Last check failed",
-  "update.checking": "Checking\u2026",
-  "update.upToDate": "Up to date",
-  "update.copied": "Copied",
-  "update.copyFail": "Copy failed \u2014 select the text manually",
-  "update.skipDone": "Skipped (will remind on the next release)",
-  "update.upgradeHint": "Run the command, then restart dsh web and refresh"
-};
-var NS = "worktable";
-
-// src/client/pathutil.ts
-function isAbs(p) {
-  if (/^[A-Za-z]:[\\/]/.test(p)) return true;
-  if (p.startsWith("\\\\")) return true;
-  if (p.startsWith("/")) return true;
-  return false;
-}
-function joinPath(base2, rel) {
-  const relTrim = rel.replace(/^[\\/]+/, "").replace(/[\\/]+$/, "");
-  const sep = base2.includes("\\") ? "\\" : "/";
-  if (base2 === "/" || base2 === "\\") return base2 + relTrim;
-  if (/^[A-Za-z]:[\\/]$/.test(base2)) return base2 + relTrim;
-  const baseTrim = base2.replace(/[\\/]+$/, "");
-  if (!baseTrim) return relTrim || sep;
-  return baseTrim + sep + relTrim;
-}
-function parentPathOf(p) {
-  const idx = Math.max(p.lastIndexOf("/"), p.lastIndexOf("\\"));
-  if (idx < 0) return p;
-  if (idx === 0) return p[0];
-  if (idx === 2 && /^[A-Za-z]:[\\/]/.test(p)) return p.slice(0, 3);
-  return p.slice(0, idx);
-}
-function basenameOf(p) {
-  const idx = Math.max(p.lastIndexOf("/"), p.lastIndexOf("\\"));
-  return idx < 0 ? p : p.slice(idx + 1);
-}
-
-// src/client/split.tsx
-var import_react = require("react");
-var import_xterm2 = __toESM(require_xterm(), 1);
-
-// node_modules/mdurl/index.mjs
-var mdurl_exports = {};
-__export(mdurl_exports, {
-  decode: () => decode_default,
-  encode: () => encode_default,
-  format: () => format,
-  parse: () => parse_default
-});
-
-// node_modules/mdurl/lib/decode.mjs
-var decodeCache = {};
-function getDecodeCache(exclude) {
-  let cache = decodeCache[exclude];
-  if (cache) {
-    return cache;
-  }
-  cache = decodeCache[exclude] = [];
-  for (let i = 0; i < 128; i++) {
-    const ch = String.fromCharCode(i);
-    cache.push(ch);
-  }
-  for (let i = 0; i < exclude.length; i++) {
-    const ch = exclude.charCodeAt(i);
-    cache[ch] = "%" + ("0" + ch.toString(16).toUpperCase()).slice(-2);
-  }
-  return cache;
-}
-function decode(string, exclude) {
-  if (typeof exclude !== "string") {
-    exclude = decode.defaultChars;
-  }
-  const cache = getDecodeCache(exclude);
-  return string.replace(/(%[a-f0-9]{2})+/gi, function(seq) {
-    let result = "";
-    for (let i = 0, l = seq.length; i < l; i += 3) {
-      const b1 = parseInt(seq.slice(i + 1, i + 3), 16);
-      if (b1 < 128) {
-        result += cache[b1];
-        continue;
-      }
-      if ((b1 & 224) === 192 && i + 3 < l) {
-        const b2 = parseInt(seq.slice(i + 4, i + 6), 16);
-        if ((b2 & 192) === 128) {
-          const chr = b1 << 6 & 1984 | b2 & 63;
-          if (chr < 128) {
-            result += "\uFFFD\uFFFD";
-          } else {
-            result += String.fromCharCode(chr);
-          }
-          i += 3;
-          continue;
-        }
-      }
-      if ((b1 & 240) === 224 && i + 6 < l) {
-        const b2 = parseInt(seq.slice(i + 4, i + 6), 16);
-        const b3 = parseInt(seq.slice(i + 7, i + 9), 16);
-        if ((b2 & 192) === 128 && (b3 & 192) === 128) {
-          const chr = b1 << 12 & 61440 | b2 << 6 & 4032 | b3 & 63;
-          if (chr < 2048 || chr >= 55296 && chr <= 57343) {
-            result += "\uFFFD\uFFFD\uFFFD";
-          } else {
-            result += String.fromCharCode(chr);
-          }
-          i += 6;
-          continue;
-        }
-      }
-      if ((b1 & 248) === 240 && i + 9 < l) {
-        const b2 = parseInt(seq.slice(i + 4, i + 6), 16);
-        const b3 = parseInt(seq.slice(i + 7, i + 9), 16);
-        const b4 = parseInt(seq.slice(i + 10, i + 12), 16);
-        if ((b2 & 192) === 128 && (b3 & 192) === 128 && (b4 & 192) === 128) {
-          let chr = b1 << 18 & 1835008 | b2 << 12 & 258048 | b3 << 6 & 4032 | b4 & 63;
-          if (chr < 65536 || chr > 1114111) {
-            result += "\uFFFD\uFFFD\uFFFD\uFFFD";
-          } else {
-            chr -= 65536;
-            result += String.fromCharCode(55296 + (chr >> 10), 56320 + (chr & 1023));
-          }
-          i += 9;
-          continue;
-        }
-      }
-      result += "\uFFFD";
-    }
-    return result;
-  });
-}
-decode.defaultChars = ";/?:@&=+$,#";
-decode.componentChars = "";
-var decode_default = decode;
-
-// node_modules/mdurl/lib/encode.mjs
-var encodeCache = {};
-function getEncodeCache(exclude) {
-  let cache = encodeCache[exclude];
-  if (cache) {
-    return cache;
-  }
-  cache = encodeCache[exclude] = [];
-  for (let i = 0; i < 128; i++) {
-    const ch = String.fromCharCode(i);
-    if (/^[0-9a-z]$/i.test(ch)) {
-      cache.push(ch);
-    } else {
-      cache.push("%" + ("0" + i.toString(16).toUpperCase()).slice(-2));
-    }
-  }
-  for (let i = 0; i < exclude.length; i++) {
-    cache[exclude.charCodeAt(i)] = exclude[i];
-  }
-  return cache;
-}
-function encode(string, exclude, keepEscaped) {
-  if (typeof exclude !== "string") {
-    keepEscaped = exclude;
-    exclude = encode.defaultChars;
-  }
-  if (typeof keepEscaped === "undefined") {
-    keepEscaped = true;
-  }
-  const cache = getEncodeCache(exclude);
-  let result = "";
-  for (let i = 0, l = string.length; i < l; i++) {
-    const code2 = string.charCodeAt(i);
-    if (keepEscaped && code2 === 37 && i + 2 < l) {
-      if (/^[0-9a-f]{2}$/i.test(string.slice(i + 1, i + 3))) {
-        result += string.slice(i, i + 3);
-        i += 2;
-        continue;
-      }
-    }
-    if (code2 < 128) {
-      result += cache[code2];
-      continue;
-    }
-    if (code2 >= 55296 && code2 <= 57343) {
-      if (code2 >= 55296 && code2 <= 56319 && i + 1 < l) {
-        const nextCode = string.charCodeAt(i + 1);
-        if (nextCode >= 56320 && nextCode <= 57343) {
-          result += encodeURIComponent(string[i] + string[i + 1]);
-          i++;
-          continue;
-        }
-      }
-      result += "%EF%BF%BD";
-      continue;
-    }
-    result += encodeURIComponent(string[i]);
-  }
-  return result;
-}
-encode.defaultChars = ";/?:@&=+$,-_.!~*'()#";
-encode.componentChars = "-_.!~*'()";
-var encode_default = encode;
-
-// node_modules/mdurl/lib/format.mjs
-function format(url) {
-  let result = "";
-  result += url.protocol || "";
-  result += url.slashes ? "//" : "";
-  result += url.auth ? url.auth + "@" : "";
-  if (url.hostname && url.hostname.indexOf(":") !== -1) {
-    result += "[" + url.hostname + "]";
-  } else {
-    result += url.hostname || "";
-  }
-  result += url.port ? ":" + url.port : "";
-  result += url.pathname || "";
-  result += url.search || "";
-  result += url.hash || "";
-  return result;
-}
-
-// node_modules/mdurl/lib/parse.mjs
-function Url() {
-  this.protocol = null;
-  this.slashes = null;
-  this.auth = null;
-  this.port = null;
-  this.hostname = null;
-  this.hash = null;
-  this.search = null;
-  this.pathname = null;
-}
-var protocolPattern = /^([a-z0-9.+-]+:)/i;
-var portPattern = /:[0-9]*$/;
-var simplePathPattern = /^(\/\/?(?!\/)[^\?\s]*)(\?[^\s]*)?$/;
-var delims = ["<", ">", '"', "`", " ", "\r", "\n", "	"];
-var unwise = ["{", "}", "|", "\\", "^", "`"].concat(delims);
-var autoEscape = ["'"].concat(unwise);
-var nonHostChars = ["%", "/", "?", ";", "#"].concat(autoEscape);
-var hostEndingChars = ["/", "?", "#"];
-var hostnameMaxLen = 255;
-var hostnamePartPattern = /^[+a-z0-9A-Z_-]{0,63}$/;
-var hostnamePartStart = /^([+a-z0-9A-Z_-]{0,63})(.*)$/;
-var hostlessProtocol = {
-  javascript: true,
-  "javascript:": true
-};
-var slashedProtocol = {
-  http: true,
-  https: true,
-  ftp: true,
-  gopher: true,
-  file: true,
-  "http:": true,
-  "https:": true,
-  "ftp:": true,
-  "gopher:": true,
-  "file:": true
-};
-function urlParse(url, slashesDenoteHost) {
-  if (url && url instanceof Url) return url;
-  const u = new Url();
-  u.parse(url, slashesDenoteHost);
-  return u;
-}
-Url.prototype.parse = function(url, slashesDenoteHost) {
-  let lowerProto, hec, slashes;
-  let rest = url;
-  rest = rest.trim();
-  if (!slashesDenoteHost && url.split("#").length === 1) {
-    const simplePath = simplePathPattern.exec(rest);
-    if (simplePath) {
-      this.pathname = simplePath[1];
-      if (simplePath[2]) {
-        this.search = simplePath[2];
-      }
-      return this;
-    }
-  }
-  let proto = protocolPattern.exec(rest);
-  if (proto) {
-    proto = proto[0];
-    lowerProto = proto.toLowerCase();
-    this.protocol = proto;
-    rest = rest.substr(proto.length);
-  }
-  if (slashesDenoteHost || proto || rest.match(/^\/\/[^@\/]+@[^@\/]+/)) {
-    slashes = rest.substr(0, 2) === "//";
-    if (slashes && !(proto && hostlessProtocol[proto])) {
-      rest = rest.substr(2);
-      this.slashes = true;
-    }
-  }
-  if (!hostlessProtocol[proto] && (slashes || proto && !slashedProtocol[proto])) {
-    let hostEnd = -1;
-    for (let i = 0; i < hostEndingChars.length; i++) {
-      hec = rest.indexOf(hostEndingChars[i]);
-      if (hec !== -1 && (hostEnd === -1 || hec < hostEnd)) {
-        hostEnd = hec;
-      }
-    }
-    let auth, atSign;
-    if (hostEnd === -1) {
-      atSign = rest.lastIndexOf("@");
-    } else {
-      atSign = rest.lastIndexOf("@", hostEnd);
-    }
-    if (atSign !== -1) {
-      auth = rest.slice(0, atSign);
-      rest = rest.slice(atSign + 1);
-      this.auth = auth;
-    }
-    hostEnd = -1;
-    for (let i = 0; i < nonHostChars.length; i++) {
-      hec = rest.indexOf(nonHostChars[i]);
-      if (hec !== -1 && (hostEnd === -1 || hec < hostEnd)) {
-        hostEnd = hec;
-      }
-    }
-    if (hostEnd === -1) {
-      hostEnd = rest.length;
-    }
-    if (rest[hostEnd - 1] === ":") {
-      hostEnd--;
-    }
-    const host = rest.slice(0, hostEnd);
-    rest = rest.slice(hostEnd);
-    this.parseHost(host);
-    this.hostname = this.hostname || "";
-    const ipv6Hostname = this.hostname[0] === "[" && this.hostname[this.hostname.length - 1] === "]";
-    if (!ipv6Hostname) {
-      const hostparts = this.hostname.split(/\./);
-      for (let i = 0, l = hostparts.length; i < l; i++) {
-        const part = hostparts[i];
-        if (!part) {
-          continue;
-        }
-        if (!part.match(hostnamePartPattern)) {
-          let newpart = "";
-          for (let j = 0, k = part.length; j < k; j++) {
-            if (part.charCodeAt(j) > 127) {
-              newpart += "x";
-            } else {
-              newpart += part[j];
-            }
-          }
-          if (!newpart.match(hostnamePartPattern)) {
-            const validParts = hostparts.slice(0, i);
-            const notHost = hostparts.slice(i + 1);
-            const bit = part.match(hostnamePartStart);
-            if (bit) {
-              validParts.push(bit[1]);
-              notHost.unshift(bit[2]);
-            }
-            if (notHost.length) {
-              rest = notHost.join(".") + rest;
-            }
-            this.hostname = validParts.join(".");
-            break;
-          }
-        }
-      }
-    }
-    if (this.hostname.length > hostnameMaxLen) {
-      this.hostname = "";
-    }
-    if (ipv6Hostname) {
-      this.hostname = this.hostname.substr(1, this.hostname.length - 2);
-    }
-  }
-  const hash = rest.indexOf("#");
-  if (hash !== -1) {
-    this.hash = rest.substr(hash);
-    rest = rest.slice(0, hash);
-  }
-  const qm = rest.indexOf("?");
-  if (qm !== -1) {
-    this.search = rest.substr(qm);
-    rest = rest.slice(0, qm);
-  }
-  if (rest) {
-    this.pathname = rest;
-  }
-  if (slashedProtocol[lowerProto] && this.hostname && !this.pathname) {
-    this.pathname = "";
-  }
-  return this;
-};
-Url.prototype.parseHost = function(host) {
-  let port = portPattern.exec(host);
-  if (port) {
-    port = port[0];
-    if (port !== ":") {
-      this.port = port.substr(1);
-    }
-    host = host.substr(0, host.length - port.length);
-  }
-  if (host) {
-    this.hostname = host;
-  }
-};
-var parse_default = urlParse;
-
-// node_modules/uc.micro/build/index.mjs
-var build_exports = {};
-__export(build_exports, {
-  Any: () => Any,
-  Cc: () => Cc,
-  Cf: () => Cf,
-  P: () => P,
-  S: () => S,
-  Z: () => Z
-});
-var Any = /[\0-\uD7FF\uE000-\uFFFF]|[\uD800-\uDBFF][\uDC00-\uDFFF]|[\uD800-\uDBFF](?![\uDC00-\uDFFF])|(?:[^\uD800-\uDBFF]|^)[\uDC00-\uDFFF]/;
-var Cc = /[\0-\x1F\x7F-\x9F]/;
-var Cf = /[\xAD\u0600-\u0605\u061C\u06DD\u070F\u0890\u0891\u08E2\u180E\u200B-\u200F\u202A-\u202E\u2060-\u2064\u2066-\u206F\uFEFF\uFFF9-\uFFFB]|\uD804[\uDCBD\uDCCD]|\uD80D[\uDC30-\uDC3F]|\uD82F[\uDCA0-\uDCA3]|\uD834[\uDD73-\uDD7A]|\uDB40[\uDC01\uDC20-\uDC7F]/;
-var P = /[!-#%-\*,-\/:;\?@\[-\]_\{\}\xA1\xA7\xAB\xB6\xB7\xBB\xBF\u037E\u0387\u055A-\u055F\u0589\u058A\u05BE\u05C0\u05C3\u05C6\u05F3\u05F4\u0609\u060A\u060C\u060D\u061B\u061D-\u061F\u066A-\u066D\u06D4\u0700-\u070D\u07F7-\u07F9\u0830-\u083E\u085E\u0964\u0965\u0970\u09FD\u0A76\u0AF0\u0C77\u0C84\u0DF4\u0E4F\u0E5A\u0E5B\u0F04-\u0F12\u0F14\u0F3A-\u0F3D\u0F85\u0FD0-\u0FD4\u0FD9\u0FDA\u104A-\u104F\u10FB\u1360-\u1368\u1400\u166E\u169B\u169C\u16EB-\u16ED\u1735\u1736\u17D4-\u17D6\u17D8-\u17DA\u1800-\u180A\u1944\u1945\u1A1E\u1A1F\u1AA0-\u1AA6\u1AA8-\u1AAD\u1B4E\u1B4F\u1B5A-\u1B60\u1B7D-\u1B7F\u1BFC-\u1BFF\u1C3B-\u1C3F\u1C7E\u1C7F\u1CC0-\u1CC7\u1CD3\u2010-\u2027\u2030-\u2043\u2045-\u2051\u2053-\u205E\u207D\u207E\u208D\u208E\u2308-\u230B\u2329\u232A\u2768-\u2775\u27C5\u27C6\u27E6-\u27EF\u2983-\u2998\u29D8-\u29DB\u29FC\u29FD\u2CF9-\u2CFC\u2CFE\u2CFF\u2D70\u2E00-\u2E2E\u2E30-\u2E4F\u2E52-\u2E5D\u3001-\u3003\u3008-\u3011\u3014-\u301F\u3030\u303D\u30A0\u30FB\uA4FE\uA4FF\uA60D-\uA60F\uA673\uA67E\uA6F2-\uA6F7\uA874-\uA877\uA8CE\uA8CF\uA8F8-\uA8FA\uA8FC\uA92E\uA92F\uA95F\uA9C1-\uA9CD\uA9DE\uA9DF\uAA5C-\uAA5F\uAADE\uAADF\uAAF0\uAAF1\uABEB\uFD3E\uFD3F\uFE10-\uFE19\uFE30-\uFE52\uFE54-\uFE61\uFE63\uFE68\uFE6A\uFE6B\uFF01-\uFF03\uFF05-\uFF0A\uFF0C-\uFF0F\uFF1A\uFF1B\uFF1F\uFF20\uFF3B-\uFF3D\uFF3F\uFF5B\uFF5D\uFF5F-\uFF65]|\uD800[\uDD00-\uDD02\uDF9F\uDFD0]|\uD801\uDD6F|\uD802[\uDC57\uDD1F\uDD3F\uDE50-\uDE58\uDE7F\uDEF0-\uDEF6\uDF39-\uDF3F\uDF99-\uDF9C]|\uD803[\uDD6E\uDEAD\uDED0\uDF55-\uDF59\uDF86-\uDF89]|\uD804[\uDC47-\uDC4D\uDCBB\uDCBC\uDCBE-\uDCC1\uDD40-\uDD43\uDD74\uDD75\uDDC5-\uDDC8\uDDCD\uDDDB\uDDDD-\uDDDF\uDE38-\uDE3D\uDEA9\uDFD4\uDFD5\uDFD7\uDFD8]|\uD805[\uDC4B-\uDC4F\uDC5A\uDC5B\uDC5D\uDCC6\uDDC1-\uDDD7\uDE41-\uDE43\uDE60-\uDE6C\uDEB9\uDF3C-\uDF3E]|\uD806[\uDC3B\uDD44-\uDD46\uDDE2\uDE3F-\uDE46\uDE9A-\uDE9C\uDE9E-\uDEA2\uDF00-\uDF09\uDFE1]|\uD807[\uDC41-\uDC45\uDC70\uDC71\uDEF7\uDEF8\uDF43-\uDF4F\uDFFF]|\uD809[\uDC70-\uDC74]|\uD80B[\uDFF1\uDFF2]|\uD81A[\uDE6E\uDE6F\uDEF5\uDF37-\uDF3B\uDF44]|\uD81B[\uDD6D-\uDD6F\uDE97-\uDE9A\uDFE2]|\uD82F\uDC9F|\uD836[\uDE87-\uDE8B]|\uD839\uDDFF|\uD83A[\uDD5E\uDD5F]/;
-var S = /[\$\+<->\^`\|~\xA2-\xA6\xA8\xA9\xAC\xAE-\xB1\xB4\xB8\xD7\xF7\u02C2-\u02C5\u02D2-\u02DF\u02E5-\u02EB\u02ED\u02EF-\u02FF\u0375\u0384\u0385\u03F6\u0482\u058D-\u058F\u0606-\u0608\u060B\u060E\u060F\u06DE\u06E9\u06FD\u06FE\u07F6\u07FE\u07FF\u0888\u09F2\u09F3\u09FA\u09FB\u0AF1\u0B70\u0BF3-\u0BFA\u0C7F\u0D4F\u0D79\u0E3F\u0F01-\u0F03\u0F13\u0F15-\u0F17\u0F1A-\u0F1F\u0F34\u0F36\u0F38\u0FBE-\u0FC5\u0FC7-\u0FCC\u0FCE\u0FCF\u0FD5-\u0FD8\u109E\u109F\u1390-\u1399\u166D\u17DB\u1940\u19DE-\u19FF\u1B61-\u1B6A\u1B74-\u1B7C\u1FBD\u1FBF-\u1FC1\u1FCD-\u1FCF\u1FDD-\u1FDF\u1FED-\u1FEF\u1FFD\u1FFE\u2044\u2052\u207A-\u207C\u208A-\u208C\u20A0-\u20C1\u2100\u2101\u2103-\u2106\u2108\u2109\u2114\u2116-\u2118\u211E-\u2123\u2125\u2127\u2129\u212E\u213A\u213B\u2140-\u2144\u214A-\u214D\u214F\u218A\u218B\u2190-\u2307\u230C-\u2328\u232B-\u2429\u2440-\u244A\u249C-\u24E9\u2500-\u2767\u2794-\u27C4\u27C7-\u27E5\u27F0-\u2982\u2999-\u29D7\u29DC-\u29FB\u29FE-\u2B73\u2B76-\u2BFF\u2CE5-\u2CEA\u2E50\u2E51\u2E80-\u2E99\u2E9B-\u2EF3\u2F00-\u2FD5\u2FF0-\u2FFF\u3004\u3012\u3013\u3020\u3036\u3037\u303E\u303F\u309B\u309C\u3190\u3191\u3196-\u319F\u31C0-\u31E5\u31EF\u3200-\u321E\u322A-\u3247\u3250\u3260-\u327F\u328A-\u32B0\u32C0-\u33FF\u4DC0-\u4DFF\uA490-\uA4C6\uA700-\uA716\uA720\uA721\uA789\uA78A\uA828-\uA82B\uA836-\uA839\uAA77-\uAA79\uAB5B\uAB6A\uAB6B\uFB29\uFBB2-\uFBD2\uFD40-\uFD4F\uFD90\uFD91\uFDC8-\uFDCF\uFDFC-\uFDFF\uFE62\uFE64-\uFE66\uFE69\uFF04\uFF0B\uFF1C-\uFF1E\uFF3E\uFF40\uFF5C\uFF5E\uFFE0-\uFFE6\uFFE8-\uFFEE\uFFFC\uFFFD]|\uD800[\uDD37-\uDD3F\uDD79-\uDD89\uDD8C-\uDD8E\uDD90-\uDD9C\uDDA0\uDDD0-\uDDFC]|\uD802[\uDC77\uDC78\uDEC8]|\uD803[\uDD8E\uDD8F\uDED1-\uDED8]|\uD805\uDF3F|\uD807[\uDFD5-\uDFF1]|\uD81A[\uDF3C-\uDF3F\uDF45]|\uD82F\uDC9C|\uD833[\uDC00-\uDCEF\uDCFA-\uDCFC\uDD00-\uDEB3\uDEBA-\uDED0\uDEE0-\uDEF0\uDF50-\uDFC3]|\uD834[\uDC00-\uDCF5\uDD00-\uDD26\uDD29-\uDD64\uDD6A-\uDD6C\uDD83\uDD84\uDD8C-\uDDA9\uDDAE-\uDDEA\uDE00-\uDE41\uDE45\uDF00-\uDF56]|\uD835[\uDEC1\uDEDB\uDEFB\uDF15\uDF35\uDF4F\uDF6F\uDF89\uDFA9\uDFC3]|\uD836[\uDC00-\uDDFF\uDE37-\uDE3A\uDE6D-\uDE74\uDE76-\uDE83\uDE85\uDE86]|\uD838[\uDD4F\uDEFF]|\uD83B[\uDCAC\uDCB0\uDD2E\uDEF0\uDEF1]|\uD83C[\uDC00-\uDC2B\uDC30-\uDC93\uDCA0-\uDCAE\uDCB1-\uDCBF\uDCC1-\uDCCF\uDCD1-\uDCF5\uDD0D-\uDDAD\uDDE6-\uDE02\uDE10-\uDE3B\uDE40-\uDE48\uDE50\uDE51\uDE60-\uDE65\uDF00-\uDFFF]|\uD83D[\uDC00-\uDED8\uDEDC-\uDEEC\uDEF0-\uDEFC\uDF00-\uDFD9\uDFE0-\uDFEB\uDFF0]|\uD83E[\uDC00-\uDC0B\uDC10-\uDC47\uDC50-\uDC59\uDC60-\uDC87\uDC90-\uDCAD\uDCB0-\uDCBB\uDCC0\uDCC1\uDCD0-\uDCD8\uDD00-\uDE57\uDE60-\uDE6D\uDE70-\uDE7C\uDE80-\uDE8A\uDE8E-\uDEC6\uDEC8\uDECD-\uDEDC\uDEDF-\uDEEA\uDEEF-\uDEF8\uDF00-\uDF92\uDF94-\uDFEF\uDFFA]/;
-var Z = /[ \xA0\u1680\u2000-\u200A\u2028\u2029\u202F\u205F\u3000]/;
-
-// node_modules/entities/dist/decode-codepoint.js
-var decodeMap = /* @__PURE__ */ new Map([
-  [0, 65533],
-  // C1 Unicode control character reference replacements
-  [128, 8364],
-  [130, 8218],
-  [131, 402],
-  [132, 8222],
-  [133, 8230],
-  [134, 8224],
-  [135, 8225],
-  [136, 710],
-  [137, 8240],
-  [138, 352],
-  [139, 8249],
-  [140, 338],
-  [142, 381],
-  [145, 8216],
-  [146, 8217],
-  [147, 8220],
-  [148, 8221],
-  [149, 8226],
-  [150, 8211],
-  [151, 8212],
-  [152, 732],
-  [153, 8482],
-  [154, 353],
-  [155, 8250],
-  [156, 339],
-  [158, 382],
-  [159, 376]
-]);
-function replaceCodePoint(codePoint) {
-  if (codePoint >= 55296 && codePoint <= 57343 || codePoint > 1114111) {
-    return 65533;
-  }
-  return decodeMap.get(codePoint) ?? codePoint;
-}
-
-// node_modules/entities/dist/internal/decode-shared.js
-function decodeBase64(input) {
-  const binary = atob(input);
-  const evenLength = binary.length & ~1;
-  const out = new Uint16Array(evenLength / 2);
-  for (let index = 0, outIndex = 0; index < evenLength; index += 2) {
-    const lo = binary.charCodeAt(index);
-    const hi = binary.charCodeAt(index + 1);
-    out[outIndex++] = lo | hi << 8;
-  }
-  return out;
-}
-
-// node_modules/entities/dist/generated/decode-data-html.js
-var htmlDecodeTree = /* @__PURE__ */ decodeBase64("QR08ALkAAgH6AYsDNQR2BO0EPgXZBQEGLAbdBxMISQrvCmQLfQurDKQNLw4fD4YPpA+6D/IPAAAAAAAAAAAAAAAAKhBMEY8TmxUWF2EYLBkxGuAa3RsJHDscWR8YIC8jSCSIJcMl6ie3Ku8rEC0CLjoupS7kLgAIRU1hYmNmZ2xtbm9wcnN0dVQAWgBeAGUAaQBzAHcAfgCBAIQAhwCSAJoAoACsALMAbABpAGcAO4DGAMZAUAA7gCYAJkBjAHUAdABlADuAwQDBQHIiZXZlAAJhAAFpeW0AcgByAGMAO4DCAMJAEGRyAADgNdgE3XIAYQB2AGUAO4DAAMBA8CFoYZFj4SFjcgBhZAAAoFMqAAFncIsAjgBvAG4ABGFmAADgNdg43fAlbHlGdW5jdGlvbgCgYSBpAG4AZwA7gMUAxUAAAWNzpACoAHIAAOA12Jzc6SFnbgCgVCJpAGwAZABlADuAwwDDQG0AbAA7gMQAxEAABGFjZWZvcnN1xQDYANoA7QDxAPYA+QD8AAABY3LJAM8AayNzbGFzaAAAoBYidgHTANUAAKDnKmUAZAAAoAYjeQARZIABY3J0AOAA5QDrAGEidXNlAACgNSLuI291bGxpcwCgLCFhAJJjcgAA4DXYBd1wAGYAAOA12Dnd5SF2ZdhiYwDyAOoAbSJwZXEAAKBOIgAHSE9hY2RlZmhpbG9yc3UXARoBHwE6AVIBVQFiAWQBZgGCAakB6QHtAfIBYwB5ACdkUABZADuAqQCpQIABY3B5ACUBKAE1AfUhdGUGYWmg0iJ0KGFsRGlmZmVyZW50aWFsRAAAoEUhbCJleXMAAKAtIQACYWVpb0EBRAFKAU0B8iFvbgxhZABpAGwAO4DHAMdAcgBjAAhhbiJpbnQAAKAwIm8AdAAKYQABZG5ZAV0BaSJsbGEAuGB0I2VyRG90ALdg8gA5AWkAp2NyImNsZQAAAkRNUFRwAXQBeQF9AW8AdAAAoJkiaSJudXMAAKCWIuwhdXMAoJUiaSJtZXMAAKCXIm8AAAFjc4cBlAFrKndpc2VDb250b3VySW50ZWdyYWwAAKAyImUjQ3VybHkAAAFEUZwBpAFvJXVibGVRdW90ZQAAoB0gdSJvdGUAAKAZIAACbG5wdbABtgHNAdgBbwBuAGWgNyIAoHQqgAFnaXQAvAHBAcUB8iJ1ZW50AKBhIm4AdAAAoC8i7yV1ckludGVncmFsAKAuIgABZnLRAdMBAKACIe8iZHVjdACgECJuLnRlckNsb2Nrd2lzZUNvbnRvdXJJbnRlZ3JhbAAAoDMi7yFzcwCgLypjAHIAAOA12J7ccABDoNMiYQBwAACgTSKABURKU1phY2VmaW9zAAsCEgIVAhgCGwIsAjQCOQI9AnMCfwNvoEUh9CJyYWhkAKARKWMAeQACZGMAeQAFZGMAeQAPZIABZ3JzACECJQIoAuchZXIAoCEgcgAAoKEhaAB2AACg5CoAAWF5MAIzAvIhb24OYRRkbAB0oAciYQCUY3IAAOA12AfdAAFhZkECawIAAWNtRQJnAvIjaXRpY2FsAAJBREdUUAJUAl8CYwJjInV0ZQC0YG8AdAFZAloC2WJiJGxlQWN1dGUA3WJyImF2ZQBgYGkibGRlANxi7yFuZACgxCJmJWVyZW50aWFsRAAAoEYhcAR9AgAAAAAAAIECjgIAABoDZgAA4DXYO91EoagAhQKJAm8AdAAAoNwgcSJ1YWwAAKBQIuIhbGUAA0NETFJVVpkCqAK1Au8C/wIRA28AbgB0AG8AdQByAEkAbgB0AGUAZwByAGEA7ADEAW8AdAKvAgAAAACwAqhgbiNBcnJvdwAAoNMhAAFlb7kC0AJmAHQAgAFBUlQAwQLGAs0CciJyb3cAAKDQIekkZ2h0QXJyb3cAoNQhZQDlACsCbgBnAAABTFLWAugC5SFmdAABQVLcAuECciJyb3cAAKD4J+kkZ2h0QXJyb3cAoPon6SRnaHRBcnJvdwCg+SdpImdodAAAAUFU9gL7AnIicm93AACg0iFlAGUAAKCoInAAQQIGAwAAAAALA3Iicm93AACg0SFvJHduQXJyb3cAAKDVIWUlcnRpY2FsQmFyAACgJSJuAAADQUJMUlRhJAM2AzoDWgNxA3oDciJyb3cAAKGTIUJVLAMwA2EAcgAAoBMpcCNBcnJvdwAAoPUhciJldmUAEWPlIWZ00gJDAwAASwMAAFIDaSVnaHRWZWN0b3IAAKBQKWUkZVZlY3RvcgAAoF4p5SJjdG9yQqC9IWEAcgAAoFYpaSJnaHQA1AFiAwAAaQNlJGVWZWN0b3IAAKBfKeUiY3RvckKgwSFhAHIAAKBXKWUAZQBBoKQiciJyb3cAAKCnIXIAcgBvAPcAtAIAAWN0gwOHA3IA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YwAAoN8i4SFycnCgtiEAoD0pgKIqImJjZG9zACsVMBU6FT4VQRVyImNhcAAAoEgqAAFhdTQVNxVwAACgRipwAACgSipvAHQAAKCNInIAAKBFKgDgKiIA/gACYWxydksVURVuFXMVcgByAG2gtyEAoDwpeQCAAWV2dwBYFWUVaRVxAHACXxUAAAAAYxVyAGUA4wAXFXUA4wAZFWUAZQAAoM4iZSJkZ2UAAKDPImUAbgA7gKQApEBlI2Fycm93AAABbHJ7FX8V5SFmdACgtiFpImdodAAAoLchZQDkAG0VAAFjaYsVkRVvAG4AaQBuAPQAkwFuAHQAAKAxImwiY3R5AACgLSOACUFIYWJjZGVmaGlqbG9yc3R1d3oAuBW7Fb8V1RXgFegV+RUKFhUWHxZUFlcWZRbFFtsW7xb7FgUXChdyAPIAtAJhAHIAAKBlKQACZ2xyc8YVyhXOFdAV5yFlcgCgICDlIXRoAKA4IfIA9QxoAHagECAAoKMiawHZFd4VYSJyb3cAAKAPKWEA4wBfAgABYXnkFecV8iFvbg9hNGQAoUYhYW/tFfQVAAFnciEC8RVyAACgyiF0InNlcQAAoHcqgAFnbG0A/xUCFgUWO4CwALBAdABhALRjcCJ0eXYAAKCxKQABaXIOFhIW8yFodACgfykA4DXYId1hAHIAAAFschsWHRYAoMMhAKDCIYACYWVnc3YAKBauAjYWOhY+Fm0AAKHEIm9zLhY0Fm4AZABzoMQi9SFpdACgZiZhIm1tYQDdY2kAbgAAoPIiAKH3AGlvQxZRFmQAZQAAgfcAO29KFksW90BuI3RpbWVzAACgxyJuAPgAUBZjAHkAUmRjAG8CXhYAAAAAYhZyAG4AAKAeI28AcAAAoA0jgAJscHR1dwBuFnEWdRaSFp4W7CFhciRgZgAA4DXYVd0AotkCZW1wc30WhBaJFo0WcQBkoFAibwB0AACgUSJpIm51cwAAoDgi7CF1cwCgFCLxInVhcmUAoKEiYgBsAGUAYgBhAHIAdwBlAGQAZwDlANcAbgCAAWFkaAClFqoWtBZyAHIAbwD3APUMbwB3AG4AYQByAHIAbwB3APMA8xVhI3Jwb29uAAABbHK8FsAWZQBmAPQAHBZpAGcAaAD0AB4WYgHJFs8WawBhAHIAbwD3AJILbwLUFgAAAADYFnIAbgAAoB8jbwBwAACgDCOAAWNvdADhFukW7BYAAXJ55RboFgDgNdi53FVkbAAAoPYp8iFvaxFhAAFkcvMW9xZvAHQAAKDxImkA5qC/JVsSAAFhaP8WAhdyAPIANQNhAPIA1wvhIm5nbGUAoKYpAAFjaQ4XEBd5AF9k5yJyYXJyAKD/JwAJRGFjZGVmZ2xtbm9wcXJzdHV4MRc4F0YXWxcyBF4XaRd5F40XrBe0F78X2RcVGCEYLRg1GEAYAAFEbzUXgRZvAPQA+BUAAWNzPBdCF3UAdABlADuA6QDpQPQhZXIAoG4qAAJhaW95TRdQF1YXWhfyIW9uG2FyAGOgViI7gOoA6kDsIW9uAKBVIk1kbwB0ABdhAAFEcmIXZhdvAHQAAKBSIgDgNdgi3XKhmipuF3QXYQB2AGUAO4DoAOhAZKCWKm8AdAAAoJgqgKGZKmlscwCAF4UXhxfuInRlcnMAoOcjAKATIWSglSpvAHQAAKCXKoABYXBzAJMXlheiF2MAcgATYXQAeQBzogUinxcAAAAAoRdlAHQAAKAFInAAMaADIDMBqRerFwCgBCAAoAUgAAFnc7AXsRdLYXAAAKACIAABZ3C4F7sXbwBuABlhZgAA4DXYVt2AAWFscwDFF8sXzxdyAHOg1SJsAACg4yl1AHMAAKBxKmkAAKG1A2x21RfYF28AbgC1Y/VjAAJjc3V24BfoF/0XEBgAAWlv5BdWF3IAYwAAoFYiaQLuFwAAAADwF+0ADQThIW50AAFnbPUX+Rd0AHIAAKCWKuUhc3MAoJUqgAFhZWkAAxgGGAoYbABzAD1gcwB0AACgXyJ2AESgYSJEAACgeCrwImFyc2wAoOUpAAFEYRkYHRhvAHQAAKBTInIAcgAAoHEpgAFjZGkAJxgqGO0XcgAAoC8hbwD0AIwCAAFhaDEYMhi3YzuA8ADwQAABbXI5GD0YbAA7gOsA60BvAACgrCCAAWNpcABGGEgYSxhsACFgcwD0ACwEAAFlb08YVxhjAHQAYQB0AGkAbwDuABoEbgBlAG4AdABpAGEAbADlADME4Ql1GAAAgRgAAIMYiBgAAAAAoRilGAAAqhgAALsYvhjRGAAA1xgnGWwAbABpAG4AZwBkAG8AdABzAGUA8QBlF3kARGRtImFsZQAAoEAmgAFpbHIAjRiRGJ0Y7CFpZwCgA/tpApcYAAAAAJoYZwAAoAD7aQBnAACgBPsA4DXYI93sIWlnAKAB++whaWcA4GYAagCAAWFsdACvGLIYthh0AACgbSZpAGcAAKAC+24AcwAAoLElbwBmAJJh8AHCGAAAxhhmAADgNdhX3QABYWvJGMwYbADsAGsEdqDUIgCg2SphI3J0aW50AACgDSoAAWFv2hgiGQABY3PeGB8ZsQPnGP0YBRkSGRUZAAAdGbID7xjyGPQY9xj5GAAA+xg7gL0AvUAAoFMhO4C8ALxAAKBVIQCgWSEAoFshswEBGQAAAxkAoFQhAKBWIbQCCxkOGQAAAAAQGTuAvgC+QACgVyEAoFwhNQAAoFghtgEZGQAAGxkAoFohAKBdITgAAKBeIWwAAKBEIHcAbgAAoCIjYwByAADgNdi73IAIRWFiY2RlZmdpamxub3JzdHYARhlKGVoZXhlmGWkZkhmWGZkZnRmgGa0ZxhnLGc8Z4BkjGmygZyIAoIwqgAFjbXAAUBlTGVgZ9SF0ZfVhbQBhAOSgswM6FgCghipyImV2ZQAfYQABaXliGWUZcgBjAB1hM2RvAHQAIWGAoWUibHFzAMYEcBl6GfGhZSLOBAAAdhlsAGEAbgD0AN8EgKF+KmNkbACBGYQZjBljAACgqSpvAHQAb6CAKmyggioAoIQqZeDbIgD+cwAAoJQqcgAA4DXYJN3noGsirATtIWVsAKA3IWMAeQBTZIChdyJFYWoApxmpGasZAKCSKgCgpSoAoKQqAAJFYWVztBm2Gb0ZwhkAoGkicABwoIoq8iFveACgiipxoIgq8aCIKrUZaQBtAACg5yJwAGYAAOA12FjdYQB2AOUAYwIAAWNp0xnWGXIAAKAKIW0AAKFzImVs3BneGQCgjioAoJAqAIM+ADtjZGxxco0E6xn0GfgZ/BkBGgABY2nvGfEZAKCnKnIAAKB6Km8AdAAAoNci0CFhcgCglSl1ImVzdAAAoHwqgAJhZGVscwAKGvQZFhrVBCAa8AEPGgAAFBpwAHIAbwD4AFkZcgAAoHgpcQAAAWxxxAQbGmwAZQBzAPMASRlpAO0A5AQAAWVuJxouGnIjdG5lcXEAAOBpIgD+xQAsGgAFQWFiY2Vma29zeUAaQxpmGmoabRqDGocalhrCGtMacgDyAMwCAAJpbG1yShpOGlAaVBpyAHMA8ABxD2YAvWBpAGwA9AASBQABZHJYGlsaYwB5AEpkAKGUIWN3YBpkGmkAcgAAoEgpAKCtIWEAcgAAoA8h6SFyYyVhgAFhbHIAcxp7Gn8a8iF0c3WgZSZpAHQAAKBlJuwhaXAAoCYg4yFvbgCguSJyAADgNdgl3XMAAAFld4wakRphInJvdwAAoCUpYSJyb3cAAKAmKYACYW1vcHIAnxqjGqcauhq+GnIAcgAAoP8h9CFodACgOyJrAAABbHKsGrMaZSRmdGFycm93AACgqSHpJGdodGFycm93AKCqIWYAAOA12Fnd4iFhcgCgFSCAAWNsdADIGswa0BpyAADgNdi93GEAcwDoAGka8iFvaydhAAFicNca2xr1IWxsAKBDIOghZW4AoBAg4Qr2GgAA/RoAAAgbExsaGwAAIRs7GwAAAAA+G2IbmRuVG6sbAACyG80b0htjAHUAdABlADuA7QDtQAChYyBpeQEbBhtyAGMAO4DuAO5AOGQAAWN4CxsNG3kANWRjAGwAO4ChAKFAAAFmcssCFhsA4DXYJt1yAGEAdgBlADuA7ADsQIChSCFpbm8AJxsyGzYbAAFpbisbLxtuAHQAAKAMKnQAAKAtIuYhaW4AoNwpdABhAACgKSHsIWlnM2GAAWFvcABDG1sbXhuAAWNndABJG0sbWRtyACthgAFlbHAAcQVRG1UbaQBuAOUAyAVhAHIA9AByBWgAMWFmAACgtyJlAGQAtWEAoggiY2ZvdGkbbRt1G3kb4SFyZQCgBSFpAG4AdKAeImkAZQAAoN0pZABvAPQAWxsAoisiY2VscIEbhRuPG5QbYQBsAACguiIAAWdyiRuNG2UAcgDzACMQ4wCCG2EicmhrAACgFyryIW9kAKA8KgACY2dwdJ8boRukG6gbeQBRZG8AbgAvYWYAAOA12FrdYQC5Y3UAZQBzAHQAO4C/AL9AAAFjabUbuRtyAADgNdi+3G4AAKIIIkVkc3bCG8QbyBvQAwCg+SJvAHQAAKD1Inag9CIAoPMiaaBiIOwhZGUpYesB1hsAANkbYwB5AFZkbAA7gO8A70AAA2NmbW9zdeYb7hvyG/Ub+hsFHAABaXnqG+0bcgBjADVhOWRyAADgNdgn3eEhdGg3YnAAZgAA4DXYW93jAf8bAAADHHIAAOA12L/c8iFjeVhk6yFjeVRkAARhY2ZnaGpvcxUcGhwiHCYcKhwtHDAcNRzwIXBhdqC6A/BjAAFleR4cIRzkIWls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ZmdobG1vcHJzdHV3CiwNLBEsHSwnLDEsQCxLLFIsYix6LIQsjyzLLOgs7Sz/LAotcgDyAAkDYQByAACgYykAAWNyFSwbLHUAdABlADuA+gD6QPIACQ1yAOMBIywAACUseQBeZHYAZQBtYQABaXkrLDAscgBjADuA+wD7QENkgAFhYmgANyw6LD0scgDyANEO7CFhY3FhYQDyAOAOAAFpckQsSCzzIWh0AKB+KQDgNdgy3XIAYQB2AGUAO4D5APlAYQFWLF8scgAAAWxyWixcLACgvyEAoL4hbABrAACggCUAAWN0Zix2LG8CbCwAAAAAcyxyAG4AZaAcI3IAAKAcI28AcAAAoA8jcgBpAACg+CUAAWFsfiyBLGMAcgBrYTuAqACoQAABZ3CILIssbwBuAHNhZgAA4DXYZt0AA2FkaGxzdZksniynLLgsuyzFLHIAcgBvAPcACQ1vAHcAbgBhAHIAcgBvAPcA2A5hI3Jwb29uAAABbHKvLLMsZQBmAPQAWyxpAGcAaAD0AF0sdQDzAKYOaQAAocUDaGzBLMIs0mNvAG4AxWPwI2Fycm93cwCgyCGAAWNpdADRLOEs5CxvAtcsAAAAAN4scgBuAGWgHSNyAACgHSNvAHAAAKAOI24AZwBvYXIAaQAAoPklYwByAADgNdjK3IABZGlyAPMs9yz6LG8AdAAAoPAi7CFkZWlhaQBmoLUlAKC0JQABYW0DLQYtcgDyAMosbAA7gPwA/EDhIm5nbGUAoKcpgAdBQkRhY2RlZmxub3Byc3oAJy0qLTAtNC2bLZ0toS2/LcMtxy3TLdgt3C3gLfwtcgDyABADYQByAHag6CoAoOkqYQBzAOgA/gIAAW5yOC08LechcnQAoJwpgANla25wcnN0AJkpSC1NLVQtXi1iLYItYQBwAHAA4QAaHG8AdABoAGkAbgDnAKEXgAFoaXIAoSmzJFotbwBwAPQAdCVooJUh7wD4JgABaXVmLWotZwBtAOEAuygAAWJwbi14LXMjZXRuZXEAceCKIgD+AODLKgD+cyNldG5lcQBx4IsiAP4A4MwqAP4AAWhyhi2KLWUAdADhABIraSNhbmdsZQAAAWxyki2WLeUhZnQAoLIiaSJnaHQAAKCzInkAMmThIXNoAKCiIoABZWxyAKcttC24LWKiKCKuLQAAAACyLWEAcgAAoLsicQAAoFoi7CFpcACg7iIAAWJ0vC1eD2EA8gBfD3IAAOA12DPddAByAOkAlS1zAHUAAAFicM0t0C0A4IIi0iAA4IMi0iBwAGYAAOA12GfdcgBvAPAAWQt0AHIA6QCaLQABY3XkLegtcgAA4DXYy9wAAWJw7C30LW4AAAFFZXUt8S0A4IoiAP5uAAABRWV/LfktAOCLIgD+6SJnemFnAKCaKYADY2Vmb3BycwANLhAuJS4pLiMuLi40LukhcmN1YQABZGkULiEuAAFiZxguHC5hAHIAAKBfKmUAcaAnIgCgWSLlIXJwAKAYIXIAAOA12DTdcABmAADgNdho3WWgQCJhAHQA6ABqD2MAcgAA4DXYzNzjCuQRUC4AAFQuAABYLmIuAAAAAGMubS5wLnQuAAAAAIguki4AAJouJxIqEnQAcgDpAB0ScgAA4DXYNd0AAUFhWy5eLnIA8gDnAnIA8gCTB75jAAFBYWYuaS5yAPIA4AJyAPIAjAdhAPAAeh5pAHMAAKD7IoABZHB0APgReS6DLgABZmx9LoAuAOA12GnddQDzAP8RaQBtAOUABBIAAUFhiy6OLnIA8gDuAnIA8gCaBwABY3GVLgoScgAA4DXYzdwAAXB0nS6hLmwAdQDzACUScgDpACASAARhY2VmaW9zdbEuvC7ELsguzC7PLtQu2S5jAAABdXm2LrsudABlADuA/QD9QE9kAAFpecAuwy5yAGMAd2FLZG4AO4ClAKVAcgAA4DXYNt1jAHkAV2RwAGYAAOA12GrdYwByAADgNdjO3AABY23dLt8ueQBOZGwAO4D/AP9AAAVhY2RlZmhpb3N38y73Lv8uAi8MLxAvEy8YLx0vIi9jInV0ZQB6YQABYXn7Lv4u8iFvbn5hN2RvAHQAfGEAAWV0Bi8KL3QAcgDmAB8QYQC2Y3IAAOA12DfdYwB5ADZk5yJyYXJyAKDdIXAAZgAA4DXYa91jAHIAAOA12M/cAAFqbiYvKC8AoA0gagAAoAwg");
-
-// node_modules/entities/dist/internal/bin-trie-flags.js
-var BinTrieFlags;
-(function(BinTrieFlags2) {
-  BinTrieFlags2[BinTrieFlags2["VALUE_LENGTH"] = 49152] = "VALUE_LENGTH";
-  BinTrieFlags2[BinTrieFlags2["FLAG13"] = 8192] = "FLAG13";
-  BinTrieFlags2[BinTrieFlags2["BRANCH_LENGTH"] = 8064] = "BRANCH_LENGTH";
-  BinTrieFlags2[BinTrieFlags2["JUMP_TABLE"] = 127] = "JUMP_TABLE";
-})(BinTrieFlags || (BinTrieFlags = {}));
-
-// node_modules/entities/dist/decode.js
-var CharCodes;
-(function(CharCodes2) {
-  CharCodes2[CharCodes2["NUM"] = 35] = "NUM";
-  CharCodes2[CharCodes2["SEMI"] = 59] = "SEMI";
-  CharCodes2[CharCodes2["EQUALS"] = 61] = "EQUALS";
-  CharCodes2[CharCodes2["ZERO"] = 48] = "ZERO";
-  CharCodes2[CharCodes2["NINE"] = 57] = "NINE";
-  CharCodes2[CharCodes2["LOWER_A"] = 97] = "LOWER_A";
-  CharCodes2[CharCodes2["LOWER_F"] = 102] = "LOWER_F";
-  CharCodes2[CharCodes2["LOWER_X"] = 120] = "LOWER_X";
-  CharCodes2[CharCodes2["LOWER_Z"] = 122] = "LOWER_Z";
-  CharCodes2[CharCodes2["UPPER_A"] = 65] = "UPPER_A";
-  CharCodes2[CharCodes2["UPPER_F"] = 70] = "UPPER_F";
-  CharCodes2[CharCodes2["UPPER_Z"] = 90] = "UPPER_Z";
-})(CharCodes || (CharCodes = {}));
-var TO_LOWER_BIT = 32;
-function isNumber(code2) {
-  return code2 >= CharCodes.ZERO && code2 <= CharCodes.NINE;
-}
-function isHexadecimalCharacter(code2) {
-  return code2 >= CharCodes.UPPER_A && code2 <= CharCodes.UPPER_F || code2 >= CharCodes.LOWER_A && code2 <= CharCodes.LOWER_F;
-}
-function isAsciiAlphaNumeric(code2) {
-  return code2 >= CharCodes.UPPER_A && code2 <= CharCodes.UPPER_Z || code2 >= CharCodes.LOWER_A && code2 <= CharCodes.LOWER_Z || isNumber(code2);
-}
-function isEntityInAttributeInvalidEnd(code2) {
-  return code2 === CharCodes.EQUALS || isAsciiAlphaNumeric(code2);
-}
-var EntityDecoderState;
-(function(EntityDecoderState2) {
-  EntityDecoderState2[EntityDecoderState2["EntityStart"] = 0] = "EntityStart";
-  EntityDecoderState2[EntityDecoderState2["NumericStart"] = 1] = "NumericStart";
-  EntityDecoderState2[EntityDecoderState2["NumericDecimal"] = 2] = "NumericDecimal";
-  EntityDecoderState2[EntityDecoderState2["NumericHex"] = 3] = "NumericHex";
-  EntityDecoderState2[EntityDecoderState2["NamedEntity"] = 4] = "NamedEntity";
-})(EntityDecoderState || (EntityDecoderState = {}));
-var DecodingMode;
-(function(DecodingMode2) {
-  DecodingMode2[DecodingMode2["Legacy"] = 0] = "Legacy";
-  DecodingMode2[DecodingMode2["Strict"] = 1] = "Strict";
-  DecodingMode2[DecodingMode2["Attribute"] = 2] = "Attribute";
-})(DecodingMode || (DecodingMode = {}));
-var EntityDecoder = class {
-  decodeTree;
-  emitCodePoint;
-  errors;
-  constructor(decodeTree, emitCodePoint, errors2) {
-    this.decodeTree = decodeTree;
-    this.emitCodePoint = emitCodePoint;
-    this.errors = errors2;
-  }
-  /** The current state of the decoder. */
-  state = EntityDecoderState.EntityStart;
-  /** Characters that were consumed while parsing an entity. */
-  consumed = 1;
-  /**
-   * The result of the entity.
-   *
-   * Either the result index of a numeric entity, or the codepoint of a
-   * numeric entity.
-   */
-  result = 0;
-  /** The current index in the decode tree. */
-  treeIndex = 0;
-  /** The number of characters that were consumed in excess. */
-  excess = 1;
-  /** The mode in which the decoder is operating. */
-  decodeMode = DecodingMode.Strict;
-  /** The number of characters that have been consumed in the current run. */
-  runConsumed = 0;
-  /**
-   * Resets the instance to make it reusable.
-   * @param decodeMode Entity decoding mode to use.
-   */
-  startEntity(decodeMode) {
-    this.decodeMode = decodeMode;
-    this.state = EntityDecoderState.EntityStart;
-    this.result = 0;
-    this.treeIndex = 0;
-    this.excess = 1;
-    this.consumed = 1;
-    this.runConsumed = 0;
-  }
-  /**
-   * Write an entity to the decoder. This can be called multiple times with partial entities.
-   * If the entity is incomplete, the decoder will return -1.
-   *
-   * Mirrors the implementation of `getDecoder`, but with the ability to stop decoding if the
-   * entity is incomplete, and resume when the next string is written.
-   * @param input The string containing the entity (or a continuation of the entity).
-   * @param offset The offset at which the entity begins. Should be 0 if this is not the first call.
-   * @returns The number of characters that were consumed, or -1 if the entity is incomplete.
-   */
-  write(input, offset) {
-    switch (this.state) {
-      case EntityDecoderState.EntityStart: {
-        if (input.charCodeAt(offset) === CharCodes.NUM) {
-          this.state = EntityDecoderState.NumericStart;
-          this.consumed += 1;
-          return this.stateNumericStart(input, offset + 1);
-        }
-        this.state = EntityDecoderState.NamedEntity;
-        return this.stateNamedEntity(input, offset);
-      }
-      case EntityDecoderState.NumericStart: {
-        return this.stateNumericStart(input, offset);
-      }
-      case EntityDecoderState.NumericDecimal: {
-        return this.stateNumericDecimal(input, offset);
-      }
-      case EntityDecoderState.NumericHex: {
-        return this.stateNumericHex(input, offset);
-      }
-      case EntityDecoderState.NamedEntity: {
-        return this.stateNamedEntity(input, offset);
-      }
-    }
-  }
-  /**
-   * Switches between the numeric decimal and hexadecimal states.
-   *
-   * Equivalent to the `Numeric character reference state` in the HTML spec.
-   * @param input The string containing the entity (or a continuation of the entity).
-   * @param offset The current offset.
-   * @returns The number of characters that were consumed, or -1 if the entity is incomplete.
-   */
-  stateNumericStart(input, offset) {
-    if (offset >= input.length) {
-      return -1;
-    }
-    if ((input.charCodeAt(offset) | TO_LOWER_BIT) === CharCodes.LOWER_X) {
-      this.state = EntityDecoderState.NumericHex;
-      this.consumed += 1;
-      return this.stateNumericHex(input, offset + 1);
-    }
-    this.state = EntityDecoderState.NumericDecimal;
-    return this.stateNumericDecimal(input, offset);
-  }
-  /**
-   * Parses a hexadecimal numeric entity.
-   *
-   * Equivalent to the `Hexademical character reference state` in the HTML spec.
-   * @param input The string containing the entity (or a continuation of the entity).
-   * @param offset The current offset.
-   * @returns The number of characters that were consumed, or -1 if the entity is incomplete.
-   */
-  stateNumericHex(input, offset) {
-    while (offset < input.length) {
-      const char = input.charCodeAt(offset);
-      if (isNumber(char) || isHexadecimalCharacter(char)) {
-        const digit = char <= CharCodes.NINE ? char - CharCodes.ZERO : (char | TO_LOWER_BIT) - CharCodes.LOWER_A + 10;
-        this.result = this.result * 16 + digit;
-        this.consumed++;
-        offset++;
-      } else {
-        return this.emitNumericEntity(char, 3);
-      }
-    }
-    return -1;
-  }
-  /**
-   * Parses a decimal numeric entity.
-   *
-   * Equivalent to the `Decimal character reference state` in the HTML spec.
-   * @param input The string containing the entity (or a continuation of the entity).
-   * @param offset The current offset.
-   * @returns The number of characters that were consumed, or -1 if the entity is incomplete.
-   */
-  stateNumericDecimal(input, offset) {
-    while (offset < input.length) {
-      const char = input.charCodeAt(offset);
-      if (isNumber(char)) {
-        this.result = this.result * 10 + (char - CharCodes.ZERO);
-        this.consumed++;
-        offset++;
-      } else {
-        return this.emitNumericEntity(char, 2);
-      }
-    }
-    return -1;
-  }
-  /**
-   * Validate and emit a numeric entity.
-   *
-   * Implements the logic from the `Hexademical character reference start
-   * state` and `Numeric character reference end state` in the HTML spec.
-   * @param lastCp The last code point of the entity. Used to see if the
-   *               entity was terminated with a semicolon.
-   * @param expectedLength The minimum number of characters that should be
-   *                       consumed. Used to validate that at least one digit
-   *                       was consumed.
-   * @returns The number of characters that were consumed.
-   */
-  emitNumericEntity(lastCp, expectedLength) {
-    if (this.consumed <= expectedLength) {
-      this.errors?.absenceOfDigitsInNumericCharacterReference(this.consumed);
-      return 0;
-    }
-    if (lastCp === CharCodes.SEMI) {
-      this.consumed += 1;
-    } else if (this.decodeMode === DecodingMode.Strict) {
-      return 0;
-    }
-    this.emitCodePoint(replaceCodePoint(this.result), this.consumed);
-    if (this.errors) {
-      if (lastCp !== CharCodes.SEMI) {
-        this.errors.missingSemicolonAfterCharacterReference();
-      }
-      this.errors.validateNumericCharacterReference(this.result);
-    }
-    return this.consumed;
-  }
-  /**
-   * Parses a named entity.
-   *
-   * Equivalent to the `Named character reference state` in the HTML spec.
-   * @param input The string containing the entity (or a continuation of the entity).
-   * @param offset The current offset.
-   * @returns The number of characters that were consumed, or -1 if the entity is incomplete.
-   */
-  stateNamedEntity(input, offset) {
-    const { decodeTree } = this;
-    let current = decodeTree[this.treeIndex];
-    let valueLength = (current & BinTrieFlags.VALUE_LENGTH) >> 14;
-    while (offset < input.length) {
-      if (valueLength === 0 && (current & BinTrieFlags.FLAG13) !== 0) {
-        const runLength = (current & BinTrieFlags.BRANCH_LENGTH) >> 7;
-        if (this.runConsumed === 0) {
-          const firstChar = current & BinTrieFlags.JUMP_TABLE;
-          if (input.charCodeAt(offset) !== firstChar) {
-            return this.result === 0 ? 0 : this.emitNotTerminatedNamedEntity();
-          }
-          offset++;
-          this.excess++;
-          this.runConsumed++;
-        }
-        while (this.runConsumed < runLength) {
-          if (offset >= input.length) {
-            return -1;
-          }
-          const charIndexInPacked = this.runConsumed - 1;
-          const packedWord = decodeTree[this.treeIndex + 1 + (charIndexInPacked >> 1)];
-          const expectedChar = charIndexInPacked % 2 === 0 ? packedWord & 255 : packedWord >> 8 & 255;
-          if (input.charCodeAt(offset) !== expectedChar) {
-            this.runConsumed = 0;
-            return this.result === 0 ? 0 : this.emitNotTerminatedNamedEntity();
-          }
-          offset++;
-          this.excess++;
-          this.runConsumed++;
-        }
-        this.runConsumed = 0;
-        this.treeIndex += 1 + (runLength >> 1);
-        current = decodeTree[this.treeIndex];
-        valueLength = (current & BinTrieFlags.VALUE_LENGTH) >> 14;
-      }
-      if (offset >= input.length)
-        break;
-      const char = input.charCodeAt(offset);
-      if (char === CharCodes.SEMI && valueLength !== 0 && (current & BinTrieFlags.FLAG13) !== 0) {
-        return this.emitNamedEntityData(this.treeIndex, valueLength, this.consumed + this.excess);
-      }
-      this.treeIndex = determineBranch(decodeTree, current, this.treeIndex + Math.max(1, valueLength), char);
-      if (this.treeIndex < 0) {
-        return this.result === 0 || // If we are parsing an attribute
-        this.decodeMode === DecodingMode.Attribute && // We shouldn't have consumed any characters after the entity,
-        (valueLength === 0 || // And there should be no invalid characters.
-        isEntityInAttributeInvalidEnd(char)) ? 0 : this.emitNotTerminatedNamedEntity();
-      }
-      current = decodeTree[this.treeIndex];
-      valueLength = (current & BinTrieFlags.VALUE_LENGTH) >> 14;
-      if (valueLength !== 0) {
-        if (char === CharCodes.SEMI) {
-          return this.emitNamedEntityData(this.treeIndex, valueLength, this.consumed + this.excess);
-        }
-        if (this.decodeMode !== DecodingMode.Strict && (current & BinTrieFlags.FLAG13) === 0) {
-          this.result = this.treeIndex;
-          this.consumed += this.excess;
-          this.excess = 0;
-        }
-      }
-      offset++;
-      this.excess++;
-    }
-    return -1;
-  }
-  /**
-   * Emit a named entity that was not terminated with a semicolon.
-   * @returns The number of characters consumed.
-   */
-  emitNotTerminatedNamedEntity() {
-    const { result, decodeTree } = this;
-    const valueLength = (decodeTree[result] & BinTrieFlags.VALUE_LENGTH) >> 14;
-    this.emitNamedEntityData(result, valueLength, this.consumed);
-    this.errors?.missingSemicolonAfterCharacterReference();
-    return this.consumed;
-  }
-  /**
-   * Emit a named entity.
-   * @param result The index of the entity in the decode tree.
-   * @param valueLength The number of bytes in the entity.
-   * @param consumed The number of characters consumed.
-   * @returns The number of characters consumed.
-   */
-  emitNamedEntityData(result, valueLength, consumed) {
-    const { decodeTree } = this;
-    this.emitCodePoint(valueLength === 1 ? decodeTree[result] & ~(BinTrieFlags.VALUE_LENGTH | BinTrieFlags.FLAG13) : decodeTree[result + 1], consumed);
-    if (valueLength === 3) {
-      this.emitCodePoint(decodeTree[result + 2], consumed);
-    }
-    return consumed;
-  }
-  /**
-   * Signal to the parser that the end of the input was reached.
-   *
-   * Remaining data will be emitted and relevant errors will be produced.
-   * @returns The number of characters consumed.
-   */
-  end() {
-    switch (this.state) {
-      case EntityDecoderState.NamedEntity: {
-        return this.result !== 0 && (this.decodeMode !== DecodingMode.Attribute || this.result === this.treeIndex) ? this.emitNotTerminatedNamedEntity() : 0;
-      }
-      // Otherwise, emit a numeric entity if we have one.
-      case EntityDecoderState.NumericDecimal: {
-        return this.emitNumericEntity(0, 2);
-      }
-      case EntityDecoderState.NumericHex: {
-        return this.emitNumericEntity(0, 3);
-      }
-      case EntityDecoderState.NumericStart: {
-        this.errors?.absenceOfDigitsInNumericCharacterReference(this.consumed);
-        return 0;
-      }
-      case EntityDecoderState.EntityStart: {
-        return 0;
-      }
-    }
-  }
-};
-function getDecoder(decodeTree) {
-  let returnValue = "";
-  const decoder = new EntityDecoder(decodeTree, (data) => returnValue += String.fromCodePoint(data));
-  return function decodeWithTrie(input, decodeMode) {
-    let lastIndex = 0;
-    let offset = 0;
-    while ((offset = input.indexOf("&", offset)) >= 0) {
-      returnValue += input.slice(lastIndex, offset);
-      decoder.startEntity(decodeMode);
-      const length = decoder.write(
-        input,
-        // Skip the "&"
-        offset + 1
-      );
-      if (length < 0) {
-        lastIndex = offset + decoder.end();
-        break;
-      }
-      lastIndex = offset + length;
-      offset = length === 0 ? lastIndex + 1 : lastIndex;
-    }
-    const result = returnValue + input.slice(lastIndex);
-    returnValue = "";
-    return result;
-  };
-}
-function determineBranch(decodeTree, current, nodeIndex, char) {
-  const branchCount = (current & BinTrieFlags.BRANCH_LENGTH) >> 7;
-  const jumpOffset = current & BinTrieFlags.JUMP_TABLE;
-  if (branchCount === 0) {
-    return jumpOffset !== 0 && char === jumpOffset ? nodeIndex : -1;
-  }
-  if (jumpOffset) {
-    const value = char - jumpOffset;
-    return value < 0 || value >= branchCount ? -1 : decodeTree[nodeIndex + value] - 1;
-  }
-  const packedKeySlots = branchCount + 1 >> 1;
-  let lo = 0;
-  let hi = branchCount - 1;
-  while (lo <= hi) {
-    const mid = lo + hi >>> 1;
-    const slot = mid >> 1;
-    const packed = decodeTree[nodeIndex + slot];
-    const midKey = packed >> (mid & 1) * 8 & 255;
-    if (midKey < char) {
-      lo = mid + 1;
-    } else if (midKey > char) {
-      hi = mid - 1;
-    } else {
-      return decodeTree[nodeIndex + packedKeySlots + mid];
-    }
-  }
-  return -1;
-}
-var htmlDecoder = /* @__PURE__ */ getDecoder(htmlDecodeTree);
-function decodeHTMLStrict(htmlString) {
-  return htmlDecoder(htmlString, DecodingMode.Strict);
-}
-
-// node_modules/entities/dist/index.js
-var EntityLevel;
-(function(EntityLevel2) {
-  EntityLevel2[EntityLevel2["XML"] = 0] = "XML";
-  EntityLevel2[EntityLevel2["HTML"] = 1] = "HTML";
-})(EntityLevel || (EntityLevel = {}));
-var EncodingMode;
-(function(EncodingMode2) {
-  EncodingMode2[EncodingMode2["UTF8"] = 0] = "UTF8";
-  EncodingMode2[EncodingMode2["ASCII"] = 1] = "ASCII";
-  EncodingMode2[EncodingMode2["Extensive"] = 2] = "Extensive";
-  EncodingMode2[EncodingMode2["Attribute"] = 3] = "Attribute";
-  EncodingMode2[EncodingMode2["Text"] = 4] = "Text";
-})(EncodingMode || (EncodingMode = {}));
-
-// node_modules/linkify-it/build/index.mjs
-var REBuilder = class {
-  src_Any = Any.source;
-  src_Cc = Cc.source;
-  src_Z = Z.source;
-  src_P = P.source;
-  src_ZPCc = [
-    this.src_Z,
-    this.src_P,
-    this.src_Cc
-  ].join("|");
-  src_ZCc = [this.src_Z, this.src_Cc].join("|");
-  cache = {};
-  opts = {
-    maxLength: 1e4,
-    urlAuth: false,
-    schema_names: []
-  };
-  constructor(opts = {}) {
-    this.opts = {
-      ...this.opts,
-      ...opts
-    };
-  }
-  set(opts = {}) {
-    this.opts = {
-      ...this.opts,
-      ...opts
-    };
-    this.cache = {};
-    return this;
-  }
-  escapeRE(str) {
-    return str.replace(/[.?*+^$[\]\\(){}|-]/g, "\\$&");
-  }
-  nestedPairRE(open, close, depth = 4) {
-    const openRE = this.escapeRE(open);
-    const closeRE = this.escapeRE(close);
-    const atom = `(?:(?!${this.src_ZCc}|${openRE}|${closeRE}).)`;
-    let pair = `${openRE}${atom}{0,1000}${closeRE}`;
-    for (let level = 2; level <= depth; level++) pair = `${openRE}(?:${atom}|${pair}){0,1000}${closeRE}`;
-    return pair;
-  }
-  get_text_separators() {
-    return this.cache.text_separators ??= /[><\uff5c]/;
-  }
-  get_pseudo_letter() {
-    return this.cache.src_pseudo_letter ??= new RegExp(`(?:(?!${this.get_text_separators().source}|${this.src_ZPCc})${this.src_Any})`);
-  }
-  get_ipv4_addr() {
-    return this.cache.src_ip4 ??= /* @__PURE__ */ new RegExp("(?:(?:25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9][0-9]|[0-9])[.]){3}(?:25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9][0-9]|[0-9])");
-  }
-  get_ipv6_addr() {
-    const h16 = "[0-9A-Fa-f]{1,4}";
-    const ls32 = `(?:(?:${h16}:${h16})|${this.get_ipv4_addr().source})`;
-    return this.cache.src_ip6_addr ??= new RegExp(`(?:(?:${h16}:){6}${ls32}|::(?:${h16}:){5}${ls32}|(?:${h16})?::(?:${h16}:){4}${ls32}|(?:(?:${h16}:){0,1}${h16})?::(?:${h16}:){3}${ls32}|(?:(?:${h16}:){0,2}${h16})?::(?:${h16}:){2}${ls32}|(?:(?:${h16}:){0,3}${h16})?::${h16}:${ls32}|(?:(?:${h16}:){0,4}${h16})?::${ls32}|(?:(?:${h16}:){0,5}${h16})?::${h16}|(?:(?:${h16}:){0,6}${h16})?::)`);
-  }
-  get_ipv6_url_host() {
-    return this.cache.src_ip6_host ??= new RegExp(`\\[${this.get_ipv6_addr().source}\\]`);
-  }
-  get_ipv6_mail_host() {
-    return this.cache.src_ipv6_mail_host ??= new RegExp(`\\[IPv6:${this.get_ipv6_addr().source}\\]`);
-  }
-  get_auth() {
-    return this.cache.src_auth ??= new RegExp(`(?:(?:(?!${this.src_ZCc}|[@/\\[\\]()]).){1,50}@)?`);
-  }
-  get_port() {
-    return this.cache.src_port ??= /* @__PURE__ */ new RegExp("(?::(?:6(?:[0-4]\\d{3}|5(?:[0-4]\\d{2}|5(?:[0-2]\\d|3[0-5])))|[1-5]?\\d{1,4}))?");
-  }
-  get_host_terminator() {
-    return this.cache.src_host_terminator ??= new RegExp(`(?=$|${this.get_text_separators().source}|${this.src_ZPCc})(?!${this.opts["---"] ? "-(?!--)|" : "-|"}_|:\\d|\\.-|\\.(?!$|${this.src_ZPCc}))`);
-  }
-  get_path_terminator() {
-    return this.cache.src_path_terminator ??= new RegExp(`${this.src_ZPCc}|${this.get_text_separators().source}`);
-  }
-  get_path() {
-    return this.cache.src_path ??= new RegExp(`(?:[/?#](?:${this.nestedPairRE("[", "]")}|${this.nestedPairRE("(", ")")}|${this.nestedPairRE("{", "}")}|\\"(?:(?!${this.src_ZCc}|["]).){1,100}\\"|\\'(?:(?!${this.src_ZCc}|[']).){1,100}\\'|\\'(?=${this.get_pseudo_letter().source}|[-])|\\.{2,20}[:]?[a-zA-Z0-9%/&]|\\.(?!${this.src_ZCc}|[.]|$)|` + (this.opts["---"] ? "\\-(?!--(?:[^-]|$))(?:-{0,19})|" : "\\-{1,20}|") + `,(?!${this.src_ZCc}|$)|;(?!${this.src_ZCc}|$)|\\!{1,20}(?!${this.src_ZCc}|[!]|$)|\\?(?!${this.src_ZCc}|[?]|$)|` + this.get_path_extra().source + `[\\\\/:%@#&=_~*]|(?!${this.get_path_terminator().source}).){1,${this.opts.maxLength}}|\\/)?`);
-  }
-  get_mail_name() {
-    return this.cache.src_mail_name ??= /* @__PURE__ */ new RegExp("[-!#$%&'*+/=?^_`{|}~a-zA-Z0-9](?:[-!#$%&'*+/=?^_`{|}~a-zA-Z0-9]|[.](?=[-!#$%&'*+/=?^_`{|}~a-zA-Z0-9])){0,63}");
-  }
-  get_xn() {
-    return this.cache.src_xn ??= /* @__PURE__ */ new RegExp("xn--[a-z0-9\\-]{1,59}");
-  }
-  get_tld() {
-    if (this.cache.tld) return this.cache.tld;
-    const tlds_src = [...new Set(this.opts.tlds || [])].sort().reverse().join("|");
-    this.cache.tld = new RegExp(`${tlds_src || "$#none#$"}|${this.get_xn().source}`);
-    return this.cache.tld;
-  }
-  get_domain_root() {
-    return this.cache.src_domain_root ??= new RegExp("(?:" + this.get_xn().source + `|${this.get_pseudo_letter().source}{1,63})`);
-  }
-  get_domain() {
-    return this.cache.src_domain ??= new RegExp("(?:" + this.get_xn().source + `|(?:${this.get_pseudo_letter().source})|(?:${this.get_pseudo_letter().source}(?:-|${this.get_pseudo_letter().source}){0,61}${this.get_pseudo_letter().source}))`);
-  }
-  get_url_host_port() {
-    return this.cache.url_host_port ??= new RegExp("(?:" + this.get_ipv6_url_host().source + `|(?:(?:(?:${this.get_domain().source})\\.){0,10}${this.get_domain().source}))` + this.get_port().source + this.get_host_terminator().source);
-  }
-  get_fuzzy_url_host_port() {
-    return this.cache.fuzzy_url_host_port ??= new RegExp("(?:" + (this.opts.fuzzyIP ? this.get_ipv4_addr().source + "|" : "") + `(?:(?:(?:${this.get_domain().source})\\.){1,10}(?:${this.get_tld().source})))` + this.get_host_terminator().source);
-  }
-  get_mail_host() {
-    return this.cache.src_mail_host ??= new RegExp("(?:" + this.get_ipv6_mail_host().source + `|(?:(?:(?:${this.get_domain().source})\\.){0,4}${this.get_domain().source}))` + this.get_host_terminator().source);
-  }
-  get_fuzzy_mail_host() {
-    return this.cache.src_fuzzy_mail_host ??= new RegExp("(?:" + this.get_ipv6_mail_host().source + `|(?:(?:(?:${this.get_domain().source})[.]){1,4}${this.get_domain_root().source}))` + this.get_host_terminator().source);
-  }
-  get_path_extra() {
-    return this.cache.src_path_extra ??= /* @__PURE__ */ new RegExp("");
-  }
-  get_fuzzy_mail_host_search() {
-    return this.cache.mail_fuzzy_host_search ??= new RegExp(`@${this.get_fuzzy_mail_host().source}`, "ig");
-  }
-  get_fuzzy_link_search() {
-    return this.cache.link_fuzzy_search ??= new RegExp(`(^|(?![.:/\\-_@])(?:[$+<=>^\`|\uFF5C]|${this.src_ZPCc}))(?:(?![$+<=>^\`|\uFF5C])${this.get_fuzzy_url_host_port().source}${this.get_path().source})`, "ig");
-  }
-  get_http_validator() {
-    return this.cache.http_validator ??= new RegExp("\\/\\/" + (this.opts.urlAuth ? this.get_auth().source : "") + this.get_url_host_port().source + this.get_path().source, "iy");
-  }
-  get_relative_proto_validator() {
-    return this.cache.relative_proto_validator ??= new RegExp((this.opts.urlAuth ? this.get_auth().source : "") + `(?:localhost|${this.get_ipv6_url_host().source}|(?:(?:${this.get_domain().source})[.]){1,10}${this.get_domain_root().source})` + this.get_port().source + this.get_host_terminator().source + this.get_path().source, "iy");
-  }
-  get_mail_name_validator() {
-    return this.cache.mail_name_validator ??= new RegExp(`(?:^|${this.get_text_separators().source}|"|\\(|${this.src_ZCc})(${this.get_mail_name().source})$`);
-  }
-  get_mailto_validator() {
-    return this.cache.mailto_validator ??= new RegExp(`${this.get_mail_name().source}@${this.get_mail_host().source}`, "iy");
-  }
-  get_schema_names() {
-    return this.cache.schema_names ??= new RegExp((this.opts.schema_names || []).map((name) => this.escapeRE(name)).join("|"));
-  }
-  get_schema_search() {
-    return this.cache.schema_search ??= new RegExp(`(^|(?!_)(?:[><\uFF5C]|${this.src_ZPCc}))(${this.get_schema_names().source})`, "ig");
-  }
-  get_schema_at_start() {
-    return this.cache.schema_at_start ??= new RegExp(`^${this.get_schema_search().source}`, "i");
-  }
-};
-var web_schema = {
-  validate: (text2, pos, self2) => {
-    const re = self2.re.get_http_validator();
-    re.lastIndex = pos;
-    const m = re.exec(text2);
-    return m ? m[0].length : 0;
-  },
-  normalize: (match, self2) => self2.normalize(match)
-};
-var defaultSchemas = {
-  "http:": web_schema,
-  "https:": web_schema,
-  "ftp:": web_schema,
-  "//": {
-    validate: function(text2, pos, self2) {
-      const re = self2.re.get_relative_proto_validator();
-      re.lastIndex = pos;
-      const m = re.exec(text2);
-      if (m) {
-        if (pos >= 3 && text2[pos - 3] === ":") return 0;
-        if (pos >= 3 && text2[pos - 3] === "/") return 0;
-        return m[0].length;
-      }
-      return 0;
-    },
-    normalize: (match, self2) => self2.normalize(match)
-  },
-  "mailto:": {
-    validate: function(text2, pos, self2) {
-      const re = self2.re.get_mailto_validator();
-      re.lastIndex = pos;
-      const m = re.exec(text2);
-      return m ? m[0].length : 0;
-    },
-    normalize: (match, self2) => self2.normalize(match)
-  }
-};
-var tlds_2ch = "a:cdefgilmnoqrstuwxz|b:abdefghijmnorstvwyz|c:acdfghiklmnoruvwxyz|d:ejkmoz|e:cegrstu|f:ijkmor|g:abdefghilmnpqrstuwy|h:kmnrtu|i:delmnoqrst|j:emop|k:eghimnprwyz|l:abcikrstuvy|m:acdeghklmnopqrstuvwxyz|n:acefgilopruz|o:m|p:aefghklmnrstwy|q:a|r:eosuw|s:abcdeghijklmnortuvxyz|t:cdfghjklmnortvwz|u:agksyz|v:aceginu|w:fs|y:et|z:amw";
-var tlds_default = "biz|com|edu|gov|net|org|pro|web|xxx|aero|asia|coop|info|museum|name|shop|\u0440\u0444";
-function unpackTlds() {
-  const result = tlds_default.split("|");
-  tlds_2ch.split("|").forEach((item) => {
-    const sep = item.indexOf(":");
-    const prefix = item.slice(0, sep);
-    for (const suffix of item.slice(sep + 1)) result.push(prefix + suffix);
-  });
-  return result;
-}
-var defaultOptions = {
-  fuzzyLink: false,
-  fuzzyEmail: true,
-  fuzzyIP: false,
-  "---": false,
-  tlds: unpackTlds(),
-  urlAuth: false,
-  maxLength: 1e4
-};
-var Match = class {
-  /** Prefix (protocol) for matched string. Empty for fuzzy links. */
-  schema;
-  /** First position of matched string. */
-  index;
-  /** Next position after matched string. */
-  lastIndex;
-  /** Matched string. */
-  raw;
-  /** Normalized text of matched string. */
-  text;
-  /** Normalized URL of matched string. */
-  url;
-  constructor(text2, schema, index, lastIndex) {
-    const raw = text2.slice(index, lastIndex);
-    this.schema = schema.toLowerCase();
-    this.index = index;
-    this.lastIndex = lastIndex;
-    this.raw = raw;
-    this.text = raw;
-    this.url = raw;
-  }
-};
-var LinkifyIt = class {
-  __opts__;
-  __schemas__;
-  re;
-  /**
-  * Creates new linkifier instance.
-  *
-  * By default understands:
-  *
-  * - `http(s)://...` , `ftp://...`, `mailto:...` & `//...` links
-  * - "fuzzy" emails (foo@bar.com).
-  *
-  * See {@link LinkifyConstructorOptions} for available options.
-  *
-  * @param options Recognition options.
-  *
-  * @example
-  * ```javascript
-  * import { LinkifyIt } from 'linkify-it'
-  *
-  * const linkify = new LinkifyIt({ fuzzyLink: true })
-  *
-  * linkify
-  *   .tlds(require('tlds'))       // Reload with full TLD list
-  *   .tlds('onion', true)         // Add unofficial `.onion` domain
-  *   .add('ftp:', null)           // Disable `ftp:` protocol
-  *   .set({ fuzzyIP: true })      // Enable IPs in fuzzy links
-  *
-  * console.log(linkify.test('Site github.com!')) // true
-  * console.log(linkify.match('Site github.com!'))
-  * ```
-  */
-  constructor(options = {}) {
-    const { rebuilder, ...linkifyOptions } = options;
-    this.__opts__ = {
-      ...defaultOptions,
-      ...linkifyOptions
-    };
-    this.__schemas__ = { ...defaultSchemas };
-    this.re = rebuilder || new REBuilder();
-    this.re.set({
-      ...this.__opts__,
-      schema_names: Object.keys(this.__schemas__)
-    });
-  }
-  /**
-  * Add new rule definition.
-  *
-  * `schema` is a link prefix (usually, protocol name with `:` at the end,
-  * `skype:` for example). `linkify-it` makes sure that prefix is not
-  * preceded with alphanumeric char and symbols. Only whitespaces and
-  * punctuation allowed.
-  *
-  * `definition` is a rule to check tail after link prefix. To disable an
-  * existing rule, pass `null`.
-  *
-  * @param schema Rule name (fixed pattern prefix).
-  * @param definition Schema definition, or `null` to disable the rule.
-  *
-  * See [twitter mentions example](https://github.com/markdown-it/linkify-it/blob/master/examples/twitter.mjs).
-  */
-  add(schema, definition = null) {
-    if (!definition) delete this.__schemas__[schema];
-    else {
-      const def = {
-        normalize: (match, self2) => self2.normalize(match),
-        ...definition
-      };
-      this.__schemas__[schema] = def;
-    }
-    this.re.set({
-      ...this.__opts__,
-      schema_names: Object.keys(this.__schemas__)
-    });
-    return this;
-  }
-  /**
-  * Set recognition options for links without schema.
-  *
-  * @param options Recognition options.
-  */
-  set(options = {}) {
-    this.__opts__ = {
-      ...this.__opts__,
-      ...options
-    };
-    this.re.set({
-      ...this.__opts__,
-      schema_names: Object.keys(this.__schemas__)
-    });
-    return this;
-  }
-  /**
-  * Searches linkifiable pattern and returns `true` on success or `false` on fail.
-  *
-  * @param text Text to scan.
-  */
-  test(text2) {
-    if (!text2.length) return false;
-    let m, re;
-    re = this.re.get_schema_search();
-    re.lastIndex = 0;
-    while ((m = re.exec(text2)) !== null) if (this.testSchemaAt(text2, m[2], re.lastIndex)) return true;
-    if (this.__opts__.fuzzyLink && this.__schemas__["http:"]) {
-      re = this.re.get_fuzzy_link_search();
-      re.lastIndex = 0;
-      if (re.exec(text2) !== null) return true;
-    }
-    if (this.__opts__.fuzzyEmail && this.__schemas__["mailto:"]) {
-      if (text2.indexOf("@") >= 0) {
-        const mailHostRe = this.re.get_fuzzy_mail_host_search();
-        const mailNameRe = this.re.get_mail_name_validator();
-        mailHostRe.lastIndex = 0;
-        while ((m = mailHostRe.exec(text2)) !== null) {
-          const name = text2.slice(Math.max(0, m.index - 65), m.index);
-          if (mailNameRe.test(name)) return true;
-        }
-      }
-    }
-    return false;
-  }
-  /**
-  * Similar to {@link LinkifyIt.test} but checks only specific protocol tail exactly
-  * at given position. Returns length of found pattern (0 on fail).
-  *
-  * @param text Text to scan.
-  * @param schema Rule (schema) name.
-  * @param pos Text offset to check from.
-  */
-  testSchemaAt(text2, schema, pos) {
-    if (!this.__schemas__[schema.toLowerCase()]) return 0;
-    return this.__schemas__[schema.toLowerCase()].validate(text2.slice(0, pos + this.__opts__.maxLength), pos, this);
-  }
-  /**
-  * Returns array of found link descriptions or `null` on fail. We strongly
-  * recommend to use {@link LinkifyIt.test} first, for best speed.
-  *
-  * @param text Text to scan.
-  */
-  match(text2) {
-    const result = [];
-    const schemaRe = this.re.get_schema_search();
-    let fuzzyLinkRe;
-    let mailHostRe;
-    let mailNameRe;
-    let fuzzyLinkCandidate;
-    let fuzzyEmailCandidate;
-    let schemaPrefix;
-    let schemaDone = false;
-    let fuzzyLinkDone = false;
-    let fuzzyEmailDone = false;
-    let pos = 0;
-    if (!text2.length) return null;
-    schemaRe.lastIndex = 0;
-    if (this.__opts__.fuzzyLink && this.__schemas__["http:"]) {
-      fuzzyLinkRe = this.re.get_fuzzy_link_search();
-      fuzzyLinkRe.lastIndex = 0;
-    }
-    if (this.__opts__.fuzzyEmail && this.__schemas__["mailto:"]) {
-      mailHostRe = this.re.get_fuzzy_mail_host_search();
-      mailHostRe.lastIndex = 0;
-      mailNameRe = this.re.get_mail_name_validator();
-    }
-    for (; ; ) {
-      const scanFrom = Math.max(pos - 1, 0);
-      if (mailHostRe && mailNameRe && !fuzzyEmailDone && (!fuzzyEmailCandidate || fuzzyEmailCandidate.index < pos)) {
-        if (mailHostRe.lastIndex < scanFrom) mailHostRe.lastIndex = scanFrom;
-        for (; ; ) {
-          const m = mailHostRe.exec(text2);
-          if (!m) {
-            fuzzyEmailDone = true;
-            fuzzyEmailCandidate = void 0;
-            break;
-          }
-          const name = mailNameRe.exec(text2.slice(Math.max(0, m.index - 65), m.index));
-          if (!name) continue;
-          fuzzyEmailCandidate = {
-            schema: "mailto:",
-            index: m.index - name[1].length,
-            lastIndex: m.index + m[0].length
-          };
-          if (fuzzyEmailCandidate.index >= pos) break;
-          if (mailHostRe.lastIndex < scanFrom) mailHostRe.lastIndex = scanFrom;
-        }
-      }
-      if (fuzzyLinkRe && !fuzzyLinkDone && (!fuzzyLinkCandidate || fuzzyLinkCandidate.index < pos)) {
-        if (fuzzyLinkRe.lastIndex < scanFrom) fuzzyLinkRe.lastIndex = scanFrom;
-        for (; ; ) {
-          const m = fuzzyLinkRe.exec(text2);
-          if (!m) {
-            fuzzyLinkDone = true;
-            fuzzyLinkCandidate = void 0;
-            break;
-          }
-          fuzzyLinkCandidate = {
-            schema: "",
-            index: m.index + m[1].length,
-            lastIndex: m.index + m[0].length
-          };
-          if (fuzzyLinkCandidate.index >= pos) break;
-          if (fuzzyLinkRe.lastIndex < scanFrom) fuzzyLinkRe.lastIndex = scanFrom;
-        }
-      }
-      let fuzzyCandidate = fuzzyEmailCandidate;
-      if (!fuzzyCandidate || fuzzyLinkCandidate && (fuzzyLinkCandidate.index < fuzzyCandidate.index || fuzzyLinkCandidate.index === fuzzyCandidate.index && fuzzyLinkCandidate.lastIndex > fuzzyCandidate.lastIndex)) fuzzyCandidate = fuzzyLinkCandidate;
-      let schemaCandidate;
-      if (!schemaDone) for (; ; ) {
-        if (!schemaPrefix) {
-          if (schemaRe.lastIndex < scanFrom) schemaRe.lastIndex = scanFrom;
-          const m = schemaRe.exec(text2);
-          if (!m) {
-            schemaDone = true;
-            break;
-          }
-          schemaPrefix = {
-            schema: m[2],
-            index: m.index + m[1].length,
-            lastIndex: m.index + m[0].length
-          };
-        }
-        if (schemaPrefix.index < pos) {
-          schemaPrefix = void 0;
-          continue;
-        }
-        if (fuzzyCandidate && schemaPrefix.index > fuzzyCandidate.index) break;
-        const prefix = schemaPrefix;
-        schemaPrefix = void 0;
-        const len = this.testSchemaAt(text2, prefix.schema, prefix.lastIndex);
-        if (len) {
-          schemaCandidate = {
-            schema: prefix.schema,
-            index: prefix.index,
-            lastIndex: prefix.lastIndex + len
-          };
-          break;
-        }
-      }
-      let candidate = schemaCandidate;
-      if (!candidate || fuzzyEmailCandidate && (fuzzyEmailCandidate.index < candidate.index || fuzzyEmailCandidate.index === candidate.index && fuzzyEmailCandidate.lastIndex > candidate.lastIndex)) candidate = fuzzyEmailCandidate;
-      if (!candidate || fuzzyLinkCandidate && (fuzzyLinkCandidate.index < candidate.index || fuzzyLinkCandidate.index === candidate.index && fuzzyLinkCandidate.lastIndex > candidate.lastIndex)) candidate = fuzzyLinkCandidate;
-      if (!candidate) break;
-      if (candidate === fuzzyEmailCandidate) fuzzyEmailCandidate = void 0;
-      else if (candidate === fuzzyLinkCandidate) fuzzyLinkCandidate = void 0;
-      const match = new Match(text2, candidate.schema, candidate.index, candidate.lastIndex);
-      if (match.schema) this.__schemas__[match.schema].normalize(match, this);
-      else this.normalize(match);
-      result.push(match);
-      pos = candidate.lastIndex;
-    }
-    if (result.length) return result;
-    return null;
-  }
-  /**
-  * Returns fully-formed (not fuzzy) link if it starts at the beginning
-  * of the string, and null otherwise.
-  *
-  * @param text Text to scan.
-  */
-  matchAtStart(text2) {
-    if (!text2.length) return null;
-    const m = this.re.get_schema_at_start().exec(text2);
-    if (!m) return null;
-    const len = this.testSchemaAt(text2, m[2], m[0].length);
-    if (!len) return null;
-    const match = new Match(text2, m[2], m.index + m[1].length, m.index + m[0].length + len);
-    this.__schemas__[match.schema].normalize(match, this);
-    return match;
-  }
-  /**
-  * Load (or merge) new TLDs list. Those are used for fuzzy links (without
-  * prefix) to avoid false positives. By default this algorithm is used:
-  *
-  * - hostname with any 2-letter root zones are ok.
-  * - biz|com|edu|gov|net|org|pro|web|xxx|aero|asia|coop|info|museum|name|shop|рф
-  *   are ok.
-  * - encoded (`xn--...`) root zones are ok.
-  *
-  * If list is replaced, then exact match for 2-chars root zones will be checked.
-  *
-  * @param list List of TLDs.
-  * @param keepOld Merge with current list if `true` (`false` by default).
-  */
-  tlds(list2, keepOld = false) {
-    list2 = Array.isArray(list2) ? list2 : [list2];
-    if (!keepOld) this.__opts__.tlds = list2;
-    else this.__opts__.tlds = this.__opts__.tlds.concat(list2);
-    this.re.set({
-      ...this.__opts__,
-      schema_names: Object.keys(this.__schemas__)
-    });
-    return this;
-  }
-  /**
-  * Default normalizer (if schema does not define its own).
-  *
-  * @param match Match to normalize.
-  */
-  normalize(match) {
-    if (!match.schema) match.url = `http://${match.url}`;
-    if (match.schema === "mailto:" && !/^mailto:/i.test(match.url)) match.url = `mailto:${match.url}`;
-  }
-};
-
-// node_modules/punycode.js/punycode.es6.js
-var maxInt = 2147483647;
-var base = 36;
-var tMin = 1;
-var tMax = 26;
-var skew = 38;
-var damp = 700;
-var initialBias = 72;
-var initialN = 128;
-var delimiter = "-";
-var regexPunycode = /^xn--/;
-var regexNonASCII = /[^\0-\x7F]/;
-var regexSeparators = /[\x2E\u3002\uFF0E\uFF61]/g;
-var errors = {
-  "overflow": "Overflow: input needs wider integers to process",
-  "not-basic": "Illegal input >= 0x80 (not a basic code point)",
-  "invalid-input": "Invalid input"
-};
-var baseMinusTMin = base - tMin;
-var floor = Math.floor;
-var stringFromCharCode = String.fromCharCode;
-function error(type) {
-  throw new RangeError(errors[type]);
-}
-function map(array, callback) {
-  const result = [];
-  let length = array.length;
-  while (length--) {
-    result[length] = callback(array[length]);
-  }
-  return result;
-}
-function mapDomain(domain, callback) {
-  const parts = domain.split("@");
-  let result = "";
-  if (parts.length > 1) {
-    result = parts[0] + "@";
-    domain = parts[1];
-  }
-  domain = domain.replace(regexSeparators, ".");
-  const labels = domain.split(".");
-  const encoded = map(labels, callback).join(".");
-  return result + encoded;
-}
-function ucs2decode(string) {
-  const output = [];
-  let counter = 0;
-  const length = string.length;
-  while (counter < length) {
-    const value = string.charCodeAt(counter++);
-    if (value >= 55296 && value <= 56319 && counter < length) {
-      const extra = string.charCodeAt(counter++);
-      if ((extra & 64512) == 56320) {
-        output.push(((value & 1023) << 10) + (extra & 1023) + 65536);
-      } else {
-        output.push(value);
-        counter--;
-      }
-    } else {
-      output.push(value);
-    }
-  }
-  return output;
-}
-var ucs2encode = (codePoints) => String.fromCodePoint(...codePoints);
-var basicToDigit = function(codePoint) {
-  if (codePoint >= 48 && codePoint < 58) {
-    return 26 + (codePoint - 48);
-  }
-  if (codePoint >= 65 && codePoint < 91) {
-    return codePoint - 65;
-  }
-  if (codePoint >= 97 && codePoint < 123) {
-    return codePoint - 97;
-  }
-  return base;
-};
-var digitToBasic = function(digit, flag) {
-  return digit + 22 + 75 * (digit < 26) - ((flag != 0) << 5);
-};
-var adapt = function(delta, numPoints, firstTime) {
-  let k = 0;
-  delta = firstTime ? floor(delta / damp) : delta >> 1;
-  delta += floor(delta / numPoints);
-  for (; delta > baseMinusTMin * tMax >> 1; k += base) {
-    delta = floor(delta / baseMinusTMin);
-  }
-  return floor(k + (baseMinusTMin + 1) * delta / (delta + skew));
-};
-var decode2 = function(input) {
-  const output = [];
-  const inputLength = input.length;
-  let i = 0;
-  let n = initialN;
-  let bias = initialBias;
-  let basic = input.lastIndexOf(delimiter);
-  if (basic < 0) {
-    basic = 0;
-  }
-  for (let j = 0; j < basic; ++j) {
-    if (input.charCodeAt(j) >= 128) {
-      error("not-basic");
-    }
-    output.push(input.charCodeAt(j));
-  }
-  for (let index = basic > 0 ? basic + 1 : 0; index < inputLength; ) {
-    const oldi = i;
-    for (let w = 1, k = base; ; k += base) {
-      if (index >= inputLength) {
-        error("invalid-input");
-      }
-      const digit = basicToDigit(input.charCodeAt(index++));
-      if (digit >= base) {
-        error("invalid-input");
-      }
-      if (digit > floor((maxInt - i) / w)) {
-        error("overflow");
-      }
-      i += digit * w;
-      const t = k <= bias ? tMin : k >= bias + tMax ? tMax : k - bias;
-      if (digit < t) {
-        break;
-      }
-      const baseMinusT = base - t;
-      if (w > floor(maxInt / baseMinusT)) {
-        error("overflow");
-      }
-      w *= baseMinusT;
-    }
-    const out = output.length + 1;
-    bias = adapt(i - oldi, out, oldi == 0);
-    if (floor(i / out) > maxInt - n) {
-      error("overflow");
-    }
-    n += floor(i / out);
-    i %= out;
-    output.splice(i++, 0, n);
-  }
-  return String.fromCodePoint(...output);
-};
-var encode2 = function(input) {
-  const output = [];
-  input = ucs2decode(input);
-  const inputLength = input.length;
-  let n = initialN;
-  let delta = 0;
-  let bias = initialBias;
-  for (const currentValue of input) {
-    if (currentValue < 128) {
-      output.push(stringFromCharCode(currentValue));
-    }
-  }
-  const basicLength = output.length;
-  let handledCPCount = basicLength;
-  if (basicLength) {
-    output.push(delimiter);
-  }
-  while (handledCPCount < inputLength) {
-    let m = maxInt;
-    for (const currentValue of input) {
-      if (currentValue >= n && currentValue < m) {
-        m = currentValue;
-      }
-    }
-    const handledCPCountPlusOne = handledCPCount + 1;
-    if (m - n > floor((maxInt - delta) / handledCPCountPlusOne)) {
-      error("overflow");
-    }
-    delta += (m - n) * handledCPCountPlusOne;
-    n = m;
-    for (const currentValue of input) {
-      if (currentValue < n && ++delta > maxInt) {
-        error("overflow");
-      }
-      if (currentValue === n) {
-        let q = delta;
-        for (let k = base; ; k += base) {
-          const t = k <= bias ? tMin : k >= bias + tMax ? tMax : k - bias;
-          if (q < t) {
-            break;
-          }
-          const qMinusT = q - t;
-          const baseMinusT = base - t;
-          output.push(
-            stringFromCharCode(digitToBasic(t + qMinusT % baseMinusT, 0))
-          );
-          q = floor(qMinusT / baseMinusT);
-        }
-        output.push(stringFromCharCode(digitToBasic(q, 0)));
-        bias = adapt(delta, handledCPCountPlusOne, handledCPCount === basicLength);
-        delta = 0;
-        ++handledCPCount;
-      }
-    }
-    ++delta;
-    ++n;
-  }
-  return output.join("");
-};
-var toUnicode = function(input) {
-  return mapDomain(input, function(string) {
-    return regexPunycode.test(string) ? decode2(string.slice(4).toLowerCase()) : string;
-  });
-};
-var toASCII = function(input) {
-  return mapDomain(input, function(string) {
-    return regexNonASCII.test(string) ? "xn--" + encode2(string) : string;
-  });
-};
-var punycode = {
-  /**
-   * A string representing the current Punycode.js version number.
-   * @memberOf punycode
-   * @type String
-   */
-  "version": "2.3.1",
-  /**
-   * An object of methods to convert from JavaScript's internal character
-   * representation (UCS-2) to Unicode code points, and back.
-   * @see <https://mathiasbynens.be/notes/javascript-encoding>
-   * @memberOf punycode
-   * @type Object
-   */
-  "ucs2": {
-    "decode": ucs2decode,
-    "encode": ucs2encode
-  },
-  "decode": decode2,
-  "encode": encode2,
-  "toASCII": toASCII,
-  "toUnicode": toUnicode
-};
-var punycode_es6_default = punycode;
-
-// node_modules/markdown-it/dist/markdown-it.mjs
-var __defProp2 = Object.defineProperty;
-var __exportAll = (all, no_symbols) => {
-  let target = {};
-  for (var name in all) __defProp2(target, name, {
-    get: all[name],
-    enumerable: true
-  });
-  if (!no_symbols) __defProp2(target, Symbol.toStringTag, { value: "Module" });
-  return target;
-};
-var utils_exports = /* @__PURE__ */ __exportAll({
-  arrayReplaceAt: () => arrayReplaceAt,
-  asciiTrim: () => asciiTrim,
-  callable: () => callable,
-  escapeHtml: () => escapeHtml,
-  escapeRE: () => escapeRE,
-  fromCodePoint: () => fromCodePoint,
-  isMdAsciiPunct: () => isMdAsciiPunct,
-  isPunctChar: () => isPunctChar,
-  isPunctCharCode: () => isPunctCharCode,
-  isSpace: () => isSpace,
-  isValidEntityCode: () => isValidEntityCode,
-  isWhiteSpace: () => isWhiteSpace,
-  lib: () => lib,
-  normalizeReference: () => normalizeReference,
-  unescapeAll: () => unescapeAll,
-  unescapeMd: () => unescapeMd
-});
-function callable(cls) {
-  const wrapper = function(...args) {
-    return Reflect.construct(cls, args, new.target && new.target !== wrapper ? new.target : cls);
-  };
-  Object.defineProperty(wrapper, "name", { value: cls.name });
-  Object.setPrototypeOf(wrapper, cls);
-  wrapper.prototype = cls.prototype;
-  return wrapper;
-}
-function arrayReplaceAt(src, pos, newElements) {
-  return [].concat(src.slice(0, pos), newElements, src.slice(pos + 1));
-}
-function isValidEntityCode(c) {
-  if (c >= 55296 && c <= 57343) return false;
-  if (c >= 64976 && c <= 65007) return false;
-  if ((c & 65535) === 65535 || (c & 65535) === 65534) return false;
-  if (c >= 0 && c <= 8) return false;
-  if (c === 11) return false;
-  if (c >= 14 && c <= 31) return false;
-  if (c >= 127 && c <= 159) return false;
-  if (c > 1114111) return false;
-  return true;
-}
-function fromCodePoint(c) {
-  if (c > 65535) {
-    c -= 65536;
-    const surrogate1 = 55296 + (c >> 10);
-    const surrogate2 = 56320 + (c & 1023);
-    return String.fromCharCode(surrogate1, surrogate2);
-  }
-  return String.fromCharCode(c);
-}
-var UNESCAPE_MD_RE = /\\([!"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~])/g;
-var UNESCAPE_ALL_RE = new RegExp(`${UNESCAPE_MD_RE.source}|${/&([a-z#][a-z0-9]{1,31});/gi.source}`, "gi");
-var DIGITAL_ENTITY_TEST_RE = /^#((?:x[a-f0-9]{1,8}|[0-9]{1,8}))$/i;
-function replaceEntityPattern(match, name) {
-  if (name.charCodeAt(0) === 35 && DIGITAL_ENTITY_TEST_RE.test(name)) {
-    const code2 = name[1].toLowerCase() === "x" ? parseInt(name.slice(2), 16) : parseInt(name.slice(1), 10);
-    if (isValidEntityCode(code2)) return fromCodePoint(code2);
-    return match;
-  }
-  const decoded = decodeHTMLStrict(match);
-  if (decoded !== match) return decoded;
-  return match;
-}
-function unescapeMd(str) {
-  if (str.indexOf("\\") < 0) return str;
-  return str.replace(UNESCAPE_MD_RE, "$1");
-}
-function unescapeAll(str) {
-  if (str.indexOf("\\") < 0 && str.indexOf("&") < 0) return str;
-  return str.replace(UNESCAPE_ALL_RE, function(match, escaped, entity2) {
-    if (escaped) return escaped;
-    return replaceEntityPattern(match, entity2);
-  });
-}
-var HTML_ESCAPE_TEST_RE = /[&<>"]/;
-var HTML_ESCAPE_REPLACE_RE = /[&<>"]/g;
-var HTML_REPLACEMENTS = {
-  "&": "&amp;",
-  "<": "&lt;",
-  ">": "&gt;",
-  '"': "&quot;"
-};
-function replaceUnsafeChar(ch) {
-  return HTML_REPLACEMENTS[ch];
-}
-function escapeHtml(str) {
-  if (HTML_ESCAPE_TEST_RE.test(str)) return str.replace(HTML_ESCAPE_REPLACE_RE, replaceUnsafeChar);
-  return str;
-}
-var REGEXP_ESCAPE_RE = /[.?*+^$[\]\\(){}|-]/g;
-function escapeRE(str) {
-  return str.replace(REGEXP_ESCAPE_RE, "\\$&");
-}
-function isSpace(code2) {
-  switch (code2) {
-    case 9:
-    case 32:
-      return true;
-  }
-  return false;
-}
-function isWhiteSpace(code2) {
-  if (code2 >= 8192 && code2 <= 8202) return true;
-  switch (code2) {
-    case 9:
-    case 10:
-    case 11:
-    case 12:
-    case 13:
-    case 32:
-    case 160:
-    case 5760:
-    case 8239:
-    case 8287:
-    case 12288:
-      return true;
-  }
-  return false;
-}
-function isPunctChar(ch) {
-  return P.test(ch) || S.test(ch);
-}
-function isPunctCharCode(code2) {
-  return isPunctChar(fromCodePoint(code2));
-}
-function isMdAsciiPunct(ch) {
-  switch (ch) {
-    case 33:
-    case 34:
-    case 35:
-    case 36:
-    case 37:
-    case 38:
-    case 39:
-    case 40:
-    case 41:
-    case 42:
-    case 43:
-    case 44:
-    case 45:
-    case 46:
-    case 47:
-    case 58:
-    case 59:
-    case 60:
-    case 61:
-    case 62:
-    case 63:
-    case 64:
-    case 91:
-    case 92:
-    case 93:
-    case 94:
-    case 95:
-    case 96:
-    case 123:
-    case 124:
-    case 125:
-    case 126:
-      return true;
-    default:
-      return false;
-  }
-}
-function normalizeReference(str) {
-  str = str.trim().replace(/\s+/g, " ");
-  return str.toLowerCase().toUpperCase();
-}
-function isAsciiTrimmable(c) {
-  return c === 32 || c === 9 || c === 10 || c === 13;
-}
-function asciiTrim(str) {
-  let start = 0;
-  for (; start < str.length; start++) if (!isAsciiTrimmable(str.charCodeAt(start))) break;
-  let end = str.length - 1;
-  for (; end >= start; end--) if (!isAsciiTrimmable(str.charCodeAt(end))) break;
-  return str.slice(start, end + 1);
-}
-var lib = {
-  mdurl: mdurl_exports,
-  ucmicro: build_exports
-};
-function parseLinkLabel(state, start, disableNested) {
-  let level, found, marker, prevPos;
-  const max = state.posMax;
-  const oldPos = state.pos;
-  state.pos = start + 1;
-  level = 1;
-  while (state.pos < max) {
-    marker = state.src.charCodeAt(state.pos);
-    if (marker === 93) {
-      level--;
-      if (level === 0) {
-        found = true;
-        break;
-      }
-    }
-    prevPos = state.pos;
-    state.md.inline.skipToken(state);
-    if (marker === 91) {
-      if (prevPos === state.pos - 1) level++;
-      else if (disableNested) {
-        state.pos = oldPos;
-        return -1;
-      }
-    }
-  }
-  let labelEnd = -1;
-  if (found) labelEnd = state.pos;
-  state.pos = oldPos;
-  return labelEnd;
-}
-function parseLinkDestination(str, start, max) {
-  let code2;
-  let pos = start;
-  const result = {
-    ok: false,
-    pos: 0,
-    str: ""
-  };
-  if (str.charCodeAt(pos) === 60) {
-    pos++;
-    while (pos < max) {
-      code2 = str.charCodeAt(pos);
-      if (code2 === 10) return result;
-      if (code2 === 60) return result;
-      if (code2 === 62) {
-        result.pos = pos + 1;
-        result.str = unescapeAll(str.slice(start + 1, pos));
-        result.ok = true;
-        return result;
-      }
-      if (code2 === 92 && pos + 1 < max) {
-        pos += 2;
-        continue;
-      }
-      pos++;
-    }
-    return result;
-  }
-  let level = 0;
-  while (pos < max) {
-    code2 = str.charCodeAt(pos);
-    if (code2 === 32) break;
-    if (code2 < 32 || code2 === 127) break;
-    if (code2 === 92 && pos + 1 < max) {
-      if (str.charCodeAt(pos + 1) === 32) {
-        pos++;
-        continue;
-      }
-      pos += 2;
-      continue;
-    }
-    if (code2 === 40) {
-      level++;
-      if (level > 32) return result;
-    }
-    if (code2 === 41) {
-      if (level === 0) break;
-      level--;
-    }
-    pos++;
-  }
-  if (start === pos) return result;
-  if (level !== 0) return result;
-  result.str = unescapeAll(str.slice(start, pos));
-  result.pos = pos;
-  result.ok = true;
-  return result;
-}
-function parseLinkTitle(str, start, max, prev_state) {
-  let code2;
-  let pos = start;
-  const state = {
-    ok: false,
-    can_continue: false,
-    pos: 0,
-    str: "",
-    marker: 0
-  };
-  if (prev_state) {
-    state.str = prev_state.str;
-    state.marker = prev_state.marker;
-  } else {
-    if (pos >= max) return state;
-    let marker = str.charCodeAt(pos);
-    if (marker !== 34 && marker !== 39 && marker !== 40) return state;
-    start++;
-    pos++;
-    if (marker === 40) marker = 41;
-    state.marker = marker;
-  }
-  while (pos < max) {
-    code2 = str.charCodeAt(pos);
-    if (code2 === state.marker) {
-      state.pos = pos + 1;
-      state.str += unescapeAll(str.slice(start, pos));
-      state.ok = true;
-      return state;
-    } else if (code2 === 40 && state.marker === 41) return state;
-    else if (code2 === 92 && pos + 1 < max) pos++;
-    pos++;
-  }
-  state.can_continue = true;
-  state.str += unescapeAll(str.slice(start, pos));
-  return state;
-}
-var helpers_exports = /* @__PURE__ */ __exportAll({
-  parseLinkDestination: () => parseLinkDestination,
-  parseLinkLabel: () => parseLinkLabel,
-  parseLinkTitle: () => parseLinkTitle
-});
-function _typeof(o) {
-  "@babel/helpers - typeof";
-  return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o2) {
-    return typeof o2;
-  } : function(o2) {
-    return o2 && "function" == typeof Symbol && o2.constructor === Symbol && o2 !== Symbol.prototype ? "symbol" : typeof o2;
-  }, _typeof(o);
-}
-function toPrimitive(t, r) {
-  if ("object" != _typeof(t) || !t) return t;
-  var e = t[Symbol.toPrimitive];
-  if (void 0 !== e) {
-    var i = e.call(t, r || "default");
-    if ("object" != _typeof(i)) return i;
-    throw new TypeError("@@toPrimitive must return a primitive value.");
-  }
-  return ("string" === r ? String : Number)(t);
-}
-function toPropertyKey(t) {
-  var i = toPrimitive(t, "string");
-  return "symbol" == _typeof(i) ? i : i + "";
-}
-function _defineProperty(e, r, t) {
-  return (r = toPropertyKey(r)) in e ? Object.defineProperty(e, r, {
-    value: t,
-    enumerable: true,
-    configurable: true,
-    writable: true
-  }) : e[r] = t, e;
-}
-var Token = class {
-  constructor(type, tag, nesting) {
-    _defineProperty(
-      this,
-      /**
-      * Source map info. Format: `[ line_begin, line_end ]`
-      */
-      "map",
-      null
-    );
-    _defineProperty(
-      this,
-      /**
-      * nesting level, the same as `state.level`
-      */
-      "level",
-      0
-    );
-    _defineProperty(
-      this,
-      /**
-      * An array of child nodes (inline and img tokens)
-      */
-      "children",
-      null
-    );
-    _defineProperty(
-      this,
-      /**
-      * In a case of self-closing tag (code, html, fence, etc.),
-      * it has contents of this tag.
-      */
-      "content",
-      ""
-    );
-    _defineProperty(
-      this,
-      /**
-      * '*' or '_' for emphasis, fence string for fence, etc.
-      */
-      "markup",
-      ""
-    );
-    _defineProperty(
-      this,
-      /**
-      * Additional information:
-      *
-      * - Info string for "fence" tokens
-      * - The value "auto" for autolink "link_open" and "link_close" tokens
-      * - The string value of the item marker for ordered-list "list_item_open" tokens
-      */
-      "info",
-      ""
-    );
-    _defineProperty(
-      this,
-      /**
-      * True for block-level tokens, false for inline tokens.
-      * Used in renderer to calculate line breaks
-      */
-      "block",
-      false
-    );
-    _defineProperty(
-      this,
-      /**
-      * If it's true, ignore this element when rendering. Used for tight lists
-      * to hide paragraphs.
-      */
-      "hidden",
-      false
-    );
-    this.type = type;
-    this.tag = tag;
-    this.attrs = null;
-    this.nesting = nesting;
-    this.meta = null;
-  }
-  /**
-  * Search attribute index by name.
-  */
-  attrIndex(name) {
-    if (!this.attrs) return -1;
-    const attrs = this.attrs;
-    for (let i = 0, len = attrs.length; i < len; i++) if (attrs[i][0] === name) return i;
-    return -1;
-  }
-  /**
-  * Add `[ name, value ]` attribute to list. Init attrs if necessary
-  */
-  attrPush(attrData) {
-    if (this.attrs) this.attrs.push(attrData);
-    else this.attrs = [attrData];
-  }
-  /**
-  * Set `name` attribute to `value`. Override old value if exists.
-  */
-  attrSet(name, value) {
-    const idx = this.attrIndex(name);
-    const attrData = [name, value];
-    if (idx < 0) this.attrPush(attrData);
-    else this.attrs[idx] = attrData;
-  }
-  /**
-  * Get the value of attribute `name`, or null if it does not exist.
-  */
-  attrGet(name) {
-    const idx = this.attrIndex(name);
-    let value = null;
-    if (idx >= 0) value = this.attrs[idx][1];
-    return value;
-  }
-  /**
-  * Join value to existing attribute via space. Or create new attribute if not
-  * exists. Useful to operate with token classes.
-  */
-  attrJoin(name, value) {
-    const idx = this.attrIndex(name);
-    if (idx < 0) this.attrPush([name, value]);
-    else this.attrs[idx][1] = `${this.attrs[idx][1]} ${value}`;
-  }
-};
-var Ruler = class {
-  constructor() {
-    _defineProperty(this, "__rules__", []);
-    _defineProperty(this, "__cache__", null);
-  }
-  __find__(name) {
-    for (let i = 0; i < this.__rules__.length; i++) if (this.__rules__[i].name === name) return i;
-    return -1;
-  }
-  __compile__() {
-    const chains = /* @__PURE__ */ new Set();
-    this.__rules__.forEach((rule) => {
-      if (!rule.enabled) return;
-      rule.alt.forEach((altName) => {
-        if (altName) chains.add(altName);
-      });
-    });
-    this.__cache__ = /* @__PURE__ */ Object.create(null);
-    this.__cache__[""] = [];
-    this.__rules__.forEach((rule) => {
-      if (rule.enabled) this.__cache__[""].push(rule.fn);
-    });
-    chains.forEach((chain) => {
-      this.__cache__[chain] = [];
-      this.__rules__.forEach((rule) => {
-        if (rule.enabled && rule.alt.indexOf(chain) >= 0) this.__cache__[chain].push(rule.fn);
-      });
-    });
-  }
-  /**
-  * Replace rule by name with new function & options. Throws error if name not
-  * found.
-  *
-  * @param name Rule name to replace.
-  * @param fn New rule function.
-  * @param options Rule options. `alt` is an array with names of "alternate"
-  * chains.
-  *
-  * @example Replace existing typographer replacement rule with new one
-  * ```javascript
-  * import MarkdownIt from 'markdown-it'
-  * const md = new MarkdownIt()
-  *
-  * md.core.ruler.at('replacements', function replace(state) {
-  *   //...
-  * });
-  * ```
-  */
-  at(name, fn, options = {}) {
-    const index = this.__find__(name);
-    if (index === -1) throw new Error(`Parser rule not found: ${name}`);
-    this.__rules__[index].fn = fn;
-    this.__rules__[index].alt = options.alt || [];
-    this.__cache__ = null;
-  }
-  /**
-  * Add new rule to chain before one with given name. See also
-  * {@link Ruler.after}, {@link Ruler.push}.
-  *
-  * @param beforeName New rule will be added before this one.
-  * @param ruleName Name of added rule.
-  * @param fn Rule function.
-  * @param options Rule options. `alt` is an array with names of "alternate"
-  * chains.
-  *
-  * @example
-  * ```javascript
-  * import MarkdownIt from 'markdown-it'
-  * const md = new MarkdownIt()
-  *
-  * md.block.ruler.before('paragraph', 'my_rule', function replace(state) {
-  *   //...
-  * });
-  * ```
-  */
-  before(beforeName, ruleName, fn, options = {}) {
-    const index = this.__find__(beforeName);
-    if (index === -1) throw new Error(`Parser rule not found: ${beforeName}`);
-    this.__rules__.splice(index, 0, {
-      name: ruleName,
-      enabled: true,
-      fn,
-      alt: options.alt || []
-    });
-    this.__cache__ = null;
-  }
-  /**
-  * Add new rule to chain after one with given name. See also
-  * {@link Ruler.before}, {@link Ruler.push}.
-  *
-  * @param afterName New rule will be added after this one.
-  * @param ruleName Name of added rule.
-  * @param fn Rule function.
-  * @param options Rule options. `alt` is an array with names of "alternate"
-  * chains.
-  *
-  * @example
-  * ```javascript
-  * import MarkdownIt from 'markdown-it'
-  * const md = new MarkdownIt()
-  *
-  * md.inline.ruler.after('text', 'my_rule', function replace(state) {
-  *   //...
-  * });
-  * ```
-  */
-  after(afterName, ruleName, fn, options = {}) {
-    const index = this.__find__(afterName);
-    if (index === -1) throw new Error(`Parser rule not found: ${afterName}`);
-    this.__rules__.splice(index + 1, 0, {
-      name: ruleName,
-      enabled: true,
-      fn,
-      alt: options.alt || []
-    });
-    this.__cache__ = null;
-  }
-  /**
-  * Push new rule to the end of chain. See also
-  * {@link Ruler.before}, {@link Ruler.after}.
-  *
-  * @param ruleName Name of added rule.
-  * @param fn Rule function.
-  * @param options Rule options. `alt` is an array with names of "alternate"
-  * chains.
-  *
-  * @example
-  * ```javascript
-  * import MarkdownIt from 'markdown-it'
-  * const md = new MarkdownIt()
-  *
-  * md.core.ruler.push('my_rule', function replace(state) {
-  *   //...
-  * });
-  * ```
-  */
-  push(ruleName, fn, options = {}) {
-    this.__rules__.push({
-      name: ruleName,
-      enabled: true,
-      fn,
-      alt: options.alt || []
-    });
-    this.__cache__ = null;
-  }
-  /**
-  * Enable rules with given names. If any rule name not found - throw Error.
-  * Errors can be disabled by second param.
-  *
-  * See also {@link Ruler.disable}, {@link Ruler.enableOnly}.
-  *
-  * @param list List of rule names to enable.
-  * @param ignoreInvalid Set `true` to ignore errors when rule not found.
-  * @returns List of found rule names (if no exception happened).
-  */
-  enable(list2, ignoreInvalid = false) {
-    if (!Array.isArray(list2)) list2 = [list2];
-    const result = [];
-    list2.forEach((name) => {
-      const idx = this.__find__(name);
-      if (idx < 0) {
-        if (ignoreInvalid) return;
-        throw new Error(`Rules manager: invalid rule name ${name}`);
-      }
-      this.__rules__[idx].enabled = true;
-      result.push(name);
-    });
-    this.__cache__ = null;
-    return result;
-  }
-  /**
-  * Enable rules with given names, and disable everything else. If any rule name
-  * not found - throw Error. Errors can be disabled by second param.
-  *
-  * See also {@link Ruler.disable}, {@link Ruler.enable}.
-  *
-  * @param list List of rule names to enable (whitelist).
-  * @param ignoreInvalid Set `true` to ignore errors when rule not found.
-  */
-  enableOnly(list2, ignoreInvalid = false) {
-    if (!Array.isArray(list2)) list2 = [list2];
-    this.__rules__.forEach((rule) => {
-      rule.enabled = false;
-    });
-    this.enable(list2, ignoreInvalid);
-  }
-  /**
-  * Disable rules with given names. If any rule name not found - throw Error.
-  * Errors can be disabled by second param.
-  *
-  * See also {@link Ruler.enable}, {@link Ruler.enableOnly}.
-  *
-  * @param list List of rule names to disable.
-  * @param ignoreInvalid Set `true` to ignore errors when rule not found.
-  * @returns List of found rule names (if no exception happened).
-  */
-  disable(list2, ignoreInvalid = false) {
-    if (!Array.isArray(list2)) list2 = [list2];
-    const result = [];
-    list2.forEach((name) => {
-      const idx = this.__find__(name);
-      if (idx < 0) {
-        if (ignoreInvalid) return;
-        throw new Error(`Rules manager: invalid rule name ${name}`);
-      }
-      this.__rules__[idx].enabled = false;
-      result.push(name);
-    });
-    this.__cache__ = null;
-    return result;
-  }
-  /**
-  * Return array of active functions (rules) for given chain name. It analyzes
-  * rules configuration, compiles caches if not exists and returns result.
-  *
-  * Default chain name is `''` (empty string). It can't be skipped. That's
-  * done intentionally, to keep signature monomorphic for high speed.
-  */
-  getRules(chainName) {
-    if (!this.__cache__) this.__compile__();
-    return this.__cache__[chainName] || [];
-  }
-};
-var default_rules = {};
-default_rules.code_inline = function(tokens, idx, options, env, slf) {
-  const token = tokens[idx];
-  return `<code${slf.renderAttrs(token)}>${escapeHtml(token.content)}</code>`;
-};
-default_rules.code_block = function(tokens, idx, options, env, slf) {
-  const token = tokens[idx];
-  return `<pre${slf.renderAttrs(token)}><code>${escapeHtml(tokens[idx].content)}</code></pre>
-`;
-};
-default_rules.fence = function(tokens, idx, options, env, slf) {
-  const token = tokens[idx];
-  const info = token.info ? unescapeAll(token.info).trim() : "";
-  let langName = "";
-  let langAttrs = "";
-  if (info) {
-    const arr = info.split(/(\s+)/g);
-    langName = arr[0];
-    langAttrs = arr.slice(2).join("");
-  }
-  let highlighted;
-  if (options.highlight) highlighted = options.highlight(token.content, langName, langAttrs) || escapeHtml(token.content);
-  else highlighted = escapeHtml(token.content);
-  if (highlighted.indexOf("<pre") === 0) return highlighted + "\n";
-  if (info) {
-    const i = token.attrIndex("class");
-    const tmpAttrs = token.attrs ? token.attrs.slice() : [];
-    if (i < 0) tmpAttrs.push(["class", `${options.langPrefix}${langName}`]);
-    else {
-      tmpAttrs[i] = [tmpAttrs[i][0], tmpAttrs[i][1]];
-      tmpAttrs[i][1] += ` ${options.langPrefix}${langName}`;
-    }
-    const tmpToken = { attrs: tmpAttrs };
-    return `<pre><code${slf.renderAttrs(tmpToken)}>${highlighted}</code></pre>
-`;
-  }
-  return `<pre><code${slf.renderAttrs(token)}>${highlighted}</code></pre>
-`;
-};
-default_rules.image = function(tokens, idx, options, env, slf) {
-  const token = tokens[idx];
-  token.attrs[token.attrIndex("alt")][1] = slf.renderInlineAsText(token.children, options, env);
-  return slf.renderToken(tokens, idx, options);
-};
-default_rules.hardbreak = function(tokens, idx, options) {
-  return options.xhtmlOut ? "<br />\n" : "<br>\n";
-};
-default_rules.softbreak = function(tokens, idx, options) {
-  return options.breaks ? options.xhtmlOut ? "<br />\n" : "<br>\n" : "\n";
-};
-default_rules.text = function(tokens, idx) {
-  return escapeHtml(tokens[idx].content);
-};
-default_rules.html_block = function(tokens, idx) {
-  return tokens[idx].content;
-};
-default_rules.html_inline = function(tokens, idx) {
-  return tokens[idx].content;
-};
-var Renderer = class {
-  constructor() {
-    _defineProperty(
-      this,
-      /**
-      * Contains render rules for tokens. Can be updated and extended.
-      *
-      * See [source code](https://github.com/markdown-it/markdown-it/blob/master/src/renderer.ts)
-      * for more details and examples.
-      *
-      * @example Custom render rules
-      * ```javascript
-      * import MarkdownIt from 'markdown-it'
-      * const md = new MarkdownIt()
-      *
-      * md.renderer.rules.strong_open  = function () { return '<b>'; };
-      * md.renderer.rules.strong_close = function () { return '</b>'; };
-      *
-      * const result = md.renderInline(...);
-      * ```
-      *
-      * @example Each rule is called as independent static function with fixed signature
-      * ```javascript
-      * function my_token_render(tokens, idx, options, env, renderer) {
-      *   // ...
-      *   return renderedHTML;
-      * }
-      * ```
-      */
-      "rules",
-      Object.assign({}, default_rules)
-    );
-  }
-  /**
-  * Render token attributes to string.
-  */
-  renderAttrs(token) {
-    let i, l, result;
-    if (!token.attrs) return "";
-    result = "";
-    for (i = 0, l = token.attrs.length; i < l; i++) result += ` ${escapeHtml(token.attrs[i][0])}="${escapeHtml(String(token.attrs[i][1]))}"`;
-    return result;
-  }
-  /**
-  * Default token renderer. Can be overriden by custom function
-  * in {@link Renderer.rules}.
-  *
-  * @param tokens List of tokens.
-  * @param idx Token index to render.
-  * @param options Params of parser instance.
-  */
-  renderToken(tokens, idx, options) {
-    const token = tokens[idx];
-    let result = "";
-    if (token.hidden) return "";
-    let prev = idx - 1;
-    while (prev >= 0 && tokens[prev].hidden && tokens[prev].nesting === 0) prev--;
-    if (token.block && token.nesting !== -1 && prev >= 0 && tokens[prev].hidden && tokens[prev].nesting === -1) result += "\n";
-    result += (token.nesting === -1 ? "</" : "<") + token.tag;
-    result += this.renderAttrs(token);
-    if (token.nesting === 0 && options.xhtmlOut) result += " /";
-    let needLf = false;
-    if (token.block) {
-      needLf = true;
-      if (token.nesting === 1) {
-        let next = idx + 1;
-        while (next < tokens.length && tokens[next].hidden && tokens[next].nesting === 0) next++;
-        if (next < tokens.length) {
-          const nextToken = tokens[next];
-          if (nextToken.type === "inline" || nextToken.hidden) needLf = false;
-          else if (nextToken.nesting === -1 && nextToken.tag === token.tag) needLf = false;
-        }
-      }
-    }
-    result += needLf ? ">\n" : ">";
-    return result;
-  }
-  /**
-  * The same as {@link Renderer.render}, but for single token of `inline` type.
-  *
-  * @param tokens List on block tokens to render.
-  * @param options Params of parser instance.
-  * @param env Additional data from parsed input (references, for example).
-  */
-  renderInline(tokens, options, env) {
-    let result = "";
-    const rules = this.rules;
-    for (let i = 0, len = tokens.length; i < len; i++) {
-      const type = tokens[i].type;
-      if (typeof rules[type] !== "undefined") result += rules[type](tokens, i, options, env, this);
-      else result += this.renderToken(tokens, i, options);
-    }
-    return result;
-  }
-  /**
-  * Special kludge for image `alt` attributes to conform CommonMark spec.
-  * Don't try to use it! Spec requires to show `alt` content with stripped markup,
-  * instead of simple escaping.
-  *
-  * @param tokens List on block tokens to render.
-  * @param options Params of parser instance.
-  * @param env Additional data from parsed input (references, for example).
-  */
-  renderInlineAsText(tokens, options, env) {
-    let result = "";
-    for (let i = 0, len = tokens.length; i < len; i++) switch (tokens[i].type) {
-      case "text":
-      case "code_inline":
-        result += tokens[i].content;
-        break;
-      case "image":
-        result += this.renderInlineAsText(tokens[i].children, options, env);
-        break;
-      case "html_inline":
-      case "html_block":
-        result += tokens[i].content;
-        break;
-      case "softbreak":
-      case "hardbreak":
-        result += "\n";
-    }
-    return result;
-  }
-  /**
-  * Takes token stream and generates HTML. Probably, you will never need to call
-  * this method directly.
-  *
-  * @param tokens List on block tokens to render.
-  * @param options Params of parser instance.
-  * @param env Additional data from parsed input (references, for example).
-  */
-  render(tokens, options, env) {
-    let result = "";
-    const rules = this.rules;
-    for (let i = 0, len = tokens.length; i < len; i++) {
-      const type = tokens[i].type;
-      if (type === "inline") result += this.renderInline(tokens[i].children, options, env);
-      else if (typeof rules[type] !== "undefined") result += rules[type](tokens, i, options, env, this);
-      else result += this.renderToken(tokens, i, options);
-    }
-    return result;
-  }
-};
-var StateCore = class {
-  constructor(src, md, env) {
-    _defineProperty(this, "tokens", []);
-    _defineProperty(this, "inlineMode", false);
-    _defineProperty(this, "Token", Token);
-    this.src = src;
-    this.env = env;
-    this.md = md;
-  }
-};
-var NEWLINES_RE = /\r\n?|\n/g;
-var NULL_RE = /\0/g;
-function normalize(state) {
-  let str;
-  str = state.src.replace(NEWLINES_RE, "\n");
-  str = str.replace(NULL_RE, "\uFFFD");
-  state.src = str;
-}
-function block(state) {
-  let token;
-  if (state.inlineMode) {
-    token = new state.Token("inline", "", 0);
-    token.content = state.src;
-    token.map = [0, 1];
-    token.children = [];
-    state.tokens.push(token);
-  } else state.md.block.parse(state.src, state.md, state.env, state.tokens);
-}
-function strip_references(state) {
-  const tokens = state.tokens;
-  let last = 0;
-  for (let curr = 0; curr < tokens.length; curr++) {
-    if (tokens[curr].type === "reference_definition") continue;
-    if (curr !== last) tokens[last] = tokens[curr];
-    last++;
-  }
-  if (tokens.length !== last) tokens.length = last;
-}
-function inline(state) {
-  const tokens = state.tokens;
-  for (let i = 0, l = tokens.length; i < l; i++) {
-    const tok = tokens[i];
-    if (tok.type === "inline") state.md.inline.parse(tok.content, state.md, state.env, tok.children);
-  }
-}
-function isLinkOpen$1(str) {
-  return /^<a[>\s]/i.test(str);
-}
-function isLinkClose$1(str) {
-  return /^<\/a\s*>/i.test(str);
-}
-function linkify$1(state) {
-  const blockTokens = state.tokens;
-  if (!state.md.options.linkify) return;
-  for (let j = 0, l = blockTokens.length; j < l; j++) {
-    if (blockTokens[j].type !== "inline" || !state.md.linkify.test(blockTokens[j].content)) continue;
-    let tokens = blockTokens[j].children;
-    let htmlLinkLevel = 0;
-    for (let i = tokens.length - 1; i >= 0; i--) {
-      const currentToken = tokens[i];
-      if (currentToken.type === "link_close") {
-        i--;
-        while (tokens[i].level !== currentToken.level && tokens[i].type !== "link_open") i--;
-        continue;
-      }
-      if (currentToken.type === "html_inline") {
-        if (isLinkOpen$1(currentToken.content) && htmlLinkLevel > 0) htmlLinkLevel--;
-        if (isLinkClose$1(currentToken.content)) htmlLinkLevel++;
-      }
-      if (htmlLinkLevel > 0) continue;
-      if (currentToken.type === "text" && state.md.linkify.test(currentToken.content)) {
-        const text2 = currentToken.content;
-        let links = state.md.linkify.match(text2);
-        const nodes = [];
-        let level = currentToken.level;
-        let lastPos = 0;
-        if (links.length > 0 && links[0].index === 0 && i > 0 && tokens[i - 1].type === "text_special") links = links.slice(1);
-        for (let ln = 0; ln < links.length; ln++) {
-          const url = links[ln].url;
-          const fullUrl = state.md.normalizeLink(url);
-          if (!state.md.validateLink(fullUrl)) continue;
-          let urlText = links[ln].text;
-          if (!links[ln].schema) urlText = state.md.normalizeLinkText(`http://${urlText}`).replace(/^http:\/\//, "");
-          else if (links[ln].schema === "mailto:" && !/^mailto:/i.test(urlText)) urlText = state.md.normalizeLinkText(`mailto:${urlText}`).replace(/^mailto:/, "");
-          else urlText = state.md.normalizeLinkText(urlText);
-          const pos = links[ln].index;
-          if (pos > lastPos) {
-            const token = new state.Token("text", "", 0);
-            token.content = text2.slice(lastPos, pos);
-            token.level = level;
-            nodes.push(token);
-          }
-          const token_o = new state.Token("link_open", "a", 1);
-          token_o.attrs = [["href", fullUrl]];
-          token_o.level = level++;
-          token_o.markup = "linkify";
-          token_o.info = "auto";
-          nodes.push(token_o);
-          const token_t = new state.Token("text", "", 0);
-          token_t.content = urlText;
-          token_t.level = level;
-          nodes.push(token_t);
-          const token_c = new state.Token("link_close", "a", -1);
-          token_c.level = --level;
-          token_c.markup = "linkify";
-          token_c.info = "auto";
-          nodes.push(token_c);
-          lastPos = links[ln].lastIndex;
-        }
-        if (lastPos < text2.length) {
-          const token = new state.Token("text", "", 0);
-          token.content = text2.slice(lastPos);
-          token.level = level;
-          nodes.push(token);
-        }
-        blockTokens[j].children = tokens = arrayReplaceAt(tokens, i, nodes);
-      }
-    }
-  }
-}
-var RARE_RE = /\+-|\.\.|\?\?\?\?|!!!!|,,|--/;
-var SCOPED_ABBR_TEST_RE = /\((c|tm|r)\)/i;
-var SCOPED_ABBR_RE = /\((c|tm|r)\)/gi;
-var SCOPED_ABBR = {
-  c: "\xA9",
-  r: "\xAE",
-  tm: "\u2122"
-};
-function replaceFn(match, name) {
-  return SCOPED_ABBR[name.toLowerCase()];
-}
-function replace_scoped(inlineTokens) {
-  let inside_autolink = 0;
-  for (let i = inlineTokens.length - 1; i >= 0; i--) {
-    const token = inlineTokens[i];
-    if (token.type === "text" && !inside_autolink) token.content = token.content.replace(SCOPED_ABBR_RE, replaceFn);
-    if (token.type === "link_open" && token.info === "auto") inside_autolink--;
-    if (token.type === "link_close" && token.info === "auto") inside_autolink++;
-  }
-}
-function replace_rare(inlineTokens) {
-  let inside_autolink = 0;
-  for (let i = inlineTokens.length - 1; i >= 0; i--) {
-    const token = inlineTokens[i];
-    if (token.type === "text" && !inside_autolink) {
-      if (RARE_RE.test(token.content)) token.content = token.content.replace(/\+-/g, "\xB1").replace(/\.{2,}/g, "\u2026").replace(/([?!])…/g, "$1..").replace(/([?!]){4,}/g, "$1$1$1").replace(/,{2,}/g, ",").replace(/(^|[^-])---(?=[^-]|$)/gm, "$1\u2014").replace(/(^|\s)--(?=\s|$)/gm, "$1\u2013").replace(/(^|[^-\s])--(?=[^-\s]|$)/gm, "$1\u2013");
-    }
-    if (token.type === "link_open" && token.info === "auto") inside_autolink--;
-    if (token.type === "link_close" && token.info === "auto") inside_autolink++;
-  }
-}
-function replace(state) {
-  let blkIdx;
-  if (!state.md.options.typographer) return;
-  for (blkIdx = state.tokens.length - 1; blkIdx >= 0; blkIdx--) {
-    if (state.tokens[blkIdx].type !== "inline") continue;
-    if (SCOPED_ABBR_TEST_RE.test(state.tokens[blkIdx].content)) replace_scoped(state.tokens[blkIdx].children);
-    if (RARE_RE.test(state.tokens[blkIdx].content)) replace_rare(state.tokens[blkIdx].children);
-  }
-}
-var QUOTE_TEST_RE = /['"]/;
-var QUOTE_RE = /['"]/g;
-var APOSTROPHE = "\u2019";
-function addReplacement(replacements, tokenIdx, pos, ch) {
-  if (!replacements[tokenIdx]) replacements[tokenIdx] = [];
-  replacements[tokenIdx].push({
-    pos,
-    ch
-  });
-}
-function applyReplacements(str, replacements) {
-  let result = "";
-  let lastPos = 0;
-  replacements.sort((a, b) => a.pos - b.pos);
-  for (let i = 0; i < replacements.length; i++) {
-    const replacement = replacements[i];
-    result += str.slice(lastPos, replacement.pos) + replacement.ch;
-    lastPos = replacement.pos + 1;
-  }
-  return result + str.slice(lastPos);
-}
-function process_inlines(tokens, state) {
-  let j;
-  const stack = [];
-  const replacements = {};
-  for (let i = 0; i < tokens.length; i++) {
-    const token = tokens[i];
-    const thisLevel = tokens[i].level;
-    for (j = stack.length - 1; j >= 0; j--) if (stack[j].level <= thisLevel) break;
-    stack.length = j + 1;
-    if (token.type !== "text") continue;
-    const text2 = token.content;
-    let pos = 0;
-    const max = text2.length;
-    OUTER: while (pos < max) {
-      QUOTE_RE.lastIndex = pos;
-      const t = QUOTE_RE.exec(text2);
-      if (!t) break;
-      let canOpen = true;
-      let canClose = true;
-      pos = t.index + 1;
-      const isSingle = t[0] === "'";
-      let lastChar = 32;
-      if (t.index - 1 >= 0) lastChar = text2.charCodeAt(t.index - 1);
-      else for (j = i - 1; j >= 0; j--) {
-        if (tokens[j].type === "softbreak" || tokens[j].type === "hardbreak") break;
-        if (!tokens[j].content) continue;
-        lastChar = tokens[j].content.charCodeAt(tokens[j].content.length - 1);
-        break;
-      }
-      let nextChar = 32;
-      if (pos < max) nextChar = text2.charCodeAt(pos);
-      else for (j = i + 1; j < tokens.length; j++) {
-        if (tokens[j].type === "softbreak" || tokens[j].type === "hardbreak") break;
-        if (!tokens[j].content) continue;
-        nextChar = tokens[j].content.charCodeAt(0);
-        break;
-      }
-      const isLastPunctChar = isMdAsciiPunct(lastChar) || isPunctCharCode(lastChar);
-      const isNextPunctChar = isMdAsciiPunct(nextChar) || isPunctCharCode(nextChar);
-      const isLastWhiteSpace = isWhiteSpace(lastChar);
-      const isNextWhiteSpace = isWhiteSpace(nextChar);
-      if (isNextWhiteSpace) canOpen = false;
-      else if (isNextPunctChar) {
-        if (!(isLastWhiteSpace || isLastPunctChar)) canOpen = false;
-      }
-      if (isLastWhiteSpace) canClose = false;
-      else if (isLastPunctChar) {
-        if (!(isNextWhiteSpace || isNextPunctChar)) canClose = false;
-      }
-      if (nextChar === 34 && t[0] === '"') {
-        if (lastChar >= 48 && lastChar <= 57) canClose = canOpen = false;
-      }
-      if (canOpen && canClose) {
-        canOpen = isLastPunctChar;
-        canClose = isNextPunctChar;
-      }
-      if (!canOpen && !canClose) {
-        if (isSingle) addReplacement(replacements, i, t.index, APOSTROPHE);
-        continue;
-      }
-      if (canClose) for (j = stack.length - 1; j >= 0; j--) {
-        let item = stack[j];
-        if (stack[j].level < thisLevel) break;
-        if (item.single === isSingle && stack[j].level === thisLevel) {
-          item = stack[j];
-          let openQuote;
-          let closeQuote;
-          if (isSingle) {
-            openQuote = state.md.options.quotes[2];
-            closeQuote = state.md.options.quotes[3];
-          } else {
-            openQuote = state.md.options.quotes[0];
-            closeQuote = state.md.options.quotes[1];
-          }
-          addReplacement(replacements, i, t.index, closeQuote);
-          addReplacement(replacements, item.token, item.pos, openQuote);
-          stack.length = j;
-          continue OUTER;
-        }
-      }
-      if (canOpen) stack.push({
-        token: i,
-        pos: t.index,
-        single: isSingle,
-        level: thisLevel
-      });
-      else if (canClose && isSingle) addReplacement(replacements, i, t.index, APOSTROPHE);
-    }
-  }
-  Object.keys(replacements).forEach(function(tokenIdx) {
-    const idx = Number(tokenIdx);
-    tokens[idx].content = applyReplacements(tokens[idx].content, replacements[tokenIdx]);
-  });
-}
-function smartquotes(state) {
-  if (!state.md.options.typographer) return;
-  for (let blkIdx = state.tokens.length - 1; blkIdx >= 0; blkIdx--) {
-    if (state.tokens[blkIdx].type !== "inline" || !QUOTE_TEST_RE.test(state.tokens[blkIdx].content)) continue;
-    process_inlines(state.tokens[blkIdx].children, state);
-  }
-}
-function join_alt(tokens) {
-  let curr, last;
-  const max = tokens.length;
-  for (curr = 0; curr < max; curr++) if (tokens[curr].type === "text_special") tokens[curr].type = "text";
-  for (curr = last = 0; curr < max; curr++) if (tokens[curr].type === "text" && curr + 1 < max && tokens[curr + 1].type === "text") tokens[curr + 1].content = tokens[curr].content + tokens[curr + 1].content;
-  else {
-    if (curr !== last) tokens[last] = tokens[curr];
-    last++;
-  }
-  if (curr !== last) tokens.length = last;
-}
-function text_join(state) {
-  let curr, last;
-  const blockTokens = state.tokens;
-  const l = blockTokens.length;
-  for (let j = 0; j < l; j++) {
-    if (blockTokens[j].type !== "inline") continue;
-    const tokens = blockTokens[j].children;
-    const max = tokens.length;
-    for (curr = 0; curr < max; curr++) {
-      if (tokens[curr].type === "text_special") tokens[curr].type = "text";
-      if (tokens[curr].children) join_alt(tokens[curr].children);
-    }
-    for (curr = last = 0; curr < max; curr++) if (tokens[curr].type === "text" && curr + 1 < max && tokens[curr + 1].type === "text") tokens[curr + 1].content = tokens[curr].content + tokens[curr + 1].content;
-    else {
-      if (curr !== last) tokens[last] = tokens[curr];
-      last++;
-    }
-    if (curr !== last) tokens.length = last;
-  }
-}
-var _rules$2 = [
-  ["normalize", normalize],
-  ["block", block],
-  ["strip_references", strip_references],
-  ["inline", inline],
-  ["linkify", linkify$1],
-  ["replacements", replace],
-  ["smartquotes", smartquotes],
-  ["text_join", text_join]
-];
-var ParserCore = class {
-  constructor() {
-    _defineProperty(
-      this,
-      /**
-      * {@link Ruler} instance. Keep configuration of core rules.
-      */
-      "ruler",
-      new Ruler()
-    );
-    _defineProperty(this, "State", StateCore);
-    for (let i = 0; i < _rules$2.length; i++) this.ruler.push(_rules$2[i][0], _rules$2[i][1]);
-  }
-  /**
-  * Executes core chain rules.
-  */
-  process(state) {
-    const rules = this.ruler.getRules("");
-    for (let i = 0, l = rules.length; i < l; i++) rules[i](state);
-  }
-};
-var StateBlock = class {
-  constructor(src, md, env, tokens) {
-    _defineProperty(this, "bMarks", []);
-    _defineProperty(this, "eMarks", []);
-    _defineProperty(this, "tShift", []);
-    _defineProperty(this, "sCount", []);
-    _defineProperty(this, "bsCount", []);
-    _defineProperty(this, "blkIndent", 0);
-    _defineProperty(this, "line", 0);
-    _defineProperty(this, "lineMax", 0);
-    _defineProperty(this, "tight", false);
-    _defineProperty(this, "listIndent", -1);
-    _defineProperty(this, "parentType", "root");
-    _defineProperty(this, "level", 0);
-    _defineProperty(this, "Token", Token);
-    this.src = src;
-    this.md = md;
-    this.env = env;
-    this.tokens = tokens;
-    const s = this.src;
-    for (let start = 0, pos = 0, indent = 0, offset = 0, len = s.length, indent_found = false; pos < len; pos++) {
-      const ch = s.charCodeAt(pos);
-      if (!indent_found) if (isSpace(ch)) {
-        indent++;
-        if (ch === 9) offset += 4 - offset % 4;
-        else offset++;
-        continue;
-      } else indent_found = true;
-      if (ch === 10 || pos === len - 1) {
-        if (ch !== 10) pos++;
-        this.bMarks.push(start);
-        this.eMarks.push(pos);
-        this.tShift.push(indent);
-        this.sCount.push(offset);
-        this.bsCount.push(0);
-        indent_found = false;
-        indent = 0;
-        offset = 0;
-        start = pos + 1;
-      }
-    }
-    this.bMarks.push(s.length);
-    this.eMarks.push(s.length);
-    this.tShift.push(0);
-    this.sCount.push(0);
-    this.bsCount.push(0);
-    this.lineMax = this.bMarks.length - 1;
-  }
-  push(type, tag, nesting) {
-    const token = new Token(type, tag, nesting);
-    token.block = true;
-    if (nesting < 0) this.level--;
-    token.level = this.level;
-    if (nesting > 0) this.level++;
-    this.tokens.push(token);
-    return token;
-  }
-  isEmpty(line) {
-    return this.bMarks[line] + this.tShift[line] >= this.eMarks[line];
-  }
-  skipEmptyLines(from) {
-    for (let max = this.lineMax; from < max; from++) if (this.bMarks[from] + this.tShift[from] < this.eMarks[from]) break;
-    return from;
-  }
-  skipSpaces(pos) {
-    for (let max = this.src.length; pos < max; pos++) if (!isSpace(this.src.charCodeAt(pos))) break;
-    return pos;
-  }
-  skipSpacesBack(pos, min) {
-    if (pos <= min) return pos;
-    while (pos > min) if (!isSpace(this.src.charCodeAt(--pos))) return pos + 1;
-    return pos;
-  }
-  skipChars(pos, code2) {
-    for (let max = this.src.length; pos < max; pos++) if (this.src.charCodeAt(pos) !== code2) break;
-    return pos;
-  }
-  skipCharsBack(pos, code2, min) {
-    if (pos <= min) return pos;
-    while (pos > min) if (code2 !== this.src.charCodeAt(--pos)) return pos + 1;
-    return pos;
-  }
-  getLines(begin, end, indent, keepLastLF) {
-    if (begin >= end) return "";
-    const queue = new Array(end - begin);
-    for (let i = 0, line = begin; line < end; line++, i++) {
-      let lineIndent = 0;
-      const lineStart = this.bMarks[line];
-      let first = lineStart;
-      let last;
-      if (line + 1 < end || keepLastLF) last = this.eMarks[line] + 1;
-      else last = this.eMarks[line];
-      while (first < last && lineIndent < indent) {
-        const ch = this.src.charCodeAt(first);
-        if (isSpace(ch)) if (ch === 9) lineIndent += 4 - (lineIndent + this.bsCount[line]) % 4;
-        else lineIndent++;
-        else if (first - lineStart < this.tShift[line]) lineIndent++;
-        else break;
-        first++;
-      }
-      if (lineIndent > indent) queue[i] = new Array(lineIndent - indent + 1).join(" ") + this.src.slice(first, last);
-      else queue[i] = this.src.slice(first, last);
-    }
-    return queue.join("");
-  }
-};
-var MAX_AUTOCOMPLETED_CELLS = 65536;
-function getLine(state, line) {
-  const pos = state.bMarks[line] + state.tShift[line];
-  const max = state.eMarks[line];
-  return state.src.slice(pos, max);
-}
-function escapedSplit(str) {
-  const result = [];
-  const max = str.length;
-  let pos = 0;
-  let ch = str.charCodeAt(pos);
-  let isEscaped = false;
-  let lastPos = 0;
-  let current = "";
-  while (pos < max) {
-    if (ch === 124) if (!isEscaped) {
-      result.push(current + str.substring(lastPos, pos));
-      current = "";
-      lastPos = pos + 1;
-    } else {
-      current += str.substring(lastPos, pos - 1);
-      lastPos = pos;
-    }
-    isEscaped = ch === 92;
-    pos++;
-    ch = str.charCodeAt(pos);
-  }
-  result.push(current + str.substring(lastPos));
-  return result;
-}
-function table(state, startLine, endLine, silent) {
-  if (startLine + 2 > endLine) return false;
-  let nextLine = startLine + 1;
-  if (state.sCount[nextLine] < state.blkIndent) return false;
-  if (state.sCount[nextLine] - state.blkIndent >= 4) return false;
-  let pos = state.bMarks[nextLine] + state.tShift[nextLine];
-  if (pos >= state.eMarks[nextLine]) return false;
-  const firstCh = state.src.charCodeAt(pos++);
-  if (firstCh !== 124 && firstCh !== 45 && firstCh !== 58) return false;
-  if (pos >= state.eMarks[nextLine]) return false;
-  const secondCh = state.src.charCodeAt(pos++);
-  if (secondCh !== 124 && secondCh !== 45 && secondCh !== 58 && !isSpace(secondCh)) return false;
-  if (firstCh === 45 && isSpace(secondCh)) return false;
-  while (pos < state.eMarks[nextLine]) {
-    const ch = state.src.charCodeAt(pos);
-    if (ch !== 124 && ch !== 45 && ch !== 58 && !isSpace(ch)) return false;
-    pos++;
-  }
-  let lineText = getLine(state, startLine + 1);
-  let columns = lineText.split("|");
-  const aligns = [];
-  for (let i = 0; i < columns.length; i++) {
-    const t = columns[i].trim();
-    if (!t) if (i === 0 || i === columns.length - 1) continue;
-    else return false;
-    if (!/^:?-+:?$/.test(t)) return false;
-    if (t.charCodeAt(t.length - 1) === 58) aligns.push(t.charCodeAt(0) === 58 ? "center" : "right");
-    else if (t.charCodeAt(0) === 58) aligns.push("left");
-    else aligns.push("");
-  }
-  lineText = getLine(state, startLine).trim();
-  if (lineText.indexOf("|") === -1) return false;
-  if (state.sCount[startLine] - state.blkIndent >= 4) return false;
-  columns = escapedSplit(lineText);
-  if (columns.length && columns[0] === "") columns.shift();
-  if (columns.length && columns[columns.length - 1] === "") columns.pop();
-  const columnCount = columns.length;
-  if (columnCount === 0 || columnCount !== aligns.length) return false;
-  if (silent) return true;
-  const oldParentType = state.parentType;
-  state.parentType = "table";
-  const terminatorRules = state.md.block.ruler.getRules("blockquote");
-  const token_to = state.push("table_open", "table", 1);
-  const tableLines = [startLine, 0];
-  token_to.map = tableLines;
-  const token_tho = state.push("thead_open", "thead", 1);
-  token_tho.map = [startLine, startLine + 1];
-  const token_htro = state.push("tr_open", "tr", 1);
-  token_htro.map = [startLine, startLine + 1];
-  for (let i = 0; i < columns.length; i++) {
-    const token_ho = state.push("th_open", "th", 1);
-    if (aligns[i]) token_ho.attrs = [["style", `text-align:${aligns[i]}`]];
-    const token_il = state.push("inline", "", 0);
-    token_il.content = columns[i].trim();
-    token_il.children = [];
-    state.push("th_close", "th", -1);
-  }
-  state.push("tr_close", "tr", -1);
-  state.push("thead_close", "thead", -1);
-  let tbodyLines;
-  let autocompletedCells = 0;
-  for (nextLine = startLine + 2; nextLine < endLine; nextLine++) {
-    if (state.sCount[nextLine] < state.blkIndent) break;
-    let terminate = false;
-    for (let i = 0, l = terminatorRules.length; i < l; i++) if (terminatorRules[i](state, nextLine, endLine, true)) {
-      terminate = true;
-      break;
-    }
-    if (terminate) break;
-    lineText = getLine(state, nextLine).trim();
-    if (!lineText) break;
-    if (state.sCount[nextLine] - state.blkIndent >= 4) break;
-    columns = escapedSplit(lineText);
-    if (columns.length && columns[0] === "") columns.shift();
-    if (columns.length && columns[columns.length - 1] === "") columns.pop();
-    autocompletedCells += columnCount - columns.length;
-    if (autocompletedCells > MAX_AUTOCOMPLETED_CELLS) break;
-    if (nextLine === startLine + 2) {
-      const token_tbo = state.push("tbody_open", "tbody", 1);
-      token_tbo.map = tbodyLines = [startLine + 2, 0];
-    }
-    const token_tro = state.push("tr_open", "tr", 1);
-    token_tro.map = [nextLine, nextLine + 1];
-    for (let i = 0; i < columnCount; i++) {
-      const token_tdo = state.push("td_open", "td", 1);
-      if (aligns[i]) token_tdo.attrs = [["style", `text-align:${aligns[i]}`]];
-      const token_il = state.push("inline", "", 0);
-      token_il.content = columns[i] ? columns[i].trim() : "";
-      token_il.children = [];
-      state.push("td_close", "td", -1);
-    }
-    state.push("tr_close", "tr", -1);
-  }
-  if (tbodyLines) {
-    state.push("tbody_close", "tbody", -1);
-    tbodyLines[1] = nextLine;
-  }
-  state.push("table_close", "table", -1);
-  tableLines[1] = nextLine;
-  state.parentType = oldParentType;
-  state.line = nextLine;
-  return true;
-}
-function code(state, startLine, endLine) {
-  if (state.sCount[startLine] - state.blkIndent < 4) return false;
-  let nextLine = startLine + 1;
-  let last = nextLine;
-  while (nextLine < endLine) {
-    if (state.isEmpty(nextLine)) {
-      nextLine++;
-      continue;
-    }
-    if (state.sCount[nextLine] - state.blkIndent >= 4) {
-      nextLine++;
-      last = nextLine;
-      continue;
-    }
-    break;
-  }
-  state.line = last;
-  const token = state.push("code_block", "code", 0);
-  token.content = state.getLines(startLine, last, 4 + state.blkIndent, false) + "\n";
-  token.map = [startLine, state.line];
-  return true;
-}
-function fence(state, startLine, endLine, silent) {
-  let pos = state.bMarks[startLine] + state.tShift[startLine];
-  let max = state.eMarks[startLine];
-  if (state.sCount[startLine] - state.blkIndent >= 4) return false;
-  if (pos + 3 > max) return false;
-  const marker = state.src.charCodeAt(pos);
-  if (marker !== 126 && marker !== 96) return false;
-  let mem = pos;
-  pos = state.skipChars(pos, marker);
-  let len = pos - mem;
-  if (len < 3) return false;
-  const markup = state.src.slice(mem, pos);
-  const params = state.src.slice(pos, max);
-  if (marker === 96) {
-    if (params.indexOf(String.fromCharCode(marker)) >= 0) return false;
-  }
-  if (silent) return true;
-  let nextLine = startLine;
-  let haveEndMarker = false;
-  for (; ; ) {
-    nextLine++;
-    if (nextLine >= endLine) break;
-    pos = mem = state.bMarks[nextLine] + state.tShift[nextLine];
-    max = state.eMarks[nextLine];
-    if (pos < max && state.sCount[nextLine] < state.blkIndent) break;
-    if (state.src.charCodeAt(pos) !== marker) continue;
-    if (state.sCount[nextLine] - state.blkIndent >= 4) continue;
-    pos = state.skipChars(pos, marker);
-    if (pos - mem < len) continue;
-    pos = state.skipSpaces(pos);
-    if (pos < max) continue;
-    haveEndMarker = true;
-    break;
-  }
-  len = state.sCount[startLine];
-  state.line = nextLine + (haveEndMarker ? 1 : 0);
-  const token = state.push("fence", "code", 0);
-  token.info = params;
-  token.content = state.getLines(startLine + 1, nextLine, len, true);
-  token.markup = markup;
-  token.map = [startLine, state.line];
-  return true;
-}
-function blockquote(state, startLine, endLine, silent) {
-  let pos = state.bMarks[startLine] + state.tShift[startLine];
-  let max = state.eMarks[startLine];
-  const oldLineMax = state.lineMax;
-  if (state.sCount[startLine] - state.blkIndent >= 4) return false;
-  if (state.src.charCodeAt(pos) !== 62) return false;
-  if (silent) return true;
-  const oldBMarks = [];
-  const oldBSCount = [];
-  const oldSCount = [];
-  const oldTShift = [];
-  const terminatorRules = state.md.block.ruler.getRules("blockquote");
-  const oldParentType = state.parentType;
-  state.parentType = "blockquote";
-  let lastLineEmpty = false;
-  let nextLine;
-  for (nextLine = startLine; nextLine < endLine; nextLine++) {
-    const isOutdented = state.sCount[nextLine] < state.blkIndent;
-    pos = state.bMarks[nextLine] + state.tShift[nextLine];
-    max = state.eMarks[nextLine];
-    if (pos >= max) break;
-    if (state.src.charCodeAt(pos++) === 62 && !isOutdented) {
-      let initial = state.sCount[nextLine] + 1;
-      let spaceAfterMarker;
-      let adjustTab;
-      if (state.src.charCodeAt(pos) === 32) {
-        pos++;
-        initial++;
-        adjustTab = false;
-        spaceAfterMarker = true;
-      } else if (state.src.charCodeAt(pos) === 9) {
-        spaceAfterMarker = true;
-        if ((state.bsCount[nextLine] + initial) % 4 === 3) {
-          pos++;
-          initial++;
-          adjustTab = false;
-        } else adjustTab = true;
-      } else spaceAfterMarker = false;
-      let offset = initial;
-      oldBMarks.push(state.bMarks[nextLine]);
-      state.bMarks[nextLine] = pos;
-      while (pos < max) {
-        const ch = state.src.charCodeAt(pos);
-        if (isSpace(ch)) if (ch === 9) offset += 4 - (offset + state.bsCount[nextLine] + (adjustTab ? 1 : 0)) % 4;
-        else offset++;
-        else break;
-        pos++;
-      }
-      lastLineEmpty = pos >= max;
-      oldBSCount.push(state.bsCount[nextLine]);
-      state.bsCount[nextLine] = state.sCount[nextLine] + 1 + (spaceAfterMarker ? 1 : 0);
-      oldSCount.push(state.sCount[nextLine]);
-      state.sCount[nextLine] = offset - initial;
-      oldTShift.push(state.tShift[nextLine]);
-      state.tShift[nextLine] = pos - state.bMarks[nextLine];
-      continue;
-    }
-    if (lastLineEmpty) break;
-    let terminate = false;
-    for (let i = 0, l = terminatorRules.length; i < l; i++) if (terminatorRules[i](state, nextLine, endLine, true)) {
-      terminate = true;
-      break;
-    }
-    if (terminate) {
-      state.lineMax = nextLine;
-      if (state.blkIndent !== 0) {
-        oldBMarks.push(state.bMarks[nextLine]);
-        oldBSCount.push(state.bsCount[nextLine]);
-        oldTShift.push(state.tShift[nextLine]);
-        oldSCount.push(state.sCount[nextLine]);
-        state.sCount[nextLine] -= state.blkIndent;
-      }
-      break;
-    }
-    oldBMarks.push(state.bMarks[nextLine]);
-    oldBSCount.push(state.bsCount[nextLine]);
-    oldTShift.push(state.tShift[nextLine]);
-    oldSCount.push(state.sCount[nextLine]);
-    state.sCount[nextLine] = -1;
-  }
-  const oldIndent = state.blkIndent;
-  state.blkIndent = 0;
-  const token_o = state.push("blockquote_open", "blockquote", 1);
-  token_o.markup = ">";
-  const lines = [startLine, 0];
-  token_o.map = lines;
-  state.md.block.tokenize(state, startLine, nextLine);
-  const token_c = state.push("blockquote_close", "blockquote", -1);
-  token_c.markup = ">";
-  state.lineMax = oldLineMax;
-  state.parentType = oldParentType;
-  lines[1] = state.line;
-  for (let i = 0; i < oldTShift.length; i++) {
-    state.bMarks[i + startLine] = oldBMarks[i];
-    state.tShift[i + startLine] = oldTShift[i];
-    state.sCount[i + startLine] = oldSCount[i];
-    state.bsCount[i + startLine] = oldBSCount[i];
-  }
-  state.blkIndent = oldIndent;
-  return true;
-}
-function hr(state, startLine, endLine, silent) {
-  const max = state.eMarks[startLine];
-  if (state.sCount[startLine] - state.blkIndent >= 4) return false;
-  let pos = state.bMarks[startLine] + state.tShift[startLine];
-  const marker = state.src.charCodeAt(pos++);
-  if (marker !== 42 && marker !== 45 && marker !== 95) return false;
-  let cnt = 1;
-  while (pos < max) {
-    const ch = state.src.charCodeAt(pos++);
-    if (ch !== marker && !isSpace(ch)) return false;
-    if (ch === marker) cnt++;
-  }
-  if (cnt < 3) return false;
-  if (silent) return true;
-  state.line = startLine + 1;
-  const token = state.push("hr", "hr", 0);
-  token.map = [startLine, state.line];
-  token.markup = Array(cnt + 1).join(String.fromCharCode(marker));
-  return true;
-}
-function skipBulletListMarker(state, startLine) {
-  const max = state.eMarks[startLine];
-  let pos = state.bMarks[startLine] + state.tShift[startLine];
-  const marker = state.src.charCodeAt(pos++);
-  if (marker !== 42 && marker !== 45 && marker !== 43) return -1;
-  if (pos < max) {
-    if (!isSpace(state.src.charCodeAt(pos))) return -1;
-  }
-  return pos;
-}
-function skipOrderedListMarker(state, startLine) {
-  const start = state.bMarks[startLine] + state.tShift[startLine];
-  const max = state.eMarks[startLine];
-  let pos = start;
-  if (pos + 1 >= max) return -1;
-  let ch = state.src.charCodeAt(pos++);
-  if (ch < 48 || ch > 57) return -1;
-  for (; ; ) {
-    if (pos >= max) return -1;
-    ch = state.src.charCodeAt(pos++);
-    if (ch >= 48 && ch <= 57) {
-      if (pos - start >= 10) return -1;
-      continue;
-    }
-    if (ch === 41 || ch === 46) break;
-    return -1;
-  }
-  if (pos < max) {
-    ch = state.src.charCodeAt(pos);
-    if (!isSpace(ch)) return -1;
-  }
-  return pos;
-}
-function markTightParagraphs(state, idx) {
-  const level = state.level + 2;
-  for (let i = idx + 2, l = state.tokens.length - 2; i < l; i++) if (state.tokens[i].level === level && state.tokens[i].type === "paragraph_open") {
-    state.tokens[i + 2].hidden = true;
-    state.tokens[i].hidden = true;
-    i += 2;
-  }
-}
-function list(state, startLine, endLine, silent) {
-  let max, pos, start, token;
-  let nextLine = startLine;
-  let tight = true;
-  if (state.sCount[nextLine] - state.blkIndent >= 4) return false;
-  if (state.listIndent >= 0 && state.sCount[nextLine] - state.listIndent >= 4 && state.sCount[nextLine] < state.blkIndent) return false;
-  let isTerminatingParagraph = false;
-  if (silent && state.parentType === "paragraph") {
-    if (state.sCount[nextLine] >= state.blkIndent) isTerminatingParagraph = true;
-  }
-  let isOrdered;
-  let markerValue;
-  let posAfterMarker;
-  if ((posAfterMarker = skipOrderedListMarker(state, nextLine)) >= 0) {
-    isOrdered = true;
-    start = state.bMarks[nextLine] + state.tShift[nextLine];
-    markerValue = Number(state.src.slice(start, posAfterMarker - 1));
-    if (isTerminatingParagraph && markerValue !== 1) return false;
-  } else if ((posAfterMarker = skipBulletListMarker(state, nextLine)) >= 0) isOrdered = false;
-  else return false;
-  if (isTerminatingParagraph) {
-    if (state.skipSpaces(posAfterMarker) >= state.eMarks[nextLine]) return false;
-  }
-  if (silent) return true;
-  const markerCharCode = state.src.charCodeAt(posAfterMarker - 1);
-  const listTokIdx = state.tokens.length;
-  if (isOrdered) {
-    token = state.push("ordered_list_open", "ol", 1);
-    if (markerValue !== 1) token.attrs = [["start", markerValue]];
-  } else token = state.push("bullet_list_open", "ul", 1);
-  const listLines = [nextLine, 0];
-  token.map = listLines;
-  token.markup = String.fromCharCode(markerCharCode);
-  let prevEmptyEnd = false;
-  const terminatorRules = state.md.block.ruler.getRules("list");
-  const oldParentType = state.parentType;
-  state.parentType = "list";
-  while (nextLine < endLine) {
-    pos = posAfterMarker;
-    max = state.eMarks[nextLine];
-    const initial = state.sCount[nextLine] + posAfterMarker - (state.bMarks[nextLine] + state.tShift[nextLine]);
-    let offset = initial;
-    while (pos < max) {
-      const ch = state.src.charCodeAt(pos);
-      if (ch === 9) offset += 4 - (offset + state.bsCount[nextLine]) % 4;
-      else if (ch === 32) offset++;
-      else break;
-      pos++;
-    }
-    const contentStart = pos;
-    let indentAfterMarker;
-    if (contentStart >= max) indentAfterMarker = 1;
-    else indentAfterMarker = offset - initial;
-    if (indentAfterMarker > 4) indentAfterMarker = 1;
-    const indent = initial + indentAfterMarker;
-    token = state.push("list_item_open", "li", 1);
-    token.markup = String.fromCharCode(markerCharCode);
-    const itemLines = [nextLine, 0];
-    token.map = itemLines;
-    if (isOrdered) token.info = state.src.slice(start, posAfterMarker - 1);
-    const oldTight = state.tight;
-    const oldTShift = state.tShift[nextLine];
-    const oldSCount = state.sCount[nextLine];
-    const oldListIndent = state.listIndent;
-    state.listIndent = state.blkIndent;
-    state.blkIndent = indent;
-    state.tight = true;
-    state.tShift[nextLine] = contentStart - state.bMarks[nextLine];
-    state.sCount[nextLine] = offset;
-    if (contentStart >= max && state.isEmpty(nextLine + 1)) state.line = Math.min(state.line + 2, endLine);
-    else state.md.block.tokenize(state, nextLine, endLine);
-    if (!state.tight || prevEmptyEnd) tight = false;
-    prevEmptyEnd = state.line - nextLine > 1 && state.isEmpty(state.line - 1);
-    state.blkIndent = state.listIndent;
-    state.listIndent = oldListIndent;
-    state.tShift[nextLine] = oldTShift;
-    state.sCount[nextLine] = oldSCount;
-    state.tight = oldTight;
-    token = state.push("list_item_close", "li", -1);
-    token.markup = String.fromCharCode(markerCharCode);
-    nextLine = state.line;
-    itemLines[1] = nextLine;
-    if (nextLine >= endLine) break;
-    if (state.sCount[nextLine] < state.blkIndent) break;
-    if (state.sCount[nextLine] - state.blkIndent >= 4) break;
-    let terminate = false;
-    for (let i = 0, l = terminatorRules.length; i < l; i++) if (terminatorRules[i](state, nextLine, endLine, true)) {
-      terminate = true;
-      break;
-    }
-    if (terminate) break;
-    if (isOrdered) {
-      posAfterMarker = skipOrderedListMarker(state, nextLine);
-      if (posAfterMarker < 0) break;
-      start = state.bMarks[nextLine] + state.tShift[nextLine];
-    } else {
-      posAfterMarker = skipBulletListMarker(state, nextLine);
-      if (posAfterMarker < 0) break;
-    }
-    if (markerCharCode !== state.src.charCodeAt(posAfterMarker - 1)) break;
-  }
-  if (isOrdered) token = state.push("ordered_list_close", "ol", -1);
-  else token = state.push("bullet_list_close", "ul", -1);
-  token.markup = String.fromCharCode(markerCharCode);
-  listLines[1] = nextLine;
-  state.line = nextLine;
-  state.parentType = oldParentType;
-  if (tight) markTightParagraphs(state, listTokIdx);
-  return true;
-}
-function reference(state, startLine, _endLine, silent) {
-  let pos = state.bMarks[startLine] + state.tShift[startLine];
-  let max = state.eMarks[startLine];
-  let nextLine = startLine + 1;
-  if (state.sCount[startLine] - state.blkIndent >= 4) return false;
-  if (state.src.charCodeAt(pos) !== 91) return false;
-  function getNextLine(nextLine2) {
-    const endLine = state.lineMax;
-    if (nextLine2 >= endLine || state.isEmpty(nextLine2)) return null;
-    let isContinuation = false;
-    if (state.sCount[nextLine2] - state.blkIndent > 3) isContinuation = true;
-    if (state.sCount[nextLine2] < 0) isContinuation = true;
-    if (!isContinuation) {
-      const terminatorRules = state.md.block.ruler.getRules("reference");
-      const oldParentType = state.parentType;
-      state.parentType = "reference";
-      let terminate = false;
-      for (let i = 0, l = terminatorRules.length; i < l; i++) if (terminatorRules[i](state, nextLine2, endLine, true)) {
-        terminate = true;
-        break;
-      }
-      state.parentType = oldParentType;
-      if (terminate) return null;
-    }
-    const pos2 = state.bMarks[nextLine2] + state.tShift[nextLine2];
-    const max2 = state.eMarks[nextLine2];
-    return state.src.slice(pos2, max2 + 1);
-  }
-  let str = state.src.slice(pos, max + 1);
-  max = str.length;
-  let labelEnd = -1;
-  for (pos = 1; pos < max; pos++) {
-    const ch = str.charCodeAt(pos);
-    if (ch === 91) return false;
-    else if (ch === 93) {
-      labelEnd = pos;
-      break;
-    } else if (ch === 10) {
-      const lineContent = getNextLine(nextLine);
-      if (lineContent !== null) {
-        str += lineContent;
-        max = str.length;
-        nextLine++;
-      }
-    } else if (ch === 92) {
-      pos++;
-      if (pos < max && str.charCodeAt(pos) === 10) {
-        const lineContent = getNextLine(nextLine);
-        if (lineContent !== null) {
-          str += lineContent;
-          max = str.length;
-          nextLine++;
-        }
-      }
-    }
-  }
-  if (labelEnd < 0 || str.charCodeAt(labelEnd + 1) !== 58) return false;
-  for (pos = labelEnd + 2; pos < max; pos++) {
-    const ch = str.charCodeAt(pos);
-    if (ch === 10) {
-      const lineContent = getNextLine(nextLine);
-      if (lineContent !== null) {
-        str += lineContent;
-        max = str.length;
-        nextLine++;
-      }
-    } else if (isSpace(ch)) {
-    } else break;
-  }
-  const destRes = state.md.helpers.parseLinkDestination(str, pos, max);
-  if (!destRes.ok) return false;
-  const href = state.md.normalizeLink(destRes.str);
-  if (!state.md.validateLink(href)) return false;
-  pos = destRes.pos;
-  const destEndPos = pos;
-  const destEndLineNo = nextLine;
-  const start = pos;
-  for (; pos < max; pos++) {
-    const ch = str.charCodeAt(pos);
-    if (ch === 10) {
-      const lineContent = getNextLine(nextLine);
-      if (lineContent !== null) {
-        str += lineContent;
-        max = str.length;
-        nextLine++;
-      }
-    } else if (isSpace(ch)) {
-    } else break;
-  }
-  let titleRes = state.md.helpers.parseLinkTitle(str, pos, max);
-  while (titleRes.can_continue) {
-    const lineContent = getNextLine(nextLine);
-    if (lineContent === null) break;
-    str += lineContent;
-    pos = max;
-    max = str.length;
-    nextLine++;
-    titleRes = state.md.helpers.parseLinkTitle(str, pos, max, titleRes);
-  }
-  let title;
-  if (pos < max && start !== pos && titleRes.ok) {
-    title = titleRes.str;
-    pos = titleRes.pos;
-  } else {
-    title = "";
-    pos = destEndPos;
-    nextLine = destEndLineNo;
-  }
-  while (pos < max) {
-    if (!isSpace(str.charCodeAt(pos))) break;
-    pos++;
-  }
-  if (pos < max && str.charCodeAt(pos) !== 10) {
-    if (title) {
-      title = "";
-      pos = destEndPos;
-      nextLine = destEndLineNo;
-      while (pos < max) {
-        if (!isSpace(str.charCodeAt(pos))) break;
-        pos++;
-      }
-    }
-  }
-  if (pos < max && str.charCodeAt(pos) !== 10) return false;
-  const label = normalizeReference(str.slice(1, labelEnd));
-  if (!label) return false;
-  if (silent) return true;
-  if (typeof state.env.references === "undefined") state.env.references = {};
-  if (typeof state.env.references[label] === "undefined") state.env.references[label] = {
-    title,
-    href
-  };
-  const token = state.push("reference_definition", "", 0);
-  token.map = [startLine, nextLine];
-  token.hidden = true;
-  const meta = /* @__PURE__ */ Object.create(null);
-  meta.label = label;
-  token.meta = meta;
-  state.line = nextLine;
-  return true;
-}
-var html_blocks_default = [
-  "address",
-  "article",
-  "aside",
-  "base",
-  "basefont",
-  "blockquote",
-  "body",
-  "caption",
-  "center",
-  "col",
-  "colgroup",
-  "dd",
-  "details",
-  "dialog",
-  "dir",
-  "div",
-  "dl",
-  "dt",
-  "fieldset",
-  "figcaption",
-  "figure",
-  "footer",
-  "form",
-  "frame",
-  "frameset",
-  "h1",
-  "h2",
-  "h3",
-  "h4",
-  "h5",
-  "h6",
-  "head",
-  "header",
-  "hr",
-  "html",
-  "iframe",
-  "legend",
-  "li",
-  "link",
-  "main",
-  "menu",
-  "menuitem",
-  "nav",
-  "noframes",
-  "ol",
-  "optgroup",
-  "option",
-  "p",
-  "param",
-  "search",
-  "section",
-  "summary",
-  "table",
-  "tbody",
-  "td",
-  "tfoot",
-  "th",
-  "thead",
-  "title",
-  "tr",
-  "track",
-  "ul"
-];
-var open_tag = `<[A-Za-z][A-Za-z0-9\\-]*(?:\\s+[a-zA-Z_:][a-zA-Z0-9:._-]*(?:\\s*=\\s*(?:[^"'=<>\`\\x00-\\x20]+|'[^']*'|"[^"]*"))?)*\\s*\\/?>`;
-var close_tag = "<\\/[A-Za-z][A-Za-z0-9\\-]*\\s*>";
-var HTML_TAG_RE = new RegExp(`^(?:${open_tag}|${close_tag}|<!---?>|<!--(?:[^-]|-[^-]|--[^>])*-->|<[?][\\s\\S]*?[?]>|<![A-Za-z][^>]*>|<!\\[CDATA\\[[\\s\\S]*?\\]\\]>)`);
-var HTML_OPEN_CLOSE_TAG_RE = new RegExp(`^(?:${open_tag}|${close_tag})`);
-var HTML_SEQUENCES = [
-  [
-    /^<(script|pre|style|textarea)(?=(\s|>|$))/i,
-    /<\/(script|pre|style|textarea)>/i,
-    true
-  ],
-  [
-    /^<!--/,
-    /-->/,
-    true
-  ],
-  [
-    /^<\?/,
-    /\?>/,
-    true
-  ],
-  [
-    /^<![A-Za-z]/,
-    />/,
-    true
-  ],
-  [
-    /^<!\[CDATA\[/,
-    /\]\]>/,
-    true
-  ],
-  [
-    new RegExp(`^</?(${html_blocks_default.join("|")})(?=(\\s|/?>|$))`, "i"),
-    /^$/,
-    true
-  ],
-  [
-    new RegExp(`${HTML_OPEN_CLOSE_TAG_RE.source}\\s*$`),
-    /^$/,
-    false
-  ]
-];
-function html_block(state, startLine, endLine, silent) {
-  let pos = state.bMarks[startLine] + state.tShift[startLine];
-  let max = state.eMarks[startLine];
-  if (state.sCount[startLine] - state.blkIndent >= 4) return false;
-  if (!state.md.options.html) return false;
-  if (state.src.charCodeAt(pos) !== 60) return false;
-  let lineText = state.src.slice(pos, max);
-  let i = 0;
-  for (; i < HTML_SEQUENCES.length; i++) if (HTML_SEQUENCES[i][0].test(lineText)) break;
-  if (i === HTML_SEQUENCES.length) return false;
-  if (silent) return HTML_SEQUENCES[i][2];
-  let nextLine = startLine + 1;
-  const endsOnBlankLine = HTML_SEQUENCES[i][1].test("");
-  if (!HTML_SEQUENCES[i][1].test(lineText)) for (; nextLine < endLine; nextLine++) {
-    if (state.sCount[nextLine] < state.blkIndent) {
-      if (endsOnBlankLine || !state.isEmpty(nextLine)) break;
-    }
-    pos = state.bMarks[nextLine] + state.tShift[nextLine];
-    max = state.eMarks[nextLine];
-    lineText = state.src.slice(pos, max);
-    if (HTML_SEQUENCES[i][1].test(lineText)) {
-      if (lineText.length !== 0) nextLine++;
-      break;
-    }
-  }
-  state.line = nextLine;
-  const token = state.push("html_block", "", 0);
-  token.map = [startLine, nextLine];
-  token.content = state.getLines(startLine, nextLine, state.blkIndent, true);
-  return true;
-}
-function heading(state, startLine, endLine, silent) {
-  let pos = state.bMarks[startLine] + state.tShift[startLine];
-  let max = state.eMarks[startLine];
-  if (state.sCount[startLine] - state.blkIndent >= 4) return false;
-  let ch = state.src.charCodeAt(pos);
-  if (ch !== 35 || pos >= max) return false;
-  let level = 1;
-  ch = state.src.charCodeAt(++pos);
-  while (ch === 35 && pos < max && level <= 6) {
-    level++;
-    ch = state.src.charCodeAt(++pos);
-  }
-  if (level > 6 || pos < max && !isSpace(ch)) return false;
-  if (silent) return true;
-  max = state.skipSpacesBack(max, pos);
-  const tmp = state.skipCharsBack(max, 35, pos);
-  if (tmp > pos && isSpace(state.src.charCodeAt(tmp - 1))) max = tmp;
-  state.line = startLine + 1;
-  const token_o = state.push("heading_open", `h${level}`, 1);
-  token_o.markup = "########".slice(0, level);
-  token_o.map = [startLine, state.line];
-  const token_i = state.push("inline", "", 0);
-  token_i.content = asciiTrim(state.src.slice(pos, max));
-  token_i.map = [startLine, state.line];
-  token_i.children = [];
-  const token_c = state.push("heading_close", `h${level}`, -1);
-  token_c.markup = "########".slice(0, level);
-  return true;
-}
-function lheading(state, startLine, endLine) {
-  const terminatorRules = state.md.block.ruler.getRules("paragraph");
-  if (state.sCount[startLine] - state.blkIndent >= 4) return false;
-  const oldParentType = state.parentType;
-  state.parentType = "paragraph";
-  let level = 0;
-  let marker;
-  let nextLine = startLine + 1;
-  for (; nextLine < endLine && !state.isEmpty(nextLine); nextLine++) {
-    if (state.sCount[nextLine] - state.blkIndent > 3) continue;
-    if (state.sCount[nextLine] >= state.blkIndent) {
-      let pos = state.bMarks[nextLine] + state.tShift[nextLine];
-      const max = state.eMarks[nextLine];
-      if (pos < max) {
-        marker = state.src.charCodeAt(pos);
-        if (marker === 45 || marker === 61) {
-          pos = state.skipChars(pos, marker);
-          pos = state.skipSpaces(pos);
-          if (pos >= max) {
-            level = marker === 61 ? 1 : 2;
-            break;
-          }
-        }
-      }
-    }
-    if (state.sCount[nextLine] < 0) continue;
-    let terminate = false;
-    for (let i = 0, l = terminatorRules.length; i < l; i++) if (terminatorRules[i](state, nextLine, endLine, true)) {
-      terminate = true;
-      break;
-    }
-    if (terminate) break;
-  }
-  if (!level) {
-    state.parentType = oldParentType;
-    return false;
-  }
-  const content = asciiTrim(state.getLines(startLine, nextLine, state.blkIndent, false));
-  state.line = nextLine + 1;
-  const token_o = state.push("heading_open", `h${level}`, 1);
-  token_o.markup = String.fromCharCode(marker);
-  token_o.map = [startLine, state.line];
-  const token_i = state.push("inline", "", 0);
-  token_i.content = content;
-  token_i.map = [startLine, state.line - 1];
-  token_i.children = [];
-  const token_c = state.push("heading_close", `h${level}`, -1);
-  token_c.markup = String.fromCharCode(marker);
-  state.parentType = oldParentType;
-  return true;
-}
-function paragraph(state, startLine, endLine) {
-  const terminatorRules = state.md.block.ruler.getRules("paragraph");
-  const oldParentType = state.parentType;
-  let nextLine = startLine + 1;
-  state.parentType = "paragraph";
-  for (; nextLine < endLine && !state.isEmpty(nextLine); nextLine++) {
-    if (state.sCount[nextLine] - state.blkIndent > 3) continue;
-    if (state.sCount[nextLine] < 0) continue;
-    let terminate = false;
-    for (let i = 0, l = terminatorRules.length; i < l; i++) if (terminatorRules[i](state, nextLine, endLine, true)) {
-      terminate = true;
-      break;
-    }
-    if (terminate) break;
-  }
-  const content = asciiTrim(state.getLines(startLine, nextLine, state.blkIndent, false));
-  state.line = nextLine;
-  const token_o = state.push("paragraph_open", "p", 1);
-  token_o.map = [startLine, state.line];
-  const token_i = state.push("inline", "", 0);
-  token_i.content = content;
-  token_i.map = [startLine, state.line];
-  token_i.children = [];
-  state.push("paragraph_close", "p", -1);
-  state.parentType = oldParentType;
-  return true;
-}
-var _rules$1 = [
-  [
-    "table",
-    table,
-    ["paragraph", "reference"]
-  ],
-  ["code", code],
-  [
-    "fence",
-    fence,
-    [
-      "paragraph",
-      "reference",
-      "blockquote",
-      "list"
-    ]
-  ],
-  [
-    "blockquote",
-    blockquote,
-    [
-      "paragraph",
-      "reference",
-      "blockquote",
-      "list"
-    ]
-  ],
-  [
-    "hr",
-    hr,
-    [
-      "paragraph",
-      "reference",
-      "blockquote",
-      "list"
-    ]
-  ],
-  [
-    "list",
-    list,
-    [
-      "paragraph",
-      "reference",
-      "blockquote"
-    ]
-  ],
-  ["reference", reference],
-  [
-    "html_block",
-    html_block,
-    [
-      "paragraph",
-      "reference",
-      "blockquote"
-    ]
-  ],
-  [
-    "heading",
-    heading,
-    [
-      "paragraph",
-      "reference",
-      "blockquote"
-    ]
-  ],
-  ["lheading", lheading],
-  ["paragraph", paragraph]
-];
-var ParserBlock = class {
-  constructor() {
-    _defineProperty(
-      this,
-      /**
-      * {@link Ruler} instance. Keep configuration of block rules.
-      */
-      "ruler",
-      new Ruler()
-    );
-    _defineProperty(this, "State", StateBlock);
-    for (let i = 0; i < _rules$1.length; i++) this.ruler.push(_rules$1[i][0], _rules$1[i][1], { alt: (_rules$1[i][2] || []).slice() });
-  }
-  tokenize(state, startLine, endLine) {
-    const rules = this.ruler.getRules("");
-    const len = rules.length;
-    const maxNesting = state.md.options.maxNesting;
-    let line = startLine;
-    let hasEmptyLines = false;
-    while (line < endLine) {
-      state.line = line = state.skipEmptyLines(line);
-      if (line >= endLine) break;
-      if (state.sCount[line] < state.blkIndent) break;
-      if (state.level >= maxNesting) {
-        state.line = endLine;
-        break;
-      }
-      const prevLine = state.line;
-      let ok = false;
-      for (let i = 0; i < len; i++) {
-        ok = rules[i](state, line, endLine, false);
-        if (ok) {
-          if (prevLine >= state.line) throw new Error("block rule didn't increment state.line");
-          break;
-        }
-      }
-      if (!ok) throw new Error("none of the block rules matched");
-      state.tight = !hasEmptyLines;
-      if (state.isEmpty(state.line - 1)) hasEmptyLines = true;
-      line = state.line;
-      if (line < endLine && state.isEmpty(line)) {
-        hasEmptyLines = true;
-        line++;
-        state.line = line;
-      }
-    }
-  }
-  /**
-  * Process input string and push block tokens into `outTokens`
-  */
-  parse(src, md, env, outTokens) {
-    if (!src) return;
-    const state = new this.State(src, md, env, outTokens);
-    this.tokenize(state, state.line, state.lineMax);
-  }
-};
-var StateInline = class {
-  constructor(src, md, env, outTokens) {
-    _defineProperty(this, "pos", 0);
-    _defineProperty(this, "level", 0);
-    _defineProperty(this, "pending", "");
-    _defineProperty(this, "pendingLevel", 0);
-    _defineProperty(this, "cache", {});
-    _defineProperty(this, "backticks", {});
-    _defineProperty(this, "backticksScanned", false);
-    _defineProperty(this, "linkLevel", 0);
-    _defineProperty(this, "delimiters", []);
-    _defineProperty(this, "_prev_delimiters", []);
-    _defineProperty(this, "Token", Token);
-    this.src = src;
-    this.env = env;
-    this.md = md;
-    this.tokens = outTokens;
-    this.tokens_meta = Array(outTokens.length);
-    this.posMax = this.src.length;
-  }
-  pushPending() {
-    const token = new Token("text", "", 0);
-    token.content = this.pending;
-    token.level = this.pendingLevel;
-    this.tokens.push(token);
-    this.pending = "";
-    return token;
-  }
-  push(type, tag, nesting) {
-    if (this.pending) this.pushPending();
-    const token = new Token(type, tag, nesting);
-    let token_meta = void 0;
-    if (nesting < 0) {
-      this.level--;
-      this.delimiters = this._prev_delimiters.pop();
-    }
-    token.level = this.level;
-    if (nesting > 0) {
-      this.level++;
-      this._prev_delimiters.push(this.delimiters);
-      this.delimiters = [];
-      token_meta = { delimiters: this.delimiters };
-    }
-    this.pendingLevel = this.level;
-    this.tokens.push(token);
-    this.tokens_meta.push(token_meta);
-    return token;
-  }
-  scanDelims(start, canSplitWord) {
-    const max = this.posMax;
-    const marker = this.src.charCodeAt(start);
-    let lastChar;
-    if (start === 0) lastChar = 32;
-    else if (start === 1) {
-      lastChar = this.src.charCodeAt(0);
-      if ((lastChar & 63488) === 55296) lastChar = 65533;
-    } else {
-      lastChar = this.src.charCodeAt(start - 1);
-      if ((lastChar & 64512) === 56320) {
-        const highSurr = this.src.charCodeAt(start - 2);
-        lastChar = (highSurr & 64512) === 55296 ? 65536 + (highSurr - 55296 << 10) + (lastChar - 56320) : 65533;
-      } else if ((lastChar & 64512) === 55296) lastChar = 65533;
-    }
-    let pos = start;
-    while (pos < max && this.src.charCodeAt(pos) === marker) pos++;
-    const count = pos - start;
-    let nextChar = pos < max ? this.src.charCodeAt(pos) : 32;
-    if ((nextChar & 64512) === 55296) {
-      const lowSurr = this.src.charCodeAt(pos + 1);
-      nextChar = (lowSurr & 64512) === 56320 ? 65536 + (nextChar - 55296 << 10) + (lowSurr - 56320) : 65533;
-    } else if ((nextChar & 64512) === 56320) nextChar = 65533;
-    const isLastPunctChar = isMdAsciiPunct(lastChar) || isPunctCharCode(lastChar);
-    const isNextPunctChar = isMdAsciiPunct(nextChar) || isPunctCharCode(nextChar);
-    const isLastWhiteSpace = isWhiteSpace(lastChar);
-    const isNextWhiteSpace = isWhiteSpace(nextChar);
-    const left_flanking = !isNextWhiteSpace && (!isNextPunctChar || isLastWhiteSpace || isLastPunctChar);
-    const right_flanking = !isLastWhiteSpace && (!isLastPunctChar || isNextWhiteSpace || isNextPunctChar);
-    return {
-      can_open: left_flanking && (canSplitWord || !right_flanking || isLastPunctChar),
-      can_close: right_flanking && (canSplitWord || !left_flanking || isNextPunctChar),
-      length: count
-    };
-  }
-};
-function isTerminatorChar(ch) {
-  switch (ch) {
-    case 10:
-    case 33:
-    case 35:
-    case 36:
-    case 37:
-    case 38:
-    case 42:
-    case 43:
-    case 45:
-    case 58:
-    case 60:
-    case 61:
-    case 62:
-    case 64:
-    case 91:
-    case 92:
-    case 93:
-    case 94:
-    case 95:
-    case 96:
-    case 123:
-    case 125:
-    case 126:
-      return true;
-    default:
-      return false;
-  }
-}
-function text(state, silent) {
-  let pos = state.pos;
-  while (pos < state.posMax && !isTerminatorChar(state.src.charCodeAt(pos))) pos++;
-  if (pos === state.pos) return false;
-  if (!silent) state.pending += state.src.slice(state.pos, pos);
-  state.pos = pos;
-  return true;
-}
-var SCHEME_RE = /(?:^|[^a-z0-9.+-])([a-z][a-z0-9.+-]*)$/i;
-function linkify(state, silent) {
-  if (!state.md.options.linkify) return false;
-  if (state.linkLevel > 0) return false;
-  const pos = state.pos;
-  const max = state.posMax;
-  if (pos + 3 > max) return false;
-  if (state.src.charCodeAt(pos) !== 58) return false;
-  if (state.src.charCodeAt(pos + 1) !== 47) return false;
-  if (state.src.charCodeAt(pos + 2) !== 47) return false;
-  const match = state.pending.match(SCHEME_RE);
-  if (!match) return false;
-  const proto = match[1];
-  const link2 = state.md.linkify.matchAtStart(state.src.slice(pos - proto.length));
-  if (!link2) return false;
-  let url = link2.url;
-  if (url.length <= proto.length) return false;
-  let urlEnd = url.length;
-  while (urlEnd > 0 && url.charCodeAt(urlEnd - 1) === 42) urlEnd--;
-  if (urlEnd !== url.length) url = url.slice(0, urlEnd);
-  const fullUrl = state.md.normalizeLink(url);
-  if (!state.md.validateLink(fullUrl)) return false;
-  if (!silent) {
-    state.pending = state.pending.slice(0, -proto.length);
-    const token_o = state.push("link_open", "a", 1);
-    token_o.attrs = [["href", fullUrl]];
-    token_o.markup = "linkify";
-    token_o.info = "auto";
-    const token_t = state.push("text", "", 0);
-    token_t.content = state.md.normalizeLinkText(url);
-    const token_c = state.push("link_close", "a", -1);
-    token_c.markup = "linkify";
-    token_c.info = "auto";
-  }
-  state.pos += url.length - proto.length;
-  return true;
-}
-function newline(state, silent) {
-  let pos = state.pos;
-  if (state.src.charCodeAt(pos) !== 10) return false;
-  const pmax = state.pending.length - 1;
-  const max = state.posMax;
-  if (!silent) if (pmax >= 0 && state.pending.charCodeAt(pmax) === 32) if (pmax >= 1 && state.pending.charCodeAt(pmax - 1) === 32) {
-    let ws = pmax - 1;
-    while (ws >= 1 && state.pending.charCodeAt(ws - 1) === 32) ws--;
-    state.pending = state.pending.slice(0, ws);
-    state.push("hardbreak", "br", 0);
-  } else {
-    state.pending = state.pending.slice(0, -1);
-    state.push("softbreak", "br", 0);
-  }
-  else state.push("softbreak", "br", 0);
-  pos++;
-  while (pos < max && isSpace(state.src.charCodeAt(pos))) pos++;
-  state.pos = pos;
-  return true;
-}
-var ESCAPED = [];
-for (let i = 0; i < 256; i++) ESCAPED.push(0);
-"\\!\"#$%&'()*+,./:;<=>?@[]^_`{|}~-".split("").forEach(function(ch) {
-  ESCAPED[ch.charCodeAt(0)] = 1;
-});
-function escape(state, silent) {
-  let pos = state.pos;
-  const max = state.posMax;
-  if (state.src.charCodeAt(pos) !== 92) return false;
-  pos++;
-  if (pos >= max) return false;
-  let ch1 = state.src.charCodeAt(pos);
-  if (ch1 === 10) {
-    if (!silent) state.push("hardbreak", "br", 0);
-    pos++;
-    while (pos < max) {
-      ch1 = state.src.charCodeAt(pos);
-      if (!isSpace(ch1)) break;
-      pos++;
-    }
-    state.pos = pos;
-    return true;
-  }
-  if (ch1 === 32) {
-    if (!silent) {
-      const token = state.push("text_special", "", 0);
-      token.content = "\\";
-      token.markup = "\\";
-      token.info = "escape";
-    }
-    state.pos = pos;
-    return true;
-  }
-  let escapedStr = state.src[pos];
-  if (ch1 >= 55296 && ch1 <= 56319 && pos + 1 < max) {
-    const ch2 = state.src.charCodeAt(pos + 1);
-    if (ch2 >= 56320 && ch2 <= 57343) {
-      escapedStr += state.src[pos + 1];
-      pos++;
-    }
-  }
-  const origStr = "\\" + escapedStr;
-  if (!silent) {
-    const token = state.push("text_special", "", 0);
-    if (ch1 < 256 && ESCAPED[ch1] !== 0) token.content = escapedStr;
-    else token.content = origStr;
-    token.markup = origStr;
-    token.info = "escape";
-  }
-  state.pos = pos + 1;
-  return true;
-}
-function backtick(state, silent) {
-  let pos = state.pos;
-  if (state.src.charCodeAt(pos) !== 96) return false;
-  const start = pos;
-  pos++;
-  const max = state.posMax;
-  while (pos < max && state.src.charCodeAt(pos) === 96) pos++;
-  const marker = state.src.slice(start, pos);
-  const openerLength = marker.length;
-  if (state.backticksScanned && (state.backticks[openerLength] || 0) <= start) {
-    if (!silent) state.pending += marker;
-    state.pos += openerLength;
-    return true;
-  }
-  let matchEnd = pos;
-  let matchStart;
-  while ((matchStart = state.src.indexOf("`", matchEnd)) !== -1) {
-    matchEnd = matchStart + 1;
-    while (matchEnd < max && state.src.charCodeAt(matchEnd) === 96) matchEnd++;
-    const closerLength = matchEnd - matchStart;
-    if (closerLength === openerLength) {
-      if (!silent) {
-        const token = state.push("code_inline", "code", 0);
-        token.markup = marker;
-        token.content = state.src.slice(pos, matchStart).replace(/\n/g, " ").replace(/^ (.+) $/, "$1");
-      }
-      state.pos = matchEnd;
-      return true;
-    }
-    state.backticks[closerLength] = matchStart;
-  }
-  state.backticksScanned = true;
-  if (!silent) state.pending += marker;
-  state.pos += openerLength;
-  return true;
-}
-function strikethrough_tokenize(state, silent) {
-  const start = state.pos;
-  const marker = state.src.charCodeAt(start);
-  if (silent) return false;
-  if (marker !== 126) return false;
-  const scanned = state.scanDelims(state.pos, true);
-  let len = scanned.length;
-  const ch = String.fromCharCode(marker);
-  if (len < 2) return false;
-  let token;
-  if (len % 2) {
-    token = state.push("text", "", 0);
-    token.content = ch;
-    len--;
-  }
-  for (let i = 0; i < len; i += 2) {
-    token = state.push("text", "", 0);
-    token.content = ch + ch;
-    state.delimiters.push({
-      marker,
-      length: 0,
-      token: state.tokens.length - 1,
-      end: -1,
-      open: scanned.can_open,
-      close: scanned.can_close
-    });
-  }
-  state.pos += scanned.length;
-  return true;
-}
-function postProcess$1(state, delimiters) {
-  let token;
-  const loneMarkers = [];
-  const max = delimiters.length;
-  for (let i = 0; i < max; i++) {
-    const startDelim = delimiters[i];
-    if (startDelim.marker !== 126) continue;
-    if (startDelim.end === -1) continue;
-    const endDelim = delimiters[startDelim.end];
-    token = state.tokens[startDelim.token];
-    token.type = "s_open";
-    token.tag = "s";
-    token.nesting = 1;
-    token.markup = "~~";
-    token.content = "";
-    token = state.tokens[endDelim.token];
-    token.type = "s_close";
-    token.tag = "s";
-    token.nesting = -1;
-    token.markup = "~~";
-    token.content = "";
-    if (state.tokens[endDelim.token - 1].type === "text" && state.tokens[endDelim.token - 1].content === "~") loneMarkers.push(endDelim.token - 1);
-  }
-  while (loneMarkers.length) {
-    const i = loneMarkers.pop();
-    let j = i + 1;
-    while (j < state.tokens.length && state.tokens[j].type === "s_close") j++;
-    j--;
-    if (i !== j) {
-      token = state.tokens[j];
-      state.tokens[j] = state.tokens[i];
-      state.tokens[i] = token;
-    }
-  }
-}
-function strikethrough_postProcess(state) {
-  const tokens_meta = state.tokens_meta;
-  const max = state.tokens_meta.length;
-  postProcess$1(state, state.delimiters);
-  for (let curr = 0; curr < max; curr++) {
-    var _tokens_meta$curr;
-    const delimiters = (_tokens_meta$curr = tokens_meta[curr]) === null || _tokens_meta$curr === void 0 ? void 0 : _tokens_meta$curr.delimiters;
-    if (delimiters) postProcess$1(state, delimiters);
-  }
-}
-var strikethrough_default = {
-  tokenize: strikethrough_tokenize,
-  postProcess: strikethrough_postProcess
-};
-function emphasis_tokenize(state, silent) {
-  const start = state.pos;
-  const marker = state.src.charCodeAt(start);
-  if (silent) return false;
-  if (marker !== 95 && marker !== 42) return false;
-  const scanned = state.scanDelims(state.pos, marker === 42);
-  for (let i = 0; i < scanned.length; i++) {
-    const token = state.push("text", "", 0);
-    token.content = String.fromCharCode(marker);
-    state.delimiters.push({
-      marker,
-      length: scanned.length,
-      token: state.tokens.length - 1,
-      end: -1,
-      open: scanned.can_open,
-      close: scanned.can_close
-    });
-  }
-  state.pos += scanned.length;
-  return true;
-}
-function postProcess(state, delimiters) {
-  const max = delimiters.length;
-  for (let i = max - 1; i >= 0; i--) {
-    const startDelim = delimiters[i];
-    if (startDelim.marker !== 95 && startDelim.marker !== 42) continue;
-    if (startDelim.end === -1) continue;
-    const endDelim = delimiters[startDelim.end];
-    const isStrong = i > 0 && delimiters[i - 1].end === startDelim.end + 1 && delimiters[i - 1].marker === startDelim.marker && delimiters[i - 1].token === startDelim.token - 1 && delimiters[startDelim.end + 1].token === endDelim.token + 1;
-    const ch = String.fromCharCode(startDelim.marker);
-    const token_o = state.tokens[startDelim.token];
-    token_o.type = isStrong ? "strong_open" : "em_open";
-    token_o.tag = isStrong ? "strong" : "em";
-    token_o.nesting = 1;
-    token_o.markup = isStrong ? ch + ch : ch;
-    token_o.content = "";
-    const token_c = state.tokens[endDelim.token];
-    token_c.type = isStrong ? "strong_close" : "em_close";
-    token_c.tag = isStrong ? "strong" : "em";
-    token_c.nesting = -1;
-    token_c.markup = isStrong ? ch + ch : ch;
-    token_c.content = "";
-    if (isStrong) {
-      state.tokens[delimiters[i - 1].token].content = "";
-      state.tokens[delimiters[startDelim.end + 1].token].content = "";
-      i--;
-    }
-  }
-}
-function emphasis_post_process(state) {
-  const tokens_meta = state.tokens_meta;
-  const max = state.tokens_meta.length;
-  postProcess(state, state.delimiters);
-  for (let curr = 0; curr < max; curr++) {
-    var _tokens_meta$curr;
-    const delimiters = (_tokens_meta$curr = tokens_meta[curr]) === null || _tokens_meta$curr === void 0 ? void 0 : _tokens_meta$curr.delimiters;
-    if (delimiters) postProcess(state, delimiters);
-  }
-}
-var emphasis_default = {
-  tokenize: emphasis_tokenize,
-  postProcess: emphasis_post_process
-};
-function link(state, silent) {
-  let code2, label, res, ref;
-  let href = "";
-  let title = "";
-  let start = state.pos;
-  let parseReference = true;
-  if (state.src.charCodeAt(state.pos) !== 91) return false;
-  const oldPos = state.pos;
-  const max = state.posMax;
-  const labelStart = state.pos + 1;
-  const labelEnd = state.md.helpers.parseLinkLabel(state, state.pos, true);
-  if (labelEnd < 0) return false;
-  let pos = labelEnd + 1;
-  if (pos < max && state.src.charCodeAt(pos) === 40) {
-    parseReference = false;
-    pos++;
-    for (; pos < max; pos++) {
-      code2 = state.src.charCodeAt(pos);
-      if (!isSpace(code2) && code2 !== 10) break;
-    }
-    if (pos >= max) return false;
-    start = pos;
-    res = state.md.helpers.parseLinkDestination(state.src, pos, state.posMax);
-    if (res.ok) {
-      href = state.md.normalizeLink(res.str);
-      if (state.md.validateLink(href)) pos = res.pos;
-      else href = "";
-      start = pos;
-      for (; pos < max; pos++) {
-        code2 = state.src.charCodeAt(pos);
-        if (!isSpace(code2) && code2 !== 10) break;
-      }
-      res = state.md.helpers.parseLinkTitle(state.src, pos, state.posMax);
-      if (pos < max && start !== pos && res.ok) {
-        title = res.str;
-        pos = res.pos;
-        for (; pos < max; pos++) {
-          code2 = state.src.charCodeAt(pos);
-          if (!isSpace(code2) && code2 !== 10) break;
-        }
-      }
-    }
-    if (pos >= max || state.src.charCodeAt(pos) !== 41) parseReference = true;
-    pos++;
-  }
-  if (parseReference) {
-    if (typeof state.env.references === "undefined") return false;
-    if (pos < max && state.src.charCodeAt(pos) === 91) {
-      start = pos + 1;
-      pos = state.md.helpers.parseLinkLabel(state, pos);
-      if (pos >= 0) label = state.src.slice(start, pos++);
-      else pos = labelEnd + 1;
-    } else pos = labelEnd + 1;
-    if (!label) label = state.src.slice(labelStart, labelEnd);
-    label = normalizeReference(label);
-    ref = state.env.references[label];
-    if (!ref) {
-      state.pos = oldPos;
-      return false;
-    }
-    href = ref.href;
-    title = ref.title;
-  }
-  if (!silent) {
-    state.pos = labelStart;
-    state.posMax = labelEnd;
-    const token_o = state.push("link_open", "a", 1);
-    const attrs = [["href", href]];
-    token_o.attrs = attrs;
-    if (title) attrs.push(["title", title]);
-    if (label) {
-      const meta = /* @__PURE__ */ Object.create(null);
-      meta.label = label;
-      token_o.meta = meta;
-    }
-    state.linkLevel++;
-    state.md.inline.tokenize(state);
-    state.linkLevel--;
-    state.push("link_close", "a", -1);
-  }
-  state.pos = pos;
-  state.posMax = max;
-  return true;
-}
-function image(state, silent) {
-  let code2, content, label, pos, ref, res, title, start;
-  let href = "";
-  const oldPos = state.pos;
-  const max = state.posMax;
-  if (state.src.charCodeAt(state.pos) !== 33) return false;
-  if (state.src.charCodeAt(state.pos + 1) !== 91) return false;
-  const labelStart = state.pos + 2;
-  const labelEnd = state.md.helpers.parseLinkLabel(state, state.pos + 1, false);
-  if (labelEnd < 0) return false;
-  pos = labelEnd + 1;
-  if (pos < max && state.src.charCodeAt(pos) === 40) {
-    pos++;
-    for (; pos < max; pos++) {
-      code2 = state.src.charCodeAt(pos);
-      if (!isSpace(code2) && code2 !== 10) break;
-    }
-    if (pos >= max) return false;
-    start = pos;
-    res = state.md.helpers.parseLinkDestination(state.src, pos, state.posMax);
-    if (res.ok) {
-      href = state.md.normalizeLink(res.str);
-      if (state.md.validateLink(href)) pos = res.pos;
-      else href = "";
-    }
-    start = pos;
-    for (; pos < max; pos++) {
-      code2 = state.src.charCodeAt(pos);
-      if (!isSpace(code2) && code2 !== 10) break;
-    }
-    res = state.md.helpers.parseLinkTitle(state.src, pos, state.posMax);
-    if (pos < max && start !== pos && res.ok) {
-      title = res.str;
-      pos = res.pos;
-      for (; pos < max; pos++) {
-        code2 = state.src.charCodeAt(pos);
-        if (!isSpace(code2) && code2 !== 10) break;
-      }
-    } else title = "";
-    if (pos >= max || state.src.charCodeAt(pos) !== 41) {
-      state.pos = oldPos;
-      return false;
-    }
-    pos++;
-  } else {
-    if (typeof state.env.references === "undefined") return false;
-    if (pos < max && state.src.charCodeAt(pos) === 91) {
-      start = pos + 1;
-      pos = state.md.helpers.parseLinkLabel(state, pos);
-      if (pos >= 0) label = state.src.slice(start, pos++);
-      else pos = labelEnd + 1;
-    } else pos = labelEnd + 1;
-    if (!label) label = state.src.slice(labelStart, labelEnd);
-    label = normalizeReference(label);
-    ref = state.env.references[label];
-    if (!ref) {
-      state.pos = oldPos;
-      return false;
-    }
-    href = ref.href;
-    title = ref.title;
-  }
-  if (!silent) {
-    content = state.src.slice(labelStart, labelEnd);
-    const tokens = [];
-    state.md.inline.parse(content, state.md, state.env, tokens);
-    const token = state.push("image", "img", 0);
-    const attrs = [["src", href], ["alt", ""]];
-    token.attrs = attrs;
-    token.children = tokens;
-    token.content = content;
-    if (title) attrs.push(["title", title]);
-    if (label) {
-      const meta = /* @__PURE__ */ Object.create(null);
-      meta.label = label;
-      token.meta = meta;
-    }
-  }
-  state.pos = pos;
-  state.posMax = max;
-  return true;
-}
-var EMAIL_RE = /^([a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*)$/;
-var AUTOLINK_RE = /^([a-zA-Z][a-zA-Z0-9+.-]{1,31}):([^<>\x00-\x20]*)$/;
-function autolink(state, silent) {
-  let pos = state.pos;
-  if (state.src.charCodeAt(pos) !== 60) return false;
-  const start = state.pos;
-  const max = state.posMax;
-  for (; ; ) {
-    if (++pos >= max) return false;
-    const ch = state.src.charCodeAt(pos);
-    if (ch === 60) return false;
-    if (ch === 62) break;
-  }
-  const url = state.src.slice(start + 1, pos);
-  if (AUTOLINK_RE.test(url)) {
-    const fullUrl = state.md.normalizeLink(url);
-    if (!state.md.validateLink(fullUrl)) return false;
-    if (!silent) {
-      const token_o = state.push("link_open", "a", 1);
-      token_o.attrs = [["href", fullUrl]];
-      token_o.markup = "autolink";
-      token_o.info = "auto";
-      const token_t = state.push("text", "", 0);
-      token_t.content = state.md.normalizeLinkText(url);
-      const token_c = state.push("link_close", "a", -1);
-      token_c.markup = "autolink";
-      token_c.info = "auto";
-    }
-    state.pos += url.length + 2;
-    return true;
-  }
-  if (EMAIL_RE.test(url)) {
-    const fullUrl = state.md.normalizeLink(`mailto:${url}`);
-    if (!state.md.validateLink(fullUrl)) return false;
-    if (!silent) {
-      const token_o = state.push("link_open", "a", 1);
-      token_o.attrs = [["href", fullUrl]];
-      token_o.markup = "autolink";
-      token_o.info = "auto";
-      const token_t = state.push("text", "", 0);
-      token_t.content = state.md.normalizeLinkText(url);
-      const token_c = state.push("link_close", "a", -1);
-      token_c.markup = "autolink";
-      token_c.info = "auto";
-    }
-    state.pos += url.length + 2;
-    return true;
-  }
-  return false;
-}
-function isLinkOpen(str) {
-  return /^<a[>\s]/i.test(str);
-}
-function isLinkClose(str) {
-  return /^<\/a\s*>/i.test(str);
-}
-function isLetter(ch) {
-  const lc = ch | 32;
-  return lc >= 97 && lc <= 122;
-}
-function html_inline(state, silent) {
-  if (!state.md.options.html) return false;
-  const max = state.posMax;
-  const pos = state.pos;
-  if (state.src.charCodeAt(pos) !== 60 || pos + 2 >= max) return false;
-  const ch = state.src.charCodeAt(pos + 1);
-  if (ch !== 33 && ch !== 63 && ch !== 47 && !isLetter(ch)) return false;
-  const match = state.src.slice(pos).match(HTML_TAG_RE);
-  if (!match) return false;
-  if (!silent) {
-    const token = state.push("html_inline", "", 0);
-    token.content = match[0];
-    if (isLinkOpen(token.content)) state.linkLevel++;
-    if (isLinkClose(token.content)) state.linkLevel--;
-  }
-  state.pos += match[0].length;
-  return true;
-}
-var DIGITAL_RE = /^&#((?:x[a-f0-9]{1,6}|[0-9]{1,7}));/i;
-var NAMED_RE = /^&([a-z][a-z0-9]{1,31});/i;
-function entity(state, silent) {
-  const pos = state.pos;
-  const max = state.posMax;
-  if (state.src.charCodeAt(pos) !== 38) return false;
-  if (pos + 1 >= max) return false;
-  if (state.src.charCodeAt(pos + 1) === 35) {
-    const match = state.src.slice(pos).match(DIGITAL_RE);
-    if (match) {
-      if (!silent) {
-        const code2 = match[1][0].toLowerCase() === "x" ? parseInt(match[1].slice(1), 16) : parseInt(match[1], 10);
-        const token = state.push("text_special", "", 0);
-        token.content = isValidEntityCode(code2) ? fromCodePoint(code2) : fromCodePoint(65533);
-        token.markup = match[0];
-        token.info = "entity";
-      }
-      state.pos += match[0].length;
-      return true;
-    }
-  } else {
-    const match = state.src.slice(pos).match(NAMED_RE);
-    if (match) {
-      const decoded = decodeHTMLStrict(match[0]);
-      if (decoded !== match[0]) {
-        if (!silent) {
-          const token = state.push("text_special", "", 0);
-          token.content = decoded;
-          token.markup = match[0];
-          token.info = "entity";
-        }
-        state.pos += match[0].length;
-        return true;
-      }
-    }
-  }
-  return false;
-}
-function processDelimiters(delimiters) {
-  const openersBottom = {};
-  const max = delimiters.length;
-  if (!max) return;
-  let headerIdx = 0;
-  let lastTokenIdx = -2;
-  const jumps = [];
-  for (let closerIdx = 0; closerIdx < max; closerIdx++) {
-    const closer = delimiters[closerIdx];
-    jumps.push(0);
-    if (delimiters[headerIdx].marker !== closer.marker || lastTokenIdx !== closer.token - 1) headerIdx = closerIdx;
-    lastTokenIdx = closer.token;
-    closer.length = closer.length || 0;
-    if (!closer.close) continue;
-    if (!openersBottom.hasOwnProperty(closer.marker)) openersBottom[closer.marker] = [
-      -1,
-      -1,
-      -1,
-      -1,
-      -1,
-      -1
-    ];
-    const minOpenerIdx = openersBottom[closer.marker][(closer.open ? 3 : 0) + closer.length % 3];
-    let openerIdx = headerIdx - jumps[headerIdx] - 1;
-    let newMinOpenerIdx = openerIdx;
-    for (; openerIdx > minOpenerIdx; openerIdx -= jumps[openerIdx] + 1) {
-      const opener = delimiters[openerIdx];
-      if (opener.marker !== closer.marker) continue;
-      if (opener.open && opener.end < 0) {
-        let isOddMatch = false;
-        if (opener.close || closer.open) {
-          if ((opener.length + closer.length) % 3 === 0) {
-            if (opener.length % 3 !== 0 || closer.length % 3 !== 0) isOddMatch = true;
-          }
-        }
-        if (!isOddMatch) {
-          const lastJump = openerIdx > 0 && !delimiters[openerIdx - 1].open ? jumps[openerIdx - 1] + 1 : 0;
-          jumps[closerIdx] = closerIdx - openerIdx + lastJump;
-          jumps[openerIdx] = lastJump;
-          closer.open = false;
-          opener.end = closerIdx;
-          opener.close = false;
-          newMinOpenerIdx = -1;
-          lastTokenIdx = -2;
-          break;
-        }
-      }
-    }
-    if (newMinOpenerIdx !== -1) openersBottom[closer.marker][(closer.open ? 3 : 0) + (closer.length || 0) % 3] = newMinOpenerIdx;
-  }
-}
-function link_pairs(state) {
-  const tokens_meta = state.tokens_meta;
-  const max = state.tokens_meta.length;
-  processDelimiters(state.delimiters);
-  for (let curr = 0; curr < max; curr++) {
-    var _tokens_meta$curr;
-    const delimiters = (_tokens_meta$curr = tokens_meta[curr]) === null || _tokens_meta$curr === void 0 ? void 0 : _tokens_meta$curr.delimiters;
-    if (delimiters) processDelimiters(delimiters);
-  }
-}
-function fragments_join(state) {
-  let curr, last;
-  let level = 0;
-  const tokens = state.tokens;
-  const max = state.tokens.length;
-  for (curr = last = 0; curr < max; curr++) {
-    if (tokens[curr].nesting < 0) level--;
-    tokens[curr].level = level;
-    if (tokens[curr].nesting > 0) level++;
-    if (tokens[curr].type === "text" && curr + 1 < max && tokens[curr + 1].type === "text") tokens[curr + 1].content = tokens[curr].content + tokens[curr + 1].content;
-    else {
-      if (curr !== last) tokens[last] = tokens[curr];
-      last++;
-    }
-  }
-  if (curr !== last) tokens.length = last;
-}
-var _rules = [
-  ["text", text],
-  ["linkify", linkify],
-  ["newline", newline],
-  ["escape", escape],
-  ["backticks", backtick],
-  ["strikethrough", strikethrough_default.tokenize],
-  ["emphasis", emphasis_default.tokenize],
-  ["link", link],
-  ["image", image],
-  ["autolink", autolink],
-  ["html_inline", html_inline],
-  ["entity", entity]
-];
-var _rules2 = [
-  ["balance_pairs", link_pairs],
-  ["strikethrough", strikethrough_default.postProcess],
-  ["emphasis", emphasis_default.postProcess],
-  ["fragments_join", fragments_join]
-];
-var ParserInline = class {
-  constructor() {
-    _defineProperty(
-      this,
-      /**
-      * {@link Ruler} instance. Keep configuration of inline rules.
-      */
-      "ruler",
-      new Ruler()
-    );
-    _defineProperty(
-      this,
-      /**
-      * {@link Ruler} instance. Second ruler used for post-processing
-      * (e.g. in emphasis-like rules).
-      */
-      "ruler2",
-      new Ruler()
-    );
-    _defineProperty(this, "State", StateInline);
-    for (let i = 0; i < _rules.length; i++) this.ruler.push(_rules[i][0], _rules[i][1]);
-    for (let i = 0; i < _rules2.length; i++) this.ruler2.push(_rules2[i][0], _rules2[i][1]);
-  }
-  skipToken(state) {
-    const pos = state.pos;
-    const rules = this.ruler.getRules("");
-    const len = rules.length;
-    const maxNesting = state.md.options.maxNesting;
-    const cache = state.cache;
-    if (typeof cache[pos] !== "undefined") {
-      state.pos = cache[pos];
-      return;
-    }
-    let ok = false;
-    if (state.level < maxNesting) for (let i = 0; i < len; i++) {
-      state.level++;
-      ok = rules[i](state, true);
-      state.level--;
-      if (ok) {
-        if (pos >= state.pos) throw new Error("inline rule didn't increment state.pos");
-        break;
-      }
-    }
-    else state.pos = state.posMax;
-    if (!ok) state.pos++;
-    cache[pos] = state.pos;
-  }
-  tokenize(state) {
-    const rules = this.ruler.getRules("");
-    const len = rules.length;
-    const end = state.posMax;
-    const maxNesting = state.md.options.maxNesting;
-    while (state.pos < end) {
-      const prevPos = state.pos;
-      let ok = false;
-      if (state.level < maxNesting) for (let i = 0; i < len; i++) {
-        ok = rules[i](state, false);
-        if (ok) {
-          if (prevPos >= state.pos) throw new Error("inline rule didn't increment state.pos");
-          break;
-        }
-      }
-      if (ok) {
-        if (state.pos >= end) break;
-        continue;
-      }
-      state.pending += state.src[state.pos++];
-    }
-    if (state.pending) state.pushPending();
-  }
-  /**
-  * Process input string and push inline tokens into `outTokens`
-  */
-  parse(str, md, env, outTokens) {
-    const state = new this.State(str, md, env, outTokens);
-    this.tokenize(state);
-    const rules = this.ruler2.getRules("");
-    const len = rules.length;
-    for (let i = 0; i < len; i++) rules[i](state);
-  }
-};
-var config = {
-  default: {
-    options: {
-      html: false,
-      xhtmlOut: false,
-      breaks: false,
-      langPrefix: "language-",
-      linkify: false,
-      typographer: false,
-      quotes: "\u201C\u201D\u2018\u2019",
-      highlight: null,
-      maxNesting: 100
-    },
-    components: {
-      core: {},
-      block: {},
-      inline: {}
-    }
-  },
-  zero: {
-    options: {
-      html: false,
-      xhtmlOut: false,
-      breaks: false,
-      langPrefix: "language-",
-      linkify: false,
-      typographer: false,
-      quotes: "\u201C\u201D\u2018\u2019",
-      highlight: null,
-      maxNesting: 20
-    },
-    components: {
-      core: { rules: [
-        "normalize",
-        "block",
-        "strip_references",
-        "inline",
-        "text_join"
-      ] },
-      block: { rules: ["paragraph"] },
-      inline: {
-        rules: ["text"],
-        rules2: ["balance_pairs", "fragments_join"]
-      }
-    }
-  },
-  commonmark: {
-    options: {
-      html: true,
-      xhtmlOut: true,
-      breaks: false,
-      langPrefix: "language-",
-      linkify: false,
-      typographer: false,
-      quotes: "\u201C\u201D\u2018\u2019",
-      highlight: null,
-      maxNesting: 20
-    },
-    components: {
-      core: { rules: [
-        "normalize",
-        "block",
-        "strip_references",
-        "inline",
-        "text_join"
-      ] },
-      block: { rules: [
-        "blockquote",
-        "code",
-        "fence",
-        "heading",
-        "hr",
-        "html_block",
-        "lheading",
-        "list",
-        "reference",
-        "paragraph"
-      ] },
-      inline: {
-        rules: [
-          "autolink",
-          "backticks",
-          "emphasis",
-          "entity",
-          "escape",
-          "html_inline",
-          "image",
-          "link",
-          "newline",
-          "text"
-        ],
-        rules2: [
-          "balance_pairs",
-          "emphasis",
-          "fragments_join"
-        ]
-      }
-    }
-  }
-};
-var BAD_PROTO_RE = /^(vbscript|javascript|file|data):/;
-var GOOD_DATA_RE = /^data:image\/(gif|png|jpeg|webp);/;
-var RECODE_HOSTNAME_FOR = [
-  "http:",
-  "https:",
-  "mailto:"
-];
-var MarkdownIt = class {
-  /**
-  * Link validation function. CommonMark allows too much in links. By default
-  * we disable `javascript:`, `vbscript:`, `file:` schemas, and almost all `data:...` schemas
-  * except some embedded image types.
-  *
-  * You can change this behaviour:
-  *
-  * @example
-  * ```javascript
-  * import MarkdownIt from 'markdown-it'
-  * const md = new MarkdownIt()
-  *
-  * // enable everything
-  * md.validateLink = function () { return true; }
-  * ```
-  */
-  validateLink(url) {
-    const str = url.trim().toLowerCase();
-    return BAD_PROTO_RE.test(str) ? GOOD_DATA_RE.test(str) : true;
-  }
-  /**
-  * Function used to encode link url to a machine-readable format,
-  * which includes url-encoding, punycode, etc.
-  */
-  normalizeLink(url) {
-    const parsed = parse_default(url, true);
-    if (parsed.hostname) {
-      if (!parsed.protocol || RECODE_HOSTNAME_FOR.indexOf(parsed.protocol) >= 0) try {
-        parsed.hostname = punycode_es6_default.toASCII(parsed.hostname);
-      } catch (er) {
-      }
-    }
-    return encode_default(format(parsed));
-  }
-  /**
-  * Function used to decode link url to a human-readable format`
-  */
-  normalizeLinkText(url) {
-    const parsed = parse_default(url, true);
-    if (parsed.hostname) {
-      if (!parsed.protocol || RECODE_HOSTNAME_FOR.indexOf(parsed.protocol) >= 0) try {
-        parsed.hostname = punycode_es6_default.toUnicode(parsed.hostname);
-      } catch (er) {
-      }
-    }
-    return decode_default(format(parsed), decode_default.defaultChars + "%");
-  }
-  constructor(...args) {
-    _defineProperty(
-      this,
-      /**
-      * Instance of {@link ParserInline}. You may need it to add new rules when
-      * writing plugins. For simple rules control use {@link MarkdownIt.disable}
-      * and {@link MarkdownIt.enable}.
-      */
-      "inline",
-      new ParserInline()
-    );
-    _defineProperty(
-      this,
-      /**
-      * Instance of {@link ParserBlock}. You may need it to add new rules when
-      * writing plugins. For simple rules control use {@link MarkdownIt.disable}
-      * and {@link MarkdownIt.enable}.
-      */
-      "block",
-      new ParserBlock()
-    );
-    _defineProperty(
-      this,
-      /**
-      * Instance of {@link ParserCore} chain executor. You may need it to add new
-      * rules when writing plugins. For simple rules control use
-      * {@link MarkdownIt.disable} and {@link MarkdownIt.enable}.
-      */
-      "core",
-      new ParserCore()
-    );
-    _defineProperty(
-      this,
-      /**
-      * Instance of {@link Renderer}. Use it to modify output look. Or to add rendering
-      * rules for new token types, generated by plugins.
-      *
-      * See {@link Renderer} docs and
-      * [source code](https://github.com/markdown-it/markdown-it/blob/master/src/renderer.ts).
-      *
-      * @example
-      * ```javascript
-      * import MarkdownIt from 'markdown-it'
-      * const md = new MarkdownIt()
-      *
-      * function myToken(tokens, idx, options, env, self) {
-      *   //...
-      *   return result;
-      * };
-      *
-      * md.renderer.rules['my_token'] = myToken
-      * ```
-      */
-      "renderer",
-      new Renderer()
-    );
-    _defineProperty(
-      this,
-      /**
-      * [linkify-it](https://github.com/markdown-it/linkify-it) instance.
-      * Used by [linkify](https://github.com/markdown-it/markdown-it/blob/master/src/rules_core/linkify.ts)
-      * rule.
-      */
-      "linkify",
-      new LinkifyIt()
-    );
-    _defineProperty(
-      this,
-      /**
-      * Assorted utility functions, useful to write plugins. See details
-      * [here](https://github.com/markdown-it/markdown-it/blob/master/src/common/utils.ts).
-      */
-      "utils",
-      utils_exports
-    );
-    _defineProperty(
-      this,
-      /**
-      * Link components parser functions, useful to write plugins. See details
-      * [here](https://github.com/markdown-it/markdown-it/blob/master/src/helpers).
-      */
-      "helpers",
-      Object.assign({}, helpers_exports)
-    );
-    const [presetNameOrOptions, options] = args;
-    if (typeof presetNameOrOptions === "string") {
-      this.configure(presetNameOrOptions);
-      if (options) this.set(options);
-    } else {
-      this.configure("default");
-      this.set(presetNameOrOptions || {});
-    }
-  }
-  /**
-  * Set parser options (in the same format as in constructor). Probably, you
-  * will never need it, but you can change options after constructor call.
-  *
-  * __Note:__ To achieve the best possible performance, don't modify a
-  * `markdown-it` instance options on the fly. If you need multiple configurations
-  * it's best to create multiple instances and initialize each with separate
-  * config.
-  *
-  * @example
-  * ```javascript
-  * import MarkdownIt from 'markdown-it'
-  *
-  * const md = new MarkdownIt()
-  *   .set({ html: true, breaks: true })
-  *   .set({ typographer: true })
-  * ```
-  */
-  set(options) {
-    Object.assign(this.options, options);
-    return this;
-  }
-  /**
-  * Batch load of all options and compenent settings. This is internal method,
-  * and you probably will not need it. But if you will - see available presets
-  * and data structure [here](https://github.com/markdown-it/markdown-it/tree/master/src/presets)
-  *
-  * We strongly recommend to use presets instead of direct config loads. That
-  * will give better compatibility with next versions.
-  */
-  configure(presets) {
-    let p;
-    if (typeof presets === "string") {
-      const presetName = presets;
-      p = config[presetName];
-      if (!p) throw new Error(`Wrong 'markdown-it' preset "${presetName}", check name`);
-    } else p = presets;
-    if (!p) throw new Error("Wrong `markdown-it` preset, can't be empty");
-    if (p.options) this.options = { ...p.options };
-    const components = p.components;
-    if (components) {
-      var _components$inline;
-      [
-        "core",
-        "block",
-        "inline"
-      ].forEach((name) => {
-        var _components$name;
-        const rules = (_components$name = components[name]) === null || _components$name === void 0 ? void 0 : _components$name.rules;
-        if (rules) this[name].ruler.enableOnly(rules);
-      });
-      const rules2 = (_components$inline = components.inline) === null || _components$inline === void 0 ? void 0 : _components$inline.rules2;
-      if (rules2) this.inline.ruler2.enableOnly(rules2);
-    }
-    return this;
-  }
-  /**
-  * Enable list or rules. It will automatically find appropriate components,
-  * containing rules with given names. If rule not found, and `ignoreInvalid`
-  * not set - throws exception.
-  *
-  * @param list Rule name or list of rule names to enable.
-  * @param ignoreInvalid Set `true` to ignore errors when rule not found.
-  *
-  * @example
-  * ```javascript
-  * import MarkdownIt from 'markdown-it'
-  *
-  * const md = new MarkdownIt()
-  *   .enable(['sub', 'sup'])
-  *   .disable('smartquotes')
-  * ```
-  */
-  enable(list2, ignoreInvalid = false) {
-    let result = [];
-    if (!Array.isArray(list2)) list2 = [list2];
-    [
-      "core",
-      "block",
-      "inline"
-    ].forEach((chain) => {
-      result = result.concat(this[chain].ruler.enable(list2, true));
-    });
-    result = result.concat(this.inline.ruler2.enable(list2, true));
-    const missed = list2.filter((name) => result.indexOf(name) < 0);
-    if (missed.length && !ignoreInvalid) throw new Error(`MarkdownIt. Failed to enable unknown rule(s): ${missed}`);
-    return this;
-  }
-  /**
-  * The same as {@link MarkdownIt.enable}, but turn specified rules off.
-  *
-  * @param list Rule name or list of rule names to disable.
-  * @param ignoreInvalid Set `true` to ignore errors when rule not found.
-  */
-  disable(list2, ignoreInvalid = false) {
-    let result = [];
-    if (!Array.isArray(list2)) list2 = [list2];
-    [
-      "core",
-      "block",
-      "inline"
-    ].forEach((chain) => {
-      result = result.concat(this[chain].ruler.disable(list2, true));
-    });
-    result = result.concat(this.inline.ruler2.disable(list2, true));
-    const missed = list2.filter((name) => result.indexOf(name) < 0);
-    if (missed.length && !ignoreInvalid) throw new Error(`MarkdownIt. Failed to disable unknown rule(s): ${missed}`);
-    return this;
-  }
-  /**
-  * Load specified plugin with given params into current parser instance.
-  * It's just a sugar to call `plugin(md, params)` with curring.
-  *
-  * @example
-  * ```javascript
-  * import MarkdownIt from 'markdown-it'
-  * import iterator from 'markdown-it-for-inline'
-  *
-  * const md = new MarkdownIt()
-  *   .use(iterator, 'foo_replace', 'text', function (tokens, idx) {
-  *     tokens[idx].content = tokens[idx].content.replace(/foo/g, 'bar')
-  *   })
-  * ```
-  */
-  use(plugin, ...params) {
-    plugin.apply(plugin, [this, ...params]);
-    return this;
-  }
-  /**
-  * Parse input string and return list of block tokens (special token type
-  * "inline" will contain list of inline tokens). You should not call this
-  * method directly, until you write custom renderer (for example, to produce
-  * AST).
-  *
-  * `env` is used to pass data between "distributed" rules and return additional
-  * metadata like reference info, needed for the renderer. It also can be used to
-  * inject data in specific cases. Usually, you will be ok to pass `{}`,
-  * and then pass updated object to renderer.
-  *
-  * @param src Source string.
-  * @param env Environment sandbox.
-  */
-  parse(src, env) {
-    if (typeof src !== "string") throw new Error("Input data should be a String");
-    const state = new this.core.State(src, this, env);
-    this.core.process(state);
-    return state.tokens;
-  }
-  /**
-  * Render markdown string into html. It does all magic for you :).
-  *
-  * `env` can be used to inject additional metadata (`{}` by default).
-  * But you will not need it with high probability. See also comment
-  * in {@link MarkdownIt.parse}.
-  *
-  * @param src Source string.
-  * @param env Environment sandbox.
-  */
-  render(src, env = {}) {
-    return this.renderer.render(this.parse(src, env), this.options, env);
-  }
-  /**
-  * The same as {@link MarkdownIt.parse} but skip all block rules. It returns
-  * the block tokens list with the single `inline` element, containing parsed
-  * inline tokens in `children` property. Also updates `env` object.
-  *
-  * @param src Source string.
-  * @param env Environment sandbox.
-  */
-  parseInline(src, env) {
-    const state = new this.core.State(src, this, env);
-    state.inlineMode = true;
-    this.core.process(state);
-    return state.tokens;
-  }
-  /**
-  * Similar to {@link MarkdownIt.render} but for single paragraph content.
-  * Result will NOT be wrapped into `<p>` tags.
-  *
-  * @param src Source string.
-  * @param env Environment sandbox.
-  */
-  renderInline(src, env = {}) {
-    return this.renderer.render(this.parseInline(src, env), this.options, env);
-  }
-};
-_defineProperty(MarkdownIt, "Token", Token);
-_defineProperty(MarkdownIt, "Ruler", Ruler);
-_defineProperty(MarkdownIt, "Renderer", Renderer);
-_defineProperty(MarkdownIt, "ParserCore", ParserCore);
-_defineProperty(MarkdownIt, "StateCore", StateCore);
-_defineProperty(MarkdownIt, "ParserBlock", ParserBlock);
-_defineProperty(MarkdownIt, "StateBlock", StateBlock);
-_defineProperty(MarkdownIt, "ParserInline", ParserInline);
-_defineProperty(MarkdownIt, "StateInline", StateInline);
-var MarkdownItCallable = callable(MarkdownIt);
-
 // node_modules/highlight.js/es/core.js
-var import_core = __toESM(require_core(), 1);
-var core_default = import_core.default;
+var import_core, core_default;
+var init_core = __esm({
+  "node_modules/highlight.js/es/core.js"() {
+    import_core = __toESM(require_core(), 1);
+    core_default = import_core.default;
+  }
+});
 
 // node_modules/highlight.js/es/languages/typescript.js
-var IDENT_RE = "[A-Za-z$_][0-9A-Za-z$_]*";
-var KEYWORDS = [
-  "as",
-  // for exports
-  "in",
-  "of",
-  "if",
-  "for",
-  "while",
-  "finally",
-  "var",
-  "new",
-  "function",
-  "do",
-  "return",
-  "void",
-  "else",
-  "break",
-  "catch",
-  "instanceof",
-  "with",
-  "throw",
-  "case",
-  "default",
-  "try",
-  "switch",
-  "continue",
-  "typeof",
-  "delete",
-  "let",
-  "yield",
-  "const",
-  "class",
-  // JS handles these with a special rule
-  // "get",
-  // "set",
-  "debugger",
-  "async",
-  "await",
-  "static",
-  "import",
-  "from",
-  "export",
-  "extends",
-  // It's reached stage 3, which is "recommended for implementation":
-  "using"
-];
-var LITERALS = [
-  "true",
-  "false",
-  "null",
-  "undefined",
-  "NaN",
-  "Infinity"
-];
-var TYPES = [
-  // Fundamental objects
-  "Object",
-  "Function",
-  "Boolean",
-  "Symbol",
-  // numbers and dates
-  "Math",
-  "Date",
-  "Number",
-  "BigInt",
-  // text
-  "String",
-  "RegExp",
-  // Indexed collections
-  "Array",
-  "Float32Array",
-  "Float64Array",
-  "Int8Array",
-  "Uint8Array",
-  "Uint8ClampedArray",
-  "Int16Array",
-  "Int32Array",
-  "Uint16Array",
-  "Uint32Array",
-  "BigInt64Array",
-  "BigUint64Array",
-  // Keyed collections
-  "Set",
-  "Map",
-  "WeakSet",
-  "WeakMap",
-  // Structured data
-  "ArrayBuffer",
-  "SharedArrayBuffer",
-  "Atomics",
-  "DataView",
-  "JSON",
-  // Control abstraction objects
-  "Promise",
-  "Generator",
-  "GeneratorFunction",
-  "AsyncFunction",
-  // Reflection
-  "Reflect",
-  "Proxy",
-  // Internationalization
-  "Intl",
-  // WebAssembly
-  "WebAssembly"
-];
-var ERROR_TYPES = [
-  "Error",
-  "EvalError",
-  "InternalError",
-  "RangeError",
-  "ReferenceError",
-  "SyntaxError",
-  "TypeError",
-  "URIError"
-];
-var BUILT_IN_GLOBALS = [
-  "setInterval",
-  "setTimeout",
-  "clearInterval",
-  "clearTimeout",
-  "require",
-  "exports",
-  "eval",
-  "isFinite",
-  "isNaN",
-  "parseFloat",
-  "parseInt",
-  "decodeURI",
-  "decodeURIComponent",
-  "encodeURI",
-  "encodeURIComponent",
-  "escape",
-  "unescape"
-];
-var BUILT_IN_VARIABLES = [
-  "arguments",
-  "this",
-  "super",
-  "console",
-  "window",
-  "document",
-  "localStorage",
-  "sessionStorage",
-  "module",
-  "self",
-  "global"
-  // Node.js
-];
-var BUILT_INS = [].concat(
-  BUILT_IN_GLOBALS,
-  TYPES,
-  ERROR_TYPES
-);
 function javascript(hljs) {
   const regex = hljs.regex;
   const hasClosingTag = (match, { after }) => {
@@ -14683,162 +14671,167 @@ function typescript(hljs) {
   });
   return tsLanguage;
 }
+var IDENT_RE, KEYWORDS, LITERALS, TYPES, ERROR_TYPES, BUILT_IN_GLOBALS, BUILT_IN_VARIABLES, BUILT_INS;
+var init_typescript = __esm({
+  "node_modules/highlight.js/es/languages/typescript.js"() {
+    IDENT_RE = "[A-Za-z$_][0-9A-Za-z$_]*";
+    KEYWORDS = [
+      "as",
+      // for exports
+      "in",
+      "of",
+      "if",
+      "for",
+      "while",
+      "finally",
+      "var",
+      "new",
+      "function",
+      "do",
+      "return",
+      "void",
+      "else",
+      "break",
+      "catch",
+      "instanceof",
+      "with",
+      "throw",
+      "case",
+      "default",
+      "try",
+      "switch",
+      "continue",
+      "typeof",
+      "delete",
+      "let",
+      "yield",
+      "const",
+      "class",
+      // JS handles these with a special rule
+      // "get",
+      // "set",
+      "debugger",
+      "async",
+      "await",
+      "static",
+      "import",
+      "from",
+      "export",
+      "extends",
+      // It's reached stage 3, which is "recommended for implementation":
+      "using"
+    ];
+    LITERALS = [
+      "true",
+      "false",
+      "null",
+      "undefined",
+      "NaN",
+      "Infinity"
+    ];
+    TYPES = [
+      // Fundamental objects
+      "Object",
+      "Function",
+      "Boolean",
+      "Symbol",
+      // numbers and dates
+      "Math",
+      "Date",
+      "Number",
+      "BigInt",
+      // text
+      "String",
+      "RegExp",
+      // Indexed collections
+      "Array",
+      "Float32Array",
+      "Float64Array",
+      "Int8Array",
+      "Uint8Array",
+      "Uint8ClampedArray",
+      "Int16Array",
+      "Int32Array",
+      "Uint16Array",
+      "Uint32Array",
+      "BigInt64Array",
+      "BigUint64Array",
+      // Keyed collections
+      "Set",
+      "Map",
+      "WeakSet",
+      "WeakMap",
+      // Structured data
+      "ArrayBuffer",
+      "SharedArrayBuffer",
+      "Atomics",
+      "DataView",
+      "JSON",
+      // Control abstraction objects
+      "Promise",
+      "Generator",
+      "GeneratorFunction",
+      "AsyncFunction",
+      // Reflection
+      "Reflect",
+      "Proxy",
+      // Internationalization
+      "Intl",
+      // WebAssembly
+      "WebAssembly"
+    ];
+    ERROR_TYPES = [
+      "Error",
+      "EvalError",
+      "InternalError",
+      "RangeError",
+      "ReferenceError",
+      "SyntaxError",
+      "TypeError",
+      "URIError"
+    ];
+    BUILT_IN_GLOBALS = [
+      "setInterval",
+      "setTimeout",
+      "clearInterval",
+      "clearTimeout",
+      "require",
+      "exports",
+      "eval",
+      "isFinite",
+      "isNaN",
+      "parseFloat",
+      "parseInt",
+      "decodeURI",
+      "decodeURIComponent",
+      "encodeURI",
+      "encodeURIComponent",
+      "escape",
+      "unescape"
+    ];
+    BUILT_IN_VARIABLES = [
+      "arguments",
+      "this",
+      "super",
+      "console",
+      "window",
+      "document",
+      "localStorage",
+      "sessionStorage",
+      "module",
+      "self",
+      "global"
+      // Node.js
+    ];
+    BUILT_INS = [].concat(
+      BUILT_IN_GLOBALS,
+      TYPES,
+      ERROR_TYPES
+    );
+  }
+});
 
 // node_modules/highlight.js/es/languages/javascript.js
-var IDENT_RE2 = "[A-Za-z$_][0-9A-Za-z$_]*";
-var KEYWORDS2 = [
-  "as",
-  // for exports
-  "in",
-  "of",
-  "if",
-  "for",
-  "while",
-  "finally",
-  "var",
-  "new",
-  "function",
-  "do",
-  "return",
-  "void",
-  "else",
-  "break",
-  "catch",
-  "instanceof",
-  "with",
-  "throw",
-  "case",
-  "default",
-  "try",
-  "switch",
-  "continue",
-  "typeof",
-  "delete",
-  "let",
-  "yield",
-  "const",
-  "class",
-  // JS handles these with a special rule
-  // "get",
-  // "set",
-  "debugger",
-  "async",
-  "await",
-  "static",
-  "import",
-  "from",
-  "export",
-  "extends",
-  // It's reached stage 3, which is "recommended for implementation":
-  "using"
-];
-var LITERALS2 = [
-  "true",
-  "false",
-  "null",
-  "undefined",
-  "NaN",
-  "Infinity"
-];
-var TYPES2 = [
-  // Fundamental objects
-  "Object",
-  "Function",
-  "Boolean",
-  "Symbol",
-  // numbers and dates
-  "Math",
-  "Date",
-  "Number",
-  "BigInt",
-  // text
-  "String",
-  "RegExp",
-  // Indexed collections
-  "Array",
-  "Float32Array",
-  "Float64Array",
-  "Int8Array",
-  "Uint8Array",
-  "Uint8ClampedArray",
-  "Int16Array",
-  "Int32Array",
-  "Uint16Array",
-  "Uint32Array",
-  "BigInt64Array",
-  "BigUint64Array",
-  // Keyed collections
-  "Set",
-  "Map",
-  "WeakSet",
-  "WeakMap",
-  // Structured data
-  "ArrayBuffer",
-  "SharedArrayBuffer",
-  "Atomics",
-  "DataView",
-  "JSON",
-  // Control abstraction objects
-  "Promise",
-  "Generator",
-  "GeneratorFunction",
-  "AsyncFunction",
-  // Reflection
-  "Reflect",
-  "Proxy",
-  // Internationalization
-  "Intl",
-  // WebAssembly
-  "WebAssembly"
-];
-var ERROR_TYPES2 = [
-  "Error",
-  "EvalError",
-  "InternalError",
-  "RangeError",
-  "ReferenceError",
-  "SyntaxError",
-  "TypeError",
-  "URIError"
-];
-var BUILT_IN_GLOBALS2 = [
-  "setInterval",
-  "setTimeout",
-  "clearInterval",
-  "clearTimeout",
-  "require",
-  "exports",
-  "eval",
-  "isFinite",
-  "isNaN",
-  "parseFloat",
-  "parseInt",
-  "decodeURI",
-  "decodeURIComponent",
-  "encodeURI",
-  "encodeURIComponent",
-  "escape",
-  "unescape"
-];
-var BUILT_IN_VARIABLES2 = [
-  "arguments",
-  "this",
-  "super",
-  "console",
-  "window",
-  "document",
-  "localStorage",
-  "sessionStorage",
-  "module",
-  "self",
-  "global"
-  // Node.js
-];
-var BUILT_INS2 = [].concat(
-  BUILT_IN_GLOBALS2,
-  TYPES2,
-  ERROR_TYPES2
-);
 function javascript2(hljs) {
   const regex = hljs.regex;
   const hasClosingTag = (match, { after }) => {
@@ -15386,824 +15379,167 @@ function javascript2(hljs) {
     ]
   };
 }
+var IDENT_RE2, KEYWORDS2, LITERALS2, TYPES2, ERROR_TYPES2, BUILT_IN_GLOBALS2, BUILT_IN_VARIABLES2, BUILT_INS2;
+var init_javascript = __esm({
+  "node_modules/highlight.js/es/languages/javascript.js"() {
+    IDENT_RE2 = "[A-Za-z$_][0-9A-Za-z$_]*";
+    KEYWORDS2 = [
+      "as",
+      // for exports
+      "in",
+      "of",
+      "if",
+      "for",
+      "while",
+      "finally",
+      "var",
+      "new",
+      "function",
+      "do",
+      "return",
+      "void",
+      "else",
+      "break",
+      "catch",
+      "instanceof",
+      "with",
+      "throw",
+      "case",
+      "default",
+      "try",
+      "switch",
+      "continue",
+      "typeof",
+      "delete",
+      "let",
+      "yield",
+      "const",
+      "class",
+      // JS handles these with a special rule
+      // "get",
+      // "set",
+      "debugger",
+      "async",
+      "await",
+      "static",
+      "import",
+      "from",
+      "export",
+      "extends",
+      // It's reached stage 3, which is "recommended for implementation":
+      "using"
+    ];
+    LITERALS2 = [
+      "true",
+      "false",
+      "null",
+      "undefined",
+      "NaN",
+      "Infinity"
+    ];
+    TYPES2 = [
+      // Fundamental objects
+      "Object",
+      "Function",
+      "Boolean",
+      "Symbol",
+      // numbers and dates
+      "Math",
+      "Date",
+      "Number",
+      "BigInt",
+      // text
+      "String",
+      "RegExp",
+      // Indexed collections
+      "Array",
+      "Float32Array",
+      "Float64Array",
+      "Int8Array",
+      "Uint8Array",
+      "Uint8ClampedArray",
+      "Int16Array",
+      "Int32Array",
+      "Uint16Array",
+      "Uint32Array",
+      "BigInt64Array",
+      "BigUint64Array",
+      // Keyed collections
+      "Set",
+      "Map",
+      "WeakSet",
+      "WeakMap",
+      // Structured data
+      "ArrayBuffer",
+      "SharedArrayBuffer",
+      "Atomics",
+      "DataView",
+      "JSON",
+      // Control abstraction objects
+      "Promise",
+      "Generator",
+      "GeneratorFunction",
+      "AsyncFunction",
+      // Reflection
+      "Reflect",
+      "Proxy",
+      // Internationalization
+      "Intl",
+      // WebAssembly
+      "WebAssembly"
+    ];
+    ERROR_TYPES2 = [
+      "Error",
+      "EvalError",
+      "InternalError",
+      "RangeError",
+      "ReferenceError",
+      "SyntaxError",
+      "TypeError",
+      "URIError"
+    ];
+    BUILT_IN_GLOBALS2 = [
+      "setInterval",
+      "setTimeout",
+      "clearInterval",
+      "clearTimeout",
+      "require",
+      "exports",
+      "eval",
+      "isFinite",
+      "isNaN",
+      "parseFloat",
+      "parseInt",
+      "decodeURI",
+      "decodeURIComponent",
+      "encodeURI",
+      "encodeURIComponent",
+      "escape",
+      "unescape"
+    ];
+    BUILT_IN_VARIABLES2 = [
+      "arguments",
+      "this",
+      "super",
+      "console",
+      "window",
+      "document",
+      "localStorage",
+      "sessionStorage",
+      "module",
+      "self",
+      "global"
+      // Node.js
+    ];
+    BUILT_INS2 = [].concat(
+      BUILT_IN_GLOBALS2,
+      TYPES2,
+      ERROR_TYPES2
+    );
+  }
+});
 
 // node_modules/highlight.js/es/languages/css.js
-var MODES = (hljs) => {
-  return {
-    IMPORTANT: {
-      scope: "meta",
-      begin: "!important"
-    },
-    BLOCK_COMMENT: hljs.C_BLOCK_COMMENT_MODE,
-    HEXCOLOR: {
-      scope: "number",
-      begin: /#(([0-9a-fA-F]{3,4})|(([0-9a-fA-F]{2}){3,4}))\b/
-    },
-    UNICODE_RANGE: {
-      scope: "number",
-      begin: /\b[Uu]\+[0-9A-Fa-f][0-9A-Fa-f?]{0,5}(-[0-9A-Fa-f][0-9A-Fa-f]{0,5})?/
-    },
-    FUNCTION_DISPATCH: {
-      className: "built_in",
-      begin: /[\w-]+(?=\()/
-    },
-    ATTRIBUTE_SELECTOR_MODE: {
-      scope: "selector-attr",
-      begin: /\[/,
-      end: /\]/,
-      illegal: "$",
-      contains: [
-        hljs.APOS_STRING_MODE,
-        hljs.QUOTE_STRING_MODE
-      ]
-    },
-    CSS_NUMBER_MODE: {
-      scope: "number",
-      begin: hljs.NUMBER_RE + "(%|em|ex|ch|rem|vw|vh|vmin|vmax|cm|mm|in|pt|pc|px|deg|grad|rad|turn|s|ms|Hz|kHz|dpi|dpcm|dppx)?",
-      relevance: 0
-    },
-    CSS_VARIABLE: {
-      className: "attr",
-      begin: /--[A-Za-z_][A-Za-z0-9_-]*/
-    }
-  };
-};
-var HTML_TAGS = [
-  "a",
-  "abbr",
-  "address",
-  "article",
-  "aside",
-  "audio",
-  "b",
-  "blockquote",
-  "body",
-  "button",
-  "canvas",
-  "caption",
-  "cite",
-  "code",
-  "dd",
-  "del",
-  "details",
-  "dfn",
-  "div",
-  "dl",
-  "dt",
-  "em",
-  "fieldset",
-  "figcaption",
-  "figure",
-  "footer",
-  "form",
-  "h1",
-  "h2",
-  "h3",
-  "h4",
-  "h5",
-  "h6",
-  "header",
-  "hgroup",
-  "html",
-  "i",
-  "iframe",
-  "img",
-  "input",
-  "ins",
-  "kbd",
-  "label",
-  "legend",
-  "li",
-  "main",
-  "mark",
-  "menu",
-  "nav",
-  "object",
-  "ol",
-  "optgroup",
-  "option",
-  "p",
-  "picture",
-  "q",
-  "quote",
-  "samp",
-  "section",
-  "select",
-  "source",
-  "span",
-  "strong",
-  "summary",
-  "sup",
-  "table",
-  "tbody",
-  "td",
-  "textarea",
-  "tfoot",
-  "th",
-  "thead",
-  "time",
-  "tr",
-  "ul",
-  "var",
-  "video"
-];
-var SVG_TAGS = [
-  "defs",
-  "g",
-  "marker",
-  "mask",
-  "pattern",
-  "svg",
-  "switch",
-  "symbol",
-  "feBlend",
-  "feColorMatrix",
-  "feComponentTransfer",
-  "feComposite",
-  "feConvolveMatrix",
-  "feDiffuseLighting",
-  "feDisplacementMap",
-  "feFlood",
-  "feGaussianBlur",
-  "feImage",
-  "feMerge",
-  "feMorphology",
-  "feOffset",
-  "feSpecularLighting",
-  "feTile",
-  "feTurbulence",
-  "linearGradient",
-  "radialGradient",
-  "stop",
-  "circle",
-  "ellipse",
-  "image",
-  "line",
-  "path",
-  "polygon",
-  "polyline",
-  "rect",
-  "text",
-  "use",
-  "textPath",
-  "tspan",
-  "foreignObject",
-  "clipPath"
-];
-var TAGS = [
-  ...HTML_TAGS,
-  ...SVG_TAGS
-];
-var MEDIA_FEATURES = [
-  "any-hover",
-  "any-pointer",
-  "aspect-ratio",
-  "color",
-  "color-gamut",
-  "color-index",
-  "device-aspect-ratio",
-  "device-height",
-  "device-width",
-  "display-mode",
-  "forced-colors",
-  "grid",
-  "height",
-  "hover",
-  "inverted-colors",
-  "monochrome",
-  "orientation",
-  "overflow-block",
-  "overflow-inline",
-  "pointer",
-  "prefers-color-scheme",
-  "prefers-contrast",
-  "prefers-reduced-motion",
-  "prefers-reduced-transparency",
-  "resolution",
-  "scan",
-  "scripting",
-  "update",
-  "width",
-  // TODO: find a better solution?
-  "min-width",
-  "max-width",
-  "min-height",
-  "max-height"
-].sort().reverse();
-var PSEUDO_CLASSES = [
-  "active",
-  "any-link",
-  "blank",
-  "checked",
-  "current",
-  "default",
-  "defined",
-  "dir",
-  // dir()
-  "disabled",
-  "drop",
-  "empty",
-  "enabled",
-  "first",
-  "first-child",
-  "first-of-type",
-  "fullscreen",
-  "future",
-  "focus",
-  "focus-visible",
-  "focus-within",
-  "has",
-  // has()
-  "host",
-  // host or host()
-  "host-context",
-  // host-context()
-  "hover",
-  "indeterminate",
-  "in-range",
-  "invalid",
-  "is",
-  // is()
-  "lang",
-  // lang()
-  "last-child",
-  "last-of-type",
-  "left",
-  "link",
-  "local-link",
-  "not",
-  // not()
-  "nth-child",
-  // nth-child()
-  "nth-col",
-  // nth-col()
-  "nth-last-child",
-  // nth-last-child()
-  "nth-last-col",
-  // nth-last-col()
-  "nth-last-of-type",
-  //nth-last-of-type()
-  "nth-of-type",
-  //nth-of-type()
-  "only-child",
-  "only-of-type",
-  "optional",
-  "out-of-range",
-  "past",
-  "placeholder-shown",
-  "read-only",
-  "read-write",
-  "required",
-  "right",
-  "root",
-  "scope",
-  "target",
-  "target-within",
-  "user-invalid",
-  "valid",
-  "visited",
-  "where"
-  // where()
-].sort().reverse();
-var PSEUDO_ELEMENTS = [
-  "after",
-  "backdrop",
-  "before",
-  "cue",
-  "cue-region",
-  "first-letter",
-  "first-line",
-  "grammar-error",
-  "marker",
-  "part",
-  "placeholder",
-  "selection",
-  "slotted",
-  "spelling-error"
-].sort().reverse();
-var ATTRIBUTES = [
-  "accent-color",
-  "align-content",
-  "align-items",
-  "align-self",
-  "alignment-baseline",
-  "all",
-  "anchor-name",
-  "animation",
-  "animation-composition",
-  "animation-delay",
-  "animation-direction",
-  "animation-duration",
-  "animation-fill-mode",
-  "animation-iteration-count",
-  "animation-name",
-  "animation-play-state",
-  "animation-range",
-  "animation-range-end",
-  "animation-range-start",
-  "animation-timeline",
-  "animation-timing-function",
-  "appearance",
-  "aspect-ratio",
-  "backdrop-filter",
-  "backface-visibility",
-  "background",
-  "background-attachment",
-  "background-blend-mode",
-  "background-clip",
-  "background-color",
-  "background-image",
-  "background-origin",
-  "background-position",
-  "background-position-x",
-  "background-position-y",
-  "background-repeat",
-  "background-size",
-  "baseline-shift",
-  "block-size",
-  "border",
-  "border-block",
-  "border-block-color",
-  "border-block-end",
-  "border-block-end-color",
-  "border-block-end-style",
-  "border-block-end-width",
-  "border-block-start",
-  "border-block-start-color",
-  "border-block-start-style",
-  "border-block-start-width",
-  "border-block-style",
-  "border-block-width",
-  "border-bottom",
-  "border-bottom-color",
-  "border-bottom-left-radius",
-  "border-bottom-right-radius",
-  "border-bottom-style",
-  "border-bottom-width",
-  "border-collapse",
-  "border-color",
-  "border-end-end-radius",
-  "border-end-start-radius",
-  "border-image",
-  "border-image-outset",
-  "border-image-repeat",
-  "border-image-slice",
-  "border-image-source",
-  "border-image-width",
-  "border-inline",
-  "border-inline-color",
-  "border-inline-end",
-  "border-inline-end-color",
-  "border-inline-end-style",
-  "border-inline-end-width",
-  "border-inline-start",
-  "border-inline-start-color",
-  "border-inline-start-style",
-  "border-inline-start-width",
-  "border-inline-style",
-  "border-inline-width",
-  "border-left",
-  "border-left-color",
-  "border-left-style",
-  "border-left-width",
-  "border-radius",
-  "border-right",
-  "border-right-color",
-  "border-right-style",
-  "border-right-width",
-  "border-spacing",
-  "border-start-end-radius",
-  "border-start-start-radius",
-  "border-style",
-  "border-top",
-  "border-top-color",
-  "border-top-left-radius",
-  "border-top-right-radius",
-  "border-top-style",
-  "border-top-width",
-  "border-width",
-  "bottom",
-  "box-align",
-  "box-decoration-break",
-  "box-direction",
-  "box-flex",
-  "box-flex-group",
-  "box-lines",
-  "box-ordinal-group",
-  "box-orient",
-  "box-pack",
-  "box-shadow",
-  "box-sizing",
-  "break-after",
-  "break-before",
-  "break-inside",
-  "caption-side",
-  "caret-color",
-  "clear",
-  "clip",
-  "clip-path",
-  "clip-rule",
-  "color",
-  "color-interpolation",
-  "color-interpolation-filters",
-  "color-profile",
-  "color-rendering",
-  "color-scheme",
-  "column-count",
-  "column-fill",
-  "column-gap",
-  "column-rule",
-  "column-rule-color",
-  "column-rule-style",
-  "column-rule-width",
-  "column-span",
-  "column-width",
-  "columns",
-  "contain",
-  "contain-intrinsic-block-size",
-  "contain-intrinsic-height",
-  "contain-intrinsic-inline-size",
-  "contain-intrinsic-size",
-  "contain-intrinsic-width",
-  "container",
-  "container-name",
-  "container-type",
-  "content",
-  "content-visibility",
-  "corner-bottom-left-shape",
-  "corner-bottom-right-shape",
-  "corner-shape",
-  "corner-top-left-shape",
-  "corner-top-right-shape",
-  "counter-increment",
-  "counter-reset",
-  "counter-set",
-  "cue",
-  "cue-after",
-  "cue-before",
-  "cursor",
-  "cx",
-  "cy",
-  "direction",
-  "display",
-  "dominant-baseline",
-  "empty-cells",
-  "enable-background",
-  "field-sizing",
-  "fill",
-  "fill-opacity",
-  "fill-rule",
-  "filter",
-  "flex",
-  "flex-basis",
-  "flex-direction",
-  "flex-flow",
-  "flex-grow",
-  "flex-shrink",
-  "flex-wrap",
-  "float",
-  "flood-color",
-  "flood-opacity",
-  "flow",
-  "font",
-  "font-display",
-  "font-family",
-  "font-feature-settings",
-  "font-kerning",
-  "font-language-override",
-  "font-optical-sizing",
-  "font-palette",
-  "font-size",
-  "font-size-adjust",
-  "font-smooth",
-  "font-smoothing",
-  "font-stretch",
-  "font-style",
-  "font-synthesis",
-  "font-synthesis-position",
-  "font-synthesis-small-caps",
-  "font-synthesis-style",
-  "font-synthesis-weight",
-  "font-variant",
-  "font-variant-alternates",
-  "font-variant-caps",
-  "font-variant-east-asian",
-  "font-variant-emoji",
-  "font-variant-ligatures",
-  "font-variant-numeric",
-  "font-variant-position",
-  "font-variation-settings",
-  "font-weight",
-  "forced-color-adjust",
-  "gap",
-  "glyph-orientation-horizontal",
-  "glyph-orientation-vertical",
-  "grid",
-  "grid-area",
-  "grid-auto-columns",
-  "grid-auto-flow",
-  "grid-auto-rows",
-  "grid-column",
-  "grid-column-end",
-  "grid-column-start",
-  "grid-gap",
-  "grid-row",
-  "grid-row-end",
-  "grid-row-start",
-  "grid-template",
-  "grid-template-areas",
-  "grid-template-columns",
-  "grid-template-rows",
-  "hanging-punctuation",
-  "height",
-  "hyphenate-character",
-  "hyphenate-limit-chars",
-  "hyphens",
-  "icon",
-  "image-orientation",
-  "image-rendering",
-  "image-resolution",
-  "ime-mode",
-  "initial-letter",
-  "initial-letter-align",
-  "inline-size",
-  "inset",
-  "inset-area",
-  "inset-block",
-  "inset-block-end",
-  "inset-block-start",
-  "inset-inline",
-  "inset-inline-end",
-  "inset-inline-start",
-  "isolation",
-  "justify-content",
-  "justify-items",
-  "justify-self",
-  "kerning",
-  "left",
-  "letter-spacing",
-  "lighting-color",
-  "line-break",
-  "line-height",
-  "line-height-step",
-  "list-style",
-  "list-style-image",
-  "list-style-position",
-  "list-style-type",
-  "margin",
-  "margin-block",
-  "margin-block-end",
-  "margin-block-start",
-  "margin-bottom",
-  "margin-inline",
-  "margin-inline-end",
-  "margin-inline-start",
-  "margin-left",
-  "margin-right",
-  "margin-top",
-  "margin-trim",
-  "marker",
-  "marker-end",
-  "marker-mid",
-  "marker-start",
-  "marks",
-  "mask",
-  "mask-border",
-  "mask-border-mode",
-  "mask-border-outset",
-  "mask-border-repeat",
-  "mask-border-slice",
-  "mask-border-source",
-  "mask-border-width",
-  "mask-clip",
-  "mask-composite",
-  "mask-image",
-  "mask-mode",
-  "mask-origin",
-  "mask-position",
-  "mask-repeat",
-  "mask-size",
-  "mask-type",
-  "masonry-auto-flow",
-  "math-depth",
-  "math-shift",
-  "math-style",
-  "max-block-size",
-  "max-height",
-  "max-inline-size",
-  "max-width",
-  "min-block-size",
-  "min-height",
-  "min-inline-size",
-  "min-width",
-  "mix-blend-mode",
-  "nav-down",
-  "nav-index",
-  "nav-left",
-  "nav-right",
-  "nav-up",
-  "none",
-  "normal",
-  "object-fit",
-  "object-position",
-  "offset",
-  "offset-anchor",
-  "offset-distance",
-  "offset-path",
-  "offset-position",
-  "offset-rotate",
-  "opacity",
-  "order",
-  "orphans",
-  "outline",
-  "outline-color",
-  "outline-offset",
-  "outline-style",
-  "outline-width",
-  "overflow",
-  "overflow-anchor",
-  "overflow-block",
-  "overflow-clip-margin",
-  "overflow-inline",
-  "overflow-wrap",
-  "overflow-x",
-  "overflow-y",
-  "overlay",
-  "overscroll-behavior",
-  "overscroll-behavior-block",
-  "overscroll-behavior-inline",
-  "overscroll-behavior-x",
-  "overscroll-behavior-y",
-  "padding",
-  "padding-block",
-  "padding-block-end",
-  "padding-block-start",
-  "padding-bottom",
-  "padding-inline",
-  "padding-inline-end",
-  "padding-inline-start",
-  "padding-left",
-  "padding-right",
-  "padding-top",
-  "page",
-  "page-break-after",
-  "page-break-before",
-  "page-break-inside",
-  "paint-order",
-  "pause",
-  "pause-after",
-  "pause-before",
-  "perspective",
-  "perspective-origin",
-  "place-content",
-  "place-items",
-  "place-self",
-  "pointer-events",
-  "position",
-  "position-anchor",
-  "position-visibility",
-  "print-color-adjust",
-  "quotes",
-  "r",
-  "resize",
-  "rest",
-  "rest-after",
-  "rest-before",
-  "right",
-  "rotate",
-  "row-gap",
-  "ruby-align",
-  "ruby-position",
-  "scale",
-  "scroll-behavior",
-  "scroll-margin",
-  "scroll-margin-block",
-  "scroll-margin-block-end",
-  "scroll-margin-block-start",
-  "scroll-margin-bottom",
-  "scroll-margin-inline",
-  "scroll-margin-inline-end",
-  "scroll-margin-inline-start",
-  "scroll-margin-left",
-  "scroll-margin-right",
-  "scroll-margin-top",
-  "scroll-padding",
-  "scroll-padding-block",
-  "scroll-padding-block-end",
-  "scroll-padding-block-start",
-  "scroll-padding-bottom",
-  "scroll-padding-inline",
-  "scroll-padding-inline-end",
-  "scroll-padding-inline-start",
-  "scroll-padding-left",
-  "scroll-padding-right",
-  "scroll-padding-top",
-  "scroll-snap-align",
-  "scroll-snap-stop",
-  "scroll-snap-type",
-  "scroll-timeline",
-  "scroll-timeline-axis",
-  "scroll-timeline-name",
-  "scrollbar-color",
-  "scrollbar-gutter",
-  "scrollbar-width",
-  "shape-image-threshold",
-  "shape-margin",
-  "shape-outside",
-  "shape-rendering",
-  "speak",
-  "speak-as",
-  "src",
-  // @font-face
-  "stop-color",
-  "stop-opacity",
-  "stroke",
-  "stroke-dasharray",
-  "stroke-dashoffset",
-  "stroke-linecap",
-  "stroke-linejoin",
-  "stroke-miterlimit",
-  "stroke-opacity",
-  "stroke-width",
-  "tab-size",
-  "table-layout",
-  "text-align",
-  "text-align-all",
-  "text-align-last",
-  "text-anchor",
-  "text-combine-upright",
-  "text-decoration",
-  "text-decoration-color",
-  "text-decoration-line",
-  "text-decoration-skip",
-  "text-decoration-skip-ink",
-  "text-decoration-style",
-  "text-decoration-thickness",
-  "text-emphasis",
-  "text-emphasis-color",
-  "text-emphasis-position",
-  "text-emphasis-style",
-  "text-indent",
-  "text-justify",
-  "text-orientation",
-  "text-overflow",
-  "text-rendering",
-  "text-shadow",
-  "text-size-adjust",
-  "text-transform",
-  "text-underline-offset",
-  "text-underline-position",
-  "text-wrap",
-  "text-wrap-mode",
-  "text-wrap-style",
-  "timeline-scope",
-  "top",
-  "touch-action",
-  "transform",
-  "transform-box",
-  "transform-origin",
-  "transform-style",
-  "transition",
-  "transition-behavior",
-  "transition-delay",
-  "transition-duration",
-  "transition-property",
-  "transition-timing-function",
-  "translate",
-  "unicode-bidi",
-  "unicode-range",
-  "user-modify",
-  "user-select",
-  "vector-effect",
-  "vertical-align",
-  "view-timeline",
-  "view-timeline-axis",
-  "view-timeline-inset",
-  "view-timeline-name",
-  "view-transition-name",
-  "visibility",
-  "voice-balance",
-  "voice-duration",
-  "voice-family",
-  "voice-pitch",
-  "voice-range",
-  "voice-rate",
-  "voice-stress",
-  "voice-volume",
-  "white-space",
-  "white-space-collapse",
-  "widows",
-  "width",
-  "will-change",
-  "word-break",
-  "word-spacing",
-  "word-wrap",
-  "writing-mode",
-  "x",
-  "y",
-  "z-index",
-  "zoom"
-].sort().reverse();
 function css2(hljs) {
   const regex = hljs.regex;
   const modes = MODES(hljs);
@@ -16334,14 +15670,829 @@ function css2(hljs) {
     ]
   };
 }
+var MODES, HTML_TAGS, SVG_TAGS, TAGS, MEDIA_FEATURES, PSEUDO_CLASSES, PSEUDO_ELEMENTS, ATTRIBUTES;
+var init_css = __esm({
+  "node_modules/highlight.js/es/languages/css.js"() {
+    MODES = (hljs) => {
+      return {
+        IMPORTANT: {
+          scope: "meta",
+          begin: "!important"
+        },
+        BLOCK_COMMENT: hljs.C_BLOCK_COMMENT_MODE,
+        HEXCOLOR: {
+          scope: "number",
+          begin: /#(([0-9a-fA-F]{3,4})|(([0-9a-fA-F]{2}){3,4}))\b/
+        },
+        UNICODE_RANGE: {
+          scope: "number",
+          begin: /\b[Uu]\+[0-9A-Fa-f][0-9A-Fa-f?]{0,5}(-[0-9A-Fa-f][0-9A-Fa-f]{0,5})?/
+        },
+        FUNCTION_DISPATCH: {
+          className: "built_in",
+          begin: /[\w-]+(?=\()/
+        },
+        ATTRIBUTE_SELECTOR_MODE: {
+          scope: "selector-attr",
+          begin: /\[/,
+          end: /\]/,
+          illegal: "$",
+          contains: [
+            hljs.APOS_STRING_MODE,
+            hljs.QUOTE_STRING_MODE
+          ]
+        },
+        CSS_NUMBER_MODE: {
+          scope: "number",
+          begin: hljs.NUMBER_RE + "(%|em|ex|ch|rem|vw|vh|vmin|vmax|cm|mm|in|pt|pc|px|deg|grad|rad|turn|s|ms|Hz|kHz|dpi|dpcm|dppx)?",
+          relevance: 0
+        },
+        CSS_VARIABLE: {
+          className: "attr",
+          begin: /--[A-Za-z_][A-Za-z0-9_-]*/
+        }
+      };
+    };
+    HTML_TAGS = [
+      "a",
+      "abbr",
+      "address",
+      "article",
+      "aside",
+      "audio",
+      "b",
+      "blockquote",
+      "body",
+      "button",
+      "canvas",
+      "caption",
+      "cite",
+      "code",
+      "dd",
+      "del",
+      "details",
+      "dfn",
+      "div",
+      "dl",
+      "dt",
+      "em",
+      "fieldset",
+      "figcaption",
+      "figure",
+      "footer",
+      "form",
+      "h1",
+      "h2",
+      "h3",
+      "h4",
+      "h5",
+      "h6",
+      "header",
+      "hgroup",
+      "html",
+      "i",
+      "iframe",
+      "img",
+      "input",
+      "ins",
+      "kbd",
+      "label",
+      "legend",
+      "li",
+      "main",
+      "mark",
+      "menu",
+      "nav",
+      "object",
+      "ol",
+      "optgroup",
+      "option",
+      "p",
+      "picture",
+      "q",
+      "quote",
+      "samp",
+      "section",
+      "select",
+      "source",
+      "span",
+      "strong",
+      "summary",
+      "sup",
+      "table",
+      "tbody",
+      "td",
+      "textarea",
+      "tfoot",
+      "th",
+      "thead",
+      "time",
+      "tr",
+      "ul",
+      "var",
+      "video"
+    ];
+    SVG_TAGS = [
+      "defs",
+      "g",
+      "marker",
+      "mask",
+      "pattern",
+      "svg",
+      "switch",
+      "symbol",
+      "feBlend",
+      "feColorMatrix",
+      "feComponentTransfer",
+      "feComposite",
+      "feConvolveMatrix",
+      "feDiffuseLighting",
+      "feDisplacementMap",
+      "feFlood",
+      "feGaussianBlur",
+      "feImage",
+      "feMerge",
+      "feMorphology",
+      "feOffset",
+      "feSpecularLighting",
+      "feTile",
+      "feTurbulence",
+      "linearGradient",
+      "radialGradient",
+      "stop",
+      "circle",
+      "ellipse",
+      "image",
+      "line",
+      "path",
+      "polygon",
+      "polyline",
+      "rect",
+      "text",
+      "use",
+      "textPath",
+      "tspan",
+      "foreignObject",
+      "clipPath"
+    ];
+    TAGS = [
+      ...HTML_TAGS,
+      ...SVG_TAGS
+    ];
+    MEDIA_FEATURES = [
+      "any-hover",
+      "any-pointer",
+      "aspect-ratio",
+      "color",
+      "color-gamut",
+      "color-index",
+      "device-aspect-ratio",
+      "device-height",
+      "device-width",
+      "display-mode",
+      "forced-colors",
+      "grid",
+      "height",
+      "hover",
+      "inverted-colors",
+      "monochrome",
+      "orientation",
+      "overflow-block",
+      "overflow-inline",
+      "pointer",
+      "prefers-color-scheme",
+      "prefers-contrast",
+      "prefers-reduced-motion",
+      "prefers-reduced-transparency",
+      "resolution",
+      "scan",
+      "scripting",
+      "update",
+      "width",
+      // TODO: find a better solution?
+      "min-width",
+      "max-width",
+      "min-height",
+      "max-height"
+    ].sort().reverse();
+    PSEUDO_CLASSES = [
+      "active",
+      "any-link",
+      "blank",
+      "checked",
+      "current",
+      "default",
+      "defined",
+      "dir",
+      // dir()
+      "disabled",
+      "drop",
+      "empty",
+      "enabled",
+      "first",
+      "first-child",
+      "first-of-type",
+      "fullscreen",
+      "future",
+      "focus",
+      "focus-visible",
+      "focus-within",
+      "has",
+      // has()
+      "host",
+      // host or host()
+      "host-context",
+      // host-context()
+      "hover",
+      "indeterminate",
+      "in-range",
+      "invalid",
+      "is",
+      // is()
+      "lang",
+      // lang()
+      "last-child",
+      "last-of-type",
+      "left",
+      "link",
+      "local-link",
+      "not",
+      // not()
+      "nth-child",
+      // nth-child()
+      "nth-col",
+      // nth-col()
+      "nth-last-child",
+      // nth-last-child()
+      "nth-last-col",
+      // nth-last-col()
+      "nth-last-of-type",
+      //nth-last-of-type()
+      "nth-of-type",
+      //nth-of-type()
+      "only-child",
+      "only-of-type",
+      "optional",
+      "out-of-range",
+      "past",
+      "placeholder-shown",
+      "read-only",
+      "read-write",
+      "required",
+      "right",
+      "root",
+      "scope",
+      "target",
+      "target-within",
+      "user-invalid",
+      "valid",
+      "visited",
+      "where"
+      // where()
+    ].sort().reverse();
+    PSEUDO_ELEMENTS = [
+      "after",
+      "backdrop",
+      "before",
+      "cue",
+      "cue-region",
+      "first-letter",
+      "first-line",
+      "grammar-error",
+      "marker",
+      "part",
+      "placeholder",
+      "selection",
+      "slotted",
+      "spelling-error"
+    ].sort().reverse();
+    ATTRIBUTES = [
+      "accent-color",
+      "align-content",
+      "align-items",
+      "align-self",
+      "alignment-baseline",
+      "all",
+      "anchor-name",
+      "animation",
+      "animation-composition",
+      "animation-delay",
+      "animation-direction",
+      "animation-duration",
+      "animation-fill-mode",
+      "animation-iteration-count",
+      "animation-name",
+      "animation-play-state",
+      "animation-range",
+      "animation-range-end",
+      "animation-range-start",
+      "animation-timeline",
+      "animation-timing-function",
+      "appearance",
+      "aspect-ratio",
+      "backdrop-filter",
+      "backface-visibility",
+      "background",
+      "background-attachment",
+      "background-blend-mode",
+      "background-clip",
+      "background-color",
+      "background-image",
+      "background-origin",
+      "background-position",
+      "background-position-x",
+      "background-position-y",
+      "background-repeat",
+      "background-size",
+      "baseline-shift",
+      "block-size",
+      "border",
+      "border-block",
+      "border-block-color",
+      "border-block-end",
+      "border-block-end-color",
+      "border-block-end-style",
+      "border-block-end-width",
+      "border-block-start",
+      "border-block-start-color",
+      "border-block-start-style",
+      "border-block-start-width",
+      "border-block-style",
+      "border-block-width",
+      "border-bottom",
+      "border-bottom-color",
+      "border-bottom-left-radius",
+      "border-bottom-right-radius",
+      "border-bottom-style",
+      "border-bottom-width",
+      "border-collapse",
+      "border-color",
+      "border-end-end-radius",
+      "border-end-start-radius",
+      "border-image",
+      "border-image-outset",
+      "border-image-repeat",
+      "border-image-slice",
+      "border-image-source",
+      "border-image-width",
+      "border-inline",
+      "border-inline-color",
+      "border-inline-end",
+      "border-inline-end-color",
+      "border-inline-end-style",
+      "border-inline-end-width",
+      "border-inline-start",
+      "border-inline-start-color",
+      "border-inline-start-style",
+      "border-inline-start-width",
+      "border-inline-style",
+      "border-inline-width",
+      "border-left",
+      "border-left-color",
+      "border-left-style",
+      "border-left-width",
+      "border-radius",
+      "border-right",
+      "border-right-color",
+      "border-right-style",
+      "border-right-width",
+      "border-spacing",
+      "border-start-end-radius",
+      "border-start-start-radius",
+      "border-style",
+      "border-top",
+      "border-top-color",
+      "border-top-left-radius",
+      "border-top-right-radius",
+      "border-top-style",
+      "border-top-width",
+      "border-width",
+      "bottom",
+      "box-align",
+      "box-decoration-break",
+      "box-direction",
+      "box-flex",
+      "box-flex-group",
+      "box-lines",
+      "box-ordinal-group",
+      "box-orient",
+      "box-pack",
+      "box-shadow",
+      "box-sizing",
+      "break-after",
+      "break-before",
+      "break-inside",
+      "caption-side",
+      "caret-color",
+      "clear",
+      "clip",
+      "clip-path",
+      "clip-rule",
+      "color",
+      "color-interpolation",
+      "color-interpolation-filters",
+      "color-profile",
+      "color-rendering",
+      "color-scheme",
+      "column-count",
+      "column-fill",
+      "column-gap",
+      "column-rule",
+      "column-rule-color",
+      "column-rule-style",
+      "column-rule-width",
+      "column-span",
+      "column-width",
+      "columns",
+      "contain",
+      "contain-intrinsic-block-size",
+      "contain-intrinsic-height",
+      "contain-intrinsic-inline-size",
+      "contain-intrinsic-size",
+      "contain-intrinsic-width",
+      "container",
+      "container-name",
+      "container-type",
+      "content",
+      "content-visibility",
+      "corner-bottom-left-shape",
+      "corner-bottom-right-shape",
+      "corner-shape",
+      "corner-top-left-shape",
+      "corner-top-right-shape",
+      "counter-increment",
+      "counter-reset",
+      "counter-set",
+      "cue",
+      "cue-after",
+      "cue-before",
+      "cursor",
+      "cx",
+      "cy",
+      "direction",
+      "display",
+      "dominant-baseline",
+      "empty-cells",
+      "enable-background",
+      "field-sizing",
+      "fill",
+      "fill-opacity",
+      "fill-rule",
+      "filter",
+      "flex",
+      "flex-basis",
+      "flex-direction",
+      "flex-flow",
+      "flex-grow",
+      "flex-shrink",
+      "flex-wrap",
+      "float",
+      "flood-color",
+      "flood-opacity",
+      "flow",
+      "font",
+      "font-display",
+      "font-family",
+      "font-feature-settings",
+      "font-kerning",
+      "font-language-override",
+      "font-optical-sizing",
+      "font-palette",
+      "font-size",
+      "font-size-adjust",
+      "font-smooth",
+      "font-smoothing",
+      "font-stretch",
+      "font-style",
+      "font-synthesis",
+      "font-synthesis-position",
+      "font-synthesis-small-caps",
+      "font-synthesis-style",
+      "font-synthesis-weight",
+      "font-variant",
+      "font-variant-alternates",
+      "font-variant-caps",
+      "font-variant-east-asian",
+      "font-variant-emoji",
+      "font-variant-ligatures",
+      "font-variant-numeric",
+      "font-variant-position",
+      "font-variation-settings",
+      "font-weight",
+      "forced-color-adjust",
+      "gap",
+      "glyph-orientation-horizontal",
+      "glyph-orientation-vertical",
+      "grid",
+      "grid-area",
+      "grid-auto-columns",
+      "grid-auto-flow",
+      "grid-auto-rows",
+      "grid-column",
+      "grid-column-end",
+      "grid-column-start",
+      "grid-gap",
+      "grid-row",
+      "grid-row-end",
+      "grid-row-start",
+      "grid-template",
+      "grid-template-areas",
+      "grid-template-columns",
+      "grid-template-rows",
+      "hanging-punctuation",
+      "height",
+      "hyphenate-character",
+      "hyphenate-limit-chars",
+      "hyphens",
+      "icon",
+      "image-orientation",
+      "image-rendering",
+      "image-resolution",
+      "ime-mode",
+      "initial-letter",
+      "initial-letter-align",
+      "inline-size",
+      "inset",
+      "inset-area",
+      "inset-block",
+      "inset-block-end",
+      "inset-block-start",
+      "inset-inline",
+      "inset-inline-end",
+      "inset-inline-start",
+      "isolation",
+      "justify-content",
+      "justify-items",
+      "justify-self",
+      "kerning",
+      "left",
+      "letter-spacing",
+      "lighting-color",
+      "line-break",
+      "line-height",
+      "line-height-step",
+      "list-style",
+      "list-style-image",
+      "list-style-position",
+      "list-style-type",
+      "margin",
+      "margin-block",
+      "margin-block-end",
+      "margin-block-start",
+      "margin-bottom",
+      "margin-inline",
+      "margin-inline-end",
+      "margin-inline-start",
+      "margin-left",
+      "margin-right",
+      "margin-top",
+      "margin-trim",
+      "marker",
+      "marker-end",
+      "marker-mid",
+      "marker-start",
+      "marks",
+      "mask",
+      "mask-border",
+      "mask-border-mode",
+      "mask-border-outset",
+      "mask-border-repeat",
+      "mask-border-slice",
+      "mask-border-source",
+      "mask-border-width",
+      "mask-clip",
+      "mask-composite",
+      "mask-image",
+      "mask-mode",
+      "mask-origin",
+      "mask-position",
+      "mask-repeat",
+      "mask-size",
+      "mask-type",
+      "masonry-auto-flow",
+      "math-depth",
+      "math-shift",
+      "math-style",
+      "max-block-size",
+      "max-height",
+      "max-inline-size",
+      "max-width",
+      "min-block-size",
+      "min-height",
+      "min-inline-size",
+      "min-width",
+      "mix-blend-mode",
+      "nav-down",
+      "nav-index",
+      "nav-left",
+      "nav-right",
+      "nav-up",
+      "none",
+      "normal",
+      "object-fit",
+      "object-position",
+      "offset",
+      "offset-anchor",
+      "offset-distance",
+      "offset-path",
+      "offset-position",
+      "offset-rotate",
+      "opacity",
+      "order",
+      "orphans",
+      "outline",
+      "outline-color",
+      "outline-offset",
+      "outline-style",
+      "outline-width",
+      "overflow",
+      "overflow-anchor",
+      "overflow-block",
+      "overflow-clip-margin",
+      "overflow-inline",
+      "overflow-wrap",
+      "overflow-x",
+      "overflow-y",
+      "overlay",
+      "overscroll-behavior",
+      "overscroll-behavior-block",
+      "overscroll-behavior-inline",
+      "overscroll-behavior-x",
+      "overscroll-behavior-y",
+      "padding",
+      "padding-block",
+      "padding-block-end",
+      "padding-block-start",
+      "padding-bottom",
+      "padding-inline",
+      "padding-inline-end",
+      "padding-inline-start",
+      "padding-left",
+      "padding-right",
+      "padding-top",
+      "page",
+      "page-break-after",
+      "page-break-before",
+      "page-break-inside",
+      "paint-order",
+      "pause",
+      "pause-after",
+      "pause-before",
+      "perspective",
+      "perspective-origin",
+      "place-content",
+      "place-items",
+      "place-self",
+      "pointer-events",
+      "position",
+      "position-anchor",
+      "position-visibility",
+      "print-color-adjust",
+      "quotes",
+      "r",
+      "resize",
+      "rest",
+      "rest-after",
+      "rest-before",
+      "right",
+      "rotate",
+      "row-gap",
+      "ruby-align",
+      "ruby-position",
+      "scale",
+      "scroll-behavior",
+      "scroll-margin",
+      "scroll-margin-block",
+      "scroll-margin-block-end",
+      "scroll-margin-block-start",
+      "scroll-margin-bottom",
+      "scroll-margin-inline",
+      "scroll-margin-inline-end",
+      "scroll-margin-inline-start",
+      "scroll-margin-left",
+      "scroll-margin-right",
+      "scroll-margin-top",
+      "scroll-padding",
+      "scroll-padding-block",
+      "scroll-padding-block-end",
+      "scroll-padding-block-start",
+      "scroll-padding-bottom",
+      "scroll-padding-inline",
+      "scroll-padding-inline-end",
+      "scroll-padding-inline-start",
+      "scroll-padding-left",
+      "scroll-padding-right",
+      "scroll-padding-top",
+      "scroll-snap-align",
+      "scroll-snap-stop",
+      "scroll-snap-type",
+      "scroll-timeline",
+      "scroll-timeline-axis",
+      "scroll-timeline-name",
+      "scrollbar-color",
+      "scrollbar-gutter",
+      "scrollbar-width",
+      "shape-image-threshold",
+      "shape-margin",
+      "shape-outside",
+      "shape-rendering",
+      "speak",
+      "speak-as",
+      "src",
+      // @font-face
+      "stop-color",
+      "stop-opacity",
+      "stroke",
+      "stroke-dasharray",
+      "stroke-dashoffset",
+      "stroke-linecap",
+      "stroke-linejoin",
+      "stroke-miterlimit",
+      "stroke-opacity",
+      "stroke-width",
+      "tab-size",
+      "table-layout",
+      "text-align",
+      "text-align-all",
+      "text-align-last",
+      "text-anchor",
+      "text-combine-upright",
+      "text-decoration",
+      "text-decoration-color",
+      "text-decoration-line",
+      "text-decoration-skip",
+      "text-decoration-skip-ink",
+      "text-decoration-style",
+      "text-decoration-thickness",
+      "text-emphasis",
+      "text-emphasis-color",
+      "text-emphasis-position",
+      "text-emphasis-style",
+      "text-indent",
+      "text-justify",
+      "text-orientation",
+      "text-overflow",
+      "text-rendering",
+      "text-shadow",
+      "text-size-adjust",
+      "text-transform",
+      "text-underline-offset",
+      "text-underline-position",
+      "text-wrap",
+      "text-wrap-mode",
+      "text-wrap-style",
+      "timeline-scope",
+      "top",
+      "touch-action",
+      "transform",
+      "transform-box",
+      "transform-origin",
+      "transform-style",
+      "transition",
+      "transition-behavior",
+      "transition-delay",
+      "transition-duration",
+      "transition-property",
+      "transition-timing-function",
+      "translate",
+      "unicode-bidi",
+      "unicode-range",
+      "user-modify",
+      "user-select",
+      "vector-effect",
+      "vertical-align",
+      "view-timeline",
+      "view-timeline-axis",
+      "view-timeline-inset",
+      "view-timeline-name",
+      "view-transition-name",
+      "visibility",
+      "voice-balance",
+      "voice-duration",
+      "voice-family",
+      "voice-pitch",
+      "voice-range",
+      "voice-rate",
+      "voice-stress",
+      "voice-volume",
+      "white-space",
+      "white-space-collapse",
+      "widows",
+      "width",
+      "will-change",
+      "word-break",
+      "word-spacing",
+      "word-wrap",
+      "writing-mode",
+      "x",
+      "y",
+      "z-index",
+      "zoom"
+    ].sort().reverse();
+  }
+});
 
 // node_modules/highlight.js/es/languages/json.js
-var EXTENDED_NUMBER_RE = "([-+]?)(\\b0[xX][a-fA-F0-9]+|(\\b\\d+(\\.\\d*)?|\\.\\d+)([eE][-+]?\\d+)?)|NaN|[-+]?Infinity";
-var EXTENDED_NUMBER_MODE = {
-  scope: "number",
-  match: EXTENDED_NUMBER_RE,
-  relevance: 0
-};
 function json(hljs) {
   const ATTRIBUTE = {
     className: "attr",
@@ -16381,37 +16532,19 @@ function json(hljs) {
     illegal: "\\S"
   };
 }
+var EXTENDED_NUMBER_RE, EXTENDED_NUMBER_MODE;
+var init_json = __esm({
+  "node_modules/highlight.js/es/languages/json.js"() {
+    EXTENDED_NUMBER_RE = "([-+]?)(\\b0[xX][a-fA-F0-9]+|(\\b\\d+(\\.\\d*)?|\\.\\d+)([eE][-+]?\\d+)?)|NaN|[-+]?Infinity";
+    EXTENDED_NUMBER_MODE = {
+      scope: "number",
+      match: EXTENDED_NUMBER_RE,
+      relevance: 0
+    };
+  }
+});
 
 // src/client/split.tsx
-var import_jsx_runtime = require("react/jsx-runtime");
-core_default.registerLanguage("typescript", typescript);
-core_default.registerLanguage("javascript", javascript2);
-core_default.registerLanguage("css", css2);
-core_default.registerLanguage("json", json);
-var clamp = (v, lo, hi) => Math.min(Math.max(v, lo), hi);
-var DIVIDER = 4;
-var BAR_H = 26;
-var PERSIST_KEY = "dsh.worktable.split.v2";
-var BUILTIN_ICONS = {
-  browser: "\u{1F310}",
-  anim: "\u{1F3AC}",
-  explorer: "\u{1F4C1}",
-  scm: "\u{1F500}",
-  tasks: "\u2705",
-  terminal: "\u25B8_",
-  custom: "\u2728",
-  console: "\u{1F5A5}\uFE0F"
-};
-var BUILTIN_LABEL_KEYS = {
-  browser: "pane.browser",
-  anim: "pane.anim",
-  explorer: "pane.explorer",
-  scm: "pane.scm",
-  tasks: "pane.tasks",
-  terminal: "pane.terminal",
-  custom: "pane.custom",
-  console: "pane.console"
-};
 function tabTitleOf(content) {
   if (content.kind === "builtin") return T(BUILTIN_LABEL_KEYS[content.type]);
   if (content.kind === "file") return basenameOf2(content.path);
@@ -16433,12 +16566,9 @@ function sameContent(a, b) {
   if (a.kind === "builtin" && b.kind === "builtin") return a.type === b.type;
   return false;
 }
-var uiT = null;
 function setSplitT(fn) {
   uiT = fn;
 }
-var T = (key, params) => uiT ? uiT(key, params) : key;
-var splitEnv = null;
 function setSplitEnv(env) {
   splitEnv = env;
 }
@@ -16451,10 +16581,6 @@ async function postJson(url, body) {
   if (!res.ok) throw new Error("HTTP " + res.status);
   return res.json();
 }
-var dragPane = null;
-var dragTab = null;
-var dropTarget = null;
-var dropTargetListeners = /* @__PURE__ */ new Set();
 function setDropTarget(t) {
   if (dropTarget === t) return;
   dropTarget = t;
@@ -16491,543 +16617,6 @@ function persistSaved(layoutId, s) {
     localStorage.setItem(PERSIST_KEY, JSON.stringify(all));
   } catch {
   }
-}
-window.addEventListener("dsh:split-claim", ((e) => {
-  const id = e?.detail?.id;
-  if (splitStore.active && id && id !== splitStore.spec?.id) splitStore.close();
-}));
-var splitStore = {
-  active: false,
-  spec: null,
-  geom: null,
-  chatW: 320,
-  topH: 200,
-  leftW: 260,
-  paneWs: [],
-  topWs: [],
-  leftWs: [],
-  root: null,
-  header: null,
-  viewArea: null,
-  savedMarginLeft: "",
-  savedMarginRight: "",
-  savedMarginTop: "",
-  observer: null,
-  fallback: null,
-  yieldObserver: null,
-  lastMarginLeft: "",
-  lastMarginRight: "",
-  lastMarginTop: "",
-  onSpecMutated: null,
-  listeners: /* @__PURE__ */ new Set(),
-  open(spec) {
-    if (this.active) {
-      if (this.spec?.id === spec.id) {
-        this.close();
-        return true;
-      }
-      this.close();
-    }
-    try {
-      const taClose = document.querySelector(".ta_splitClose");
-      taClose?.click();
-    } catch {
-    }
-    try {
-      window.dispatchEvent(new CustomEvent("dsh:split-claim", { detail: { id: spec.id } }));
-    } catch {
-    }
-    const root = findConversationRoot();
-    if (!root) return false;
-    const header = root.children[0];
-    const viewArea = root.children[1];
-    if (!header || !viewArea) return false;
-    this.spec = { ...spec, chatSide: spec.chatSide === "left" ? "left" : "right" };
-    const normalize2 = (p) => {
-      if (p.tabs && p.tabs.length > 0) return p;
-      if (p.content) {
-        return { ...p, content: null, tabs: [{ id: "t1", title: tabTitleOf(p.content), content: p.content }], active: 0 };
-      }
-      return { ...p, content: null, tabs: [], active: 0 };
-    };
-    if (spec.top) this.spec.top = spec.top.map(normalize2);
-    if (spec.left) this.spec.left = normalize2(spec.left);
-    this.spec.main = (spec.main ?? []).map(normalize2);
-    const main = this.spec.main ?? [];
-    const top = spec.top ?? [];
-    const left = spec.left ?? null;
-    const saved = loadSaved(spec.id);
-    const hasChatW = !!saved && saved.chatW >= 0;
-    const hasTopH = !!saved && saved.topH >= 0;
-    const hasLeftW = !!saved && saved.leftW >= 0;
-    const hasPaneWs = !!saved && saved.paneWs.length === main.length;
-    const hasTopWs = !!saved && saved.topWs.length === top.length;
-    const hasLeftWs = !!saved && saved.leftWs.length === (left ? 1 : 0);
-    this.chatW = hasChatW ? saved.chatW : spec.chatWidth.default;
-    this.topH = hasTopH ? saved.topH : spec.topHeight?.default ?? 200;
-    this.leftW = hasLeftW ? saved.leftW : spec.leftWidth?.default ?? 260;
-    this.paneWs = hasPaneWs ? [...saved.paneWs] : main.map((p) => p.min);
-    this.topWs = hasTopWs ? [...saved.topWs] : top.map((p) => p.min);
-    this.leftWs = hasLeftWs ? [...saved.leftWs] : left ? [left.min] : [];
-    this.root = root;
-    this.header = header;
-    this.viewArea = viewArea;
-    this.savedMarginLeft = viewArea.style.marginLeft;
-    this.savedMarginRight = viewArea.style.marginRight;
-    this.savedMarginTop = viewArea.style.marginTop;
-    this.refreshGeom();
-    const g0 = this.geom;
-    if (g0) {
-      const colW0 = g0.right - g0.left;
-      const rowH0 = g0.bottom - g0.top;
-      if (!hasChatW) {
-        const hi = Math.max(spec.chatWidth.min, colW0 - 60);
-        this.chatW = clamp(Math.round(colW0 * 0.3), spec.chatWidth.min, hi);
-      }
-      if (left && !hasLeftW) {
-        const lo = spec.leftWidth?.min ?? 160;
-        this.leftW = clamp(Math.round(colW0 * 0.38), lo, Math.max(lo, colW0 - 260));
-      }
-      if (top.length > 0 && !hasTopH) {
-        const lo = spec.topHeight?.min ?? 80;
-        const ratio = spec.topHeightRatio ?? 0.35;
-        this.topH = clamp(Math.round((rowH0 - BAR_H) * ratio), lo, Math.max(lo, rowH0 - BAR_H - 80));
-      }
-      if (!hasPaneWs) {
-        const contentW = Math.max(0, colW0 - this.chatW);
-        const avail = Math.max(main.length * 120, contentW - Math.max(0, main.length - 1) * DIVIDER);
-        const share = Math.round(avail / main.length);
-        this.paneWs = main.map((p) => Math.max(p.min, share));
-      }
-      if (!hasTopWs) {
-        const chatW0 = spec.chatFullHeight === true ? this.chatW : 0;
-        const rowW = Math.max(0, colW0 - chatW0 - (left ? this.leftW : 0));
-        const avail = Math.max(top.length * 120, rowW - Math.max(0, top.length - 1) * DIVIDER);
-        const share = Math.round(avail / top.length);
-        this.topWs = top.map((p) => Math.max(p.min, share));
-      }
-      if (left && !hasLeftWs) this.leftWs = [Math.max(left.min, this.leftW)];
-    }
-    this.applyMargin();
-    this.observer = new ResizeObserver(() => {
-      const r = this.root;
-      if (!(r && r.isConnected && r.dataset.phase === "active")) {
-        this.syncAnchor();
-        return;
-      }
-      this.refreshGeom();
-      this.applyMargin();
-      this.notify();
-    });
-    this.observer.observe(root);
-    this.fallback = new MutationObserver(() => {
-      const r = this.root;
-      if (r && r.isConnected && r.dataset.phase === "active") return;
-      this.syncAnchor();
-    });
-    this.fallback.observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ["data-phase"] });
-    this.yieldObserver = new MutationObserver(() => {
-      if (!this.active || !this.viewArea) return;
-      if (this.viewArea.style.marginLeft !== this.lastMarginLeft || this.viewArea.style.marginRight !== this.lastMarginRight || this.viewArea.style.marginTop !== this.lastMarginTop) {
-        this.close();
-      }
-    });
-    this.yieldObserver.observe(viewArea, { attributes: true, attributeFilter: ["style"] });
-    this.active = true;
-    this.notify();
-    return true;
-  },
-  /** 会话根失效（切换会话）时重新锚定：左侧内容保持不关闭；无会话才关闭 */
-  syncAnchor() {
-    if (!this.active) return;
-    const next = findConversationRoot();
-    if (!next) {
-      this.close();
-      return;
-    }
-    if (next.dataset.phase !== "active") return;
-    if (next === this.root) {
-      this.refreshGeom();
-      this.applyMargin();
-      this.notify();
-      return;
-    }
-    const header = next.children[0];
-    const viewArea = next.children[1];
-    if (!header || !viewArea) {
-      this.close();
-      return;
-    }
-    if (this.viewArea && this.viewArea.isConnected && this.viewArea !== viewArea) {
-      this.viewArea.style.marginLeft = this.savedMarginLeft;
-      this.viewArea.style.marginRight = this.savedMarginRight;
-      this.viewArea.style.marginTop = this.savedMarginTop;
-    }
-    this.root = next;
-    this.header = header;
-    this.viewArea = viewArea;
-    this.savedMarginLeft = viewArea.style.marginLeft;
-    this.savedMarginRight = viewArea.style.marginRight;
-    this.savedMarginTop = viewArea.style.marginTop;
-    this.observer?.disconnect();
-    this.observer.observe(next);
-    this.refreshGeom();
-    this.applyMargin();
-    this.notify();
-  },
-  refreshGeom() {
-    const root = this.root;
-    const header = this.header;
-    if (!root || !header) return;
-    const rr = root.getBoundingClientRect();
-    const hr2 = header.getBoundingClientRect();
-    this.geom = { left: rr.left, top: hr2.bottom, right: rr.right, bottom: rr.bottom };
-  },
-  applyMargin() {
-    const viewArea = this.viewArea;
-    const g = this.geom;
-    const spec = this.spec;
-    if (!viewArea || !g || !spec) return;
-    const colW = g.right - g.left;
-    const rowH = g.bottom - g.top;
-    const hasLeft = !!spec.left;
-    const hasTop = !!(spec.top && spec.top.length > 0);
-    const chatW = clamp(this.chatW, spec.chatWidth.min, Math.max(spec.chatWidth.min, colW - 60));
-    const topH = hasTop ? clamp(this.topH, spec.topHeight?.min ?? 80, Math.max(spec.topHeight?.min ?? 80, rowH - BAR_H - 80)) : 0;
-    const leftW = hasLeft ? clamp(this.leftW, spec.leftWidth?.min ?? 160, Math.max(spec.leftWidth?.min ?? 160, colW - 260)) : 0;
-    const chatFull = spec.chatFullHeight === true;
-    const gap = Math.max(0, colW - chatW) + "px";
-    const mt = BAR_H + (hasTop && !chatFull ? topH : 0) + "px";
-    const chatLeft = !hasLeft && spec.chatSide === "left";
-    this.lastMarginLeft = hasLeft ? leftW + "px" : chatLeft ? "" : gap;
-    this.lastMarginRight = hasLeft ? "" : chatLeft ? gap : "";
-    this.lastMarginTop = mt;
-    viewArea.style.marginLeft = this.lastMarginLeft;
-    viewArea.style.marginRight = this.lastMarginRight;
-    viewArea.style.marginTop = mt;
-  },
-  setChatW(w) {
-    const g = this.geom;
-    const spec = this.spec;
-    if (!g || !spec) return;
-    const colW = g.right - g.left;
-    const main = spec.main ?? [];
-    const minContent = main.reduce((a, p) => a + p.min, 0) + Math.max(0, main.length - 1) * DIVIDER;
-    const hi = Math.max(spec.chatWidth.min, colW - minContent);
-    this.chatW = clamp(Math.round(w), spec.chatWidth.min, hi);
-    this.applyMargin();
-    this.persist();
-    this.notify();
-  },
-  setTopH(h) {
-    const g = this.geom;
-    const spec = this.spec;
-    if (!g || !spec) return;
-    const rowH = g.bottom - g.top;
-    const lo = spec.topHeight?.min ?? 80;
-    const hi = Math.max(lo, rowH - BAR_H - 80);
-    this.topH = clamp(Math.round(h), lo, hi);
-    this.applyMargin();
-    this.persist();
-    this.notify();
-  },
-  setLeftW(w) {
-    const g = this.geom;
-    const spec = this.spec;
-    if (!g || !spec || !spec.left) return;
-    const colW = g.right - g.left;
-    const lo = spec.leftWidth?.min ?? 160;
-    const hi = Math.max(lo, colW - 260);
-    this.leftW = clamp(Math.round(w), lo, hi);
-    this.applyMargin();
-    this.persist();
-    this.notify();
-  },
-  setPaneW(i, w) {
-    const g = this.geom;
-    const spec = this.spec;
-    if (!g || !spec) return;
-    const main = spec.main ?? [];
-    if (i < 0 || i >= main.length) return;
-    const colW = g.right - g.left;
-    const chatW = clamp(this.chatW, spec.chatWidth.min, Math.max(spec.chatWidth.min, colW - 60));
-    const contentW = Math.max(0, colW - chatW);
-    const othersMin = main.reduce((a, p, k) => a + (k === i ? 0 : p.min), 0);
-    const lo = main[i].min;
-    const hi = Math.max(lo, contentW - othersMin - Math.max(0, main.length - 1) * DIVIDER);
-    const next = this.paneWs.slice();
-    next[i] = clamp(Math.round(w), lo, hi);
-    this.paneWs = next;
-    this.persist();
-    this.notify();
-  },
-  setTopW(i, w) {
-    const g = this.geom;
-    const spec = this.spec;
-    if (!g || !spec) return;
-    const top = spec.top ?? [];
-    if (i < 0 || i >= top.length) return;
-    const colW = g.right - g.left;
-    const othersMin = top.reduce((a, p, k) => a + (k === i ? 0 : p.min), 0);
-    const lo = top[i].min;
-    const hi = Math.max(lo, colW - othersMin - Math.max(0, top.length - 1) * DIVIDER);
-    const next = this.topWs.slice();
-    next[i] = clamp(Math.round(w), lo, hi);
-    this.topWs = next;
-    this.persist();
-    this.notify();
-  },
-  setPaneContent(row, i, content) {
-    if (content) this.openTab(row, i, content);
-  },
-  lockPane(row, i, content) {
-    const spec = this.spec;
-    if (!spec) return;
-    const tab = { id: "t" + Date.now().toString(36), title: tabTitleOf(content), content, active: 0 };
-    const mutate = (pane) => ({ ...pane, content: null, tabs: [tab], active: 0 });
-    if (row === "left") {
-      if (!spec.left || i !== 0) return;
-      this.spec = { ...spec, left: mutate(spec.left) };
-    } else if (row === "top") {
-      const top = [...spec.top ?? []];
-      if (!top[i]) return;
-      top[i] = mutate(top[i]);
-      this.spec = { ...spec, top };
-    } else {
-      const main = [...spec.main];
-      if (!main[i]) return;
-      main[i] = mutate(main[i]);
-      this.spec = { ...spec, main };
-    }
-    this.onSpecMutated?.(this.spec);
-    this.persist();
-    this.notify();
-  },
-  /** 更新指定标签页的内容（浏览器/动画窗地址栏回车时回写），并持久化到布局条目 */
-  setTabContent(row, index, tabId, content) {
-    const spec = this.spec;
-    if (!spec) return;
-    const mutate = (pane) => {
-      const tabs = (pane.tabs ?? []).map((t) => t.id === tabId ? { ...t, content, title: tabTitleOf(content) } : t);
-      return { ...pane, tabs };
-    };
-    if (row === "left") {
-      if (spec.left && index === 0) this.spec = { ...spec, left: mutate(spec.left) };
-    } else if (row === "top") {
-      const top = [...spec.top ?? []];
-      if (top[index]) {
-        top[index] = mutate(top[index]);
-        this.spec = { ...spec, top };
-      }
-    } else {
-      const main = [...spec.main];
-      if (main[index]) {
-        main[index] = mutate(main[index]);
-        this.spec = { ...spec, main };
-      }
-    }
-    this.onSpecMutated?.(this.spec);
-    this.notify();
-  },
-  openTab(row, i, content) {
-    const spec = this.spec;
-    if (!spec) return;
-    const mutate = (pane) => {
-      const tabs = [...pane.tabs ?? []];
-      const existing = tabs.findIndex((t) => sameContent(t.content, content));
-      if (existing >= 0) return { ...pane, content: null, tabs, active: existing };
-      const tab = { id: "t" + Date.now().toString(36), title: tabTitleOf(content), content };
-      tabs.push(tab);
-      return { ...pane, content: null, tabs, active: tabs.length - 1 };
-    };
-    if (row === "left") {
-      if (!spec.left || i !== 0) return;
-      this.spec = { ...spec, left: mutate(spec.left) };
-    } else if (row === "top") {
-      const top = [...spec.top ?? []];
-      if (!top[i]) return;
-      top[i] = mutate(top[i]);
-      this.spec = { ...spec, top };
-    } else {
-      const main = [...spec.main];
-      if (!main[i]) return;
-      main[i] = mutate(main[i]);
-      this.spec = { ...spec, main };
-    }
-    this.onSpecMutated?.(this.spec);
-    this.persist();
-    this.notify();
-  },
-  closeTab(row, i, tabId) {
-    const spec = this.spec;
-    if (!spec) return;
-    const mutate = (pane) => {
-      const tabs = (pane.tabs ?? []).filter((t) => t.id !== tabId);
-      return { ...pane, tabs, active: 0 };
-    };
-    if (row === "left") {
-      if (!spec.left || i !== 0) return;
-      this.spec = { ...spec, left: mutate(spec.left) };
-    } else if (row === "top") {
-      const top = [...spec.top ?? []];
-      if (!top[i]) return;
-      top[i] = mutate(top[i]);
-      this.spec = { ...spec, top };
-    } else {
-      const main = [...spec.main];
-      if (!main[i]) return;
-      main[i] = mutate(main[i]);
-      this.spec = { ...spec, main };
-    }
-    this.onSpecMutated?.(this.spec);
-    this.persist();
-    this.notify();
-  },
-  moveTab(fromRow, fromI, tabId, toRow, toI) {
-    const spec = this.spec;
-    if (!spec) return;
-    if (fromRow === toRow && fromI === toI) return;
-    const top = [...spec.top ?? []];
-    const main = [...spec.main];
-    const left = spec.left ? { ...spec.left } : null;
-    const arrOf = (row) => row === "left" ? left ? [left] : [] : row === "top" ? top : main;
-    const fromArr = arrOf(fromRow);
-    const toArr = arrOf(toRow);
-    const fromPane = fromArr[fromI];
-    const toPane = toArr[toI];
-    if (!fromPane || !toPane) return;
-    const tab = (fromPane.tabs ?? []).find((t) => t.id === tabId);
-    if (!tab) return;
-    const fromTabs = (fromPane.tabs ?? []).filter((t) => t.id !== tabId);
-    const toTabs = [...toPane.tabs ?? [], tab];
-    const setPane = (row, i, pane) => {
-      if (row === "left") spec.left = pane;
-      else if (row === "top") top[i] = pane;
-      else main[i] = pane;
-    };
-    setPane(fromRow, fromI, { ...fromPane, tabs: fromTabs, active: 0 });
-    setPane(toRow, toI, { ...toPane, tabs: toTabs, active: toTabs.length - 1 });
-    this.spec = { ...spec, left: left ?? null, top: top.length > 0 ? top : null, main };
-    this.onSpecMutated?.(this.spec);
-    this.persist();
-    this.notify();
-  },
-  setActiveTab(row, i, tabId) {
-    const spec = this.spec;
-    if (!spec) return;
-    const mutate = (pane) => {
-      const idx = (pane.tabs ?? []).findIndex((t) => t.id === tabId);
-      if (idx < 0) return pane;
-      return { ...pane, active: idx };
-    };
-    if (row === "left") {
-      if (!spec.left || i !== 0) return;
-      this.spec = { ...spec, left: mutate(spec.left) };
-    } else if (row === "top") {
-      const top = [...spec.top ?? []];
-      if (!top[i]) return;
-      top[i] = mutate(top[i]);
-      this.spec = { ...spec, top };
-    } else {
-      const main = [...spec.main];
-      if (!main[i]) return;
-      main[i] = mutate(main[i]);
-      this.spec = { ...spec, main };
-    }
-    this.onSpecMutated?.(this.spec);
-    this.persist();
-    this.notify();
-  },
-  swapPanes(aRow, aI, bRow, bI) {
-    const spec = this.spec;
-    if (!spec) return;
-    const top = [...spec.top ?? []];
-    const main = [...spec.main];
-    const left = spec.left ? { ...spec.left } : null;
-    const arrOf = (row) => row === "left" ? left ? [left] : [] : row === "top" ? top : main;
-    const setOf = (row, i, pane) => {
-      if (row === "left") spec.left = pane;
-      else if (row === "top") top[i] = pane;
-      else main[i] = pane;
-    };
-    const a = arrOf(aRow)[aI];
-    const b = arrOf(bRow)[bI];
-    if (!a || !b) return;
-    setOf(aRow, aI, b);
-    setOf(bRow, bI, a);
-    const wsOf = (row) => row === "left" ? this.leftWs : row === "top" ? this.topWs : this.paneWs;
-    const setWs = (row, i, v) => {
-      if (row === "left") {
-        const n = this.leftWs.slice();
-        n[i] = v;
-        this.leftWs = n;
-      } else if (row === "top") {
-        const n = this.topWs.slice();
-        n[i] = v;
-        this.topWs = n;
-      } else {
-        const n = this.paneWs.slice();
-        n[i] = v;
-        this.paneWs = n;
-      }
-    };
-    const aW = wsOf(aRow)[aI];
-    const bW = wsOf(bRow)[bI];
-    setWs(aRow, aI, bW);
-    setWs(bRow, bI, aW);
-    this.spec = { ...spec, left: left ?? null, top: top.length > 0 ? top : null, main };
-    this.onSpecMutated?.(this.spec);
-    this.persist();
-    this.notify();
-  },
-  setChatSide(side) {
-    const spec = this.spec;
-    if (!spec) return;
-    if (spec.left) return;
-    this.spec = { ...spec, chatSide: side };
-    this.onSpecMutated?.(this.spec);
-    this.applyMargin();
-    this.persist();
-    this.notify();
-  },
-  persist() {
-    if (!this.spec) return;
-    persistSaved(this.spec.id, { chatW: this.chatW, topH: this.topH, leftW: this.leftW, paneWs: this.paneWs, topWs: this.topWs, leftWs: this.leftWs });
-  },
-  close() {
-    if (this.viewArea) {
-      this.viewArea.style.marginLeft = this.savedMarginLeft;
-      this.viewArea.style.marginRight = this.savedMarginRight;
-      this.viewArea.style.marginTop = this.savedMarginTop;
-    }
-    this.observer?.disconnect();
-    this.observer = null;
-    this.fallback?.disconnect();
-    this.fallback = null;
-    this.yieldObserver?.disconnect();
-    this.yieldObserver = null;
-    this.root = null;
-    this.header = null;
-    this.viewArea = null;
-    this.geom = null;
-    this.spec = null;
-    this.active = false;
-    this.notify();
-  },
-  subscribe(fn) {
-    this.listeners.add(fn);
-    return () => this.listeners.delete(fn);
-  },
-  notify() {
-    for (const fn of this.listeners) fn();
-  }
-};
-if (typeof document !== "undefined" && document.body) {
-  const taObserver = new MutationObserver(() => {
-    if (!splitStore.active) return;
-    if (document.querySelector(".ta_split")) splitStore.close();
-  });
-  taObserver.observe(document.body, { childList: true, subtree: true });
 }
 function allocate(panes, ws, total) {
   const out = [];
@@ -17569,9 +17158,6 @@ function TerminalPane() {
   }
   return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { ref: hostRef, className: "dsh-wt_termHost" });
 }
-var mdRenderer = new MarkdownItCallable({ linkify: true });
-var IMAGE_EXTS = /[.](png|jpe?g|gif|webp|svg|bmp|ico)$/i;
-var MD_EXTS = /[.](md|markdown|mdown)$/i;
 function FileViewer(props) {
   const ext = (props.path.split(".").pop() || "").toLowerCase();
   const fileUrl = "/api/worktable/file?path=" + encodeURIComponent(props.path);
@@ -17583,8 +17169,6 @@ function FileViewer(props) {
   }
   return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TextViewer, { path: props.path, fileUrl, isMd: MD_EXTS.test("." + ext) });
 }
-var CODE_LANGS = { ts: "typescript", tsx: "typescript", js: "javascript", jsx: "javascript", css: "css", json: "json" };
-var CODE_EXTS = /[.](tsx|ts|jsx|js|css|json)$/i;
 function escapeHtml2(s) {
   return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
@@ -18280,27 +17864,612 @@ function SplitWorkspace() {
     ) }, id);
   }) });
 }
-try {
-  window.__dshWorktable = { splitStore };
-} catch {
-}
+var import_react, import_xterm2, import_jsx_runtime, clamp, DIVIDER, BAR_H, PERSIST_KEY, BUILTIN_ICONS, BUILTIN_LABEL_KEYS, uiT, T, splitEnv, dragPane, dragTab, dropTarget, dropTargetListeners, splitStore, mdRenderer, IMAGE_EXTS, MD_EXTS, CODE_LANGS, CODE_EXTS;
+var init_split = __esm({
+  "src/client/split.tsx"() {
+    import_react = require("react");
+    init_pathutil();
+    import_xterm2 = __toESM(require_xterm(), 1);
+    init_markdown_it();
+    init_core();
+    init_typescript();
+    init_javascript();
+    init_css();
+    init_json();
+    import_jsx_runtime = require("react/jsx-runtime");
+    core_default.registerLanguage("typescript", typescript);
+    core_default.registerLanguage("javascript", javascript2);
+    core_default.registerLanguage("css", css2);
+    core_default.registerLanguage("json", json);
+    clamp = (v, lo, hi) => Math.min(Math.max(v, lo), hi);
+    DIVIDER = 4;
+    BAR_H = 26;
+    PERSIST_KEY = "dsh.worktable.split.v2";
+    BUILTIN_ICONS = {
+      browser: "\u{1F310}",
+      anim: "\u{1F3AC}",
+      explorer: "\u{1F4C1}",
+      scm: "\u{1F500}",
+      tasks: "\u2705",
+      terminal: "\u25B8_",
+      custom: "\u2728",
+      console: "\u{1F5A5}\uFE0F"
+    };
+    BUILTIN_LABEL_KEYS = {
+      browser: "pane.browser",
+      anim: "pane.anim",
+      explorer: "pane.explorer",
+      scm: "pane.scm",
+      tasks: "pane.tasks",
+      terminal: "pane.terminal",
+      custom: "pane.custom",
+      console: "pane.console"
+    };
+    uiT = null;
+    T = (key, params) => uiT ? uiT(key, params) : key;
+    splitEnv = null;
+    dragPane = null;
+    dragTab = null;
+    dropTarget = null;
+    dropTargetListeners = /* @__PURE__ */ new Set();
+    window.addEventListener("dsh:split-claim", ((e) => {
+      const id = e?.detail?.id;
+      if (splitStore.active && id && id !== splitStore.spec?.id) splitStore.close();
+    }));
+    splitStore = {
+      active: false,
+      spec: null,
+      geom: null,
+      chatW: 320,
+      topH: 200,
+      leftW: 260,
+      paneWs: [],
+      topWs: [],
+      leftWs: [],
+      root: null,
+      header: null,
+      viewArea: null,
+      savedMarginLeft: "",
+      savedMarginRight: "",
+      savedMarginTop: "",
+      observer: null,
+      fallback: null,
+      yieldObserver: null,
+      lastMarginLeft: "",
+      lastMarginRight: "",
+      lastMarginTop: "",
+      onSpecMutated: null,
+      listeners: /* @__PURE__ */ new Set(),
+      open(spec) {
+        if (this.active) {
+          if (this.spec?.id === spec.id) {
+            this.close();
+            return true;
+          }
+          this.close();
+        }
+        try {
+          const taClose = document.querySelector(".ta_splitClose");
+          taClose?.click();
+        } catch {
+        }
+        try {
+          window.dispatchEvent(new CustomEvent("dsh:split-claim", { detail: { id: spec.id } }));
+        } catch {
+        }
+        const root = findConversationRoot();
+        if (!root) return false;
+        const header = root.children[0];
+        const viewArea = root.children[1];
+        if (!header || !viewArea) return false;
+        this.spec = { ...spec, chatSide: spec.chatSide === "left" ? "left" : "right" };
+        const normalize2 = (p) => {
+          if (p.tabs && p.tabs.length > 0) return p;
+          if (p.content) {
+            return { ...p, content: null, tabs: [{ id: "t1", title: tabTitleOf(p.content), content: p.content }], active: 0 };
+          }
+          return { ...p, content: null, tabs: [], active: 0 };
+        };
+        if (spec.top) this.spec.top = spec.top.map(normalize2);
+        if (spec.left) this.spec.left = normalize2(spec.left);
+        this.spec.main = (spec.main ?? []).map(normalize2);
+        const main = this.spec.main ?? [];
+        const top = spec.top ?? [];
+        const left = spec.left ?? null;
+        const saved = loadSaved(spec.id);
+        const hasChatW = !!saved && saved.chatW >= 0;
+        const hasTopH = !!saved && saved.topH >= 0;
+        const hasLeftW = !!saved && saved.leftW >= 0;
+        const hasPaneWs = !!saved && saved.paneWs.length === main.length;
+        const hasTopWs = !!saved && saved.topWs.length === top.length;
+        const hasLeftWs = !!saved && saved.leftWs.length === (left ? 1 : 0);
+        this.chatW = hasChatW ? saved.chatW : spec.chatWidth.default;
+        this.topH = hasTopH ? saved.topH : spec.topHeight?.default ?? 200;
+        this.leftW = hasLeftW ? saved.leftW : spec.leftWidth?.default ?? 260;
+        this.paneWs = hasPaneWs ? [...saved.paneWs] : main.map((p) => p.min);
+        this.topWs = hasTopWs ? [...saved.topWs] : top.map((p) => p.min);
+        this.leftWs = hasLeftWs ? [...saved.leftWs] : left ? [left.min] : [];
+        this.root = root;
+        this.header = header;
+        this.viewArea = viewArea;
+        this.savedMarginLeft = viewArea.style.marginLeft;
+        this.savedMarginRight = viewArea.style.marginRight;
+        this.savedMarginTop = viewArea.style.marginTop;
+        this.refreshGeom();
+        const g0 = this.geom;
+        if (g0) {
+          const colW0 = g0.right - g0.left;
+          const rowH0 = g0.bottom - g0.top;
+          if (!hasChatW) {
+            const hi = Math.max(spec.chatWidth.min, colW0 - 60);
+            this.chatW = clamp(Math.round(colW0 * 0.3), spec.chatWidth.min, hi);
+          }
+          if (left && !hasLeftW) {
+            const lo = spec.leftWidth?.min ?? 160;
+            this.leftW = clamp(Math.round(colW0 * 0.38), lo, Math.max(lo, colW0 - 260));
+          }
+          if (top.length > 0 && !hasTopH) {
+            const lo = spec.topHeight?.min ?? 80;
+            const ratio = spec.topHeightRatio ?? 0.35;
+            this.topH = clamp(Math.round((rowH0 - BAR_H) * ratio), lo, Math.max(lo, rowH0 - BAR_H - 80));
+          }
+          if (!hasPaneWs) {
+            const contentW = Math.max(0, colW0 - this.chatW);
+            const avail = Math.max(main.length * 120, contentW - Math.max(0, main.length - 1) * DIVIDER);
+            const share = Math.round(avail / main.length);
+            this.paneWs = main.map((p) => Math.max(p.min, share));
+          }
+          if (!hasTopWs) {
+            const chatW0 = spec.chatFullHeight === true ? this.chatW : 0;
+            const rowW = Math.max(0, colW0 - chatW0 - (left ? this.leftW : 0));
+            const avail = Math.max(top.length * 120, rowW - Math.max(0, top.length - 1) * DIVIDER);
+            const share = Math.round(avail / top.length);
+            this.topWs = top.map((p) => Math.max(p.min, share));
+          }
+          if (left && !hasLeftWs) this.leftWs = [Math.max(left.min, this.leftW)];
+        }
+        this.applyMargin();
+        this.observer = new ResizeObserver(() => {
+          const r = this.root;
+          if (!(r && r.isConnected && r.dataset.phase === "active")) {
+            this.syncAnchor();
+            return;
+          }
+          this.refreshGeom();
+          this.applyMargin();
+          this.notify();
+        });
+        this.observer.observe(root);
+        this.fallback = new MutationObserver(() => {
+          const r = this.root;
+          if (r && r.isConnected && r.dataset.phase === "active") return;
+          this.syncAnchor();
+        });
+        this.fallback.observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ["data-phase"] });
+        this.yieldObserver = new MutationObserver(() => {
+          if (!this.active || !this.viewArea) return;
+          if (this.viewArea.style.marginLeft !== this.lastMarginLeft || this.viewArea.style.marginRight !== this.lastMarginRight || this.viewArea.style.marginTop !== this.lastMarginTop) {
+            this.close();
+          }
+        });
+        this.yieldObserver.observe(viewArea, { attributes: true, attributeFilter: ["style"] });
+        this.active = true;
+        this.notify();
+        return true;
+      },
+      /** 会话根失效（切换会话）时重新锚定：左侧内容保持不关闭；无会话才关闭 */
+      syncAnchor() {
+        if (!this.active) return;
+        const next = findConversationRoot();
+        if (!next) {
+          this.close();
+          return;
+        }
+        if (next.dataset.phase !== "active") return;
+        if (next === this.root) {
+          this.refreshGeom();
+          this.applyMargin();
+          this.notify();
+          return;
+        }
+        const header = next.children[0];
+        const viewArea = next.children[1];
+        if (!header || !viewArea) {
+          this.close();
+          return;
+        }
+        if (this.viewArea && this.viewArea.isConnected && this.viewArea !== viewArea) {
+          this.viewArea.style.marginLeft = this.savedMarginLeft;
+          this.viewArea.style.marginRight = this.savedMarginRight;
+          this.viewArea.style.marginTop = this.savedMarginTop;
+        }
+        this.root = next;
+        this.header = header;
+        this.viewArea = viewArea;
+        this.savedMarginLeft = viewArea.style.marginLeft;
+        this.savedMarginRight = viewArea.style.marginRight;
+        this.savedMarginTop = viewArea.style.marginTop;
+        this.observer?.disconnect();
+        this.observer.observe(next);
+        this.refreshGeom();
+        this.applyMargin();
+        this.notify();
+      },
+      refreshGeom() {
+        const root = this.root;
+        const header = this.header;
+        if (!root || !header) return;
+        const rr = root.getBoundingClientRect();
+        const hr2 = header.getBoundingClientRect();
+        this.geom = { left: rr.left, top: hr2.bottom, right: rr.right, bottom: rr.bottom };
+      },
+      applyMargin() {
+        const viewArea = this.viewArea;
+        const g = this.geom;
+        const spec = this.spec;
+        if (!viewArea || !g || !spec) return;
+        const colW = g.right - g.left;
+        const rowH = g.bottom - g.top;
+        const hasLeft = !!spec.left;
+        const hasTop = !!(spec.top && spec.top.length > 0);
+        const chatW = clamp(this.chatW, spec.chatWidth.min, Math.max(spec.chatWidth.min, colW - 60));
+        const topH = hasTop ? clamp(this.topH, spec.topHeight?.min ?? 80, Math.max(spec.topHeight?.min ?? 80, rowH - BAR_H - 80)) : 0;
+        const leftW = hasLeft ? clamp(this.leftW, spec.leftWidth?.min ?? 160, Math.max(spec.leftWidth?.min ?? 160, colW - 260)) : 0;
+        const chatFull = spec.chatFullHeight === true;
+        const gap = Math.max(0, colW - chatW) + "px";
+        const mt = BAR_H + (hasTop && !chatFull ? topH : 0) + "px";
+        const chatLeft = !hasLeft && spec.chatSide === "left";
+        this.lastMarginLeft = hasLeft ? leftW + "px" : chatLeft ? "" : gap;
+        this.lastMarginRight = hasLeft ? "" : chatLeft ? gap : "";
+        this.lastMarginTop = mt;
+        viewArea.style.marginLeft = this.lastMarginLeft;
+        viewArea.style.marginRight = this.lastMarginRight;
+        viewArea.style.marginTop = mt;
+      },
+      setChatW(w) {
+        const g = this.geom;
+        const spec = this.spec;
+        if (!g || !spec) return;
+        const colW = g.right - g.left;
+        const main = spec.main ?? [];
+        const minContent = main.reduce((a, p) => a + p.min, 0) + Math.max(0, main.length - 1) * DIVIDER;
+        const hi = Math.max(spec.chatWidth.min, colW - minContent);
+        this.chatW = clamp(Math.round(w), spec.chatWidth.min, hi);
+        this.applyMargin();
+        this.persist();
+        this.notify();
+      },
+      setTopH(h) {
+        const g = this.geom;
+        const spec = this.spec;
+        if (!g || !spec) return;
+        const rowH = g.bottom - g.top;
+        const lo = spec.topHeight?.min ?? 80;
+        const hi = Math.max(lo, rowH - BAR_H - 80);
+        this.topH = clamp(Math.round(h), lo, hi);
+        this.applyMargin();
+        this.persist();
+        this.notify();
+      },
+      setLeftW(w) {
+        const g = this.geom;
+        const spec = this.spec;
+        if (!g || !spec || !spec.left) return;
+        const colW = g.right - g.left;
+        const lo = spec.leftWidth?.min ?? 160;
+        const hi = Math.max(lo, colW - 260);
+        this.leftW = clamp(Math.round(w), lo, hi);
+        this.applyMargin();
+        this.persist();
+        this.notify();
+      },
+      setPaneW(i, w) {
+        const g = this.geom;
+        const spec = this.spec;
+        if (!g || !spec) return;
+        const main = spec.main ?? [];
+        if (i < 0 || i >= main.length) return;
+        const colW = g.right - g.left;
+        const chatW = clamp(this.chatW, spec.chatWidth.min, Math.max(spec.chatWidth.min, colW - 60));
+        const contentW = Math.max(0, colW - chatW);
+        const othersMin = main.reduce((a, p, k) => a + (k === i ? 0 : p.min), 0);
+        const lo = main[i].min;
+        const hi = Math.max(lo, contentW - othersMin - Math.max(0, main.length - 1) * DIVIDER);
+        const next = this.paneWs.slice();
+        next[i] = clamp(Math.round(w), lo, hi);
+        this.paneWs = next;
+        this.persist();
+        this.notify();
+      },
+      setTopW(i, w) {
+        const g = this.geom;
+        const spec = this.spec;
+        if (!g || !spec) return;
+        const top = spec.top ?? [];
+        if (i < 0 || i >= top.length) return;
+        const colW = g.right - g.left;
+        const othersMin = top.reduce((a, p, k) => a + (k === i ? 0 : p.min), 0);
+        const lo = top[i].min;
+        const hi = Math.max(lo, colW - othersMin - Math.max(0, top.length - 1) * DIVIDER);
+        const next = this.topWs.slice();
+        next[i] = clamp(Math.round(w), lo, hi);
+        this.topWs = next;
+        this.persist();
+        this.notify();
+      },
+      setPaneContent(row, i, content) {
+        if (content) this.openTab(row, i, content);
+      },
+      lockPane(row, i, content) {
+        const spec = this.spec;
+        if (!spec) return;
+        const tab = { id: "t" + Date.now().toString(36), title: tabTitleOf(content), content, active: 0 };
+        const mutate = (pane) => ({ ...pane, content: null, tabs: [tab], active: 0 });
+        if (row === "left") {
+          if (!spec.left || i !== 0) return;
+          this.spec = { ...spec, left: mutate(spec.left) };
+        } else if (row === "top") {
+          const top = [...spec.top ?? []];
+          if (!top[i]) return;
+          top[i] = mutate(top[i]);
+          this.spec = { ...spec, top };
+        } else {
+          const main = [...spec.main];
+          if (!main[i]) return;
+          main[i] = mutate(main[i]);
+          this.spec = { ...spec, main };
+        }
+        this.onSpecMutated?.(this.spec);
+        this.persist();
+        this.notify();
+      },
+      /** 更新指定标签页的内容（浏览器/动画窗地址栏回车时回写），并持久化到布局条目 */
+      setTabContent(row, index, tabId, content) {
+        const spec = this.spec;
+        if (!spec) return;
+        const mutate = (pane) => {
+          const tabs = (pane.tabs ?? []).map((t) => t.id === tabId ? { ...t, content, title: tabTitleOf(content) } : t);
+          return { ...pane, tabs };
+        };
+        if (row === "left") {
+          if (spec.left && index === 0) this.spec = { ...spec, left: mutate(spec.left) };
+        } else if (row === "top") {
+          const top = [...spec.top ?? []];
+          if (top[index]) {
+            top[index] = mutate(top[index]);
+            this.spec = { ...spec, top };
+          }
+        } else {
+          const main = [...spec.main];
+          if (main[index]) {
+            main[index] = mutate(main[index]);
+            this.spec = { ...spec, main };
+          }
+        }
+        this.onSpecMutated?.(this.spec);
+        this.notify();
+      },
+      openTab(row, i, content) {
+        const spec = this.spec;
+        if (!spec) return;
+        const mutate = (pane) => {
+          const tabs = [...pane.tabs ?? []];
+          const existing = tabs.findIndex((t) => sameContent(t.content, content));
+          if (existing >= 0) return { ...pane, content: null, tabs, active: existing };
+          const tab = { id: "t" + Date.now().toString(36), title: tabTitleOf(content), content };
+          tabs.push(tab);
+          return { ...pane, content: null, tabs, active: tabs.length - 1 };
+        };
+        if (row === "left") {
+          if (!spec.left || i !== 0) return;
+          this.spec = { ...spec, left: mutate(spec.left) };
+        } else if (row === "top") {
+          const top = [...spec.top ?? []];
+          if (!top[i]) return;
+          top[i] = mutate(top[i]);
+          this.spec = { ...spec, top };
+        } else {
+          const main = [...spec.main];
+          if (!main[i]) return;
+          main[i] = mutate(main[i]);
+          this.spec = { ...spec, main };
+        }
+        this.onSpecMutated?.(this.spec);
+        this.persist();
+        this.notify();
+      },
+      closeTab(row, i, tabId) {
+        const spec = this.spec;
+        if (!spec) return;
+        const mutate = (pane) => {
+          const tabs = (pane.tabs ?? []).filter((t) => t.id !== tabId);
+          return { ...pane, tabs, active: 0 };
+        };
+        if (row === "left") {
+          if (!spec.left || i !== 0) return;
+          this.spec = { ...spec, left: mutate(spec.left) };
+        } else if (row === "top") {
+          const top = [...spec.top ?? []];
+          if (!top[i]) return;
+          top[i] = mutate(top[i]);
+          this.spec = { ...spec, top };
+        } else {
+          const main = [...spec.main];
+          if (!main[i]) return;
+          main[i] = mutate(main[i]);
+          this.spec = { ...spec, main };
+        }
+        this.onSpecMutated?.(this.spec);
+        this.persist();
+        this.notify();
+      },
+      moveTab(fromRow, fromI, tabId, toRow, toI) {
+        const spec = this.spec;
+        if (!spec) return;
+        if (fromRow === toRow && fromI === toI) return;
+        const top = [...spec.top ?? []];
+        const main = [...spec.main];
+        const left = spec.left ? { ...spec.left } : null;
+        const arrOf = (row) => row === "left" ? left ? [left] : [] : row === "top" ? top : main;
+        const fromArr = arrOf(fromRow);
+        const toArr = arrOf(toRow);
+        const fromPane = fromArr[fromI];
+        const toPane = toArr[toI];
+        if (!fromPane || !toPane) return;
+        const tab = (fromPane.tabs ?? []).find((t) => t.id === tabId);
+        if (!tab) return;
+        const fromTabs = (fromPane.tabs ?? []).filter((t) => t.id !== tabId);
+        const toTabs = [...toPane.tabs ?? [], tab];
+        const setPane = (row, i, pane) => {
+          if (row === "left") spec.left = pane;
+          else if (row === "top") top[i] = pane;
+          else main[i] = pane;
+        };
+        setPane(fromRow, fromI, { ...fromPane, tabs: fromTabs, active: 0 });
+        setPane(toRow, toI, { ...toPane, tabs: toTabs, active: toTabs.length - 1 });
+        this.spec = { ...spec, left: left ?? null, top: top.length > 0 ? top : null, main };
+        this.onSpecMutated?.(this.spec);
+        this.persist();
+        this.notify();
+      },
+      setActiveTab(row, i, tabId) {
+        const spec = this.spec;
+        if (!spec) return;
+        const mutate = (pane) => {
+          const idx = (pane.tabs ?? []).findIndex((t) => t.id === tabId);
+          if (idx < 0) return pane;
+          return { ...pane, active: idx };
+        };
+        if (row === "left") {
+          if (!spec.left || i !== 0) return;
+          this.spec = { ...spec, left: mutate(spec.left) };
+        } else if (row === "top") {
+          const top = [...spec.top ?? []];
+          if (!top[i]) return;
+          top[i] = mutate(top[i]);
+          this.spec = { ...spec, top };
+        } else {
+          const main = [...spec.main];
+          if (!main[i]) return;
+          main[i] = mutate(main[i]);
+          this.spec = { ...spec, main };
+        }
+        this.onSpecMutated?.(this.spec);
+        this.persist();
+        this.notify();
+      },
+      swapPanes(aRow, aI, bRow, bI) {
+        const spec = this.spec;
+        if (!spec) return;
+        const top = [...spec.top ?? []];
+        const main = [...spec.main];
+        const left = spec.left ? { ...spec.left } : null;
+        const arrOf = (row) => row === "left" ? left ? [left] : [] : row === "top" ? top : main;
+        const setOf = (row, i, pane) => {
+          if (row === "left") spec.left = pane;
+          else if (row === "top") top[i] = pane;
+          else main[i] = pane;
+        };
+        const a = arrOf(aRow)[aI];
+        const b = arrOf(bRow)[bI];
+        if (!a || !b) return;
+        setOf(aRow, aI, b);
+        setOf(bRow, bI, a);
+        const wsOf = (row) => row === "left" ? this.leftWs : row === "top" ? this.topWs : this.paneWs;
+        const setWs = (row, i, v) => {
+          if (row === "left") {
+            const n = this.leftWs.slice();
+            n[i] = v;
+            this.leftWs = n;
+          } else if (row === "top") {
+            const n = this.topWs.slice();
+            n[i] = v;
+            this.topWs = n;
+          } else {
+            const n = this.paneWs.slice();
+            n[i] = v;
+            this.paneWs = n;
+          }
+        };
+        const aW = wsOf(aRow)[aI];
+        const bW = wsOf(bRow)[bI];
+        setWs(aRow, aI, bW);
+        setWs(bRow, bI, aW);
+        this.spec = { ...spec, left: left ?? null, top: top.length > 0 ? top : null, main };
+        this.onSpecMutated?.(this.spec);
+        this.persist();
+        this.notify();
+      },
+      setChatSide(side) {
+        const spec = this.spec;
+        if (!spec) return;
+        if (spec.left) return;
+        this.spec = { ...spec, chatSide: side };
+        this.onSpecMutated?.(this.spec);
+        this.applyMargin();
+        this.persist();
+        this.notify();
+      },
+      persist() {
+        if (!this.spec) return;
+        persistSaved(this.spec.id, { chatW: this.chatW, topH: this.topH, leftW: this.leftW, paneWs: this.paneWs, topWs: this.topWs, leftWs: this.leftWs });
+      },
+      close() {
+        if (this.viewArea) {
+          this.viewArea.style.marginLeft = this.savedMarginLeft;
+          this.viewArea.style.marginRight = this.savedMarginRight;
+          this.viewArea.style.marginTop = this.savedMarginTop;
+        }
+        this.observer?.disconnect();
+        this.observer = null;
+        this.fallback?.disconnect();
+        this.fallback = null;
+        this.yieldObserver?.disconnect();
+        this.yieldObserver = null;
+        this.root = null;
+        this.header = null;
+        this.viewArea = null;
+        this.geom = null;
+        this.spec = null;
+        this.active = false;
+        this.notify();
+      },
+      subscribe(fn) {
+        this.listeners.add(fn);
+        return () => this.listeners.delete(fn);
+      },
+      notify() {
+        for (const fn of this.listeners) fn();
+      }
+    };
+    if (typeof document !== "undefined" && document.body) {
+      const taObserver = new MutationObserver(() => {
+        if (!splitStore.active) return;
+        if (document.querySelector(".ta_split")) splitStore.close();
+      });
+      taObserver.observe(document.body, { childList: true, subtree: true });
+    }
+    mdRenderer = new MarkdownItCallable({ linkify: true });
+    IMAGE_EXTS = /[.](png|jpe?g|gif|webp|svg|bmp|ico)$/i;
+    MD_EXTS = /[.](md|markdown|mdown)$/i;
+    CODE_LANGS = { ts: "typescript", tsx: "typescript", js: "javascript", jsx: "javascript", css: "css", json: "json" };
+    CODE_EXTS = /[.](tsx|ts|jsx|js|css|json)$/i;
+    try {
+      window.__dshWorktable = { splitStore };
+    } catch {
+    }
+  }
+});
 
-// src/client/index.tsx
-var import_jsx_runtime2 = require("react/jsx-runtime");
-var LOCAL_VERSION = false ? "dev" : "0.2.2";
-var UPDATE_REPO = "Aisland-SJL/dsh-worktable";
-var UPGRADE_CMD = 'dsh plugin --profile web add "https://github.com/Aisland-SJL/dsh-worktable/releases/latest/download/dsh-worktable.tgz"';
-var UPGRADE_AI = "\u5E2E\u6211\u5347\u7EA7 dsh-worktable\uFF1A\u6267\u884C " + UPGRADE_CMD + "\uFF0C\u5B8C\u6210\u540E\u63D0\u9192\u6211\u91CD\u542F dsh web \u5E76\u5237\u65B0\u9875\u9762";
-var ICON_SYNC = /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("svg", { viewBox: "0 0 16 16", "aria-hidden": true, children: [
-  /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("path", { fill: "none", stroke: "currentColor", strokeWidth: "1.6", strokeLinecap: "round", strokeLinejoin: "round", d: "M1.5 8a6.5 6.5 0 0 1 11.1-4.6L14.5 5" }),
-  /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("path", { fill: "none", stroke: "currentColor", strokeWidth: "1.6", strokeLinecap: "round", strokeLinejoin: "round", d: "M14.5 1.5V5h-3.5" }),
-  /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("path", { fill: "none", stroke: "currentColor", strokeWidth: "1.6", strokeLinecap: "round", strokeLinejoin: "round", d: "M14.5 8a6.5 6.5 0 0 1-11.1 4.6L1.5 11" }),
-  /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("path", { fill: "none", stroke: "currentColor", strokeWidth: "1.6", strokeLinecap: "round", strokeLinejoin: "round", d: "M1.5 14.5V11h3.5" })
-] });
-var ICON_SPARK = /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("svg", { viewBox: "0 0 16 16", "aria-hidden": true, children: [
-  /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("path", { d: "M8 1.6l1.5 3.9 3.9 1.5-3.9 1.5L8 12.4 6.5 8.5 2.6 7l3.9-1.5z", fill: "none", stroke: "currentColor", strokeWidth: "1.3", strokeLinejoin: "round" }),
-  /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("path", { d: "M12.6 11.2l.5 1.3 1.3.5-1.3.5-.5 1.3-.5-1.3-1.3-.5 1.3-.5z", fill: "currentColor" })
-] });
+// src/client/worktable.tsx
+var worktable_exports = {};
+__export(worktable_exports, {
+  WorktableSection: () => WorktableSection,
+  apply: () => apply,
+  createCustomSession: () => createCustomSession,
+  inject: () => inject,
+  sendCustomToSession: () => sendCustomToSession
+});
 function cmpVer(a, b) {
   const pa = a.split(".").map(Number);
   const pb = b.split(".").map(Number);
@@ -18321,34 +18490,6 @@ async function copyText(text2) {
   }
   return false;
 }
-var PERSIST_KEY2 = "dsh.worktable.view.v1";
-var PROJECTS_KEY = "dsh.worktable.projects.v1";
-var MIN_TOP = 56;
-var SNAP_PX = 32;
-var LEGACY_BUMP_COOLDOWN = 15e3;
-var OVER_BOTTOM_PX = 24;
-var OVER_TOP_PX = 24;
-var OVER_SIDE_PX = 80;
-var PRESET_DEFS = [
-  { id: "2h", leftCount: 0, topCount: 0, contentCount: 1, chatFull: false },
-  { id: "3h", leftCount: 0, topCount: 0, contentCount: 2, chatFull: false },
-  { id: "l2", leftCount: 0, topCount: 1, contentCount: 1, chatFull: true },
-  { id: "grid", leftCount: 0, topCount: 2, contentCount: 1, chatFull: false },
-  { id: "t3", leftCount: 0, topCount: 1, contentCount: 2, chatFull: true },
-  { id: "l13", leftCount: 0, topCount: 1, contentCount: 3, chatFull: true, topHeightDefault: 420, topHeightRatio: 0.55 },
-  { id: "g4", leftCount: 0, topCount: 2, contentCount: 2, chatFull: true, topHeightRatio: 0.5 },
-  { id: "l23", leftCount: 0, topCount: 2, contentCount: 3, chatFull: true, topHeightRatio: 0.5 }
-];
-var EMOJI_SET = ["\u{1F9F1}", "\u{1F3E0}", "\u{1F393}", "\u{1F697}", "\u2708\uFE0F", "\u{1F30D}", "\u{1F3E5}", "\u{1F4DA}", "\u270F\uFE0F", "\u2699\uFE0F", "\u{1F3A8}", "\u{1F3AE}", "\u{1F30F}", "\u{1F4D0}", "\u{1F9EA}", "\u{1F916}", "\u{1F4E6}", "\u{1F4AC}"];
-var ICON_SEARCH = /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("svg", { width: "14", height: "14", viewBox: "0 0 16 16", fill: "none", xmlns: "http://www.w3.org/2000/svg", children: [
-  /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("path", { d: "M11.894845 6.647401C11.894845 3.725463 9.534486 1.356779 6.623219 1.35657C3.711786 1.35657 1.351635 3.725338 1.351635 6.647401C1.351843 9.569296 3.711911 11.938273 6.623219 11.938273C9.534361 11.938064 11.894637 9.569171 11.894845 6.647401ZM13.245462 6.647401C13.245254 10.317935 10.280401 13.293613 6.623219 13.293821C2.965871 13.293821 0.000204 10.31806 0 6.647401C0 2.976574 2.965746 0 6.623219 0C10.280526 0.000205 13.245462 2.9767 13.245462 6.647401Z", fill: "currentColor" }),
-  /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("path", { d: "M16.000417 15.041079L15.044449 16.000433L11.530434 12.473588L12.486298 11.514234L16.000417 15.041079Z", fill: "currentColor" })
-] });
-var ICON_VIEW_OPTIONS = /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("svg", { width: "16", height: "16", viewBox: "0 0 16 16", fill: "none", children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("path", { transform: "translate(1.292 1.3)", d: "M10.3232 9.18164C11.2868 9.18164 12.0985 9.82833 12.3506 10.7109L13.415 10.7109L13.415 11.8711L12.3496 11.8711C12.0971 12.7532 11.2864 13.3994 10.3232 13.3994C9.36031 13.3992 8.55012 12.7531 8.29785 11.8711L0 11.8711L0 10.7109L8.29688 10.7109C8.54876 9.82845 9.35988 9.18186 10.3232 9.18164ZM10.3232 10.3418C9.7999 10.3421 9.37534 10.7667 9.375 11.29C9.375 11.8137 9.79969 12.239 10.3232 12.2393C10.847 12.2393 11.2725 11.8138 11.2725 11.29C11.2721 10.7666 10.8468 10.3418 10.3232 10.3418ZM12.4326 11.291C12.4326 11.3549 12.4284 11.418 12.4229 11.4805C12.4287 11.4181 12.4326 11.355 12.4326 11.291ZM8.21484 11.2832C8.21484 11.2856 8.21484 11.2886 8.21484 11.291L8.21484 11.29C8.21484 11.2878 8.21484 11.2855 8.21484 11.2832ZM3.08301 4.59082C4.04605 4.59095 4.85696 5.23717 5.10938 6.11914L13.415 6.11914L13.415 7.2793L5.11035 7.2793C4.85833 8.16202 4.04648 8.80846 3.08301 8.80859C2.11972 8.80843 1.30963 8.16179 1.05762 7.2793L0 7.2793L0 6.11914L1.05762 6.11914C1.30994 5.23728 2.12006 4.59098 3.08301 4.59082ZM3.08301 5.75098C2.55962 5.75117 2.13512 6.17587 2.13477 6.69922C2.13477 7.22287 2.5594 7.64824 3.08301 7.64844C3.60665 7.64828 4.03223 7.2229 4.03223 6.69922C4.03187 6.17585 3.60643 5.75113 3.08301 5.75098ZM5.19238 6.69922C5.19238 6.763 5.18816 6.82633 5.18262 6.88867C5.18846 6.82629 5.19238 6.76313 5.19238 6.69922C5.19236 6.63495 5.18853 6.57152 5.18262 6.50879C5.18826 6.57154 5.19236 6.635 5.19238 6.69922ZM0.982422 6.52344C0.977382 6.58136 0.97463 6.63999 0.974609 6.69922C0.974609 6.75775 0.977496 6.81579 0.982422 6.87305C0.977758 6.81579 0.974609 6.75767 0.974609 6.69922C0.974628 6.64 0.977618 6.58142 0.982422 6.52344ZM10.3232 0C11.2869 0 12.0986 0.646596 12.3506 1.5293L13.415 1.5293L13.415 2.68945L12.3496 2.68945C12.363 2.64266 12.3754 2.59488 12.3857 2.54688C12.1838 3.50118 11.3376 4.21777 10.3232 4.21777C9.36037 4.21756 8.55018 3.57139 8.29785 2.68945L0 2.68945L0 1.5293L8.29688 1.5293C8.5487 0.646717 9.35981 0.00021854 10.3232 0ZM10.3232 1.16016C9.79984 1.16042 9.37524 1.58499 9.375 2.1084C9.375 2.63201 9.79969 3.05735 10.3232 3.05762C10.847 3.05762 11.2725 2.63217 11.2725 2.1084C11.2722 1.58483 10.8469 1.16016 10.3232 1.16016ZM12.4229 2.29883C12.4287 2.23641 12.4326 2.17331 12.4326 2.10938C12.4326 2.17327 12.4284 2.23638 12.4229 2.29883ZM8.21484 2.10938L8.21484 2.1084L8.21484 2.10938ZM8.22266 1.93359C8.21785 1.98897 8.21506 2.04499 8.21484 2.10156C8.21503 2.04501 8.2181 1.98902 8.22266 1.93359ZM8.22266 11.1162C8.2179 11.1713 8.21507 11.227 8.21484 11.2832C8.21504 11.227 8.21814 11.1713 8.22266 11.1162Z", fill: "currentColor" }) });
-var ICON_ADD = /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("svg", { width: "16", height: "16", viewBox: "0 0 16 16", fill: "none", children: [
-  /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("path", { transform: "translate(9.52 2.52)", d: "M3.55246 0L3.55246 2.44252L6 2.44252L6 3.55748L3.55246 3.55748L3.55246 6L2.43834 6L2.43834 3.55748L0 3.55748L0 2.44252L2.43834 2.44252L2.43834 0L3.55246 0Z", fill: "currentColor" }),
-  /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("path", { transform: "translate(0.3496 2.35)", d: "M4.76367 0C5.36861 1.80598e-05 5.93113 0.310294 6.25488 0.821289L6.78027 1.64941C6.79685 1.67558 6.81791 1.69775 6.83887 1.71973C6.72186 2.15521 6.65702 2.61192 6.65137 3.08301C6.25601 2.96045 5.90909 2.70478 5.68164 2.3457L5.15723 1.5166C5.07183 1.38189 4.92318 1.3008 4.76367 1.30078L2.32422 1.30078C1.7589 1.30078 1.30078 1.7589 1.30078 2.32422L1.30078 10.1338C1.30078 10.6991 1.7589 11.1572 2.32422 11.1572L11.9766 11.1572C12.5419 11.1572 13 10.6991 13 10.1338L13 8.58398C13.4545 8.5135 13.8903 8.38748 14.3008 8.21289L14.3008 10.1338C14.3008 11.4171 13.2598 12.458 11.9766 12.458L2.32422 12.458C1.04093 12.458 0 11.4171 0 10.1338L0 2.32422C0 1.04093 1.04093 0 2.32422 0L4.76367 0Z", fill: "currentColor" })
-] });
 function buildLayout(presetId, name) {
   const def = PRESET_DEFS.find((d) => d.id === presetId) ?? PRESET_DEFS[0];
   const mk = (i) => ({
@@ -18465,26 +18606,6 @@ function presetThumb(defId) {
     /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "dsh-wt_thumbCol", children: cell(true, "d") })
   ] });
 }
-var DEFAULT_VIEW = {
-  query: "",
-  searchOpen: false,
-  orderBy: "manual",
-  dock: "footer",
-  floatTop: null
-};
-var DEFAULT_PROJECTS = {
-  order: [],
-  lastUsed: {},
-  hidden: [],
-  nameOverrides: {},
-  iconOverrides: {},
-  removed: [],
-  views: {},
-  shortcuts: [],
-  layouts: [],
-  bindings: {},
-  folders: {}
-};
 function loadView() {
   try {
     const raw = localStorage.getItem(PERSIST_KEY2);
@@ -18525,7 +18646,6 @@ function loadProjects() {
     return { ...DEFAULT_PROJECTS };
   }
 }
-var clamp2 = (v, lo, hi) => Math.min(Math.max(v, lo), hi);
 function findSidebar(start) {
   let el = start;
   while (el && el !== document.body) {
@@ -18536,9 +18656,6 @@ function findSidebar(start) {
   }
   return null;
 }
-var registryStore = { ids: [], listeners: /* @__PURE__ */ new Set() };
-var sessionBridge = null;
-var hostApi = null;
 async function ensureSessionPreset(sessionId) {
   const api = hostApi?.agentPresets;
   if (!api || typeof api.list !== "function" || typeof api.select !== "function") return;
@@ -18657,8 +18774,6 @@ async function ensureSessionModel(sessionId) {
   } catch {
   }
 }
-var CONSOLE_ID = "wt-console";
-var CONSOLE_ICON = "\u{1F5A5}\uFE0F";
 function specHasConsoleTab(spec) {
   return !!spec?.main?.[0]?.tabs?.some((t) => t.content?.kind === "builtin" && t.content.type === "console");
 }
@@ -18680,13 +18795,6 @@ function buildConsoleSpec(t) {
     chatSide: "right"
   };
 }
-var consoleListeners = /* @__PURE__ */ new Set();
-var notifyConsole = () => consoleListeners.forEach((l) => {
-  try {
-    l();
-  } catch {
-  }
-});
 function listWorkspaces() {
   try {
     const snap = sessionBridge?.workspaces?.list?.getSnapshot?.();
@@ -18709,10 +18817,6 @@ function cleanPreviewText(raw) {
   s = s.replace(/\s+/g, " ").trim();
   return s;
 }
-var previewCache = /* @__PURE__ */ new Map();
-var previewFetching = /* @__PURE__ */ new Set();
-var previewSweepBusy = false;
-var previewTimer = null;
 async function coldPreviewOf(face) {
   if (!face || typeof face.history !== "function") return "";
   const r1 = await face.history({ maxMessages: 6 });
@@ -18848,7 +18952,6 @@ async function fetchSessionGroups() {
     return { groups: [], current: "" };
   }
 }
-var bindTipEl = null;
 function showBindTip(btn) {
   const tip = btn.getAttribute("data-tip");
   if (!tip) return;
@@ -18908,21 +19011,6 @@ async function promptIntoSession(sessionId, text2) {
   }
   throw new Error("no send path: session face unavailable");
 }
-var KNOWLEDGE_PACK = [
-  "\u3010\u63D2\u4EF6\u77E5\u8BC6\u5305\xB7\u8BF7\u76F4\u63A5\u91C7\u7528\uFF0C\u4E0D\u8981\u91CD\u65B0\u4FA6\u5BDF\u63D2\u4EF6\u6E90\u7801\u3011",
-  "- dsh-worktable \u662F DeepSeek Harness \u7684\u81EA\u5EFA\u5BB9\u5668\u63D2\u4EF6\uFF08\u5DE5\u4F5C\u53F0\uFF1A\u4FA7\u8FB9\u680F\u91CC\u7684\u9879\u76EE\u5E94\u7528\u62BD\u5C49\uFF1B\u4E0D\u4E86\u89E3\u7684\u7EC6\u8282\u53EF\u76F4\u63A5\u5411\u7528\u6237\u63D0\u95EE\uFF09\u3002",
-  "- \u7A97\u53E3\uFF08\u5185\u5BB9\u7A97\uFF09\u6A21\u578B\uFF1A\u6BCF\u4E2A\u7A97 = \u4E00\u4E2A\u6807\u7B7E\u9875\uFF1B\u672A\u6307\u6D3E\u65F6\u663E\u793A\u9009\u62E9\u5668\uFF08\u6D4F\u89C8\u5668/\u52A8\u753B/\u8D44\u6E90\u7BA1\u7406\u5668/\u7EC8\u7AEF/\u2728\u81EA\u5B9A\u4E49\uFF09\uFF1B",
-  "  \u7A97\u5185\u5BB9\u8FD8\u53EF\u653E iframe \u7F51\u9875\u4E0E\u6587\u4EF6\u9884\u89C8\uFF08.md/.txt/.tsx/.css/.html \u7B49\uFF09\u3002",
-  "- \u7A97\u53E3\u53EF\u88C5\u8F7D\u7684\u5F62\u5F0F\uFF1AHTML \u5355\u6587\u4EF6\uFF08\u4EA4\u4E92 UI\uFF0C\u653E\u9879\u76EE\u6587\u4EF6\u5939\u540E\u5728\u8D44\u6E90\u7BA1\u7406\u5668\u70B9\u51FB\u6E32\u67D3\uFF09\u3001\u7F51\u9875 URL\u3001",
-  "  \u6587\u4EF6\u9884\u89C8\uFF08.md/.txt/.tsx/.css/.html/\u56FE\u7247/.mp4 \u7B49\uFF09\uFF1B\u4EA7\u51FA\u5F62\u5F0F\u6309\u4EFB\u52A1\u7C7B\u578B\u9009\uFF0C\u4E0D\u8981\u4E00\u5F8B HTML\u3002",
-  '- \u4EA7\u51FA HTML \u5FC5\u987B\u7528\u5DE5\u4F5C\u53F0\u539F\u751F\u76AE\u80A4\uFF1A\u5728\u9875\u9762 <head> \u52A0 <link rel="stylesheet" href="/api/worktable/template/dshell.css">\uFF0C',
-  "  \u7EC4\u4EF6\u7C7B\u53C2\u8003 /api/worktable/template/dshell.html\uFF08\u5361\u7247/\u6309\u94AE/\u72B6\u6001\u5FBD\u6807/\u6807\u7B7E\u9875/\u5217\u8868/\u7EDF\u8BA1/\u8FDB\u5EA6/\u8868\u683C\u7B49\uFF09\uFF0C",
-  "  \u754C\u9762\u5373\u53EF\u4E0E DSH \u539F\u751F\u98CE\u683C\u4E00\u81F4\uFF1B\u81EA\u9020\u6837\u5F0F\u63A7\u5236\u5728\u6700\u5C0F\u8303\u56F4\u3002",
-  "- \u670D\u52A1\u7AEF\u80FD\u529B\uFF1A/api/worktable/fs\uFF08\u5217\u76EE\u5F55\uFF09\u3001/api/worktable/write\uFF08\u5199\u6587\u4EF6\uFF09\u3001/api/worktable/mkdir\uFF08\u5EFA\u76EE\u5F55\uFF09\u3001",
-  "  /api/worktable/git\uFF08git \u72B6\u6001\uFF09\u3001/api/worktable/site\uFF08\u9759\u6001\u6258\u7BA1\uFF09\u3002",
-  "- \u6539\u5B8C\u63D2\u4EF6\u5728 01_content \u76EE\u5F55\u6267\u884C npm run build\uFF1B\u91CD\u542F dsh web \u6216\u6D4F\u89C8\u5668 F5 \u751F\u6548\u3002",
-  "- \u6240\u6709\u4EA7\u51FA\u6587\u4EF6\u4E00\u5F8B\u653E\u8FDB\u672C\u4EFB\u52A1\u6807\u6CE8\u7684\u9879\u76EE\u6587\u4EF6\u5939\uFF0C\u4FDD\u6301\u7528\u6237\u76EE\u5F55\u5E72\u51C0\u3002"
-].join("\n");
 function buildWindowTaskText(projectId, projectName, windowLabel, requirement, folder, mode) {
   const win = windowLabel || "\u4E00\u4E2A\u5185\u5BB9\u7A97";
   const folderLine = folder ? "\u9879\u76EE\u6587\u4EF6\u5939\uFF1A" + folder + "\uFF08\u672C\u9879\u76EE\u6240\u6709\u4EA7\u51FA\u6587\u4EF6\u4E00\u5F8B\u653E\u8FDB\u8FD9\u4E2A\u6587\u4EF6\u5939\uFF1B\u4E0D\u8981\u5199\u5230\u522B\u7684\u9ED8\u8BA4\u4F4D\u7F6E\uFF09\u3002" : "\u672C\u9879\u76EE\u6682\u672A\u8BBE\u7F6E\u4E13\u5C5E\u6587\u4EF6\u5939\uFF1A\u4EA7\u51FA\u6587\u4EF6\u5148\u5411\u7528\u6237\u786E\u8BA4\u5B58\u653E\u4F4D\u7F6E\uFF0C\u4E0D\u8981\u968F\u4FBF\u5199\u3002";
@@ -18997,10 +19085,6 @@ async function sendCustomToSession(sessionId, projectId, projectName, requiremen
   }
   await promptIntoSession(sessionId, text2);
 }
-var projectAttachRef = { sessionId: null, attached: null };
-var suppressRestoreRef = { current: false };
-var projectBindingsRef = { current: {} };
-var pluginOpenedSessionsRef = { current: /* @__PURE__ */ new Set() };
 function markPluginSessionOpen(sessionId) {
   if (sessionId) {
     const s = pluginOpenedSessionsRef.current;
@@ -19008,9 +19092,6 @@ function markPluginSessionOpen(sessionId) {
     s.add(sessionId);
   }
 }
-var lastSessionScopeId = "";
-var sessionScopeStore = { snapshot: null };
-var sessionsSnapshotStore = { snapshot: null, listeners: /* @__PURE__ */ new Set() };
 function loadNotifyAck() {
   try {
     const raw = localStorage.getItem("dsh.worktable.notifyAck.v1");
@@ -19028,21 +19109,6 @@ function saveNotifyAck(sid, state) {
   } catch {
   }
 }
-var mountConsumedRef = { current: /* @__PURE__ */ new Set() };
-var pendingMountRef = { current: (() => {
-  try {
-    return JSON.parse(localStorage.getItem("dsh.worktable.pendingMount.v1") ?? "{}") ?? {};
-  } catch {
-    return {};
-  }
-})() };
-var mountedWidgetRef = { current: (() => {
-  try {
-    return JSON.parse(localStorage.getItem("dsh.worktable.mountedWidget.v1") ?? "{}") ?? {};
-  } catch {
-    return {};
-  }
-})() };
 function recordMountedWidget(projectId, raw) {
   if (!projectId || !raw) return;
   mountedWidgetRef.current[projectId] = raw;
@@ -19084,7 +19150,6 @@ function buildMountContent(folder, d) {
   const name = basenameOf(full);
   return { kind: "iframe", url: "/api/worktable/site/" + encodeURIComponent(dir) + "/" + encodeURIComponent(name), title: name };
 }
-var notifyStateSeenRef = { current: {} };
 function clearNotifyAck(sid) {
   try {
     const all = loadNotifyAck();
@@ -19283,6 +19348,11 @@ function WorktableSection(props) {
   const [wsError, setWsError] = (0, import_react2.useState)(false);
   const [wsFolderParent, setWsFolderParent] = (0, import_react2.useState)("");
   const [wsFolderError, setWsFolderError] = (0, import_react2.useState)(false);
+  const [folderPickBusy, setFolderPickBusy] = (0, import_react2.useState)(false);
+  const [folderPickError, setFolderPickError] = (0, import_react2.useState)("");
+  const [folderBrowser, setFolderBrowser] = (0, import_react2.useState)(null);
+  const folderBrowserApplyRef = (0, import_react2.useRef)(null);
+  const folderBrowserRequestRef = (0, import_react2.useRef)(0);
   const [iconPick, setIconPick] = (0, import_react2.useState)(null);
   const [bindPick, setBindPick] = (0, import_react2.useState)(null);
   const [bindGroups, setBindGroups] = (0, import_react2.useState)([]);
@@ -19417,9 +19487,15 @@ function WorktableSection(props) {
     }
     return cards;
   };
+  const defaultLayoutName = () => {
+    const index = String(projects.layouts.length + 1);
+    return t("add.defaultName", { index }).replace("{index}", index);
+  };
   const openAddPanel = () => {
     setAddOpen(true);
     setViewOptionsOpen(false);
+    setFolderPickError("");
+    setWsName((current) => current.trim() ? current : defaultLayoutName());
     if (!wsFolderParent) {
       const cwd = sessionScopeStore.snapshot?.cwd ?? "";
       if (cwd) setWsFolderParent(cwd);
@@ -19883,14 +19959,91 @@ function WorktableSection(props) {
     setBindGroups([]);
     fetchSessionGroups().then((res) => setBindGroups(res.groups)).catch(() => setBindGroups([]));
   }, []);
-  const pickFolder = async (apply2) => {
+  const loadFolderBrowser = async (requestedPath) => {
+    const path = requestedPath?.trim() ?? "";
+    const requestId = ++folderBrowserRequestRef.current;
+    setFolderBrowser((previous) => ({
+      path: path || previous?.path || "",
+      entries: previous?.entries ?? [],
+      truncated: previous?.truncated ?? false,
+      loading: true,
+      error: ""
+    }));
     try {
-      const ws = sessionBridge?.workspaces;
-      if (ws && typeof ws.pickDirectory === "function") {
-        const p = await ws.pickDirectory();
-        if (p && typeof p === "string") apply2(p);
-      }
+      const response = await fetch("/api/worktable/fs", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(path ? { path } : {})
+      });
+      const payload = await response.json().catch(() => null);
+      if (!response.ok || typeof payload?.path !== "string" || !payload.path) throw new Error("directory listing unavailable");
+      if (requestId !== folderBrowserRequestRef.current) return;
+      const entries = Array.isArray(payload.entries) ? payload.entries.filter((entry) => entry && typeof entry.name === "string" && typeof entry.path === "string" && entry.isDir === true) : [];
+      setFolderBrowser({
+        path: payload.path,
+        entries,
+        truncated: payload.truncated === true,
+        loading: false,
+        error: ""
+      });
     } catch {
+      if (requestId !== folderBrowserRequestRef.current) return;
+      setFolderBrowser((previous) => ({
+        path: path || previous?.path || "",
+        entries: previous?.entries ?? [],
+        truncated: previous?.truncated ?? false,
+        loading: false,
+        error: t("add.folderBrowserFail")
+      }));
+    }
+  };
+  const closeFolderBrowser = () => {
+    folderBrowserRequestRef.current += 1;
+    folderBrowserApplyRef.current = null;
+    setFolderBrowser(null);
+  };
+  const openFolderBrowser = (apply3) => {
+    folderBrowserApplyRef.current = (path) => {
+      apply3(path);
+      setFolderPickError("");
+    };
+    const initialPath = wsFolderParent.trim() || sessionScopeStore.snapshot?.cwd?.trim() || "";
+    void loadFolderBrowser(initialPath);
+  };
+  const chooseFolderBrowserPath = () => {
+    const path = folderBrowser?.path.trim();
+    if (!path) return;
+    folderBrowserApplyRef.current?.(path);
+    closeFolderBrowser();
+  };
+  const pickFolder = async (apply3) => {
+    if (folderPickBusy) return;
+    setFolderPickBusy(true);
+    setFolderPickError("");
+    try {
+      const tries = [];
+      const workspaces = sessionBridge?.workspaces;
+      if (workspaces && typeof workspaces.pickDirectory === "function") {
+        tries.push(() => workspaces.pickDirectory());
+      }
+      const host = hostApi?.host;
+      if (host && typeof host.pickDirectory === "function") {
+        tries.push(() => host.pickDirectory({}));
+      }
+      for (const run of tries) {
+        try {
+          const value = await run();
+          const path = typeof value === "string" ? value : typeof value?.path === "string" ? value.path : typeof value?.result?.value === "string" ? value.result.value : typeof value?.result?.value?.path === "string" ? value.result.value.path : typeof value?.result?.value?.folder === "string" ? value.result.value.folder : "";
+          if (path) {
+            apply3(path);
+            return;
+          }
+        } catch {
+        }
+      }
+      openFolderBrowser(apply3);
+    } finally {
+      setFolderPickBusy(false);
     }
   };
   const changeBindFolder = () => {
@@ -20243,7 +20396,7 @@ function WorktableSection(props) {
     persistProjects((prev) => ({ ...prev, shortcuts: prev.shortcuts.filter((s) => s.id !== id) }));
   };
   const saveLayout = async () => {
-    const name = wsName.trim();
+    const name = wsName.trim() || defaultLayoutName() || `\u5DE5\u4F5C\u53F0 ${projects.layouts.length + 1}`;
     if (!name) {
       setWsError(true);
       return;
@@ -20530,21 +20683,18 @@ function WorktableSection(props) {
   const sectionTop = rootRef.current?.getBoundingClientRect().top ?? 100;
   const popLeft = sidebarRight != null ? Math.min(sidebarRight + 8, Math.max(16, window.innerWidth - 344)) : 16;
   const popTop = clamp2(sectionTop, MIN_TOP, Math.max(MIN_TOP, window.innerHeight - 540));
-  const POP_BOTTOM_MARGIN = 12;
+  const settingsTriggerRef = (0, import_react2.useRef)(null);
   const settingsRef = (0, import_react2.useRef)(null);
-  const [settingsTop, setSettingsTop] = (0, import_react2.useState)(null);
-  (0, import_react2.useLayoutEffect)(() => {
-    const recalc = () => {
-      if (!viewOptionsOpen || !settingsRef.current) return;
-      const h = settingsRef.current.offsetHeight;
-      const rawTop = Math.max(MIN_TOP, sectionTop);
-      const maxTop = Math.max(MIN_TOP, window.innerHeight - h - POP_BOTTOM_MARGIN);
-      setSettingsTop(Math.min(rawTop, maxTop));
+  (0, import_react2.useEffect)(() => {
+    if (!viewOptionsOpen) return;
+    const onPointerDown = (event) => {
+      const target = event.target;
+      if (!target || settingsRef.current?.contains(target) || settingsTriggerRef.current?.contains(target)) return;
+      setViewOptionsOpen(false);
     };
-    recalc();
-    window.addEventListener("resize", recalc);
-    return () => window.removeEventListener("resize", recalc);
-  }, [viewOptionsOpen, updateInfo, sectionTop]);
+    document.addEventListener("pointerdown", onPointerDown, true);
+    return () => document.removeEventListener("pointerdown", onPointerDown, true);
+  }, [viewOptionsOpen]);
   const openRailProject = (id) => {
     const pr = projectsRef.current.projects;
     const layout = pr.layouts.find((l) => l.id === id);
@@ -20649,6 +20799,7 @@ function WorktableSection(props) {
           "button",
           {
             type: "button",
+            ref: settingsTriggerRef,
             className: "dsh-wt_iconBtn",
             "aria-label": t("menu.viewOptions"),
             title: t("menu.viewOptions"),
@@ -20667,12 +20818,8 @@ function WorktableSection(props) {
             "aria-label": t("menu.add"),
             title: t("menu.add"),
             onClick: () => {
-              setAddOpen((v) => !v);
-              setViewOptionsOpen(false);
-              if (!wsFolderParent) {
-                const cwd = sessionScopeStore.snapshot?.cwd ?? "";
-                if (cwd) setWsFolderParent(cwd);
-              }
+              if (addOpen) setAddOpen(false);
+              else openAddPanel();
             },
             children: ICON_ADD
           }
@@ -20752,19 +20899,92 @@ function WorktableSection(props) {
         ),
         /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "dsh-wt_addFolderRow", children: [
           /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "dsh-wt_customLabel", children: t("add.folderParent") }),
-          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "dsh-wt_addFolderPath" + (wsFolderParent ? "" : " dsh-wt_addFolderPathNone"), title: wsFolderParent || "", children: wsFolderParent || t("add.folderNone") }),
-          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("button", { type: "button", className: "dsh-wt_bindFolderChange", onClick: () => {
-            pickFolder((p) => {
-              setWsFolderParent(p);
-              setWsFolderError(false);
-            });
-            setWsError(false);
-          }, children: t("add.folderPick") })
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+            "input",
+            {
+              type: "text",
+              className: "dsh-wt_addFolderPath",
+              "aria-label": t("add.folderParent"),
+              placeholder: t("add.folderNone"),
+              value: wsFolderParent,
+              onChange: (e) => {
+                setWsFolderParent(e.target.value);
+                setWsFolderError(false);
+                setFolderPickError("");
+              }
+            }
+          ),
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+            "button",
+            {
+              type: "button",
+              className: "dsh-wt_bindFolderChange",
+              disabled: folderPickBusy,
+              "aria-busy": folderPickBusy || void 0,
+              onClick: () => {
+                void pickFolder((p) => {
+                  setWsFolderParent(p);
+                  setWsFolderError(false);
+                });
+                setWsError(false);
+              },
+              children: folderPickBusy ? t("add.folderPicking") : t("add.folderPick")
+            }
+          )
         ] }),
         /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("button", { type: "button", className: "dsh-wt_addBtn", onClick: saveLayout, children: t("add.layoutSave") })
       ] }),
       wsError && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("p", { className: "dsh-wt_addError", children: t("add.layoutInvalid") }),
-      wsFolderError && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("p", { className: "dsh-wt_addError", children: t("add.folderRequired") })
+      wsFolderError && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("p", { className: "dsh-wt_addError", children: t("add.folderRequired") }),
+      folderPickError && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("p", { className: "dsh-wt_addError", role: "alert", children: folderPickError })
+    ] }),
+    folderBrowser && /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(import_jsx_runtime2.Fragment, { children: [
+      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: "dsh-wt_popBackdrop", style: { zIndex: 88 }, onClick: closeFolderBrowser }),
+      /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "dsh-wt_folderBrowser", role: "dialog", "aria-modal": "true", "aria-label": t("add.folderBrowserTitle"), children: [
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "dsh-wt_folderBrowserHead", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { children: t("add.folderBrowserTitle") }),
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("button", { type: "button", className: "dsh-wt_settingsClose", "aria-label": t("add.folderBrowserCancel"), onClick: closeFolderBrowser, children: "\xD7" })
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "dsh-wt_folderBrowserPathRow", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+            "input",
+            {
+              type: "text",
+              "aria-label": t("add.folderBrowserPath"),
+              value: folderBrowser.path,
+              onChange: (event) => setFolderBrowser((current) => current ? { ...current, path: event.target.value, error: "" } : current),
+              onKeyDown: (event) => {
+                if (event.key === "Enter") void loadFolderBrowser(folderBrowser.path);
+              }
+            }
+          ),
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("button", { type: "button", disabled: folderBrowser.loading, onClick: () => void loadFolderBrowser(folderBrowser.path), children: t("add.folderBrowserRefresh") })
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "dsh-wt_folderBrowserNav", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(
+            "button",
+            {
+              type: "button",
+              disabled: folderBrowser.loading || !folderBrowser.path || parentPathOf(folderBrowser.path) === folderBrowser.path,
+              onClick: () => void loadFolderBrowser(parentPathOf(folderBrowser.path)),
+              children: [
+                "\u2190 ",
+                t("add.folderBrowserUp")
+              ]
+            }
+          ),
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { title: folderBrowser.path, children: folderBrowser.path || "\u2026" })
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: "dsh-wt_folderBrowserList", "aria-busy": folderBrowser.loading || void 0, children: folderBrowser.loading ? /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("p", { children: t("add.folderPicking") }) : folderBrowser.error ? /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("p", { className: "dsh-wt_addError", role: "alert", children: folderBrowser.error }) : folderBrowser.entries.length === 0 ? /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("p", { children: t("add.folderBrowserEmpty") }) : folderBrowser.entries.map((entry) => /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("button", { type: "button", title: entry.path, onClick: () => void loadFolderBrowser(entry.path), children: [
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { "aria-hidden": true, children: "\u{1F4C1}" }),
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { children: entry.name })
+        ] }, entry.path)) }),
+        folderBrowser.truncated && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("p", { className: "dsh-wt_folderBrowserHint", children: t("add.folderBrowserTruncated") }),
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "dsh-wt_folderBrowserActions", children: [
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("button", { type: "button", onClick: closeFolderBrowser, children: t("add.folderBrowserCancel") }),
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("button", { type: "button", className: "dsh-wt_addBtn", disabled: !folderBrowser.path || folderBrowser.loading, onClick: chooseFolderBrowserPath, children: t("add.folderBrowserSelect") })
+        ] })
+      ] })
     ] }),
     iconPick && /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(import_jsx_runtime2.Fragment, { children: [
       /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: "dsh-wt_popBackdrop", onClick: () => setIconPick(null) }),
@@ -20791,8 +21011,7 @@ function WorktableSection(props) {
         }) })
       ] })
     ] }),
-    viewOptionsOpen && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: "dsh-wt_popBackdrop", onClick: () => setViewOptionsOpen(false) }),
-    viewOptionsOpen && /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { ref: settingsRef, className: "dsh-wt_manage dsh-wt_pop dsh-wt_settings", style: { position: "fixed", left: popLeft, top: settingsTop ?? popTop, width: 280, zIndex: 80 }, children: [
+    viewOptionsOpen && /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { ref: settingsRef, className: "dsh-wt_manage dsh-wt_settings dsh-wt_settingsInline", children: [
       /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
         "button",
         {
@@ -21010,12 +21229,13 @@ function WorktableSection(props) {
             "\u{1F4C1} ",
             t("bind.folder")
           ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("button", { type: "button", className: "dsh-wt_bindFolderChange", onClick: changeBindFolder, children: [
-            t("bind.folderChange"),
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("button", { type: "button", className: "dsh-wt_bindFolderChange", disabled: folderPickBusy, "aria-busy": folderPickBusy || void 0, onClick: () => void changeBindFolder(), children: [
+            folderPickBusy ? t("add.folderPicking") : t("bind.folderChange"),
             " \u21BB"
           ] })
         ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: "dsh-wt_bindFolderPath" + (projects.folders[bindPick.id] ? "" : " dsh-wt_bindFolderPathNone"), title: projects.folders[bindPick.id] ?? "", children: projects.folders[bindPick.id] ?? t("bind.folderNone") })
+        /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: "dsh-wt_bindFolderPath" + (projects.folders[bindPick.id] ? "" : " dsh-wt_bindFolderPathNone"), title: projects.folders[bindPick.id] ?? "", children: projects.folders[bindPick.id] ?? t("bind.folderNone") }),
+        folderPickError && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("p", { className: "dsh-wt_bindFolderError", role: "alert", children: folderPickError })
       ] }),
       /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "dsh-wt_bindFolderBox", children: [
         /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: "dsh-wt_bindFolderRow", children: [
@@ -21038,7 +21258,7 @@ function WorktableSection(props) {
             ] }) });
           }
           const info = bindInfoOf(bindGroups, sid);
-          return /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("button", { type: "button", className: "dsh-wt_bindConvRow", title: t("bind.tipBound", { name: info.title }), onClick: () => setBindListOpen((v) => !v), children: [
+          return /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("button", { type: "button", className: "dsh-wt_bindConvRow", "aria-label": t("bind.tipBound", { name: info.title }), onClick: () => setBindListOpen((v) => !v), children: [
             /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("span", { className: "dsh-wt_bindFolder", title: info.folder, children: [
               "\u{1F4C2} ",
               info.folder
@@ -21172,7 +21392,6 @@ function WorktableSection(props) {
           className: "dsh-wt_layout dsh-wt_consoleEntry",
           "data-on": activeSplitId === CONSOLE_ID ? "true" : "false",
           style: { order: 0, position: "relative" },
-          title: t("console.name"),
           onClick: (e) => clickConsoleCard(e.currentTarget),
           children: [
             /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: "dsh-wt_layoutIcon", children: CONSOLE_ICON }),
@@ -21184,7 +21403,6 @@ function WorktableSection(props) {
                 role: "button",
                 tabIndex: 0,
                 "data-bound": bindNotifyMap[CONSOLE_ID] ?? (projects.bindings[CONSOLE_ID] ? "true" : "false"),
-                "data-tip": projects.bindings[CONSOLE_ID] ? t("bind.tipBound", { name: boundSessionTitle(projects.bindings[CONSOLE_ID]) }) : t("bind.tipUnbound"),
                 "aria-label": projects.bindings[CONSOLE_ID] ? t("bind.tipBound", { name: boundSessionTitle(projects.bindings[CONSOLE_ID]) }) : t("bind.tipUnbound"),
                 onClick: (e) => {
                   e.stopPropagation();
@@ -21279,7 +21497,6 @@ function WorktableSection(props) {
     )) })
   ] });
 }
-var inject = ["slots", "locale", "sessions", "conversation", "workspaces"];
 function apply(ctx) {
   sessionBridge = { sessions: ctx.sessions ?? null, conversation: ctx.conversation ?? null, list: ctx.sessions?.list ?? null, workspaces: ctx.workspaces ?? null };
   try {
@@ -21373,6 +21590,290 @@ function apply(ctx) {
       }
     }
   }, WorktableSection), "dsh-worktable: worktable section");
+}
+var import_react2, import_jsx_runtime2, LOCAL_VERSION, UPDATE_REPO, UPGRADE_CMD, UPGRADE_AI, ICON_SYNC, ICON_SPARK, PERSIST_KEY2, PROJECTS_KEY, MIN_TOP, SNAP_PX, LEGACY_BUMP_COOLDOWN, OVER_BOTTOM_PX, OVER_TOP_PX, OVER_SIDE_PX, PRESET_DEFS, EMOJI_SET, ICON_SEARCH, ICON_VIEW_OPTIONS, ICON_ADD, DEFAULT_VIEW, DEFAULT_PROJECTS, clamp2, registryStore, sessionBridge, hostApi, CONSOLE_ID, CONSOLE_ICON, consoleListeners, notifyConsole, previewCache, previewFetching, previewSweepBusy, previewTimer, bindTipEl, KNOWLEDGE_PACK, projectAttachRef, suppressRestoreRef, projectBindingsRef, pluginOpenedSessionsRef, lastSessionScopeId, sessionScopeStore, sessionsSnapshotStore, mountConsumedRef, pendingMountRef, mountedWidgetRef, notifyStateSeenRef, inject;
+var init_worktable = __esm({
+  "src/client/worktable.tsx"() {
+    import_react2 = require("react");
+    init_styles();
+    init_locales();
+    init_pathutil();
+    init_split();
+    import_jsx_runtime2 = require("react/jsx-runtime");
+    LOCAL_VERSION = false ? "dev" : "0.2.4";
+    UPDATE_REPO = "Aisland-SJL/dsh-worktable";
+    UPGRADE_CMD = 'dsh plugin --profile web add "https://github.com/Aisland-SJL/dsh-worktable/releases/latest/download/dsh-worktable.tgz"';
+    UPGRADE_AI = "\u5E2E\u6211\u5347\u7EA7 dsh-worktable\uFF1A\u6267\u884C " + UPGRADE_CMD + "\uFF0C\u5B8C\u6210\u540E\u63D0\u9192\u6211\u91CD\u542F dsh web \u5E76\u5237\u65B0\u9875\u9762";
+    ICON_SYNC = /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("svg", { viewBox: "0 0 16 16", "aria-hidden": true, children: [
+      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("path", { fill: "none", stroke: "currentColor", strokeWidth: "1.6", strokeLinecap: "round", strokeLinejoin: "round", d: "M1.5 8a6.5 6.5 0 0 1 11.1-4.6L14.5 5" }),
+      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("path", { fill: "none", stroke: "currentColor", strokeWidth: "1.6", strokeLinecap: "round", strokeLinejoin: "round", d: "M14.5 1.5V5h-3.5" }),
+      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("path", { fill: "none", stroke: "currentColor", strokeWidth: "1.6", strokeLinecap: "round", strokeLinejoin: "round", d: "M14.5 8a6.5 6.5 0 0 1-11.1 4.6L1.5 11" }),
+      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("path", { fill: "none", stroke: "currentColor", strokeWidth: "1.6", strokeLinecap: "round", strokeLinejoin: "round", d: "M1.5 14.5V11h3.5" })
+    ] });
+    ICON_SPARK = /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("svg", { viewBox: "0 0 16 16", "aria-hidden": true, children: [
+      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("path", { d: "M8 1.6l1.5 3.9 3.9 1.5-3.9 1.5L8 12.4 6.5 8.5 2.6 7l3.9-1.5z", fill: "none", stroke: "currentColor", strokeWidth: "1.3", strokeLinejoin: "round" }),
+      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("path", { d: "M12.6 11.2l.5 1.3 1.3.5-1.3.5-.5 1.3-.5-1.3-1.3-.5 1.3-.5z", fill: "currentColor" })
+    ] });
+    PERSIST_KEY2 = "dsh.worktable.view.v1";
+    PROJECTS_KEY = "dsh.worktable.projects.v1";
+    MIN_TOP = 56;
+    SNAP_PX = 32;
+    LEGACY_BUMP_COOLDOWN = 15e3;
+    OVER_BOTTOM_PX = 24;
+    OVER_TOP_PX = 24;
+    OVER_SIDE_PX = 80;
+    PRESET_DEFS = [
+      { id: "2h", leftCount: 0, topCount: 0, contentCount: 1, chatFull: false },
+      { id: "3h", leftCount: 0, topCount: 0, contentCount: 2, chatFull: false },
+      { id: "l2", leftCount: 0, topCount: 1, contentCount: 1, chatFull: true },
+      { id: "grid", leftCount: 0, topCount: 2, contentCount: 1, chatFull: false },
+      { id: "t3", leftCount: 0, topCount: 1, contentCount: 2, chatFull: true },
+      { id: "l13", leftCount: 0, topCount: 1, contentCount: 3, chatFull: true, topHeightDefault: 420, topHeightRatio: 0.55 },
+      { id: "g4", leftCount: 0, topCount: 2, contentCount: 2, chatFull: true, topHeightRatio: 0.5 },
+      { id: "l23", leftCount: 0, topCount: 2, contentCount: 3, chatFull: true, topHeightRatio: 0.5 }
+    ];
+    EMOJI_SET = ["\u{1F9F1}", "\u{1F3E0}", "\u{1F393}", "\u{1F697}", "\u2708\uFE0F", "\u{1F30D}", "\u{1F3E5}", "\u{1F4DA}", "\u270F\uFE0F", "\u2699\uFE0F", "\u{1F3A8}", "\u{1F3AE}", "\u{1F30F}", "\u{1F4D0}", "\u{1F9EA}", "\u{1F916}", "\u{1F4E6}", "\u{1F4AC}"];
+    ICON_SEARCH = /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("svg", { width: "14", height: "14", viewBox: "0 0 16 16", fill: "none", xmlns: "http://www.w3.org/2000/svg", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("path", { d: "M11.894845 6.647401C11.894845 3.725463 9.534486 1.356779 6.623219 1.35657C3.711786 1.35657 1.351635 3.725338 1.351635 6.647401C1.351843 9.569296 3.711911 11.938273 6.623219 11.938273C9.534361 11.938064 11.894637 9.569171 11.894845 6.647401ZM13.245462 6.647401C13.245254 10.317935 10.280401 13.293613 6.623219 13.293821C2.965871 13.293821 0.000204 10.31806 0 6.647401C0 2.976574 2.965746 0 6.623219 0C10.280526 0.000205 13.245462 2.9767 13.245462 6.647401Z", fill: "currentColor" }),
+      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("path", { d: "M16.000417 15.041079L15.044449 16.000433L11.530434 12.473588L12.486298 11.514234L16.000417 15.041079Z", fill: "currentColor" })
+    ] });
+    ICON_VIEW_OPTIONS = /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("svg", { width: "16", height: "16", viewBox: "0 0 16 16", fill: "none", children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("path", { transform: "translate(1.292 1.3)", d: "M10.3232 9.18164C11.2868 9.18164 12.0985 9.82833 12.3506 10.7109L13.415 10.7109L13.415 11.8711L12.3496 11.8711C12.0971 12.7532 11.2864 13.3994 10.3232 13.3994C9.36031 13.3992 8.55012 12.7531 8.29785 11.8711L0 11.8711L0 10.7109L8.29688 10.7109C8.54876 9.82845 9.35988 9.18186 10.3232 9.18164ZM10.3232 10.3418C9.7999 10.3421 9.37534 10.7667 9.375 11.29C9.375 11.8137 9.79969 12.239 10.3232 12.2393C10.847 12.2393 11.2725 11.8138 11.2725 11.29C11.2721 10.7666 10.8468 10.3418 10.3232 10.3418ZM12.4326 11.291C12.4326 11.3549 12.4284 11.418 12.4229 11.4805C12.4287 11.4181 12.4326 11.355 12.4326 11.291ZM8.21484 11.2832C8.21484 11.2856 8.21484 11.2886 8.21484 11.291L8.21484 11.29C8.21484 11.2878 8.21484 11.2855 8.21484 11.2832ZM3.08301 4.59082C4.04605 4.59095 4.85696 5.23717 5.10938 6.11914L13.415 6.11914L13.415 7.2793L5.11035 7.2793C4.85833 8.16202 4.04648 8.80846 3.08301 8.80859C2.11972 8.80843 1.30963 8.16179 1.05762 7.2793L0 7.2793L0 6.11914L1.05762 6.11914C1.30994 5.23728 2.12006 4.59098 3.08301 4.59082ZM3.08301 5.75098C2.55962 5.75117 2.13512 6.17587 2.13477 6.69922C2.13477 7.22287 2.5594 7.64824 3.08301 7.64844C3.60665 7.64828 4.03223 7.2229 4.03223 6.69922C4.03187 6.17585 3.60643 5.75113 3.08301 5.75098ZM5.19238 6.69922C5.19238 6.763 5.18816 6.82633 5.18262 6.88867C5.18846 6.82629 5.19238 6.76313 5.19238 6.69922C5.19236 6.63495 5.18853 6.57152 5.18262 6.50879C5.18826 6.57154 5.19236 6.635 5.19238 6.69922ZM0.982422 6.52344C0.977382 6.58136 0.97463 6.63999 0.974609 6.69922C0.974609 6.75775 0.977496 6.81579 0.982422 6.87305C0.977758 6.81579 0.974609 6.75767 0.974609 6.69922C0.974628 6.64 0.977618 6.58142 0.982422 6.52344ZM10.3232 0C11.2869 0 12.0986 0.646596 12.3506 1.5293L13.415 1.5293L13.415 2.68945L12.3496 2.68945C12.363 2.64266 12.3754 2.59488 12.3857 2.54688C12.1838 3.50118 11.3376 4.21777 10.3232 4.21777C9.36037 4.21756 8.55018 3.57139 8.29785 2.68945L0 2.68945L0 1.5293L8.29688 1.5293C8.5487 0.646717 9.35981 0.00021854 10.3232 0ZM10.3232 1.16016C9.79984 1.16042 9.37524 1.58499 9.375 2.1084C9.375 2.63201 9.79969 3.05735 10.3232 3.05762C10.847 3.05762 11.2725 2.63217 11.2725 2.1084C11.2722 1.58483 10.8469 1.16016 10.3232 1.16016ZM12.4229 2.29883C12.4287 2.23641 12.4326 2.17331 12.4326 2.10938C12.4326 2.17327 12.4284 2.23638 12.4229 2.29883ZM8.21484 2.10938L8.21484 2.1084L8.21484 2.10938ZM8.22266 1.93359C8.21785 1.98897 8.21506 2.04499 8.21484 2.10156C8.21503 2.04501 8.2181 1.98902 8.22266 1.93359ZM8.22266 11.1162C8.2179 11.1713 8.21507 11.227 8.21484 11.2832C8.21504 11.227 8.21814 11.1713 8.22266 11.1162Z", fill: "currentColor" }) });
+    ICON_ADD = /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("svg", { width: "16", height: "16", viewBox: "0 0 16 16", fill: "none", children: [
+      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("path", { transform: "translate(9.52 2.52)", d: "M3.55246 0L3.55246 2.44252L6 2.44252L6 3.55748L3.55246 3.55748L3.55246 6L2.43834 6L2.43834 3.55748L0 3.55748L0 2.44252L2.43834 2.44252L2.43834 0L3.55246 0Z", fill: "currentColor" }),
+      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("path", { transform: "translate(0.3496 2.35)", d: "M4.76367 0C5.36861 1.80598e-05 5.93113 0.310294 6.25488 0.821289L6.78027 1.64941C6.79685 1.67558 6.81791 1.69775 6.83887 1.71973C6.72186 2.15521 6.65702 2.61192 6.65137 3.08301C6.25601 2.96045 5.90909 2.70478 5.68164 2.3457L5.15723 1.5166C5.07183 1.38189 4.92318 1.3008 4.76367 1.30078L2.32422 1.30078C1.7589 1.30078 1.30078 1.7589 1.30078 2.32422L1.30078 10.1338C1.30078 10.6991 1.7589 11.1572 2.32422 11.1572L11.9766 11.1572C12.5419 11.1572 13 10.6991 13 10.1338L13 8.58398C13.4545 8.5135 13.8903 8.38748 14.3008 8.21289L14.3008 10.1338C14.3008 11.4171 13.2598 12.458 11.9766 12.458L2.32422 12.458C1.04093 12.458 0 11.4171 0 10.1338L0 2.32422C0 1.04093 1.04093 0 2.32422 0L4.76367 0Z", fill: "currentColor" })
+    ] });
+    DEFAULT_VIEW = {
+      query: "",
+      searchOpen: false,
+      orderBy: "manual",
+      dock: "footer",
+      floatTop: null
+    };
+    DEFAULT_PROJECTS = {
+      order: [],
+      lastUsed: {},
+      hidden: [],
+      nameOverrides: {},
+      iconOverrides: {},
+      removed: [],
+      views: {},
+      shortcuts: [],
+      layouts: [],
+      bindings: {},
+      folders: {}
+    };
+    clamp2 = (v, lo, hi) => Math.min(Math.max(v, lo), hi);
+    registryStore = { ids: [], listeners: /* @__PURE__ */ new Set() };
+    sessionBridge = null;
+    hostApi = null;
+    CONSOLE_ID = "wt-console";
+    CONSOLE_ICON = "\u{1F5A5}\uFE0F";
+    consoleListeners = /* @__PURE__ */ new Set();
+    notifyConsole = () => consoleListeners.forEach((l) => {
+      try {
+        l();
+      } catch {
+      }
+    });
+    previewCache = /* @__PURE__ */ new Map();
+    previewFetching = /* @__PURE__ */ new Set();
+    previewSweepBusy = false;
+    previewTimer = null;
+    bindTipEl = null;
+    KNOWLEDGE_PACK = [
+      "\u3010\u63D2\u4EF6\u77E5\u8BC6\u5305\xB7\u8BF7\u76F4\u63A5\u91C7\u7528\uFF0C\u4E0D\u8981\u91CD\u65B0\u4FA6\u5BDF\u63D2\u4EF6\u6E90\u7801\u3011",
+      "- dsh-worktable \u662F DeepSeek Harness \u7684\u81EA\u5EFA\u5BB9\u5668\u63D2\u4EF6\uFF08\u5DE5\u4F5C\u53F0\uFF1A\u4FA7\u8FB9\u680F\u91CC\u7684\u9879\u76EE\u5E94\u7528\u62BD\u5C49\uFF1B\u4E0D\u4E86\u89E3\u7684\u7EC6\u8282\u53EF\u76F4\u63A5\u5411\u7528\u6237\u63D0\u95EE\uFF09\u3002",
+      "- \u7A97\u53E3\uFF08\u5185\u5BB9\u7A97\uFF09\u6A21\u578B\uFF1A\u6BCF\u4E2A\u7A97 = \u4E00\u4E2A\u6807\u7B7E\u9875\uFF1B\u672A\u6307\u6D3E\u65F6\u663E\u793A\u9009\u62E9\u5668\uFF08\u6D4F\u89C8\u5668/\u52A8\u753B/\u8D44\u6E90\u7BA1\u7406\u5668/\u7EC8\u7AEF/\u2728\u81EA\u5B9A\u4E49\uFF09\uFF1B",
+      "  \u7A97\u5185\u5BB9\u8FD8\u53EF\u653E iframe \u7F51\u9875\u4E0E\u6587\u4EF6\u9884\u89C8\uFF08.md/.txt/.tsx/.css/.html \u7B49\uFF09\u3002",
+      "- \u7A97\u53E3\u53EF\u88C5\u8F7D\u7684\u5F62\u5F0F\uFF1AHTML \u5355\u6587\u4EF6\uFF08\u4EA4\u4E92 UI\uFF0C\u653E\u9879\u76EE\u6587\u4EF6\u5939\u540E\u5728\u8D44\u6E90\u7BA1\u7406\u5668\u70B9\u51FB\u6E32\u67D3\uFF09\u3001\u7F51\u9875 URL\u3001",
+      "  \u6587\u4EF6\u9884\u89C8\uFF08.md/.txt/.tsx/.css/.html/\u56FE\u7247/.mp4 \u7B49\uFF09\uFF1B\u4EA7\u51FA\u5F62\u5F0F\u6309\u4EFB\u52A1\u7C7B\u578B\u9009\uFF0C\u4E0D\u8981\u4E00\u5F8B HTML\u3002",
+      '- \u4EA7\u51FA HTML \u5FC5\u987B\u7528\u5DE5\u4F5C\u53F0\u539F\u751F\u76AE\u80A4\uFF1A\u5728\u9875\u9762 <head> \u52A0 <link rel="stylesheet" href="/api/worktable/template/dshell.css">\uFF0C',
+      "  \u7EC4\u4EF6\u7C7B\u53C2\u8003 /api/worktable/template/dshell.html\uFF08\u5361\u7247/\u6309\u94AE/\u72B6\u6001\u5FBD\u6807/\u6807\u7B7E\u9875/\u5217\u8868/\u7EDF\u8BA1/\u8FDB\u5EA6/\u8868\u683C\u7B49\uFF09\uFF0C",
+      "  \u754C\u9762\u5373\u53EF\u4E0E DSH \u539F\u751F\u98CE\u683C\u4E00\u81F4\uFF1B\u81EA\u9020\u6837\u5F0F\u63A7\u5236\u5728\u6700\u5C0F\u8303\u56F4\u3002",
+      "- \u670D\u52A1\u7AEF\u80FD\u529B\uFF1A/api/worktable/fs\uFF08\u5217\u76EE\u5F55\uFF09\u3001/api/worktable/write\uFF08\u5199\u6587\u4EF6\uFF09\u3001/api/worktable/mkdir\uFF08\u5EFA\u76EE\u5F55\uFF09\u3001",
+      "  /api/worktable/git\uFF08git \u72B6\u6001\uFF09\u3001/api/worktable/site\uFF08\u9759\u6001\u6258\u7BA1\uFF09\u3002",
+      "- \u6539\u5B8C\u63D2\u4EF6\u5728 01_content \u76EE\u5F55\u6267\u884C npm run build\uFF1B\u91CD\u542F dsh web \u6216\u6D4F\u89C8\u5668 F5 \u751F\u6548\u3002",
+      "- \u6240\u6709\u4EA7\u51FA\u6587\u4EF6\u4E00\u5F8B\u653E\u8FDB\u672C\u4EFB\u52A1\u6807\u6CE8\u7684\u9879\u76EE\u6587\u4EF6\u5939\uFF0C\u4FDD\u6301\u7528\u6237\u76EE\u5F55\u5E72\u51C0\u3002"
+    ].join("\n");
+    projectAttachRef = { sessionId: null, attached: null };
+    suppressRestoreRef = { current: false };
+    projectBindingsRef = { current: {} };
+    pluginOpenedSessionsRef = { current: /* @__PURE__ */ new Set() };
+    lastSessionScopeId = "";
+    sessionScopeStore = { snapshot: null };
+    sessionsSnapshotStore = { snapshot: null, listeners: /* @__PURE__ */ new Set() };
+    mountConsumedRef = { current: /* @__PURE__ */ new Set() };
+    pendingMountRef = { current: (() => {
+      try {
+        return JSON.parse(localStorage.getItem("dsh.worktable.pendingMount.v1") ?? "{}") ?? {};
+      } catch {
+        return {};
+      }
+    })() };
+    mountedWidgetRef = { current: (() => {
+      try {
+        return JSON.parse(localStorage.getItem("dsh.worktable.mountedWidget.v1") ?? "{}") ?? {};
+      } catch {
+        return {};
+      }
+    })() };
+    notifyStateSeenRef = { current: {} };
+    inject = ["slots", "locale", "sessions", "conversation", "workspaces"];
+  }
+});
+
+// src/client/index.tsx
+var index_exports = {};
+__export(index_exports, {
+  apply: () => apply2,
+  inject: () => inject2
+});
+module.exports = __toCommonJS(index_exports);
+var import_react3 = require("react");
+var import_jsx_runtime3 = require("react/jsx-runtime");
+var MODE_KEY = "dsh.worktable.mode.v1";
+var MODE_ERROR_EVENT = "dsh-worktable-mode-error";
+var DESKTOP_RESTART_PATH = "/api/desktop/restart";
+function readMode() {
+  try {
+    return localStorage.getItem(MODE_KEY) === "worktable" ? "worktable" : "native";
+  } catch {
+    return "native";
+  }
+}
+function saveMode(mode) {
+  try {
+    localStorage.setItem(MODE_KEY, mode);
+    return true;
+  } catch {
+    return false;
+  }
+}
+function isWorktableMode(value) {
+  return value === "native" || value === "worktable";
+}
+async function readPersistedMode() {
+  try {
+    const response = await fetch("/api/worktable/mode", { cache: "no-store" });
+    if (!response.ok) return null;
+    const body = await response.json();
+    return body?.persisted === true && isWorktableMode(body?.mode) ? body.mode : null;
+  } catch {
+    return null;
+  }
+}
+async function persistMode(mode) {
+  const response = await fetch("/api/worktable/mode", {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({ mode })
+  });
+  if (response.ok) return;
+  let detail = "";
+  try {
+    const body = await response.json();
+    if (typeof body?.error === "string" && body.error) detail = "\uFF1A" + body.error;
+  } catch {
+  }
+  throw new Error("\u6A21\u5F0F\u8BBE\u7F6E\u672A\u88AB\u4FDD\u5B58\uFF08HTTP " + response.status + "\uFF09" + detail);
+}
+function errorMessage(cause) {
+  return cause instanceof Error && cause.message ? cause.message : String(cause);
+}
+function reportModeError(message) {
+  try {
+    window.dispatchEvent(new CustomEvent(MODE_ERROR_EVENT, { detail: message }));
+  } catch {
+    console.error("[dsh-worktable] " + message);
+  }
+}
+async function requestDesktopRestart() {
+  const response = await fetch(DESKTOP_RESTART_PATH, {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: "{}"
+  });
+  if (response.status === 202) return;
+  let detail = "";
+  try {
+    const body = await response.json();
+    if (typeof body?.error === "string" && body.error) detail = "\uFF1A" + body.error;
+  } catch {
+  }
+  throw new Error("Desktop \u91CD\u542F\u8BF7\u6C42\u672A\u88AB\u63A5\u53D7\uFF08HTTP " + response.status + "\uFF09" + detail);
+}
+function ModeSwitchAction() {
+  const [mode, setMode] = (0, import_react3.useState)(() => readMode());
+  const [synced, setSynced] = (0, import_react3.useState)(false);
+  const [restarting, setRestarting] = (0, import_react3.useState)(false);
+  const [error2, setError] = (0, import_react3.useState)("");
+  const target = mode === "worktable" ? "native" : "worktable";
+  (0, import_react3.useEffect)(() => {
+    const onModeError = (event) => {
+      const detail = event.detail;
+      setError(detail || "\u5DE5\u4F5C\u53F0\u52A0\u8F7D\u5931\u8D25\uFF1B\u8BF7\u5207\u56DE\u539F\u751F Desktop \u6A21\u5F0F\u540E\u91CD\u8BD5\u3002");
+    };
+    window.addEventListener(MODE_ERROR_EVENT, onModeError);
+    return () => window.removeEventListener(MODE_ERROR_EVENT, onModeError);
+  }, []);
+  (0, import_react3.useEffect)(() => {
+    let disposed = false;
+    void readPersistedMode().then((persisted) => {
+      if (disposed) return;
+      if (persisted) {
+        saveMode(persisted);
+        setMode(persisted);
+      }
+      setSynced(true);
+    });
+    return () => {
+      disposed = true;
+    };
+  }, []);
+  const switchMode = async () => {
+    setRestarting(true);
+    setError("");
+    try {
+      await persistMode(target);
+      saveMode(target);
+      setMode(target);
+      await requestDesktopRestart();
+    } catch (cause) {
+      setRestarting(false);
+      setError("\u6A21\u5F0F\u672A\u5207\u6362\uFF0CDesktop \u672A\u91CD\u542F\uFF1A" + errorMessage(cause));
+    }
+  };
+  return /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { style: { display: "grid", gap: 6, margin: "8px 0", padding: "8px 10px", borderTop: "1px solid rgba(127,127,127,.2)" }, children: [
+    /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { style: { fontSize: 12, opacity: 0.8 }, children: mode === "worktable" ? "\u5DE5\u4F5C\u53F0\u6A21\u5F0F\u5DF2\u5F00\u542F" : "\u539F\u751F Desktop \u6A21\u5F0F" }),
+    /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("button", { type: "button", disabled: restarting || !synced, onClick: switchMode, children: restarting ? "\u6B63\u5728\u91CD\u542F\u2026" : !synced ? "\u6B63\u5728\u8BFB\u53D6\u6A21\u5F0F\u2026" : target === "worktable" ? "\u5F00\u542F\u5DE5\u4F5C\u53F0\u5E76\u91CD\u542F" : "\u5173\u95ED\u5DE5\u4F5C\u53F0\u5E76\u91CD\u542F" }),
+    error2 && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { role: "alert", style: { color: "#d68b30", fontSize: 12 }, children: error2 })
+  ] });
+}
+var inject2 = ["slots"];
+function apply2(ctx) {
+  ctx.slots.inject("sidebar.footer.action", () => ctx.slots.register({
+    name: "sidebar.footer.action",
+    id: "dsh-worktable-mode",
+    order: 19
+  }, ModeSwitchAction), "dsh-worktable: mode switch");
+  let worktableMounted = false;
+  const mountWorktable = () => {
+    if (worktableMounted) return;
+    worktableMounted = true;
+    const worktableContext = ctx;
+    worktableContext.inject(["locale", "sessions", "conversation", "workspaces"], (scoped) => {
+      void Promise.resolve().then(() => (init_worktable(), worktable_exports)).then(({ apply: applyWorktable }) => applyWorktable(scoped)).catch((cause) => {
+        const message = "\u5DE5\u4F5C\u53F0\u52A0\u8F7D\u5931\u8D25\uFF1B\u8BF7\u5207\u56DE\u539F\u751F Desktop \u6A21\u5F0F\u540E\u91CD\u8BD5\uFF1A" + errorMessage(cause);
+        console.error("[dsh-worktable] " + message);
+        reportModeError(message);
+      });
+    });
+  };
+  void readPersistedMode().then((persisted) => {
+    const mode = persisted ?? readMode();
+    if (persisted) saveMode(persisted);
+    if (mode === "worktable") mountWorktable();
+  });
 }
 /*! Bundled license information:
 

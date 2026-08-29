@@ -1,7 +1,7 @@
 import { Context } from '@deepseek-ai/cordis'
 import { execFile } from 'node:child_process'
 import { readdirSync, realpathSync } from 'node:fs'
-import { readdir, readFile } from 'node:fs/promises'
+import { mkdir, readdir, readFile, writeFile } from 'node:fs/promises'
 import { dirname, resolve as pathResolve, sep } from 'node:path'
 import { createRequire } from 'node:module'
 import { homedir } from 'node:os'
@@ -25,6 +25,8 @@ export const inject = ['webServer', 'sessions']
 export const HEALTH_PATH = '/api/worktable/health'
 
 const MAX_ENTRIES = 500
+type WorktableMode = 'native' | 'worktable'
+const MODE_SETTINGS_PATH = pathResolve(homedir(), '.dsh', 'storages', 'dsh-worktable-mode.json')
 
 /** 本地文件/站点静态资源的 MIME 映射（file 与 site 两条路由共用） */
 const FILE_TYPES: Record<string, string> = {
@@ -105,6 +107,30 @@ async function readJsonBody(req: any): Promise<any> {
   const text = Buffer.concat(chunks).toString('utf8')
   if (!text) return {}
   try { return JSON.parse(text) } catch { return {} }
+}
+
+function isWorktableMode(value: unknown): value is WorktableMode {
+  return value === 'native' || value === 'worktable'
+}
+
+/**
+ * Browser localStorage belongs to a renderer instance and is not a reliable
+ * source of truth across Desktop relaunches. Keep the selected mode in a
+ * small, plugin-owned file instead; it is written only after an explicit
+ * switch request from the sidebar control.
+ */
+async function readPersistedMode(): Promise<WorktableMode | null> {
+  try {
+    const body = JSON.parse(await readFile(MODE_SETTINGS_PATH, 'utf8'))
+    return isWorktableMode(body?.mode) ? body.mode : null
+  } catch {
+    return null
+  }
+}
+
+async function writePersistedMode(mode: WorktableMode) {
+  await mkdir(dirname(MODE_SETTINGS_PATH), { recursive: true })
+  await writeFile(MODE_SETTINGS_PATH, JSON.stringify({ mode }) + '\n', 'utf8')
 }
 
 /** 列出一个目录层级（目录在前、大小写不敏感排序、上限 500、隐藏项标注） */
@@ -213,6 +239,30 @@ export function apply(ctx: Context) {
     path: HEALTH_PATH,
     handler: (_req: any, res: any) => {
       json(res, 200, { plugin: 'dsh-worktable', version: PLUGIN_VERSION, ok: true })
+    },
+  })
+
+  webServer.register({
+    kind: 'exact',
+    path: '/api/worktable/mode',
+    handler: async (req: any, res: any) => {
+      try {
+        if (req.method === 'GET') {
+          const mode = await readPersistedMode()
+          json(res, 200, { mode: mode ?? 'native', persisted: mode !== null })
+          return
+        }
+        if (req.method !== 'POST') { res.writeHead(405); res.end(); return }
+        const body = await readJsonBody(req)
+        if (!isWorktableMode(body?.mode)) {
+          json(res, 400, { error: 'invalid mode' })
+          return
+        }
+        await writePersistedMode(body.mode)
+        json(res, 200, { mode: body.mode, persisted: true })
+      } catch (err) {
+        json(res, 500, { error: String(err) })
+      }
     },
   })
 
